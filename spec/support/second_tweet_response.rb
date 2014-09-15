@@ -12,7 +12,7 @@
             ],
             "hashtags" => [
               {
-                "text" => "NAAwayDay",
+                "text" => "#{ENV["HASHTAG"]}",
                 "indices" => [
                   20,
                   34
@@ -25,7 +25,7 @@
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "DAT ISH CRAY AIN'T IT #NAAwayDay",
+          "text" => "DAT ISH CRAY AIN'T IT ##{ENV["HASHTAG"]}",
           "metadata" => {
             "iso_language_code" => "pl",
             "result_type" => "recent"
@@ -130,7 +130,7 @@
             ],
             "hashtags" => [
               {
-                "text" => "NAAwayDay",
+                "text" => "#{ENV["HASHTAG"]}",
                 "indices" => [
                   20,
                   34
@@ -143,7 +143,7 @@
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "Thee Namaste Nerdz. #NAAwayDay",
+          "text" => "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
           "metadata" => {
             "iso_language_code" => "pl",
             "result_type" => "recent"
@@ -231,7 +231,7 @@
             ],
             "hashtags" => [
               {
-                "text" => "NAAwayDay",
+                "text" => "#{ENV["HASHTAG"]}",
                 "indices" => [
                   29,
                   43
@@ -243,7 +243,7 @@
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "Mexican Heaven, Mexican Hell #NAAwayDay",
+          "text" => "Mexican Heaven, Mexican Hell ##{ENV["HASHTAG"]}",
           "metadata" => {
             "iso_language_code" => "en",
             "result_type" => "recent"
@@ -321,12 +321,12 @@
       "search_metadata" => {
         "max_id" => 250126199840518145,
         "since_id" => 24012619984051000,
-        "refresh_url" => "?since_id=250126199840518145&q=%23NAAwayDay&result_type=mixed&include_entities=1",
-        "next_results" => "?max_id=249279667666817023&q=%23NAAwayDay&count=4&include_entities=1&result_type=mixed",
+        "refresh_url" => "?since_id=250126199840518145&q=%23#{ENV["HASHTAG"]}&result_type=mixed&include_entities=1",
+        "next_results" => "?max_id=249279667666817023&q=%23#{ENV["HASHTAG"]}&count=4&include_entities=1&result_type=mixed",
         "count" => 4,
         "completed_in" => 0.035,
         "since_id_str" => "24012619984051000",
-        "query" => "%23NAAwayDay",
+        "query" => "%23#{ENV["HASHTAG"]}",
         "max_id_str" => "250126199840518145"
       }
     }

@@ -6,13 +6,13 @@ describe 'home' do
   let(:media_image) {"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"}
 	it 'should display title' do
 		visit '/'
-		page.should have_content('#NAAwayDay')
+		page.should have_content("##{ENV["HASHTAG"]}")
 	end
 
   it 'should display single tweets details' do
     visit '/'
 
-    page.should have_content('Thee Namaste Nerdz. #NAAwayDay')
+    page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
     page.should have_content('Fri Sep 21 7:40 PM')
     page.should have_image(profile_image)
@@ -22,7 +22,7 @@ describe 'home' do
   xit 'should add a tweet via automatic update', :js=> true do
     visit '/'
 
-    page.should have_content('Thee Namaste Nerdz. #NAAwayDay')
+    page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
     page.should have_content('Fri Sep 21 7:40 PM')
 
@@ -32,10 +32,10 @@ describe 'home' do
     # p Tweet.all
     sleep(30.seconds)
 
-    # page.should have_content("DAT ISH CRAY AIN'T IT #NAAwayDay")
+    # page.should have_content("DAT ISH CRAY"AIN'T IT ##{ENV["HASHTAG"]}")
     # page.should have_content('@bullcity')
     # page.should have_content('Fri Sep 21 7:50 PM')
-    page.should have_content('Thee Namaste Nerdz. #NAAwayDay')
+    page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
     page.should have_content('Fri Sep 21 7:40 PM')
   end
