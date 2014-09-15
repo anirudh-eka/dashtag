@@ -26,15 +26,11 @@ describe 'home' do
     page.should have_content('@bullcityrecords')
     page.should have_content('Fri Sep 21 7:40 PM')
 
-    # p Tweet.all
+    
     update_tweets_in_db
-    # puts "after update"*8
-    # p Tweet.all
+    
     sleep(30.seconds)
 
-    # page.should have_content("DAT ISH CRAY"AIN'T IT ##{ENV["HASHTAG"]}")
-    # page.should have_content('@bullcity')
-    # page.should have_content('Fri Sep 21 7:50 PM')
     page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
     page.should have_content('Fri Sep 21 7:40 PM')
