@@ -44,6 +44,8 @@ group :production do
   gem 'rails_12factor'
 end
 
+gem 'pry'
+
 ruby "2.1.1"
 # gem 'whenever', :require => false
 
