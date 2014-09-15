@@ -1,0 +1,28 @@
+<h1>#NAAwayDay</h1>
+
+<div id="container">
+  <% i = 0%>
+  <% @tweets.each do |tweet| %>
+  <% i += 1%>
+    <div class="tweet-container background-color-<%=i%>">
+      <section class="tweet-text">
+        <%= tweet.text %>
+      </section>
+      <section class="tweet-username">
+        <img src=<%= tweet.profile_image_url %> class="avatar" /> @<%= tweet.screen_name %>
+      </section>
+      <section class="tweet-picture">
+        <% if tweet.media_url %> 
+          <img src=<%= tweet.media_url %> />
+        <% end %>
+      </section>
+      <section class="tweet-created-at">
+        <%= tweet.created_at.strftime("%a %b %d %l:%M %p") %>
+      </section>
+    </div>
+  <% i = 0 if i == 4 %>
+  <% end %>
+</div>
+
+<section class="footer">Made with love by <a href="https://twitter.com/scumbling">Dee</a> and <a href="http://toomanynames.com">Anirudh</a>
+</section>
