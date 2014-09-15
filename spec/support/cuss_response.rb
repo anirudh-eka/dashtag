@@ -42,7 +42,7 @@
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "fuck #NAAwayDay",
+          "text" => "#{ENV["CENSORED_WORDS"].split("|").sample()} #NAAwayDay",
           "metadata" => {
             "iso_language_code" => "pl",
             "result_type" => "recent"
