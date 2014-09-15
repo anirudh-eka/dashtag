@@ -4,7 +4,7 @@ describe FeedController do
   describe 'GET #index' do
     context "with HTML request" do 
       it 'should tell service to get tweets from twitter to update db' do
-        expect(TweetService).to receive(:get_tweets_by_hashtag).with("NAAwayDay")
+        expect(TweetService).to receive(:get_tweets_by_hashtag).with(ENV["HASHTAG"])
         get :index, :format => :html
       end
 

@@ -56,7 +56,7 @@ RSpec.configure do |config|
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} }) 
 
 
-    stub_request(:get, 'https://api.twitter.com/1.1/search/tweets.json?q=%23NAAwayDay').
+    stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{ENV["HASHTAG"]}").
       with(headers: {"Authorization"=>/Bearer .+/}).
       to_return( {:status => 200, :body => @@tweet_response.to_json, :headers => {'content-type' => 'application/json'} },
         {:status => 200, :body => @@second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
