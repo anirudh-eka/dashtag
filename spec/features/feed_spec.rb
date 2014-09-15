@@ -41,17 +41,14 @@ describe 'home' do
   end
 
   it 'should not have several swear words' do
-    stub_request(:get, 'https://api.twitter.com/1.1/search/tweets.json?q=%23NAAwayDay').
+    stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{ENV["HASHTAG"]}").
       with(headers: {"Authorization"=>/Bearer .+/}).
       to_return( {:status => 200, :body => @@cuss_response.to_json, :headers => {'content-type' => 'application/json'} })
     visit '/'
 
-    page.should_not have_content('fuck')
-    page.should_not have_content('Shit')
-    page.should_not have_content('bitch')
-    page.should_not have_content('bastard')
-    page.should_not have_content('asshole')
-
+    ENV["CENSORED_WORDS"].split("|").each do |word|
+      page.should_not have_content(word)
+    end
   end
 
   def update_tweets_in_db
