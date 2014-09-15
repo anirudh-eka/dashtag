@@ -15,7 +15,7 @@ class TweetService
     resp = HTTParty.post('https://api.twitter.com/oauth2/token',
       :headers => { 
         "Authorization" => "Basic #{authorization_key}",
-        "User-Agent" => "#NAAwayDay Feed v1.0",
+        "User-Agent" => "Hashtag Displayer Feed v1.0",
         "Content-Type" => "application/x-www-form-urlencoded;charset=UTF-8"
         },
       body: {"grant_type" => "client_credentials"}
