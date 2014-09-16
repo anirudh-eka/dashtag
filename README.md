@@ -42,15 +42,20 @@ Running app
 -----------
 
 Once you have the .env file setup, run bundler from the command line:
+
 	$ bundle
+
 and start the server:
+
 	$ rails s
+
 If everything worked you should be able to see the application at work at http://localhost:3000/ in your favorite browser.
 
 Running tests
 -------------
 
 The testing framework used is Rspec and Capybara. To run them:
+
 	$ rspec
 
 *Note: Currently one feature test is pending*
