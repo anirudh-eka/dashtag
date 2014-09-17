@@ -17,6 +17,11 @@
 
 $(document).on("ready", function(){
   var msnry = new Masonry("#container");
+  // layout Masonry again after all images have loaded
+  imagesLoaded( container, function() {
+    msnry.layout();
+  });
+
 
   window.setInterval(function(){
     $.ajax({
@@ -39,6 +44,9 @@ $(document).on("ready", function(){
             if(bgColor == 4) { bgColor = 0 }
           }
           var msnry = new Masonry("#container");
+            imagesLoaded( container, function() {
+                msnry.layout();
+            });
         }          
       }
     });
