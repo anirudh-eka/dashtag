@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140602141348) do
+ActiveRecord::Schema.define(version: 20140916213954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "grams", force: true do |t|
+    t.string   "media_url"
+    t.string   "screen_name"
+    t.string   "profile_image_url"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tweets", force: true do |t|
     t.text     "text"

@@ -3,8 +3,13 @@ require 'spec_helper'
 describe FeedController do
   describe 'GET #index' do
     context "with HTML request" do 
-      it 'should tell service to get tweets from twitter to update db' do
+      it 'should tell twitter service to get tweets from twitter to update db' do
         expect(TweetService).to receive(:get_tweets_by_hashtag).with(ENV["HASHTAG"])
+        get :index, :format => :html
+      end
+
+      it 'should tell instagram service to get grams from instagram to update db' do
+        expect(InstagramService).to receive(:get_grams_by_hashtag).with(ENV["HASHTAG"])
         get :index, :format => :html
       end
 
