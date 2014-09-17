@@ -55,7 +55,7 @@ RSpec.configure do |config|
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} }) 
 
-    stub_request(:get, "https://api.instagram.com/v1/tags/testingLive/media/recent?client_id=***REMOVED***")
+    stub_request(:get, "https://api.instagram.com/v1/tags/#{ENV["HASHTAG"]}/media/recent?client_id=***REMOVED***")
       .to_return( {:status => 200, :body => SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
     stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{ENV["HASHTAG"]}").
