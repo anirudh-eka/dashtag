@@ -6,7 +6,9 @@
   <% i += 1%>
     <div class="tweet-container background-color-<%=i%>">
       <section class="tweet-text">
+        <% unless post.text == "null" %>
           <%= post.text %>
+        <% end %>
       </section>
       <section class="tweet-username">
         <img src=<%= post.profile_image_url %> class="avatar" /> @<%= post.screen_name %>
