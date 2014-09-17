@@ -20,7 +20,7 @@ class TweetFactory
             profile_image_url: profile_image_url,
             media_url: media_url
           )
-        rescue 
+        rescue
 
         end
       end

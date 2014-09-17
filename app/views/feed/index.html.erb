@@ -1,27 +1,30 @@
 <h1>#<%=ENV["HASHTAG"]%></h1>
 
 <div id="container">
+
   <% i = 0%>
-  <% @tweets.each do |tweet| %>
+  <% @grams.each do |gram| %>
   <% i += 1%>
     <div class="tweet-container background-color-<%=i%>">
       <section class="tweet-text">
-        <%= tweet.text %>
+        hi
+        <%= gram.caption %>
       </section>
       <section class="tweet-username">
-        <img src=<%= tweet.profile_image_url %> class="avatar" /> @<%= tweet.screen_name %>
+        <img src=<%= gram.profile_image_url %> class="avatar" /> @<%= gram.screen_name %>
       </section>
       <section class="tweet-picture">
-        <% if tweet.media_url %> 
-          <img src=<%= tweet.media_url %> />
+        <% if gram.media_url %> 
+          <img src=<%= gram.media_url %> />
         <% end %>
       </section>
       <section class="tweet-created-at">
-        <%= tweet.created_at.strftime("%a %b %d %l:%M %p") %>
+        <%= gram.created_at.strftime("%a %b %d %l:%M %p") %>
       </section>
     </div>
   <% i = 0 if i == 4 %>
   <% end %>
+
 </div>
 
 <section class="footer">Made with love by <a href="https://twitter.com/scumbling">Dee</a> and <a href="http://toomanynames.com">Anirudh</a>

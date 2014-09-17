@@ -3,15 +3,18 @@ class FeedController < ApplicationController
 	def index
     respond_to do |format|
       format.html do 
-        TweetService.get_tweets_by_hashtag(ENV["HASHTAG"])
+        # TweetService.get_tweets_by_hashtag(ENV["HASHTAG"])
         InstagramService.get_grams_by_hashtag(ENV["HASHTAG"])
-        @tweets = Tweet.order(created_at: :desc)
+        # @tweets = Tweet.order(created_at: :desc)
+        @grams = Gram.order(created_at: :desc)
         render "index"
       end
 
       format.json do 
         @tweets = Tweet.order(created_at: :desc)
-        render :json => @tweets
+        @grams = Gram.order(created_at: :desc)
+        # render :json => @tweets
+        render :json => @grams
       end
     end
 
