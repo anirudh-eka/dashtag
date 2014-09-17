@@ -4,13 +4,13 @@ class GramFactory
     parsed_response["data"].each do |gram|
 
       unless gram["caption"].nil?
-          text = gram["caption"]["text"]
+        text = gram["caption"]["text"]
       end
 
       unless gram["images"].nil?
-          unless gram["images"]["standard_resolution"].nil?
-              media_url = gram["images"]["standard_resolution"]["url"]
-          end
+        unless gram["images"]["standard_resolution"].nil?
+            media_url = gram["images"]["standard_resolution"]["url"]
+        end
       end
 
       screen_name = gram["user"]["username"]
@@ -18,13 +18,12 @@ class GramFactory
       created_at = DateTime.strptime(gram["created_time"], "%s")
 
       begin
-        Gram.create!(
-            text: text,
-            screen_name: screen_name,
-            media_url: media_url,
-            profile_image_url: profile_image_url,
-            created_at: created_at
-            )
+        Gram.create!(text: text, 
+          screen_name: screen_name,
+          media_url: media_url,
+          profile_image_url: profile_image_url,
+          created_at: created_at
+          )
       rescue 
       end
 
