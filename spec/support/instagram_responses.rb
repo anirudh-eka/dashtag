@@ -1,6 +1,6 @@
 module SampleInstagramResponses
 	@@instagram_response = {
-  		"posts" => [
+  		"data" => [
      
 	{"attribution"=> "null",
       "tags"=>  [

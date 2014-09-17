@@ -4,6 +4,7 @@ class CreateGrams < ActiveRecord::Migration
     	t.string :media_url
     	t.string :screen_name
     	t.string :profile_image_url
+    	t.text :caption
     	t.timestamps
 
 
