@@ -7,7 +7,7 @@ describe Gram do
       screen_name: "qwerty",
       created_at: "Fri Sep 21 23:40:54 +0000 2012",
       profile_image_url: "xyz",
-      caption: "Hey there",
+      text: "Hey there",
       media_url: "abc")
   }
 
@@ -15,7 +15,7 @@ describe Gram do
       screen_name: "qwerty",
       created_at: "Fri Sep 21 23:40:54 +0000 2012",
       profile_image_url: "xyz",
-      caption: "Hey there2",
+      text: "Hey there",
       media_url: "abc")
   }
 

@@ -4,52 +4,51 @@ require 'spec_helper'
 describe GramFactory do
 
   let(:response) { SampleInstagramResponses.instagram_response }
-  
-  it 'should make grams from instagram response' do
-
-    test_grams = [
-      # Gram.new(
-        # screen_name: "bullcityrecords",
-        # created_at: "Fri Sep 21 23:40:54 +0000 2012",
-        # profile_image_url: "http://photos-f.ak.instagram.com/hphotos-ak-xpa1/10520248_932685676748549_540936009_a.jpg",
-        # media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"
-      # ),
+  let (:test_grams) { [
+        Gram.new(
+      	text: "#love #TagsForLikes @TagsForLikes #instagood #me #smile #follow #cute #photooftheday #tbt #followme #tagsforlikes #girl #beautiful #happy #picoftheday #instadaily #food #swag #amazing #TFLers #fashion #igers #fun #summer #instalike #bestoftheday #smile #like4like #friends #instamood",
+        screen_name: "oksanasovas",
+        created_at: DateTime.strptime("1410884290", "%s"),
+        profile_image_url: "http=>//photos-f.ak.instagram.com/hphotos-ak-xaf1/10597252_804558659575749_663313685_a.jpg",
+      	media_url: "http=>//scontent-a.cdninstagram.com/hphotos-xaf1/t51.2885-15/10665585_696868960405101_932172165_n.jpg"
+      ),
       Gram.new(
-        screen_name: "MonkiesFist",
-        created_at: "Fri Sep 21 23:30:20 +0000 2012",
-        profile_image_url: "http://photos-a.ak.instagram.com/hphotos-ak-xaf1/10643829_788034637906280_135223026_a.jpg",
-      	media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"
-      )
-    ]
+      	text: "#elevator #kiss #love #budapest #basilica #tired",
+        screen_name: "pollywoah",
+        created_at: DateTime.strptime("1410884290", "%s"),
+        profile_image_url: "http=>//images.ak.instagram.com/profiles/profile_33110152_75sq_1380185157.jpg",
+      	media_url: "http=>//scontent-a.cdninstagram.com/hphotos-xfa1/t51.2885-15/10684067_323739034474097_279647979_n.jpg"
+      ),
+      Gram.new(
+      	text: "#wadmh3b #hbkl \nMnemani istri siang n mlm di hospital..\nDoakan supaya selamat melahirkan cahaya mata sulung utk kami...\n#Love #family #healthybaby #cute #sweet",
+        screen_name: "cainmoxc",
+        created_at: DateTime.strptime("1410884290", "%s"),
+        profile_image_url: "http=>//images.ak.instagram.com/profiles/profile_1090108603_75sq_1392225178.jpg",
+        media_url: "http=>//scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10707046_1472778066326633_1828683552_n.jpg"
+      ),
+      Gram.new(
+      	text: "[ t o d a y ] \n#me #noi #iger #Italia #italian #love #myboyfriend #tatoo #tatoowhitlove #ops #opslove #sempreassieme #tiamo #aspasso #september #tempodelcavolo #chedobbiamofà",
+        screen_name: "jolanda_cirigliano",
+        created_at: DateTime.strptime("1410884290", "%s"),
+        profile_image_url: "http=>//photos-h.ak.instagram.com/hphotos-ak-xfa1/10448944_676691075735007_832582745_a.jpg",
+      	media_url: "http=>//scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10691617_1510929602485903_1047906060_n.jpg"
+      ) ]}
+
+  it 'should make grams from instagram response' do
     
     factory_grams = GramFactory.make_grams(response)
 
     expect(Gram.all).to eq(test_grams)
-    # expect(Gram.all.reverse).to_not eq(test_grams)
+    expect(Gram.all.reverse).to_not eq(test_grams)
   end
 
-  # it 'should not add grams with text that is already in the db' do
-  #     test_grams = [
-  #     Gram.new(
-  #       text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
-  #       screen_name: "bullcityrecords",
-  #       created_at: "Fri Sep 21 23:40:54 +0000 2012",
-  #       profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
-  #       media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"
-  #     ),
-  #     Gram.new(
-  #       text: "Mexican Heaven, Mexican Hell ##{ENV["HASHTAG"]}",
-  #       screen_name: "MonkiesFist",
-  #       created_at: "Fri Sep 21 23:30:20 +0000 2012",
-  #       profile_image_url: "http://a0.twimg.com/profile_images/2219333930/Froggystyle_normal.png"
-  #     )
-  #   ]
+  it 'should not add grams with pics that are already in the db' do
 
-  #   GramFactory.make_grams(response)
-  #   GramFactory.make_grams(response)
+    GramFactory.make_grams(response)
+    GramFactory.make_grams(response)
 
-  #   expect(Gram.all).to eq(test_grams)
-  #   expect(Gram.all.reverse).to_not eq(test_grams)
-  # end
+    expect(Gram.all).to eq(test_grams)
+    expect(Gram.all.reverse).to_not eq(test_grams)
+  end
 
 end

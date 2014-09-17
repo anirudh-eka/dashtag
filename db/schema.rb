@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20140916213954) do
     t.string   "media_url"
     t.string   "screen_name"
     t.string   "profile_image_url"
-    t.text     "caption"
+    t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
