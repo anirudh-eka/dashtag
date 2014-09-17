@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe FeedController do
   describe 'GET #index' do
+    let(:list_of_posts_in_desc_order) { (Tweet.all + Gram.all).sort_by{|post| post.created_at}.reverse }
+
     context "with HTML request" do 
       it 'should tell twitter service to get tweets from twitter to update db' do
         expect(TweetService).to receive(:get_tweets_by_hashtag).with(ENV["HASHTAG"])
@@ -13,9 +15,9 @@ describe FeedController do
         get :index, :format => :html
       end
 
-      it "should return all tweets in db" do 
+      it "should return all posts in db" do 
         get :index, :format => :html
-        expect(assigns(:tweets)).to eq(Tweet.order(created_at: :desc))
+        expect(assigns(:posts)).to eq(list_of_posts_in_desc_order)
       end
     end
     context "with JSON request" do 
@@ -27,9 +29,9 @@ describe FeedController do
         get :index, :format => :json
       end
 
-      it "should return all tweets in the db" do
+      it "should return all posts in the db" do
         get :index, :format => :json
-        expect(assigns(:tweets)).to eq(Tweet.order(created_at: :desc))
+        expect(assigns(:posts)).to eq(list_of_posts_in_desc_order)
       end
     end
   end
