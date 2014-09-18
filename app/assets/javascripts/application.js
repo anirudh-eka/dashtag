@@ -20,7 +20,6 @@ $(document).on("ready", function(){
   var msnry = new Masonry(container);
   // layout Masonry again after all images have loaded
   imagesLoaded( container, function() {
-    alert();
     msnry.layout();
   });
 
