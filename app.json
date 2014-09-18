@@ -10,12 +10,6 @@
         "twitter",
         "instagram"
     ],
-    "scripts": {
-        "postdeploy": ""
-    },
-    "addons": [
-        ""
-    ],
     "env": {
         "BUILDPACK_URL": ""
     }
