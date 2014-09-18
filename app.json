@@ -1,0 +1,22 @@
+{
+    "name": "Hashtag_displayer",
+    "description": "Displays tweets and instagrams of a certain hashtag",
+    "website": "https://github.com/anirudh-eka/hashtag_displayer",
+    "repository": "https://github.com/anirudh-eka/hashtag_displayer.git",
+    "logo": "",
+    "success_url": "/",
+    "keywords": [
+        "Social",
+        "twitter",
+        "instagram"
+    ],
+    "scripts": {
+        "postdeploy": ""
+    },
+    "addons": [
+        ""
+    ],
+    "env": {
+        "BUILDPACK_URL": ""
+    }
+}
