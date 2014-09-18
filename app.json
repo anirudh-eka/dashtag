@@ -8,8 +8,15 @@
         "Social",
         "twitter",
         "instagram"
-    ],
+    ],    
+    "scripts": {
+        "postdeploy": "rake db:migrate && rake assets:precompile"
+    },
+
     "env": {
-        "BUILDPACK_URL": ""
+        "HASHTAG": "",    
+        "TWITTER_BEARER_CREDENTIALS": "",
+        "INSTAGRAM_CLIENT_ID": "",
+        "CENSORED_WORDS": ""
     }
 }
