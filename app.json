@@ -10,7 +10,7 @@
         "instagram"
     ],    
     "scripts": {
-        "postdeploy": "rake db:migrate && rake assets:precompile"
+        "postdeploy": "rake db:migrate"
     },
 
     "env": {
