@@ -16,7 +16,8 @@
 //= require_tree .
 
 $(document).on("ready", function(){
-  var msnry = new Masonry("#container");
+  var container = document.querySelector('#container');
+  var msnry = new Masonry(container);
   // layout Masonry again after all images have loaded
   imagesLoaded( container, function() {
     msnry.layout();
@@ -43,7 +44,8 @@ $(document).on("ready", function(){
             render(tweet).addClass("background-color-"+bgColor);
             if(bgColor == 4) { bgColor = 0 }
           }
-          var msnry = new Masonry("#container");
+            var container = document.querySelector('#container');
+            var msnry = new Masonry(container);
             imagesLoaded( container, function() {
                 msnry.layout();
             });
