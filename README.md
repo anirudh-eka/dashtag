@@ -5,6 +5,8 @@ The hastag displayer is a light weight rails application that pulls tweets with 
 
 The application uses [Twitter's REST API](https://dev.twitter.com/rest/reference/get/search/tweets). Please note this is not an exhaustive list of all tweets with a particular hashtag. 
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/anirudh-eka/hashtag_displayer.git)
+
 Configuration
 -------------
 The only custom code you need for your instance of this application should live in the .env file of the app. After pulling the app into a local repository on your machine, create a .env file at the root of your repository. This is where you can set environment variable that will be available to your application, but ignored by git (thanks to [dotenv](https://github.com/bkeepers/dotenv)).
