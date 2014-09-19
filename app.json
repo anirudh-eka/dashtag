@@ -14,9 +14,9 @@
     },
 
     "env": {
-        "HASHTAG": "",    
+        "HASHTAG": "",
+        "CENSORED_WORDS": "asdfasdfasdfasdf",
         "TWITTER_BEARER_CREDENTIALS": "",
-        "INSTAGRAM_CLIENT_ID": "",
-        "CENSORED_WORDS": ""
+        "INSTAGRAM_CLIENT_ID": ""
     }
 }
