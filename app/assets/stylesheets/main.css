@@ -66,19 +66,21 @@ a {
 }
 
 .background-color-1 {
-  background: rgb(240,186,149);
+  background: #F23390;
+  /*background: rgb(240,186,149);*/
 }
 
 .background-color-2 {
-  background: rgb(38,189,207);
+  background: #F18B39;
+  /*background: rgb(38,189,207);*/
 }
 
 .background-color-3 {
-  background: rgb(26,115,186);
+  background: #02AFB5;
+  /*background: rgb(26,115,186);*/
 }
 
 .background-color-4 {
-  background: rgb(177, 28, 84);
-  /*background: rgb(38,189,207);*/
-  /*background: rgb(128,201,210);*/
+  background: #01288D;
+  /*background: rgb(177, 28, 84);*/
 }
