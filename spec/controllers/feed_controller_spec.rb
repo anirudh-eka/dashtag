@@ -6,12 +6,12 @@ describe FeedController do
 
     context "with HTML request" do 
       it 'should tell twitter service to get tweets from twitter to update db' do
-        expect(TweetService).to receive(:get_tweets_by_hashtag).with(ENV["HASHTAG"])
+        expect(TweetService.instance).to receive(:get_tweets_by_hashtag).with(ENV["HASHTAG"])
         get :index, :format => :html
       end
 
       it 'should tell instagram service to get grams from instagram to update db' do
-        expect(InstagramService).to receive(:get_grams_by_hashtag).with(ENV["HASHTAG"])
+        expect(InstagramService.instance).to receive(:get_grams_by_hashtag).with(ENV["HASHTAG"])
         get :index, :format => :html
       end
 
