@@ -1,4 +1,7 @@
-<h1>#<%=ENV["HASHTAG"]%></h1>
+<a href="#hashtag-anchor" class="hashtag-title">
+  <h1>#<%=ENV["HASHTAG"]%></h1>
+</a>
+<a id="hashtag-anchor"></a>
 
 <div id="container">
 <% i = 0%>
@@ -24,7 +27,6 @@
     </div>
   <% i = 0 if i == 4 %>
   <% end %>
-  
 
 </div>
 
