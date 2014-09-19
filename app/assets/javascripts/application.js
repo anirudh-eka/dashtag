@@ -52,7 +52,7 @@ $(document).on("ready", function(){
         }          
       }
     });
-  }, 60000);
+  }, 2000);
 
 });
 
