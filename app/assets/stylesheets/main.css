@@ -2,10 +2,11 @@ body {
   font-family: 'Open Sans', sans-serif;
   word-wrap: break-word;
   color: #FFF;
+  background-color: #EFEFEF;
 }
 
 body, #container {
-  background-color: #EFEFEF
+  margin-top: 107px;
 }
 
 h1 {
@@ -19,6 +20,13 @@ h1 {
 
 a {
   color: rgb(26,115,186);
+}
+
+a#hashtag-anchor {
+display: block; 
+position: relative;
+ top: -250px; 
+ visibility: hidden;
 }
 
 .tweet-container {
@@ -82,3 +90,16 @@ a {
   /*background: rgb(38,189,207);*/
   /*background: rgb(128,201,210);*/
 }
+
+.hashtag-title {
+  text-decoration: none;
+   z-index: 1;
+   background-color: #EFEFEF;
+   position: fixed;
+   top:0; left:0;
+   width: 100%;
+ }
+
+ .hashtag-title:hover {
+  background-color: #F6F6F6;
+ }
