@@ -9,6 +9,14 @@ body, #container {
   margin-top: 107px;
 }
 
+#posts-list
+{
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: -1.875em;
+    width: 100%;
+}
+
 h1 {
   color: #000;
   text-align: center;
@@ -35,7 +43,9 @@ a#hashtag-anchor {
   margin: 5px 5px;
   width: 30%;
   text-align: center;
-  padding: 20px 10px;
+  width: 92%;
+  float: left;
+  margin: 5px;
 }
 
 .tweet-picture img {
@@ -43,12 +53,11 @@ a#hashtag-anchor {
 }
 
 .tweet-container section {
-  margin: 20px 0px;
+    margin: 20px 0 0 0;
 }
 
 .tweet-text {
   font-style: italic;
-  font-size: 2em;
 }
 
 .tweet-username {
@@ -112,3 +121,32 @@ a#hashtag-anchor {
   background-color: #F6F6F6;
  }
 
+@media ( min-width: 768px )
+{
+    .tweet-container
+    {
+        width: 46.876%;
+        margin: 5px;
+    }
+    #posts-list {
+     padding-left: 1.3%;
+    }
+}
+
+@media ( min-width: 992px )
+{
+    #posts-list
+    {
+        padding-left: 1%;
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: -1.875em;
+    }
+
+    .tweet-container {
+        text-align: center;
+        width: 31.5%;
+        float: left;
+        margin: 5px;
+    }
+}
