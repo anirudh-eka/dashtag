@@ -1,4 +1,5 @@
 module SampleTweetResponses
+  def self.tweets_with_censored_words 
   @@tweets_with_censored_words = {
       "statuses" => [
         {
@@ -231,6 +232,7 @@ module SampleTweetResponses
       }
   ############
     }
+  end
   @@second_tweet_response = {
     "statuses" => [
               {
@@ -801,10 +803,6 @@ module SampleTweetResponses
 
   def self.second_tweet_response 
     @@second_tweet_response
-  end
-
-  def self.tweets_with_censored_words 
-    @@tweets_with_censored_words
   end
   
 end
