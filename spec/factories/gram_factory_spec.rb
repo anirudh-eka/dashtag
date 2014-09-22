@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+require 'pry'
 
 describe GramFactory do
 
@@ -51,4 +51,10 @@ describe GramFactory do
     expect(Gram.all.reverse).to_not eq(test_grams)
   end
 
+
+  it "should not add grams with censored words in the caption" do 
+    response = SampleInstagramResponses.instagram_response_with_censored_words
+    GramFactory.make_grams(response)
+    expect(Gram.all).to be_empty
+  end
 end
