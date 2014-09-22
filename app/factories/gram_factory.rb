@@ -26,7 +26,7 @@ class GramFactory
           profile_image_url: profile_image_url,
           created_at: created_at
           )
-      rescue 
+      rescue
       end
     end
     Gram.order(created_at: :desc).first
