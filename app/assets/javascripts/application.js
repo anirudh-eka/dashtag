@@ -54,6 +54,8 @@ $(document).on("ready", function(){
     });
   }, 2000);
 
+    setUpScroll();
+
 });
 
 function Tweet(text, screen_name, created_at, profile_image_url, media_url) {
@@ -65,6 +67,14 @@ function Tweet(text, screen_name, created_at, profile_image_url, media_url) {
     media_url: media_url
   };
 }
+
+var setUpScroll = function () {$('#up').on('click', function(e){
+    e.preventDefault();
+    var target= $('#hashtag-anchor');
+    $('html, body').stop().animate({
+        scrollTop: target.offset().top
+    }, 750);
+})};
 
 function render(tweet) {
   var posts_list = $("#posts-list")
@@ -86,3 +96,4 @@ function render(tweet) {
   tweetContainer.find(".tweet-created-at").text(tweet.created_at);
   return tweetContainer;
 }
+
