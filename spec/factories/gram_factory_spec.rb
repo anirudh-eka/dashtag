@@ -37,7 +37,6 @@ describe GramFactory do
   it 'should make grams from instagram response' do
     
     factory_grams = GramFactory.make_grams(response)
-
     expect(Gram.all).to eq(test_grams)
     expect(Gram.all.reverse).to_not eq(test_grams)
   end
