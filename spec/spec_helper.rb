@@ -45,7 +45,8 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  config.before(:all) do 
+  config.before(:all) do
+    ENV["CENSORED_WORDS"]="Big|Brother|watching"
     ENV["API_Rate"] = 1.to_s
   end
 
