@@ -8,7 +8,7 @@ class TweetService
   end
 
   def get_tweets_by_hashtag(hashtag)
-    if (Time.now - @last_update > 5)
+    if (Time.now - @last_update > 15)
       response = HTTParty.get("https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}", 
       :headers => { "Authorization" => "Bearer #{bearer_token}",
         "User-Agent" => "#NAAwayDay Feed v1.0"})

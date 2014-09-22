@@ -8,7 +8,7 @@ class InstagramService
   end
 
   def get_grams_by_hashtag(hashtag)
-    if (Time.now - @last_update > 5)
+    if (Time.now - @last_update > 15)
       instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
       response = HTTParty.get("https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{instagram_client_id}")
 
