@@ -5,8 +5,8 @@ body {
   background-color: #EFEFEF;
 }
 
-body, #container {
-  margin-top: 107px;
+body {
+  margin-top: 65px;
 }
 
 #posts-list
@@ -25,12 +25,14 @@ h1 {
   font-weight: 300;
   font-style: italic;
   line-height: 2;
+  margin: 0;
 }
 
 a {
   color: rgb(26,115,186);
   box-shadow: 0 3px 13px 0 rgba(2, 3, 3, 0.16);
   -webkit-box-shadow: 0 3px 13px 0 rgba(2, 3, 3, 0.16);
+  opacity: .97;
 }
 
 a#hashtag-anchor {
@@ -126,6 +128,13 @@ a#hashtag-anchor {
 
 @media ( min-width: 768px )
 {
+    h1 {
+        margin: 10px 0 10px 0;
+    }
+
+    body {
+        margin-top: 85px;
+    }
     .tweet-container
     {
         width: 45.876%;
@@ -138,6 +147,14 @@ a#hashtag-anchor {
 
 @media ( min-width: 992px )
 {
+
+    h1 {
+        margin: 15px 0 15px 0;
+    }
+
+    body {
+        margin-top: 95px;
+    }
     #posts-list
     {
         padding-left: 0;
