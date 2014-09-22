@@ -20,11 +20,13 @@ h1 {
 
 a {
   color: rgb(26,115,186);
+  box-shadow: 0 3px 13px 0 rgba(2, 3, 3, 0.16);
+  -webkit-box-shadow: 0 3px 13px 0 rgba(2, 3, 3, 0.16);
 }
 
 a#hashtag-anchor {
-display: block; 
-position: relative;
+ display: block; 
+ position: relative;
  top: -250px; 
  visibility: hidden;
 }
