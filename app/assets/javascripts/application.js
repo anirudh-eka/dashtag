@@ -16,10 +16,10 @@
 //= require_tree .
 
 $(document).on("ready", function(){
-  var container = document.querySelector('#container');
-  var msnry = new Masonry(container);
+  var posts_list = document.querySelector('#posts-list');
+  var msnry = new Masonry(posts_list);
   // layout Masonry again after all images have loaded
-  imagesLoaded( container, function() {
+  imagesLoaded( posts_list, function() {
     msnry.layout();
   });
 
@@ -35,7 +35,7 @@ $(document).on("ready", function(){
         console.log(data);
         console.log(status);
         if(status != "notmodified") {
-          $("#container").empty();
+          $("#posts-list").empty();
           var bgColor = 0;
           for (var i = 0; i < data.length; i++){
             bgColor += 1;
@@ -44,9 +44,9 @@ $(document).on("ready", function(){
             render(tweet).addClass("background-color-"+bgColor);
             if(bgColor == 4) { bgColor = 0 }
           }
-            var container = document.querySelector('#container');
-            var msnry = new Masonry(container);
-            imagesLoaded( container, function() {
+            var posts_list = document.querySelector('#posts-list');
+            var msnry = new Masonry(posts_list);
+            imagesLoaded( posts_list, function() {
                 msnry.layout();
             });
         }          
@@ -67,9 +67,9 @@ function Tweet(text, screen_name, created_at, profile_image_url, media_url) {
 }
 
 function render(tweet) {
-  var container = $("#container")
-  container.append("<div class='tweet-container'></div>")
-  var tweetContainer = container.find(".tweet-container").last()
+  var posts_list = $("#posts-list")
+  posts_list.append("<div class='tweet-container'></div>")
+  var tweetContainer = posts_list.find(".tweet-container").last()
 
   tweetContainer.append("<section class='tweet-text'></section>");
   tweetContainer.find(".tweet-text").text(tweet.text);
