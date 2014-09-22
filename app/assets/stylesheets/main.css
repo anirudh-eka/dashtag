@@ -45,6 +45,7 @@ a#hashtag-anchor {
   text-align: center;
   width: 92%;
   float: left;
+  padding: 1.5% .75%;
   margin: 5px;
 }
 
@@ -58,6 +59,7 @@ a#hashtag-anchor {
 
 .tweet-text {
   font-style: italic;
+  font-size: 2em;
 }
 
 .tweet-username {
@@ -125,7 +127,7 @@ a#hashtag-anchor {
 {
     .tweet-container
     {
-        width: 46.876%;
+        width: 45.876%;
         margin: 5px;
     }
     #posts-list {
@@ -145,7 +147,7 @@ a#hashtag-anchor {
 
     .tweet-container {
         text-align: center;
-        width: 31.5%;
+        width: 30%;
         float: left;
         margin: 5px;
     }
