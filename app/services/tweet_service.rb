@@ -8,7 +8,8 @@ class TweetService
   end
 
   def get_tweets_by_hashtag(hashtag)
-    if (Time.now - @last_update > 15)
+    rate_set_in_env = ENV["API_Rate"] ? ENV["API_Rate"].to_f : nil
+    if (Time.now - @last_update > (rate_set_in_env || 15))
       response = HTTParty.get("https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}", 
       :headers => { "Authorization" => "Bearer #{bearer_token}",
         "User-Agent" => "#NAAwayDay Feed v1.0"})

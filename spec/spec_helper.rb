@@ -45,6 +45,9 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+  config.before(:all) do 
+    ENV["API_Rate"] = 1.to_s
+  end
 
   config.before(:each) do 
     auth_response = {"access_token"=>"AAAAAAAAAAAAAAAAAAAAAHfMXgAAAAAAqjpb4OtAUv4B1pjCzS7nZ%2FTzgqo%3D473OZ91sDRgjEGKlEnCl9NSnfkNSs524yvxFjPrAAX6lQsuHUV",
