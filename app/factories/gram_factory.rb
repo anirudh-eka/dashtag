@@ -28,7 +28,6 @@ class GramFactory
           )
       rescue 
       end
-
     end
   Gram.order(created_at: :desc).first
 
