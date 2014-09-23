@@ -27,8 +27,8 @@ describe TweetFactory do
 
     factory_tweets = TweetFactory.make_tweets(response)
 
-    expect(Post.where(source: "twitter")).to eq(test_tweets)
-    expect(Post.where(source: "twitter").reverse).to_not eq(test_tweets)
+    expect(Post.tweets).to eq(test_tweets)
+    expect(Post.tweets.reverse).to_not eq(test_tweets)
   end
 
   it 'should not add tweets with text that is already in the db' do
@@ -52,8 +52,8 @@ describe TweetFactory do
 
     TweetFactory.make_tweets(response)
     TweetFactory.make_tweets(response)
-    expect(Post.where(source: "twitter")).to eq(test_tweets)
-    expect(Post.where(source: "twitter").reverse).to_not eq(test_tweets)
+    expect(Post.tweets).to eq(test_tweets)
+    expect(Post.tweets.reverse).to_not eq(test_tweets)
   end
 
   it "should not add tweets with censored words" do 
@@ -61,6 +61,6 @@ describe TweetFactory do
 
     TweetFactory.make_tweets(response)
 
-    expect(Post.where(source: "twitter")).to be_empty
+    expect(Post.tweets).to be_empty
   end
 end

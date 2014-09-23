@@ -47,4 +47,15 @@ describe Post do
     expect(@gram_one).to_not eq(@gram_two)
   end
 
+  it 'should return all tweets when doing Post.tweets' do
+    expect(Post.tweets).to include(@tweet_one)
+    expect(Post.tweets.count).to eq(1)
+  end
+
+    it 'should return all grams when doing Post.grams' do
+    expect(Post.grams).to include(@gram_one)
+    expect(Post.grams).to include(@gram_two)
+    expect(Post.grams.count).to eq(2)
+  end
+
 end
