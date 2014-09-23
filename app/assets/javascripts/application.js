@@ -16,13 +16,11 @@
 //= require_tree .
 
 $(document).on("ready", function(){
-  var posts_list = document.querySelector('#posts-list');
-  var msnry = new Masonry(posts_list);
+  var postsList = $('#posts-list');
   // layout Masonry again after all images have loaded
-  imagesLoaded( posts_list, function() {
-    msnry.layout();
+    postsList.imagesLoaded(function () {
+      postsList.masonry();
   });
-
 
   window.setInterval(function(){
     $.ajax({
@@ -32,24 +30,21 @@ $(document).on("ready", function(){
       ifModified: true,
       dataType: "json",
       success: function(data, status){
-        console.log(data);
-        console.log(status);
         if(status != "notmodified") {
-          $("#posts-list").empty();
-          var bgColor = 0;
-          for (var i = 0; i < data.length; i++){
-            bgColor += 1;
-            var obj = data[i];
+          for (var postNumber = 0; postNumber < data.length; postNumber++){
+            var postColor = (postNumber % 4) + 1;
+            var obj = data[postNumber];
             var tweet = new Tweet(obj.text, obj.screen_name, obj.created_at_formatted, obj.profile_image_url, obj.media_url);
-            render(tweet).addClass("background-color-"+bgColor);
-            if(bgColor == 4) { bgColor = 0 }
+            var lastPost = render(tweet);
+            lastPost.addClass("background-color-"+postColor);
+            lastPost.addClass("item");
+            $(postsList).prepend(lastPost);
+            $(postsList).masonry('reloadItems');
+            postsList.imagesLoaded(function () {
+                postsList.masonry();
+            })
           }
-            var posts_list = document.querySelector('#posts-list');
-            var msnry = new Masonry(posts_list);
-            imagesLoaded( posts_list, function() {
-                msnry.layout();
-            });
-        }          
+        }
       }
     });
   }, 5000);
@@ -77,9 +72,8 @@ var setUpScroll = function () {$('#up').on('click', function(e){
 })};
 
 function render(tweet) {
-  var posts_list = $("#posts-list")
-  posts_list.append("<div class='tweet-container'></div>")
-  var tweetContainer = posts_list.find(".tweet-container").last()
+
+  var tweetContainer = $("<div class='tweet-container'></div>")
 
   tweetContainer.append("<section class='tweet-text'></section>");
   tweetContainer.find(".tweet-text").text(tweet.text);
