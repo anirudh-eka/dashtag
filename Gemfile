@@ -29,7 +29,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'kaminari'
-
+gem 'font-awesome-rails'
 group :test do
   gem 'rspec-rails', '~> 2.0' 
   gem 'shoulda-matchers'

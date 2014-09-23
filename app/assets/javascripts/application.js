@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require imagesloaded.pkgd
 //= require_tree .
 
 $(document).on("ready", function(){
