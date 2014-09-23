@@ -5,14 +5,14 @@ class FeedController < ApplicationController
       format.html do 
         update_tweets_and_grams_with_hashtag ENV["HASHTAG"]
 
-        @posts = Post.all
+        @posts = Post.order(created_at: :desc)
 
         render "index"
       end
 
       format.json do 
         update_tweets_and_grams_with_hashtag ENV["HASHTAG"]
-        @posts = Post.all
+        @posts = Post.order(created_at: :desc)
         render :json => @posts
       end
     end

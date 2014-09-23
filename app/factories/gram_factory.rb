@@ -1,4 +1,3 @@
-require 'pry'
 class GramFactory
 
   def self.make_grams(parsed_response)
@@ -20,7 +19,9 @@ class GramFactory
 
 
       begin
-        Gram.create!(text: text, 
+        Post.create!(
+          source: "instagram",
+          text: text, 
           screen_name: screen_name,
           media_url: media_url,
           profile_image_url: profile_image_url,
@@ -29,6 +30,5 @@ class GramFactory
       rescue
       end
     end
-    Gram.order(created_at: :desc).first
   end
 end

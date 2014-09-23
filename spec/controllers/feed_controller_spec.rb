@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FeedController do
   describe 'GET #index' do
-    let(:list_of_posts_in_desc_order) { (Tweet.all + Gram.all).sort_by{|post| post.created_at}.reverse }
+    let(:list_of_posts_in_desc_order) { (Post.all).sort_by{|post| post.created_at}.reverse }
 
     context "with HTML request" do 
       it 'should tell twitter service to get tweets from twitter to update db' do

@@ -13,7 +13,8 @@ class TweetFactory
 
       unless text.match(/.*(#{ENV["CENSORED_WORDS"]}).*/i)         
         begin
-          Tweet.create!(
+          Post.create!(
+            source: "twitter",
             text: text,
             screen_name: screen_name,
             created_at: created_at,
@@ -24,10 +25,6 @@ class TweetFactory
 
         end
       end
-
     end
-    Tweet.order(created_at: :desc).first
-    
   end
-
 end
