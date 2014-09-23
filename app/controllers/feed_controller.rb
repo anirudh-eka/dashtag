@@ -21,8 +21,7 @@ class FeedController < ApplicationController
   end
 
   def get_next_page
-    params[:last_page_requested] = params[:last_page_requested].to_i+1
-    @posts = Post.order(created_at: :desc).page(params[:last_page_requested]).per(50)
+    @posts = Post.order(created_at: :desc).page(params[:last_page_requested].to_i+1).per(50)
     render :json => @posts
   end
 
