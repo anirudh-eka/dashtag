@@ -26,7 +26,6 @@ class TweetFactory
       end
 
     end
-    Tweet.order(created_at: :desc).first
     
   end
 

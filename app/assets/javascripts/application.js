@@ -52,7 +52,7 @@ $(document).on("ready", function(){
         }          
       }
     });
-  }, 2000);
+  }, 5000);
 
     setUpScroll();
 
