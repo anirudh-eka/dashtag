@@ -55,6 +55,7 @@ a#hashtag-anchor {
   float: left;
   padding: 1.5% .75%;
   margin: 5px;
+  border-radius: 6px;
 }
 
 .tweet-picture img {
