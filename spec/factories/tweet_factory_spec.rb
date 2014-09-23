@@ -7,14 +7,16 @@ describe TweetFactory do
   it 'should make tweets from twitter response' do
 
     test_tweets = [
-      Tweet.new(
+      Post.new(
+        source: "twitter",
         text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
         screen_name: "bullcityrecords",
         created_at: "Fri Sep 21 23:40:54 +0000 2012",
         profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
         media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"
       ),
-      Tweet.new(
+      Post.new(
+        source: "twitter",
         text: "Mexican Heaven, Mexican Hell ##{ENV["HASHTAG"]}",
         screen_name: "MonkiesFist",
         created_at: "Fri Sep 21 23:30:20 +0000 2012",
@@ -25,20 +27,22 @@ describe TweetFactory do
 
     factory_tweets = TweetFactory.make_tweets(response)
 
-    expect(Tweet.all).to eq(test_tweets)
-    expect(Tweet.all.reverse).to_not eq(test_tweets)
+    expect(Post.tweets).to eq(test_tweets)
+    expect(Post.tweets.reverse).to_not eq(test_tweets)
   end
 
   it 'should not add tweets with text that is already in the db' do
       test_tweets = [
-      Tweet.new(
+      Post.new(
+        source: "twitter",
         text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
         screen_name: "bullcityrecords",
         created_at: "Fri Sep 21 23:40:54 +0000 2012",
         profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
         media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"
       ),
-      Tweet.new(
+      Post.new(
+        source: "twitter",
         text: "Mexican Heaven, Mexican Hell ##{ENV["HASHTAG"]}",
         screen_name: "MonkiesFist",
         created_at: "Fri Sep 21 23:30:20 +0000 2012",
@@ -48,9 +52,8 @@ describe TweetFactory do
 
     TweetFactory.make_tweets(response)
     TweetFactory.make_tweets(response)
-
-    expect(Tweet.all).to eq(test_tweets)
-    expect(Tweet.all.reverse).to_not eq(test_tweets)
+    expect(Post.tweets).to eq(test_tweets)
+    expect(Post.tweets.reverse).to_not eq(test_tweets)
   end
 
   it "should not add tweets with censored words" do 
@@ -58,6 +61,6 @@ describe TweetFactory do
 
     TweetFactory.make_tweets(response)
 
-    expect(Tweet.all).to be_empty
+    expect(Post.tweets).to be_empty
   end
 end

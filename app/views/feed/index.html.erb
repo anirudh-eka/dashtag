@@ -9,7 +9,7 @@
   <% i += 1%>
     <div class="tweet-container background-color-<%=i%>">
       <section class="tweet-text">
-        <% unless post.text == "null" %>
+        <% unless (post.text == "null" || post.text == nil) %>
           <%= post.text %>
         <% end %>
       </section>
