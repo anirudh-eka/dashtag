@@ -9,9 +9,7 @@
   <% i += 1%>
     <div class="tweet-container background-color-<%=i%>">
       <section class="tweet-text">
-        <% unless (post.text == "null" || post.text == nil) %>
-          <%= post.text %>
-        <% end %>
+        <%= post.text %>
       </section>
       <section class="tweet-username">
         <img src=<%= post.profile_image_url %> class="avatar" /> @<%= post.screen_name %>
@@ -28,6 +26,10 @@
   <% i = 0 if i == 4 %>
   <% end %>
 </div>
+
+<div id="last_page_requested">1</div>
+
+<h1 id="loading"></h1>
 
 <section class="footer">Made with love by <a href="https://twitter.com/scumbling">Dee</a>, <a href="http://toomanynames.com">Anirudh</a>, <a href="http://itsplatano.com">Justin</a>, and <a href="http://github.com/mlennon3">Michael</a>
 </section>

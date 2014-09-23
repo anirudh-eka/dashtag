@@ -41,8 +41,8 @@ describe GramFactory do
   it 'should make grams from instagram response' do
     
     factory_grams = GramFactory.make_grams(response)
-    expect(Post.where(source: "instagram")).to eq(test_grams)
-    expect(Post.where(source: "instagram").reverse).to_not eq(test_grams)
+    expect(Post.grams).to eq(test_grams)
+    expect(Post.grams.reverse).to_not eq(test_grams)
   end
 
   it 'should not add grams with pics that are already in the db' do
@@ -50,14 +50,14 @@ describe GramFactory do
     GramFactory.make_grams(response)
     GramFactory.make_grams(response)
 
-    expect(Post.where(source: "instagram")).to eq(test_grams)
-    expect(Post.where(source: "instagram").reverse).to_not eq(test_grams)
+    expect(Post.grams).to eq(test_grams)
+    expect(Post.grams.reverse).to_not eq(test_grams)
   end
 
 
   it "should not add grams with censored words in the caption" do 
     response = SampleInstagramResponses.instagram_response_with_censored_words
     GramFactory.make_grams(response)
-    expect(Post.where(source: "instagram")).to be_empty
+    expect(Post.grams).to be_empty
   end
 end

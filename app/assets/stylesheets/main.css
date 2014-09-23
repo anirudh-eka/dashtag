@@ -122,6 +122,10 @@ a#hashtag-anchor {
   /*background: rgb(128,201,210);*/
 }
 
+#last_page_requested{
+  display:none;
+}
+
 .hashtag-title {
   text-decoration: none;
    z-index: 1;

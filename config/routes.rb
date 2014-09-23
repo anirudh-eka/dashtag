@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root 'feed#index'
 
+  get '/get_next_page' => 'feed#get_next_page', as: :get_next_page
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
