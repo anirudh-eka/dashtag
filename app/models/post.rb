@@ -21,5 +21,13 @@ class Post < ActiveRecord::Base
        source == post.source
   end
 
+  def self.tweets
+      Post.where(source: "twitter")
+  end
+
+  def self.grams
+    Post.where(source: "instagram")
+  end
+
 
 end
