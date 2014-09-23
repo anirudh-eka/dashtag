@@ -29,9 +29,10 @@ describe FeedController do
         get :index, :format => :json
       end
 
-      it "should return all posts in the db" do
+      it "should return new posts in the db" do
         get :index, :format => :json
-        expect(assigns(:posts)).to eq(list_of_posts_in_desc_order)
+        list_of_new_posts_in_desc_order = nil
+        expect(assigns(:posts)).to eq(list_of_new_posts_in_desc_order)
       end
     end
   end
