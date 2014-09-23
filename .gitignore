@@ -17,3 +17,6 @@
 
 #Ignore env
 /.env
+
+#Ignore Ruby Mine BS
+/.idea
