@@ -1,4 +1,3 @@
-require 'pry'
 class FeedController < ApplicationController
 
 	def index
@@ -12,10 +11,16 @@ class FeedController < ApplicationController
       end
 
       format.json do
-        last_update = TweetService.instance.last_update
+        old_last_update = TweetService.instance.last_update
         update_tweets_and_grams_with_hashtag ENV["HASHTAG"]
-        @posts = Post.order(created_at: :desc).select{|post| post.created_at > last_update}
-        render json: @posts
+        new_last_update = TweetService.instance.last_update
+
+        if new_last_update > old_last_update
+          @posts = Post.order(time_of_post: :desc).select{|post| post.created_at > new_last_update}
+          render :json => @posts
+        else
+          render status: 304
+        end
       end
     end
   end

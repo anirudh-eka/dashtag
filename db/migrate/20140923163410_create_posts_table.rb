@@ -5,10 +5,9 @@ class CreatePostsTable < ActiveRecord::Migration
     	t.string :screen_name
     	t.string :profile_image_url
     	t.string :source
+      t.datetime :time_of_post
     	t.text :text
     	t.timestamps
-
-
     end
   end
 end
