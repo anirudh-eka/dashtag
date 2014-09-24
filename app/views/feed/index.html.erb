@@ -19,7 +19,7 @@
           <img src=<%= post.media_url %> />
         <% end %>
       </section>
-      <section class="tweet-created-at">
+      <section class="tweet-created-at"><i class="fa fa-2x fa-<%=post.source%>"></i>
         <%= post.created_at.strftime("%a %b %d %l:%M %p") %>
       </section>
     </div>
