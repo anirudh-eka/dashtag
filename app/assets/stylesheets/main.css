@@ -92,6 +92,10 @@ a#hashtag-anchor {
   font-size: .9em;
 }
 
+.tweet-created-at i {
+  margin-right: 5px;
+}
+
 .footer {
   display: block;
   color: rgb(38,189,207);
