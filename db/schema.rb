@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140923163410) do
     t.string   "screen_name"
     t.string   "profile_image_url"
     t.string   "source"
+    t.datetime "time_of_post"
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
