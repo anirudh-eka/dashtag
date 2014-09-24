@@ -1,4 +1,4 @@
-function Tweet(text, screen_name, created_at, profile_image_url, media_url) {
+var Tweet = function(text, screen_name, created_at, profile_image_url, media_url) {
   return {
     text: text,
     screen_name: screen_name,
@@ -8,7 +8,7 @@ function Tweet(text, screen_name, created_at, profile_image_url, media_url) {
   };
 }
 
-function render(tweet) {
+var renderTweets = function (tweet) {
   var posts_list = $("#posts-list")
   posts_list.append("<div class='tweet-container'></div>")
   var tweetContainer = posts_list.find(".tweet-container").last()
@@ -29,13 +29,14 @@ function render(tweet) {
   return tweetContainer;
 }
 
-function create_post_content(data) {
+var create_post_content = function(data) {
   var bgColor = 0;
   for (var i = 0; i < data.length; i++){
     bgColor += 1;
     var obj = data[i];
     var tweet = new Tweet(obj.text, obj.screen_name, obj.created_at_formatted, obj.profile_image_url, obj.media_url);
-    render(tweet).addClass("background-color-"+bgColor);
+    var tweetContainer = renderTweets(tweet);
+    tweetContainer.addClass("background-color-"+bgColor);
     if(bgColor == 4) { bgColor = 0 }
   }
     var posts_list = document.querySelector('#posts-list');
