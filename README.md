@@ -33,7 +33,7 @@ If you want censor multiple words, simply delimit them with "|", like so
 
 `Twitter Bearer Credentials` should be set to the Twitter Key followed by a colon and the Twitter secret, like so:
 
-	TWITTER_BEARER_CREDENTIALS={some Twitter Key}:{some Twitter Secret}
+	TWITTER_BEARER_CREDENTIALS=your_twitter_key:your_twitter_secret
 
 To find the key and secret for your app follow these [directions](https://dev.twitter.com/oauth/overview/application-owner-access-tokens). This will require you to register your own Twitter application. Also, in case you were wondering, the application uses [application-only authentication](https://dev.twitter.com/oauth/application-only).
 
@@ -46,7 +46,7 @@ The first thing you should do to set this up locally is create a new file called
 Your final .env file should look like this:
 
 	HASHTAG=peace
-	CENSORED_WORDS=big|brother|is|watching
+	CENSORED_WORDS=dictatorship|wowza|more
 	TWITTER_BEARER_CREDENTIALS=YOUR_TWITTER_KEY:YOUR_TWITTER_SECRET
 	INSTAGRAM_CLIENT_ID=YOUR_INSTAGRAM_CLIENT_ID_CODE
 
