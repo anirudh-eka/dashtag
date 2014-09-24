@@ -11,9 +11,9 @@ class FeedController < ApplicationController
       end
 
       format.json do
-        old_last_update = TweetService.instance.last_update
+        old_last_update = APIService.instance.last_update
         update_tweets_and_grams_with_hashtag ENV["HASHTAG"]
-        new_last_update = TweetService.instance.last_update
+        new_last_update = APIService.instance.last_update
 
         if new_last_update > old_last_update
           @posts = Post.order(time_of_post: :desc).select{|post| post.created_at > new_last_update}
@@ -33,7 +33,6 @@ class FeedController < ApplicationController
   private
   
   def update_tweets_and_grams_with_hashtag(hashtag)
-    TweetService.instance.get_tweets_by_hashtag(hashtag)
-    InstagramService.instance.get_grams_by_hashtag(hashtag)
+    APIService.instance.get_posts(hashtag)
   end
 end
