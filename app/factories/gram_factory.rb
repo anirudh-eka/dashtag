@@ -3,7 +3,7 @@ class GramFactory
   def self.make_grams(parsed_response)
     parsed_response["data"].each do |gram|
       
-      text = (gram["caption"]["text"] || "") unless gram["caption"].nil?
+      text = (gram["caption"] && gram["caption"]["text"]) || String.new
       
       
       return if text && text.match(/.*(#{ENV["CENSORED_WORDS"]}).*/i)   
@@ -13,7 +13,7 @@ class GramFactory
             media_url = gram["images"]["standard_resolution"]["url"]
         end
       end
-
+      
       screen_name = gram["user"]["username"]
       profile_image_url = gram["user"]["profile_picture"]
       created_at = DateTime.strptime(gram["created_time"], "%s")

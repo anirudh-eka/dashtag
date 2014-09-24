@@ -54,6 +54,15 @@ describe GramFactory do
     expect(Post.grams.reverse).to_not eq(test_grams)
   end
 
+  it 'should put empty string as text when no caption exists' do
+    no_caption = SampleInstagramResponses.instagram_response_with_no_caption
+
+    GramFactory.make_grams(no_caption)
+
+    expect(Post.all.first.text).to eq (String.new)
+  end
+
+
 
   it "should not add grams with censored words in the caption" do 
     response = SampleInstagramResponses.instagram_response_with_censored_words
