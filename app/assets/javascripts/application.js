@@ -66,7 +66,7 @@ function render(tweet) {
   var tweetContainer = $("<div class='tweet-container'></div>")
 
   tweetContainer.append("<section class='tweet-text'></section>");
-  tweetContainer.find(".tweet-text").text(tweet.text);
+  tweetContainer.find(".tweet-text").text(unescapeHtml(tweet.text));
 
   tweetContainer.append("<section class='tweet-username'></section>");
   tweetContainer.find(".tweet-username").html("<img src='" + tweet.profile_image_url + "' class='avatar' /> @" + tweet.screen_name);  
