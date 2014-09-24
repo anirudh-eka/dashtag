@@ -38,8 +38,7 @@ $(document).on("ready", function(){
           for (var postNumber = 0; postNumber < data.length; postNumber++){
             var postColor = (postNumber % 4) + 1;
             var obj = data[postNumber];
-            var tweet = new Tweet(obj.text, obj.screen_name, obj.created_at_formatted, obj.profile_image_url, obj.media_url);
-            var lastPost = render(tweet);
+            var lastPost = render(obj);
             lastPost.addClass("background-color-"+postColor);
             lastPost.addClass("item");
             $(postsList).prepend(lastPost);
@@ -77,8 +76,7 @@ function render(tweet) {
     tweetContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
   }
 
-  tweetContainer.append("<section class='tweet-created-at'></section>");
-  tweetContainer.find(".tweet-created-at").text(tweet.created_at);
+  tweetContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.created_at_formatted+"</section>");
   return tweetContainer;
 }
 

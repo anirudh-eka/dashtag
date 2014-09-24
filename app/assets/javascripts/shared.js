@@ -1,13 +1,3 @@
-var Tweet = function(text, screen_name, created_at, profile_image_url, media_url) {
-  return {
-    text: text,
-    screen_name: screen_name,
-    created_at: created_at,
-    profile_image_url: profile_image_url,
-    media_url: media_url
-  };
-}
-
 var renderTweets = function (tweet) {
   var posts_list = $("#posts-list")
   posts_list.append("<div class='tweet-container'></div>")
@@ -24,8 +14,7 @@ var renderTweets = function (tweet) {
     tweetContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
   }
 
-  tweetContainer.append("<section class='tweet-created-at'></section>");
-  tweetContainer.find(".tweet-created-at").text(tweet.created_at);
+  tweetContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.created_at_formatted+"</section>");
   return tweetContainer;
 }
 
@@ -34,8 +23,7 @@ var create_post_content = function(data) {
   for (var i = 0; i < data.length; i++){
     bgColor += 1;
     var obj = data[i];
-    var tweet = new Tweet(obj.text, obj.screen_name, obj.created_at_formatted, obj.profile_image_url, obj.media_url);
-    var tweetContainer = renderTweets(tweet);
+    var tweetContainer = renderTweets(obj);
     tweetContainer.addClass("background-color-"+bgColor);
     if(bgColor == 4) { bgColor = 0 }
   }
