@@ -10,9 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require shared
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require imagesloaded.pkgd
 //= require_tree .
 
 $(document).on("ready", function(){
@@ -21,6 +23,8 @@ $(document).on("ready", function(){
     postsList.imagesLoaded(function () {
       postsList.masonry();
   });
+
+  setUpScroll();
 
   window.setInterval(function(){
     $.ajax({
@@ -48,20 +52,7 @@ $(document).on("ready", function(){
       }
     });
   }, 5000);
-
-    setUpScroll();
-
 });
-
-function Tweet(text, screen_name, created_at, profile_image_url, media_url) {
-  return {
-    text: text,
-    screen_name: screen_name,
-    created_at: created_at,
-    profile_image_url: profile_image_url,
-    media_url: media_url
-  };
-}
 
 var setUpScroll = function () {$('#up').on('click', function(e){
     e.preventDefault();
@@ -90,4 +81,5 @@ function render(tweet) {
   tweetContainer.find(".tweet-created-at").text(tweet.created_at);
   return tweetContainer;
 }
+
 
