@@ -1,4 +1,88 @@
 module SampleInstagramResponses
+  @@instagram_response_with_no_caption = {
+    "data" => [
+      {"attribution"=> "null",
+      "tags"=>  [
+        "beautiful",
+        "cute",
+        "fashion",
+        "love",
+        "summer",
+        "food",
+        "instalike",
+        "tbt",
+        "igers",
+        "follow",
+        "instadaily",
+        "instamood",
+        "friends",
+        "girl",
+        "me",
+        "swag",
+        "like4like",
+        "tflers",
+        "followme",
+        "instagood",
+        "tagsforlikes",
+        "amazing",
+        "bestoftheday",
+        "fun",
+        "smile",
+        "photooftheday",
+        "picoftheday",
+        "happy"
+      ],
+      "type"=> "image",
+      "location"=>  {
+        "latitude"=> 50.432522095,
+        "name"=> "БЦ Олимпийский",
+        "longitude"=> 30.51496675,
+        "id"=> 3152549
+      },
+      "comments"=>  {
+        "count"=> 0,
+        "data"=>  []
+      },
+      "filter"=> "Normal",
+      "created_time"=> "1410884290",
+      "link"=> "http=>//instagram.com/p/tA0deztkuN/",
+      "likes"=>  {
+        "count"=> 0,
+        "data"=>  []
+      },
+      "images"=>  {
+        "low_resolution"=>  {
+          "url"=> "http=>//scontent-a.cdninstagram.com/hphotos-xaf1/t51.2885-15/10665585_696868960405101_932172165_a.jpg",
+          "width"=> 306,
+          "height"=> 306
+        },
+        "thumbnail"=>  {
+          "url"=> "http=>//scontent-a.cdninstagram.com/hphotos-xaf1/t51.2885-15/10665585_696868960405101_932172165_s.jpg",
+          "width"=> 150,
+          "height"=> 150
+        },
+        "standard_resolution"=>  {
+          "url"=> "http=>//scontent-a.cdninstagram.com/hphotos-xaf1/t51.2885-15/10665585_696868960405101_932172165_n.jpg",
+          "width"=> 640,
+          "height"=> 640
+        }
+      },
+      "users_in_photo"=>  [],
+      "caption"=>  "null",
+      "user_has_liked"=> false,
+      "id"=> "810878657289931661_1461058473",
+      "user"=>  {
+        "username"=> "oksanasovas",
+        "website"=> "",
+        "profile_picture"=> "http=>//photos-f.ak.instagram.com/hphotos-ak-xaf1/10597252_804558659575749_663313685_a.jpg",
+        "full_name"=> "Savochka Oxana",
+        "bio"=> "",
+        "id"=> "1461058473"
+      }
+    }
+      ]
+    }
+
 	@@instagram_response = {
   		"data" => [
      
@@ -592,6 +676,10 @@ module SampleInstagramResponses
 
   def self.instagram_response 
     @@instagram_response
+  end
+
+  def self.instagram_response_with_no_caption
+    @@instagram_response_with_no_caption
   end
     
 end
