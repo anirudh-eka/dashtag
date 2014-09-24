@@ -49,7 +49,6 @@ $(document).on("ready", function(){
             })
           }
         }
-        }          
       }
     });
   }, 5000);
@@ -77,5 +76,10 @@ function render(tweet) {
   if (tweet.media_url){
     tweetContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
   }
+
+  tweetContainer.append("<section class='tweet-created-at'></section>");
+  tweetContainer.find(".tweet-created-at").text(tweet.created_at);
+  return tweetContainer;
+}
 
 
