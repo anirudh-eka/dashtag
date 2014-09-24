@@ -14,8 +14,8 @@ class FeedController < ApplicationController
       format.json do
         last_update = TweetService.instance.last_update
         update_tweets_and_grams_with_hashtag ENV["HASHTAG"]
-        @posts = Post.order(created_at: :desc)
-        render :json => @posts
+        @posts = Post.order(created_at: :desc).select{|post| post.created_at > last_update}
+        render json: @posts
       end
     end
   end

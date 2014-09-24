@@ -30,9 +30,25 @@ describe FeedController do
       end
 
       it "should return new posts in the db" do
+        last_pull_stub = Time.now
+
+        Post.create(screen_name: "cassius_clay",
+                    profile_image_url: "stuff.com",
+                    created_at: (last_pull_stub - 30),
+                    source: "twitter",
+                    text: "the old post")
+
+        new_post = Post.create(screen_name: "cassius_clay",
+                    profile_image_url: "stuff.com",
+                    created_at: (last_pull_stub + 30),
+                    source: "twitter",
+                    text: "the new post")
+        expect(TweetService.instance).to receive(:last_update) { last_pull_stub }
+        expect(TweetService.instance).to receive(:get_tweets_by_hashtag).with(ENV["HASHTAG"]) {nil}
+        expect(InstagramService.instance).to receive(:get_grams_by_hashtag).with(ENV["HASHTAG"]) {nil}
+
         get :index, :format => :json
-        list_of_new_posts_in_desc_order = nil
-        expect(assigns(:posts)).to eq(list_of_new_posts_in_desc_order)
+        expect(assigns(:posts)).to eq([new_post])
       end
     end
   end
