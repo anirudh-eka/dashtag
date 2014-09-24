@@ -11,7 +11,7 @@
   <% i += 1%>
     <div class="tweet-container background-color-<%=i%>">
       <section class="tweet-text">
-        <%= post.text %>
+        <%= CGI.unescapeHTML(post.text) %>
       </section>
       <section class="tweet-username">
         <img src=<%= post.profile_image_url %> class="avatar" /> @<%= post.screen_name %>
