@@ -76,7 +76,7 @@ function render(tweet) {
     tweetContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
   }
 
-  tweetContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.created_at_formatted+"</section>");
+  tweetContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.formatted_time_of_post+"</section>");
   return tweetContainer;
 }
 
