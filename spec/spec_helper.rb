@@ -48,13 +48,17 @@ RSpec.configure do |config|
   config.before(:all) do
     ENV["CENSORED_WORDS"]="Big|Brother|watching"
     ENV["API_Rate"] = 1.to_s
+    ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
+    ENV["INSTAGRAM_CLIENT_ID"] = "asd"
+    ENV["HASHTAG"] = "fda"
   end
 
   config.before(:each) do 
     auth_response = {"access_token"=>"ACCESS_TOKEN",
      "token_type"=>"bearer"}.to_json
-     
-    stub_request(:post, /https:\/\/\w+:\w+@api.twitter.com\/oauth2\/token/).
+
+
+    stub_request(:post, /https:\/\/#{ENV["TWITTER_BEARER_CREDENTIALS"]}@api.twitter.com\/oauth2\/token/).
       with(headers: {"content-type"=>"application/x-www-form-urlencoded;charset=UTF-8"},
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} }) 
