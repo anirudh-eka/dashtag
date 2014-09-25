@@ -17,9 +17,9 @@ class FeedController < ApplicationController
 
         if new_last_update > old_last_update
           @posts = Post.order(time_of_post: :desc).select{|post| post.created_at > new_last_update}
-          render :json => @posts
+          render json: @posts
         else
-          render status: 304
+          render json: @posts, status: :unprocessable_entity
         end
       end
     end
@@ -27,7 +27,7 @@ class FeedController < ApplicationController
 
   def get_next_page
     @posts = Post.order(created_at: :desc).page(params[:last_page_requested].to_i+1).per(50)
-    render :json => @posts
+    render json: @posts
   end
 
   private
