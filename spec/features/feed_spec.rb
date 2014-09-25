@@ -11,7 +11,7 @@ describe 'home' do
 
     page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
-    page.should have_content('Fri Sep 21 7:40 PM')
+    page.should have_content('Fri Sep 21 11:30 PM')
     page.should have_image(profile_image)
     page.should have_image(media_image)
   end
@@ -21,16 +21,15 @@ describe 'home' do
 
     page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
-    page.should have_content('Fri Sep 21 7:40 PM')
+    page.should have_content('Fri Sep 21 11:30 PM')
 
-    
     update_tweets_in_db
     
     sleep(30.seconds)
 
     page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
-    page.should have_content('Fri Sep 21 7:40 PM')
+    page.should have_content('Fri Sep 21 11:30 PM')
   end
 
   it 'should not have several swear words' do

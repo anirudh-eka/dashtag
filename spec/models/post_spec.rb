@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Post do
   it { should validate_presence_of(:screen_name) }
-  it { should validate_presence_of(:created_at) }
+  it { should validate_presence_of(:time_of_post) }
   it { should validate_presence_of(:profile_image_url) }
   it { should validate_presence_of(:source) }
 
@@ -10,7 +10,7 @@ describe Post do
     @gram_one = Post.create!(
       source: "instagram",
       screen_name: "qwerty",
-      created_at: "Fri Sep 21 23:40:54 +0000 2012",
+      time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
       profile_image_url: "xyz",
       text: "Hey there",
       media_url: "abc")
@@ -19,13 +19,13 @@ describe Post do
       source: "twitter",
       text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
       screen_name: "bullcityrecords",
-      created_at: "Fri Sep 21 22:40:54 +0000 2012",
+      time_of_post: "Fri Sep 21 22:40:54 +0000 2012",
       profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg")
 
     @gram_two = Post.create!(
       source: "instagram",
       screen_name: "ABCDEFG",
-      created_at: "Fri Sep 20 23:40:54 +0000 2012",
+      time_of_post: "Fri Sep 20 23:40:54 +0000 2012",
       profile_image_url: "xyz",
       text: "friendship",
       media_url: "def")
