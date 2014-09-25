@@ -19,7 +19,7 @@ class FeedController < ApplicationController
           @posts = Post.order(time_of_post: :desc).select{|post| post.created_at > new_last_update}
           render json: @posts
         else
-          render json: @posts, status: :unprocessable_entity
+          render json: @posts, status: :not_modified
         end
       end
     end
