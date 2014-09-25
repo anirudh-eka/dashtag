@@ -1,7 +1,5 @@
 var renderTweets = function (tweet) {
-  var posts_list = $("#posts-list")
-  posts_list.append("<div class='tweet-container'></div>")
-  var tweetContainer = posts_list.find(".tweet-container").last()
+  var tweetContainer = $("<div class='tweet-container'></div>");
 
   tweetContainer.append("<section class='tweet-text'></section>");
   tweetContainer.find(".tweet-text").text(unescapeHtml(tweet.text));
@@ -14,7 +12,7 @@ var renderTweets = function (tweet) {
     tweetContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
   }
 
-  tweetContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.created_at_formatted+"</section>");
+  tweetContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.formatted_time_of_post+"</section>");
   return tweetContainer;
 }
 
@@ -30,10 +28,13 @@ var create_post_content = function(data) {
     var tweetContainer = renderTweets(obj);
     tweetContainer.addClass("background-color-"+bgColor);
     if(bgColor == 4) { bgColor = 0 }
+
+      var postsList = $('#posts-list');
+      // layout Masonry again after all images have loaded
+      $(postsList).append(tweetContainer);
+      $(postsList).masonry('reloadItems');
+      postsList.imagesLoaded(function () {
+          postsList.masonry();
+      });
   }
-    var postsList = $('#posts-list');
-    // layout Masonry again after all images have loaded
-    postsList.imagesLoaded(function () {
-        postsList.masonry();
-    });
 }
