@@ -57,6 +57,10 @@ Once you have the .env file setup, run bundler from the command line:
 
 	$ bundle
 
+create the database:
+	
+	$ rake db:create && rake db:migrate
+
 and start the server:
 
 	$ rails s
