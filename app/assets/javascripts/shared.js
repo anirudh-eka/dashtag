@@ -31,9 +31,9 @@ var create_post_content = function(data) {
     tweetContainer.addClass("background-color-"+bgColor);
     if(bgColor == 4) { bgColor = 0 }
   }
-    var posts_list = document.querySelector('#posts-list');
-    var msnry = new Masonry(posts_list);
-    imagesLoaded( posts_list, function() {
-        msnry.layout();
+    var postsList = $('#posts-list');
+    // layout Masonry again after all images have loaded
+    postsList.imagesLoaded(function () {
+        postsList.masonry();
     });
 }
