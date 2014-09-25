@@ -1,3 +1,4 @@
+require 'pry'
 require 'singleton'
 
 class APIService
@@ -5,12 +6,14 @@ class APIService
   attr_reader :last_update
 
   def initialize
+    @penultimate_update = nil
     @last_update = Time.new(1720)
   end
 
   def get_posts(hashtag)
     rate_to_hit_api = ENV["API_Rate"] ? ENV["API_Rate"].to_f : 15
-    if (Time.now - @last_update > rate_to_hit_api)
+
+    if (Time.now - last_update > rate_to_hit_api)
       @last_update = Time.now
 
       pull_instagram_posts_and_parse(hashtag)
@@ -18,7 +21,16 @@ class APIService
     end
   end
 
-private
+  def pull_new_posts(hashtag)
+    @penultimate_update = last_update
+    get_posts(hashtag)
+  end
+
+  def did_service_update?
+    @last_update > @penultimate_update
+  end
+
+  private
 
 	def pull_instagram_posts_and_parse(hashtag)
     instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]

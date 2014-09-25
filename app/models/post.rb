@@ -12,7 +12,16 @@ class Post < ActiveRecord::Base
     time_of_post.strftime("%a %b %d %l:%M %p")
   end
 
-	def ==(post)
+  def self.get_new_posts(hashtag)
+    APIService.instance.pull_new_posts(hashtag)
+    if APIService.instance.did_service_update?
+      sort_by_time_of_post.select { |post| is_post_from_last_pull?(post) }
+    else
+      nil
+    end
+  end
+
+  def ==(post)
     text == post.text &&
     screen_name == post.screen_name &&
     time_of_post == post.time_of_post &&
@@ -21,10 +30,20 @@ class Post < ActiveRecord::Base
   end
 
   def self.tweets
-    Post.where(source: "twitter")
+    where(source: "twitter")
   end
 
   def self.grams
-    Post.where(source: "instagram")
+    where(source: "instagram")
+  end
+
+  def self.sort_by_time_of_post
+    order(time_of_post: :desc)
+  end
+
+private
+
+  def self.is_post_from_last_pull?(post)
+    post.created_at > APIService.instance.last_update
   end
 end
