@@ -5,13 +5,8 @@ describe FeedController do
     let(:list_of_posts_in_desc_order) { (Post.all).sort_by{|post| post.created_at}.reverse }
 
     context "with HTML request" do 
-      it 'should tell twitter service to get tweets from twitter to update db' do
-        expect(TweetService.instance).to receive(:get_tweets_by_hashtag).with(ENV["HASHTAG"])
-        get :index, :format => :html
-      end
-
-      it 'should tell instagram service to get grams from instagram to update db' do
-        expect(InstagramService.instance).to receive(:get_grams_by_hashtag).with(ENV["HASHTAG"])
+      it 'should tell API service to get latest posts and update db' do
+        expect(APIService.instance).to receive(:get_posts).with(ENV["HASHTAG"])
         get :index, :format => :html
       end
 
@@ -21,17 +16,35 @@ describe FeedController do
       end
     end
     context "with JSON request" do 
-      it "should not tell service to get tweets from twitter to update db" do
-        #this updating of db will be done by a scheduled chron job
-        #we are doing this so that multiple user json requests do not 
-        #make the service hit the Twitter API beyond the rate limit Twitter enforces
-        expect(TweetService).to_not receive(:get_tweets_by_hashtag)
+      it "should tell service to get posts for social media feeds and update db" do
+        expect(APIService.instance).to receive(:get_posts)
         get :index, :format => :json
       end
 
-      it "should return all posts in the db" do
+      it "should return new posts from the db" do
+        last_pull_stub = Time.now
+        time_of_post = Time.now - 5
+
+        old_post = Post.create!(screen_name: "cassius_clay",
+                    profile_image_url: "stuff.com",
+                    created_at: (last_pull_stub - 30),
+                    time_of_post: (time_of_post),
+                    source: "twitter",
+                    text: "the old post")
+
+        new_post = Post.create!(screen_name: "cassius_clay",
+                    profile_image_url: "stuff.com",
+                    created_at: (last_pull_stub + 30),
+                    time_of_post: (time_of_post + 2),
+                    source: "twitter",
+                    text: "the new post")
+
+        allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub, last_pull_stub + 25)
+        allow(APIService.instance).to receive(:get_posts).with(ENV["HASHTAG"]) {nil}
+
         get :index, :format => :json
-        expect(assigns(:posts)).to eq(list_of_posts_in_desc_order)
+        expect(assigns(:posts)).to_not eq([old_post, new_post])
+        expect(assigns(:posts)).to eq([new_post])
       end
     end
   end

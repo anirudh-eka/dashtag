@@ -12,18 +12,15 @@ class TweetFactory
       media_url = (media ? media[0]["media_url_https"] : nil)
 
       unless text.match(/.*(#{ENV["CENSORED_WORDS"]}).*/i)         
-        begin
-          Post.create!(
+
+          Post.create(
             source: "twitter",
             text: text,
             screen_name: screen_name,
-            created_at: created_at,
+            time_of_post: created_at,
             profile_image_url: profile_image_url,
             media_url: media_url
           )
-        rescue
-
-        end
       end
     end
   end
