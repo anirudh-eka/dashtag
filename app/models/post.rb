@@ -17,8 +17,7 @@ class Post < ActiveRecord::Base
     screen_name == post.screen_name &&
     time_of_post == post.time_of_post &&
     media_url == post.media_url &&
-    source == post.source &&
-    created_at == post.created_at
+    source == post.source
   end
 
   def self.tweets

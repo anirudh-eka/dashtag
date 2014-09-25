@@ -21,7 +21,7 @@ describe FeedController do
         get :index, :format => :json
       end
 
-      it "should return new posts from the db" do
+      it "should return new posts from the db", dont_run_in_snap: true do
         last_pull_stub = Time.now
         time_of_post = Time.now - 5
 
