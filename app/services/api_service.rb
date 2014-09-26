@@ -11,6 +11,14 @@ class APIService
   end
 
   def get_posts(hashtag)
+    begin
+      pull_posts!(hashtag)  
+    rescue
+      nil
+    end
+  end
+
+  def pull_posts!(hashtag)
     rate_to_hit_api = ENV["API_Rate"] ? ENV["API_Rate"].to_f : 15
 
     if (Time.now - last_update > rate_to_hit_api)
@@ -18,6 +26,8 @@ class APIService
 
       pull_instagram_posts_and_parse(hashtag)
       pull_twitter_posts_and_parse(hashtag)
+    else
+      raise "Time since last pull is less than api rate limit"
     end
   end
 
