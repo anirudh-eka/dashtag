@@ -18,11 +18,12 @@
 //= require_tree .
 
 $(document).on("ready", function(){
-  var postsList = $('#posts-list');
+  var postsList = document.querySelector('#posts-list');
   // layout Masonry again after all images have loaded
-    postsList.imagesLoaded(function () {
-      postsList.masonry();
-  });
+      var msnry = new Masonry(postsList);
+      imagesLoaded( postsList, function() {
+          msnry.layout();
+      });
 
   setUpScroll();
 
@@ -33,20 +34,11 @@ $(document).on("ready", function(){
       contentType: "application/json; charset=utf-8",
       ifModified: true,
       dataType: "json",
-      success: function(data, status){
+      success: function(response, status){
         if(status != "notmodified") {
-          for (var postNumber = 0; postNumber < data.length; postNumber++){
-            var postColor = (postNumber % 4) + 1;
-            var obj = data[postNumber];
-            var lastPost = render(obj);
-            lastPost.addClass("background-color-"+postColor);
-            lastPost.addClass("item");
-            $(postsList).prepend(lastPost);
-            $(postsList).masonry('reloadItems');
-            postsList.imagesLoaded(function () {
-                postsList.masonry();
-            })
-          }
+          var newPosts = create_post_content(response);
+          $('#posts-list').prepend(newPosts);
+          layOutMasonry();
         }
       }
     });
@@ -60,24 +52,4 @@ var setUpScroll = function () {$('#up').on('click', function(e){
         scrollTop: target.offset().top
     }, 750);
 })};
-
-function render(tweet) {
-
-  var tweetContainer = $("<div class='tweet-container'></div>")
-
-  tweetContainer.append("<section class='tweet-text'></section>");
-  tweetContainer.find(".tweet-text").text(unescapeHtml(tweet.text));
-
-  tweetContainer.append("<section class='tweet-username'></section>");
-  tweetContainer.find(".tweet-username").html("<img src='" + tweet.profile_image_url + "' class='avatar' /> @" + tweet.screen_name);  
-
-  tweetContainer.append("<section class='tweet-picture'></section>");
-  if (tweet.media_url){
-    tweetContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
-  }
-
-  tweetContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.formatted_time_of_post+"</section>");
-  return tweetContainer;
-}
-
 
