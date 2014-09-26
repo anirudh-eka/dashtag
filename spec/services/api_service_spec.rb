@@ -29,7 +29,7 @@ describe APIService do
   describe "quiet pull" do
     it 'calls loud pull' do 
       expect(APIService.instance).to receive(:pull_posts!).with("#{ENV["HASHTAG"]}").and_return(nil)
-      APIService.instance.get_posts("#{ENV["HASHTAG"]}")
+      APIService.instance.pull_posts("#{ENV["HASHTAG"]}")
     end
 
     context 'when time since last pull is less than api rate limit' do
@@ -39,7 +39,7 @@ describe APIService do
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
       it "should return nil" do
-        expect(APIService.instance.get_posts("#{ENV["HASHTAG"]}")).to be_nil
+        expect(APIService.instance.pull_posts("#{ENV["HASHTAG"]}")).to be_nil
       end
     end
   end
