@@ -6,7 +6,7 @@ describe FeedController do
 
     context "with HTML request" do 
       it 'should tell API service to get latest posts and update db' do
-        expect(APIService.instance).to receive(:get_posts).with(ENV["HASHTAG"])
+        expect(APIService.instance).to receive(:pull_posts).with(ENV["HASHTAG"])
         get :index, :format => :html
       end
 
@@ -18,7 +18,7 @@ describe FeedController do
           first_post = Post.create!(screen_name: "cassius_clay", created_at: past, text: "float like a butterfly", time_of_post: past, source: "twitter", profile_image_url: "stuff.com")
           third_post = Post.create!(screen_name: "cassius_clay", created_at: future, text: "float like a butterfly", time_of_post: future, source: "twitter", profile_image_url: "stuff.com")
 
-          expect(APIService.instance).to receive(:get_posts)
+          expect(APIService.instance).to receive(:pull_posts)
           get :index, :format => :html
           expect(assigns(:posts)).to eq([third_post, second_post, first_post])
         end
