@@ -13,8 +13,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.get_new_posts(hashtag)
-    APIService.instance.pull_new_posts(hashtag)
-    if APIService.instance.did_service_update?
+    if APIService.instance.get_posts(hashtag)
       sort_by_time_of_post.select { |post| is_post_from_last_pull?(post) }
     else
       nil

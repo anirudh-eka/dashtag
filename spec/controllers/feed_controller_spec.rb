@@ -20,31 +20,6 @@ describe FeedController do
         expect(Post).to receive(:get_new_posts)
         get :index, :format => :json
       end
-
-      xit "should return new posts from the db", dont_run_in_snap: true do
-        last_pull_stub = Time.now - 25
-        time_of_post = Time.now - 5
-
-        old_post = Post.create!(screen_name: "cassius_clay",
-                    profile_image_url: "stuff.com",
-                    created_at: (last_pull_stub - 30),
-                    time_of_post: (time_of_post),
-                    source: "twitter",
-                    text: "the old post")
-
-        new_post = Post.create!(screen_name: "cassius_clay",
-                    profile_image_url: "stuff.com",
-                    created_at: (last_pull_stub + 30),
-                    time_of_post: (time_of_post + 2),
-                    source: "twitter",
-                    text: "the new post")
-
-        allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
-
-        get :index, :format => :json
-        expect(assigns(:posts)).to_not eq([old_post, new_post])
-        expect(assigns(:posts)).to eq([new_post])
-      end
     end
   end
 end
