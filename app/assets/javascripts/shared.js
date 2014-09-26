@@ -1,3 +1,4 @@
+
 var renderPost = function (tweet, bgColor) {
   var postContainer = $(document.createElement("div")).addClass('tweet-container item')
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FeedController do
   describe 'GET #index' do
-    let(:list_of_posts_in_desc_order) { (Post.all).sort_by{|post| post.created_at}.reverse }
+    let(:list_of_posts_in_desc_order) { (Post.all).sort_by{|post| post.time_of_post}.reverse }
 
     context "with HTML request" do 
       it 'should tell API service to get latest posts and update db' do
@@ -17,12 +17,12 @@ describe FeedController do
     end
     context "with JSON request" do 
       it "should tell service to get posts for social media feeds and update db" do
-        expect(APIService.instance).to receive(:get_posts)
+        expect(Post).to receive(:get_new_posts)
         get :index, :format => :json
       end
 
-      it "should return new posts from the db", dont_run_in_snap: true do
-        last_pull_stub = Time.now
+      xit "should return new posts from the db", dont_run_in_snap: true do
+        last_pull_stub = Time.now - 25
         time_of_post = Time.now - 5
 
         old_post = Post.create!(screen_name: "cassius_clay",
@@ -39,8 +39,7 @@ describe FeedController do
                     source: "twitter",
                     text: "the new post")
 
-        allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub, last_pull_stub + 25)
-        allow(APIService.instance).to receive(:get_posts).with(ENV["HASHTAG"]) {nil}
+        allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
 
         get :index, :format => :json
         expect(assigns(:posts)).to_not eq([old_post, new_post])

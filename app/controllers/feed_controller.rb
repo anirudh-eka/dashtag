@@ -1,22 +1,20 @@
+require 'pry'
 class FeedController < ApplicationController
 
-	def index
+  @number_of_posts_in_page = 50
+  def index
     respond_to do |format|
-      format.html do 
+      format.html do
         update_tweets_and_grams_with_hashtag ENV["HASHTAG"]
 
-        @posts = Post.order(created_at: :desc).page(params[:page]).per(50)
+        @posts = Post.sort_by_time_of_post.page(params[:page]).per(50)
 
         render "index"
       end
 
       format.json do
-        old_last_update = APIService.instance.last_update
-        update_tweets_and_grams_with_hashtag ENV["HASHTAG"]
-        new_last_update = APIService.instance.last_update
-
-        if new_last_update > old_last_update
-          @posts = Post.order(time_of_post: :desc).select{|post| post.created_at > new_last_update}
+        @posts = Post.get_new_posts(ENV["HASHTAG"])
+        if @posts
           render json: @posts
         else
           render json: @posts, status: :not_modified
@@ -26,7 +24,9 @@ class FeedController < ApplicationController
   end
 
   def get_next_page
-    @posts = Post.order(created_at: :desc).page(params[:last_page_requested].to_i+1).per(50)
+    requested_page = params[:last_page_requested].to_i+1
+
+    @posts = sort_by_date.page(requested_page).per(@number_of_posts_in_page)
     render json: @posts
   end
 
