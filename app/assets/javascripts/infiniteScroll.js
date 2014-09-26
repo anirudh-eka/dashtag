@@ -15,7 +15,9 @@ $(window).scroll(function() {
       success: function(data, status){
         if(status != "notmodified") {
           set_page();
-          create_post_content(data);
+          var newPosts = create_post_content(data);
+          $('#posts-list').append(newPosts);
+          layOutMasonry();
         	}          
       	}
     	});
