@@ -3,8 +3,9 @@ module TwitterHelper
     link_hashtags link_usernames embed_tweet_videos restore_twitter_links(tweet_text, urls || [])
   end
 
+  # vimeo_embed_twitter vine_embed_twitter
   def embed_tweet_videos(tweet_text)
-    youtube_embed_twitter vimeo_embed_twitter vine_embed_twitter tweet_text
+    youtube_embed_twitter tweet_text
   end
 
   def link_usernames(tweet_text)
