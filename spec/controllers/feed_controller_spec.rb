@@ -10,9 +10,18 @@ describe FeedController do
         get :index, :format => :html
       end
 
-      it "should return all posts in db" do 
-        get :index, :format => :html
-        expect(assigns(:posts)).to eq(list_of_posts_in_desc_order)
+      context "returns all posts in db" do 
+        it "should call api service to pull most recent tweets and return posts in descending order" do
+          past, present, future = Time.now - 1, Time.now, Time.now + 1
+
+          second_post = Post.create!(screen_name: "cassius_clay", created_at: present, text: "float like a butterfly", time_of_post: present, source: "twitter", profile_image_url: "stuff.com")
+          first_post = Post.create!(screen_name: "cassius_clay", created_at: past, text: "float like a butterfly", time_of_post: past, source: "twitter", profile_image_url: "stuff.com")
+          third_post = Post.create!(screen_name: "cassius_clay", created_at: future, text: "float like a butterfly", time_of_post: future, source: "twitter", profile_image_url: "stuff.com")
+
+          expect(APIService.instance).to receive(:get_posts)
+          get :index, :format => :html
+          expect(assigns(:posts)).to eq([third_post, second_post, first_post])
+        end
       end
     end
     context "with JSON request" do 

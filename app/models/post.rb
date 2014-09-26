@@ -14,7 +14,7 @@ class Post < ActiveRecord::Base
 
   def self.get_new_posts(hashtag)
     if APIService.instance.get_posts(hashtag)
-      sort_by_time_of_post.select { |post| is_post_from_last_pull?(post) }
+      order(time_of_post: :desc).select { |post| is_post_from_last_pull?(post) }
     else
       nil
     end
@@ -41,8 +41,8 @@ class Post < ActiveRecord::Base
     where(source: "instagram")
   end
 
-  def self.sort_by_time_of_post
-    order(time_of_post: :desc)
+  def self.all_sorted_by_time_of_post(hashtag=false)
+    all(hashtag).order(time_of_post: :desc)
   end
 
 private
