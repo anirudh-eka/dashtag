@@ -41,7 +41,7 @@ describe Post do
 
   context "when getting all posts with a hashtag" do
     it 'should pull new posts from api' do
-      expect(APIService.instance).to receive(:get_posts)
+      expect(APIService.instance).to receive(:pull_posts)
       Post.all("#{ENV["HASHTAG"]}")
     end
   end

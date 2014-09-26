@@ -9,7 +9,7 @@ class APIService
     @last_update = Time.new(1720)
   end
 
-  def get_posts(hashtag)
+  def pull_posts(hashtag)
     begin
       pull_posts!(hashtag)  
     rescue

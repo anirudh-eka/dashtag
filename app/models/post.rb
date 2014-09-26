@@ -29,7 +29,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.all(hashtag=false)
-    APIService.instance.get_posts(hashtag) if hashtag
+    APIService.instance.pull_posts(hashtag) if hashtag
     super()
   end
 
