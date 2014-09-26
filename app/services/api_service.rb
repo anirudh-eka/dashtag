@@ -6,7 +6,6 @@ class APIService
   attr_reader :last_update
 
   def initialize
-    @penultimate_update = nil
     @last_update = Time.new(1720)
   end
 
@@ -29,15 +28,6 @@ class APIService
     else
       raise "Time since last pull is less than api rate limit"
     end
-  end
-
-  def pull_new_posts(hashtag)
-    @penultimate_update = last_update
-    get_posts(hashtag)
-  end
-
-  def did_service_update?
-    @last_update > @penultimate_update
   end
 
   private
