@@ -15,6 +15,14 @@ describe Post do
       text: "Hey there",
       media_url: "abc")
 
+        @gram_two = Post.create!(
+      source: "instagram",
+      screen_name: "ABCDEFG",
+      time_of_post: "Fri Sep 20 23:40:54 +0000 2012",
+      profile_image_url: "xyz",
+      text: "friendship",
+      media_url: "def")
+
     @tweet_one = Post.create!(
       source: "twitter",
       text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
@@ -22,13 +30,7 @@ describe Post do
       time_of_post: "Fri Sep 21 22:40:54 +0000 2012",
       profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg")
 
-    @gram_two = Post.create!(
-      source: "instagram",
-      screen_name: "ABCDEFG",
-      time_of_post: "Fri Sep 20 23:40:54 +0000 2012",
-      profile_image_url: "xyz",
-      text: "friendship",
-      media_url: "def")
+
   end
 
   it 'should return a formatted version of post created at' do
@@ -37,10 +39,18 @@ describe Post do
     expect(post.formatted_time_of_post).to eq(time_of_post.strftime("%a %b %d %l:%M %p"))
   end
 
-  it 'should list all posts in descending order' do
-    list_of_posts_in_desc_order = [@gram_one, @tweet_one, @gram_two]
-    
-    expect(Post.all).to eq(list_of_posts_in_desc_order)
+  context "when getting all posts with a hashtag" do
+    it 'should pull new posts from api' do
+      expect(APIService.instance).to receive(:get_posts)
+      Post.all("#{ENV["HASHTAG"]}")
+    end
+  end
+  
+  context "when getting all posts without a hashtag" do
+    it 'should not pull new posts from api' do
+      expect(APIService.instance).to_not receive(:get_posts)
+      Post.all
+    end
   end
 
   it 'should not equal another post when the attributes are different' do
