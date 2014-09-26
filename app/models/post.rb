@@ -1,3 +1,4 @@
+require'pry'
 class Post < ActiveRecord::Base
 	validates_presence_of :screen_name, :time_of_post,
 	 					:profile_image_url, :source
@@ -26,6 +27,12 @@ class Post < ActiveRecord::Base
     time_of_post == post.time_of_post &&
     media_url == post.media_url &&
     source == post.source
+  end
+
+  def self.all(hashtag=false)
+    # binding.pry
+    APIService.instance.get_posts(hashtag) if hashtag
+    super()
   end
 
   def self.tweets
