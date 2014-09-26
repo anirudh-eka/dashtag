@@ -24,7 +24,7 @@ class FeedController < ApplicationController
   def get_next_page
     requested_page = params[:last_page_requested].to_i+1
 
-    @posts = sort_by_date.page(requested_page).per(@number_of_posts_in_page)
+    @posts = Post.all_sorted_by_time_of_post(ENV["HASHTAG"]).page(requested_page).per(@number_of_posts_in_page)
     render json: @posts
   end
 
