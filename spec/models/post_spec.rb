@@ -73,7 +73,7 @@ describe Post do
       before(:each) do 
         allow(APIService.instance).to receive(:get_posts).and_return(true)
       end
-      it "should return only posts after last pull" do
+      it "should return only posts after last pull", dont_run_in_snap: true do
         last_pull_stub = Time.now
         time_of_post = Time.now - 5
 
