@@ -92,6 +92,7 @@ describe Post do
                     text: "the new post")
 
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
+        allow(APIService.instance).to receive(:pull_posts).and_return(true)
         result = Post.get_new_posts("#{ENV["HASHTAG"]}")
         expect(result).to_not eq([old_post, new_post])
         expect(result).to eq([new_post])
