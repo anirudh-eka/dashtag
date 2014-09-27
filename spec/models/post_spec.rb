@@ -100,7 +100,7 @@ describe Post do
     end
     context "when api does not pull new posts" do 
       before(:each) do 
-        allow(APIService.instance).to receive(:get_posts).and_return(nil)
+        allow(APIService.instance).to receive(:pull_posts).and_return(nil)
       end
       it "should return nil" do
         expect(Post.get_new_posts("#{ENV["HASHTAG"]}")).to be_nil
