@@ -11,7 +11,7 @@ describe FeedController do
       end
 
       context "returns all posts in db" do 
-        it "should call api service to pull most recent tweets and return posts in descending order" do
+        it "should call api service to pull most recent tweets and return posts in descending order", dont_run_in_snap: true do
           past, present, future = Time.now - 1, Time.now, Time.now + 1
 
           second_post = Post.create!(screen_name: "cassius_clay", created_at: present, text: "float like a butterfly", time_of_post: present, source: "twitter", profile_image_url: "stuff.com")
