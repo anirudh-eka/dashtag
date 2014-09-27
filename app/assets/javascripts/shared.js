@@ -1,3 +1,4 @@
+
 var renderPost = function (tweet, bgColor) {
   var postContainer = $(document.createElement("div")).addClass('tweet-container item')
 
@@ -11,6 +12,7 @@ var renderPost = function (tweet, bgColor) {
   if (tweet.media_url){
     postContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
   }
+
 
   postContainer.addClass("background-color-"+bgColor);
   postContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.formatted_time_of_post+"</section>");
@@ -45,4 +47,5 @@ var layOutMasonry = function () {
   imagesLoaded( masonryList, function() {
     msnry.layout();
   });
+
 }

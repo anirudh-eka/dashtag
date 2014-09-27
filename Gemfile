@@ -30,8 +30,13 @@ gem 'spring',        group: :development
 
 gem 'kaminari'
 gem 'font-awesome-rails'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
+  gem 'factory_girl_rails'
+end
+
 group :test do
-  gem 'rspec-rails', '~> 2.0' 
   gem 'shoulda-matchers'
   gem 'webmock'
   gem 'capybara'
@@ -47,6 +52,7 @@ group :production do
 end
 
 gem 'pry'
+gem 'pry-debugger'
 
 ruby "2.1.1"
 # gem 'whenever', :require => false
