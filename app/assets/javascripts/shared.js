@@ -3,7 +3,7 @@ var renderPost = function (tweet, bgColor) {
   var postContainer = $(document.createElement("div")).addClass('tweet-container item')
 
   postContainer.append("<section class='tweet-text'></section>");
-  postContainer.find(".tweet-text").text(unescapeHtml(tweet.text));
+  postContainer.find(".tweet-text").text((unescapeHtml(tweet.text)));
 
   postContainer.append("<section class='tweet-username'></section>");
   postContainer.find(".tweet-username").html("<img src='" + tweet.profile_image_url + "' class='avatar' /> @" + tweet.screen_name);  
@@ -13,14 +13,15 @@ var renderPost = function (tweet, bgColor) {
     postContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
   }
 
-
   postContainer.addClass("background-color-"+bgColor);
   postContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.formatted_time_of_post+"</section>");
   return postContainer;
 }
 
 function unescapeHtml(safe) {
-    return $('<div />').html(safe).text();
+    var text = $('<div />').html(safe).text();
+    text.replace(/'/g, "\\'");
+    return JSON.parse(JSON.stringify(text));
 }
 
 var create_post_content = function(response) {

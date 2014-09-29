@@ -20,7 +20,7 @@ module TwitterHelper
   def link_hashtags(tweet_text)
     extract_hashtags(tweet_text).each do |hashtag|
       tweet_text.gsub! hashtag,
-        link_to(hashtag, "//twitter.com/hashtag/#{hashtag[1..-1]}", target: '_blank')
+        link_to(hashtag, "http://twitter.com/hashtag/#{hashtag[1..-1]}", target: '_blank')
     end
 
     tweet_text.html_safe
