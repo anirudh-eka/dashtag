@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GramFactory do
+describe GramParser do
 
   let(:response) { SampleInstagramResponses.instagram_response }
   let (:test_grams) { [
@@ -39,7 +39,7 @@ describe GramFactory do
 
   it 'should make grams from instagram response' do
     
-    GramFactory.make_grams(response)
+    GramParser.make_grams(response)
 
     expect(Post.grams).to eq(test_grams)
     expect(Post.grams.reverse).to_not eq(test_grams)
@@ -47,8 +47,8 @@ describe GramFactory do
 
   it 'should not add grams with pics that are already in the db' do
 
-    GramFactory.make_grams(response)
-    GramFactory.make_grams(response)
+    GramParser.make_grams(response)
+    GramParser.make_grams(response)
 
     expect(Post.grams).to eq(test_grams)
     expect(Post.grams.reverse).to_not eq(test_grams)
@@ -57,14 +57,14 @@ describe GramFactory do
   it 'should put empty string as text when no caption exists' do
     no_caption = SampleInstagramResponses.instagram_response_with_no_caption
 
-    GramFactory.make_grams(no_caption)
+    GramParser.make_grams(no_caption)
 
     expect(Post.all.first.text).to eq (String.new)
   end
 
   it "should not add grams with censored words in the caption" do 
     response = SampleInstagramResponses.instagram_response_with_censored_words
-    GramFactory.make_grams(response)
+    GramParser.make_grams(response)
     expect(Post.grams).to be_empty
   end
 end
