@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TweetFactory do
+describe TweetParser do
 
   let(:response) { SampleTweetResponses.tweet_response }
   
@@ -25,11 +25,24 @@ describe TweetFactory do
     ]
     
 
-    factory_tweets = TweetFactory.make_tweets(response)
+    factory_tweets = TweetParser.make_tweets(response)
 
     expect(Post.tweets).to eq(test_tweets)
     expect(Post.tweets.reverse).to_not eq(test_tweets)
   end
+  it 'should parse tweet attributes from tweet response' do 
+    attributes = {  source: "twitter",
+        text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
+        screen_name: "bullcityrecords",
+        time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
+        profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
+        media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"}
+
+    result = TweetParser.parse(response)
+
+    expect(result).to include(attributes)
+  end
+
 
   it 'should not add tweets with text that is already in the db' do
       test_tweets = [
@@ -50,8 +63,8 @@ describe TweetFactory do
       )
     ]
 
-    TweetFactory.make_tweets(response)
-    TweetFactory.make_tweets(response)
+    TweetParser.make_tweets(response)
+    TweetParser.make_tweets(response)
     expect(Post.tweets).to eq(test_tweets)
     expect(Post.tweets.reverse).to_not eq(test_tweets)
   end
@@ -59,7 +72,7 @@ describe TweetFactory do
   it "should not add tweets with censored words" do 
     response = SampleTweetResponses.tweets_with_censored_words
 
-    TweetFactory.make_tweets(response)
+    TweetParser.make_tweets(response)
 
     expect(Post.tweets).to be_empty
   end
