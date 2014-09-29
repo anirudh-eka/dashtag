@@ -1,7 +1,8 @@
 Hashtag Displayer
 =================
+Check out the example of Hashtag Displayer [here on our staging site][http://hashtag-displayer-staging-1.herokuapp.com/]
 
-The hastag displayer is a light weight rails application that pulls tweets with a particular hashtag and displays them using [masonry](http://masonry.desandro.com/). The app is pretty much plug and play. The only changes you have to make is in the .env file.
+The hastag displayer is a light weight rails application that pulls tweets and instagrams with a particular hashtag and displays them using [masonry](http://masonry.desandro.com/). The app is pretty much plug and play. The only changes you have to make is in the .env file.
 
 The application uses [Twitter's REST API](https://dev.twitter.com/rest/reference/get/search/tweets) and [Instagram's REST API](http://instagram.com/developer/). Please note this is not an exhaustive list of all tweets/instagrams with a particular hashtag.
 
