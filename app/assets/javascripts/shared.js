@@ -25,7 +25,6 @@ function unescapeHtml(safe) {
 
 var create_post_content = function(response) {
   var bgColor = getColorNumber();
-  console.log(bgColor);
   newPosts = [];
   for (var i = 0; i < response.length; i++){
     var postContainer = renderPost(response[i], bgColor);
