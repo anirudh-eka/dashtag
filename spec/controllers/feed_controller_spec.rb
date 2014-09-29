@@ -14,9 +14,9 @@ describe FeedController do
         it "should call api service to pull most recent tweets and return posts in descending order", dont_run_in_snap: true do
           past, present, future = Time.now - 1, Time.now, Time.now + 1
 
-          second_post = Post.create!(screen_name: "cassius_clay", created_at: present, text: "float like a butterfly", time_of_post: present, source: "twitter", profile_image_url: "stuff.com")
-          first_post = Post.create!(screen_name: "cassius_clay", created_at: past, text: "float like a butterfly", time_of_post: past, source: "twitter", profile_image_url: "stuff.com")
-          third_post = Post.create!(screen_name: "cassius_clay", created_at: future, text: "float like a butterfly", time_of_post: future, source: "twitter", profile_image_url: "stuff.com")
+          second_post = FactoryGirl.create(:post, created_at: present, text: "float like a butterfly", time_of_post: present)
+          first_post = FactoryGirl.create(:post, created_at: past, text: "floated like a butterfly", time_of_post: past)
+          third_post = FactoryGirl.create(:post, created_at: future, text: "will float like a butterfly", time_of_post: future)
 
           expect(APIService.instance).to receive(:pull_posts)
           get :index, :format => :html
