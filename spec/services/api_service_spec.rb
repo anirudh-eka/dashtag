@@ -9,7 +9,7 @@ describe APIService do
     end
     it 'calls gram and tweet factories to make grams and tweets' do 
       expect(TweetFactory).to receive(:make_tweets).with(SampleTweetResponses.tweet_response)
-      expect(GramFactory).to receive(:make_grams).with(SampleInstagramResponses.instagram_response)
+      expect(GramParser).to receive(:make_grams).with(SampleInstagramResponses.instagram_response)
 
       APIService.instance.pull_posts!("#{ENV["HASHTAG"]}")
     end
