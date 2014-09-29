@@ -1,4 +1,4 @@
-class GramFactory
+class GramParser
 
   def self.make_grams(parsed_response)
     parsed_response["data"].each do |gram|
