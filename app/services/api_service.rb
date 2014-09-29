@@ -23,8 +23,12 @@ class APIService
     if (Time.now - last_update > rate_to_hit_api)
       @last_update = Time.now
 
-      pull_instagram_posts_and_parse(hashtag)
-      pull_twitter_posts_and_parse(hashtag)
+      parsed_response = []
+      parsed_response += pull_instagram_posts_and_parse(hashtag)
+      parsed_response += pull_twitter_posts_and_parse(hashtag)
+      parsed_response.each do |attributes|
+        Post.create(attributes)
+      end
     else
       raise "Time since last pull is less than api rate limit"
     end
@@ -36,14 +40,14 @@ class APIService
     instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
     response = HTTParty.get("https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{instagram_client_id}")
 
-    GramParser.make_grams(response.parsed_response)
+    GramParser.parse(response.parsed_response)
 	end
 
   def pull_twitter_posts_and_parse(hashtag)
     response = HTTParty.get("https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}",
     :headers => { "Authorization" => "Bearer #{twitter_bearer_token}",
       "User-Agent" => "#NAAwayDay Feed v1.0"})
-    TweetFactory.make_tweets(response.parsed_response)
+    TweetParser.parse(response.parsed_response)
   end
 
   def twitter_bearer_token
