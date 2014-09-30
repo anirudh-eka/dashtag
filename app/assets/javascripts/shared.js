@@ -2,6 +2,9 @@
 var renderPost = function (tweet, bgColor) {
   var postContainer = $(document.createElement("div")).addClass('tweet-container item')
 
+  postContainer.append("<section class='tweet-id'></section>");
+  postContainer.find(".tweet-id").text(unescapeHtml(tweet.id));
+
   postContainer.append("<section class='tweet-text'></section>");
   postContainer.find(".tweet-text").text(unescapeHtml(tweet.text));
 
