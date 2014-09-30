@@ -3,10 +3,10 @@ var renderPost = function (post, bgColor) {
   var postContainer = $(document.createElement("div")).addClass('post-container item')
 
   postContainer.append("<section class='post-id'></section>");
-  postContainer.find(".post-id").text(unescapeHtml(post.id));
+  postContainer.find(".post-id").html((post.id));
 
   postContainer.append("<section class='post-text'></section>");
-  postContainer.find(".post-text").text(unescapeHtml(post.text));
+  postContainer.find(".post-text").html((post.text));
 
   postContainer.append("<section class='post-username'></section>");
   postContainer.find(".post-username").html("<img src='" + post.profile_image_url + "' class='avatar' /> @" + post.screen_name);  
