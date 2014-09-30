@@ -24,5 +24,5 @@ $(window).scroll(function() {
 });
 
 function getLastPostId() {
-  return $("#posts-list").find(".tweet-id").last().text();
+  return $("#posts-list").find(".post-id").last().text();
 }
