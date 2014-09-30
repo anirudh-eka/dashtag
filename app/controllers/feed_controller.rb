@@ -8,7 +8,7 @@ class FeedController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @posts = []#Post.all_sorted_by_time_of_post(ENV["HASHTAG"]).page(params[:page]).per(50)
+        @posts = Post.all_sorted_by_time_of_post(ENV["HASHTAG"]).page(params[:page]).per(50)
 
         render "index"
       end
