@@ -5,13 +5,13 @@ describe 'home' do
   let(:profile_image) {"http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg"}
   let(:media_image) {"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"}
 
-  it 'should display single tweets details' do
+  it 'should display single tweets details', js: true do
     sleep ENV["API_Rate"].to_i + 0.5
     visit '/'
 
     page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
-    page.should have_content('Fri Sep 21 11:30 PM')
+    page.should have_content('Fri Sep 21 11:40:54 PM')
     page.should have_image(profile_image)
     page.should have_image(media_image)
   end
@@ -33,6 +33,7 @@ describe 'home' do
   end
 
   it 'should not have several swear words' do
+    Capybara.use_default_driver 
     sleep ENV["API_Rate"].to_i + 0.5
     stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{ENV["HASHTAG"]}").
       with(headers: {"Authorization"=>/Bearer .+/}).

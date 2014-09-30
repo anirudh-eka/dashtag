@@ -41,6 +41,7 @@ group :test do
   gem 'webmock'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 gem 'twitter'
