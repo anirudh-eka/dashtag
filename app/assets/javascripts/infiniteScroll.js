@@ -7,7 +7,7 @@ $(window).scroll(function() {
       type: "GET",
       url: "/get_next_page",
       data: { 
-        "last_page_requested": $('#last_page_requested').text()
+        "last_page_requested": $('#last_post_id').text()
             },
       contentType: "application/json; charset=utf-8",
       ifModified: true,
@@ -27,6 +27,7 @@ $(window).scroll(function() {
 
 function set_page() {
   $("#loading").empty();
-  var next = parseInt($('#last_page_requested').text()) + 1;
-  $('#last_page_requested').text(next);
+  var next = parseInt($('#last_post_id').text()) + 1;
+  console.log(next)
+  $('#last_post_id').text(next);
 }
