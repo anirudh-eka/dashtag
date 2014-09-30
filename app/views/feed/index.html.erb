@@ -13,7 +13,13 @@
         <%= post.id %>
       </section>
       <section class="post-text">
+
+        <%if post.source == 'twitter'%>
+            <%= add_tweet_links CGI.unescapeHTML(post[:text]), post[:urls] %>
+        <%else%>
         <%= CGI.unescapeHTML(post.text) %>
+        <%end%>
+
       </section>
       <section class="post-username">
         <img src=<%= post.profile_image_url %> class="avatar" /> @<%= post.screen_name %>
