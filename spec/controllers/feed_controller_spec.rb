@@ -32,8 +32,8 @@ describe FeedController do
     end
   end
 
-  describe 'GET #get_next_page', dont_run_in_snap: true do
-    it 'should return a list of older posts' do 
+  describe 'GET #get_next_page' do
+    it 'should return a list of older posts', dont_run_in_snap: true  do 
       first_post.id, second_post.id = first_post.id, second_post.id
       get :get_next_page, last_post_id: third_post.id, :format => :json
       expect(assigns(:posts)).to eq([second_post, first_post])
