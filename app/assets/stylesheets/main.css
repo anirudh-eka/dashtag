@@ -47,7 +47,7 @@ a#hashtag-anchor {
     transition: all .2s ease-in-out;
 }
 
-.post-container {
+.tweet-container {
   margin: 5px 5px;
   width: 30%;
   text-align: center;
@@ -61,20 +61,20 @@ a#hashtag-anchor {
 
 }
 
-.post-picture img {
+.tweet-picture img {
   width: 80%;
 }
 
-.post-container section {
+.tweet-container section {
     margin: 20px 0 0 0;
 }
 
-.post-text {
+.tweet-text {
   font-style: italic;
   font-size: 2em;
 }
 
-.post-username {
+.tweet-username {
   font-weight: bold;
 }
 
@@ -87,12 +87,12 @@ a#hashtag-anchor {
  -moz-border-radius: 25px;
  }
 
-.post-created-at {
+.tweet-created-at {
   text-align: right;
   font-size: .9em;
 }
 
-.post-created-at i {
+.tweet-created-at i {
   margin-right: 5px;
 }
 
@@ -152,7 +152,7 @@ a#hashtag-anchor {
     body {
         margin-top: 85px;
     }
-    .post-container
+    .tweet-container
     {
         width: 45.876%;
         margin: 5px;
@@ -180,7 +180,7 @@ a#hashtag-anchor {
         margin-bottom: -1.875em;
     }
 
-    .post-container {
+    .tweet-container {
         text-align: center;
         width: 30%;
         float: left;
