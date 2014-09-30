@@ -42,6 +42,8 @@ describe FeedController do
         allow(Post).to receive(:get_new_posts) { [post] }
         allow(APIService.instance).to receive(:pull_posts)
         get :index, :format => :json
+
+        expect(assigns(:posts).first.text).to eq('float like a butterfly <a href="http://twitter.com/hashtag/word" target="_blank">#word</a>')
       end
     end
   end
