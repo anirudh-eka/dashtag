@@ -31,4 +31,21 @@ describe FeedController do
       end
     end
   end
+
+  describe 'GET #get_next_page', dont_run_in_snap: true do
+    it 'should return a list of older posts' do 
+      first_post.id, second_post.id = first_post.id, second_post.id
+      get :get_next_page, last_post_id: third_post.id, :format => :json
+      expect(assigns(:posts)).to eq([second_post, first_post])
+    end
+
+    it 'should return a maximum of 50 posts' do 
+      (0..90).each do |i|
+        FactoryGirl.create(:post, time_of_post: Time.now - i)
+      end
+
+      get :get_next_page, last_post_id: third_post.id, :format => :json
+      expect(assigns(:posts).count).to eq(50)
+    end
+  end
 end
