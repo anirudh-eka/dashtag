@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe FeedController do
+  let(:second_post) { FactoryGirl.create(:post, created_at: Time.now, text: "float like a butterfly", time_of_post: Time.now) }
+  let(:first_post) { FactoryGirl.create(:post, created_at: Time.now - 1, text: "floated like a butterfly", time_of_post: Time.now - 1) }
+  let(:third_post) { FactoryGirl.create(:post, created_at: Time.now + 1, text: "will float like a butterfly", time_of_post: Time.now + 1) }
+
   describe 'GET #index' do
-    let(:list_of_posts_in_desc_order) { (Post.all).sort_by{|post| post.time_of_post}.reverse }
 
     context "with HTML request" do 
       it 'should tell API service to get latest posts and update db' do
@@ -12,15 +15,19 @@ describe FeedController do
 
       context "returns all posts in db" do 
         it "should call api service to pull most recent tweets and return posts in descending order", dont_run_in_snap: true do
-          past, present, future = Time.now - 1, Time.now, Time.now + 1
 
-          second_post = FactoryGirl.create(:post, created_at: present, text: "float like a butterfly", time_of_post: present)
-          first_post = FactoryGirl.create(:post, created_at: past, text: "floated like a butterfly", time_of_post: past)
-          third_post = FactoryGirl.create(:post, created_at: future, text: "will float like a butterfly", time_of_post: future)
+          expect(APIService.instance).to receive(:pull_posts) 
 
-          expect(APIService.instance).to receive(:pull_posts)
           get :index, :format => :html
           expect(assigns(:posts)).to eq([third_post, second_post, first_post])
+        end
+
+        it "should limit number of posts to 50" do 
+          (0..90).each do |i|
+            FactoryGirl.create(:post, time_of_post: Time.now - i)
+          end
+          get :index, :format => :html
+          expect(assigns(:posts).count).to eq(50)
         end
       end
     end
