@@ -41,15 +41,9 @@ class Post < ActiveRecord::Base
     where(source: "instagram")
   end
 
-  def self.newest_fifty_posts(hashtag=false)
-    all(hashtag).order(time_of_post: :desc).limit(50)
+  def self.all_sorted_by_time_of_post(hashtag=false)
+    all(hashtag).order(time_of_post: :desc)
   end
-
-  def self.next_fifty_posts(last_post_id)
-    last_post = find(last_post_id)
-    where("time_of_post < ?", last_post.time_of_post).order(time_of_post: :desc).limit(50)
-  end
-
 
 private
 
