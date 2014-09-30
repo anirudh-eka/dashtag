@@ -5,10 +5,13 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'webmock/rspec'
+require 'database_cleaner'
 
 # require File.expand_path('../config/application', __FILE__)
 
 WebMock.disable_net_connect!(allow_localhost: true)  # WebMock.disable_net_connect!({:allow_localhost => true}) 
+
+Capybara.javascript_driver = :selenium 
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -33,7 +36,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -51,6 +54,19 @@ RSpec.configure do |config|
     ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
     ENV["HASHTAG"] = "fda"
+  end
+
+  config.before :each do
+    if Capybara.current_driver == :rack_test
+      DatabaseCleaner.strategy = :transaction
+    else
+      DatabaseCleaner.strategy = :truncation
+    end
+    DatabaseCleaner.start
+  end
+
+  config.after do
+    DatabaseCleaner.clean
   end
 
   config.before(:each) do 

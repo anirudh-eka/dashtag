@@ -20,7 +20,6 @@ var renderPost = function (post, bgColor) {
 
   postContainer.addClass("background-color-"+bgColor);
   postContainer.append("<section class='post-created-at'><i class='fa fa-2x fa-"+post.source+"'></i>" + formattedDate  +"</section>");
-  postContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+ +"</section>");
   return postContainer;
 }
 
