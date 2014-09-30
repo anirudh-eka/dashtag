@@ -10,6 +10,9 @@
 
   <% i += 1%>
     <div class="tweet-container background-color-<%=i%>">
+      <section class="tweet-id">
+        <%= post.id %>
+      </section>
       <section class="tweet-text">
         <%= CGI.unescapeHTML(post.text) %>
       </section>
