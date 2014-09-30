@@ -23,10 +23,6 @@ var renderPost = function (post, bgColor) {
   return postContainer;
 }
 
-function unescapeHtml(safe) {
-    return $('<div />').html(safe).text();
-}
-
 var create_post_content = function(response) {
   var bgColor = getColorNumber();
   newPosts = [];
@@ -50,5 +46,4 @@ var layOutMasonry = function () {
   imagesLoaded( masonryList, function() {
     msnry.layout();
   });
-
 }
