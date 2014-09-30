@@ -29,6 +29,14 @@ describe FeedController do
         expect(Post).to receive(:get_new_posts)
         get :index, :format => :json
       end
+      it "should render hashtag links for new twitter posts" do
+        future = Time.now + 1
+
+        FactoryGirl.create(:post, created_at: future, text: "float like a butterfly #word", time_of_post: future, source: 'twitter')
+        get :index, :format => :json
+
+        expect(assigns(:posts).first.text).to eq('float like a butterfly <a href="http://twitter.com/hashtag/word" target="_blank">#word</a>')
+      end
     end
   end
 end
