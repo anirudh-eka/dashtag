@@ -33,12 +33,6 @@ describe Post do
 
   end
 
-  it 'should return a formatted version of post created at' do
-    time_of_post = DateTime.now.utc
-    post = Post.new(time_of_post: time_of_post)
-    expect(post.formatted_time_of_post).to eq(time_of_post.strftime("%a %b %d %l:%M %p"))
-  end
-
   context "when getting all posts with a hashtag" do
     it 'should pull new posts from api' do
       expect(APIService.instance).to receive(:pull_posts)

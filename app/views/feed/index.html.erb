@@ -7,7 +7,6 @@
 <% i = 0%>
   <% @posts.each do |post| %>
 
-
   <% i += 1%>
     <div class="post-container background-color-<%=i%>">
       <section class="post-id">
@@ -25,7 +24,7 @@
         <% end %>
       </section>
       <section class="post-created-at"><i class="fa fa-2x fa-<%=post.source%>"></i>
-        <%= post.time_of_post.strftime("%a %b %d %l:%M %p") %>
+        <%= raw post.time_of_post %>
       </section>
     </div>
   <% i = 0 if i == 4 %>

@@ -5,11 +5,7 @@ class Post < ActiveRecord::Base
 	validates_uniqueness_of :screen_name, scope: :time_of_post
 
   def as_json(options={})
-    super.as_json().merge({formatted_time_of_post: formatted_time_of_post})
-  end
-
-  def formatted_time_of_post
-    time_of_post.strftime("%a %b %d %l:%M %p")
+    super.as_json().merge({formatted_time_of_post: time_of_post})
   end
 
   def self.get_new_posts(hashtag)

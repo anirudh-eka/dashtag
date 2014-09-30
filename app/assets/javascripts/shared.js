@@ -16,9 +16,11 @@ var renderPost = function (post, bgColor) {
     postContainer.find(".post-picture").html("<img src='" + post.media_url + "' />");  
   }
 
+  var formattedDate = formatDateToLocalTimezone(new Date(post.formatted_time_of_post));
 
   postContainer.addClass("background-color-"+bgColor);
-  postContainer.append("<section class='post-created-at'><i class='fa fa-2x fa-"+post.source+"'></i>"+post.formatted_time_of_post+"</section>");
+  postContainer.append("<section class='post-created-at'><i class='fa fa-2x fa-"+post.source+"'></i>" + formattedDate  +"</section>");
+  postContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+ +"</section>");
   return postContainer;
 }
 
