@@ -3,9 +3,8 @@ module TwitterHelper
     link_hashtags link_usernames embed_tweet_videos restore_twitter_links(tweet_text, urls || [])
   end
 
-  # vimeo_embed_twitter vine_embed_twitter
   def embed_tweet_videos(tweet_text)
-    youtube_embed_twitter tweet_text
+    youtube_embed_twitter vimeo_embed_twitter vine_embed_twitter tweet_text
   end
 
   def link_usernames(tweet_text)
@@ -20,7 +19,7 @@ module TwitterHelper
   def link_hashtags(tweet_text)
     extract_hashtags(tweet_text).each do |hashtag|
       tweet_text.gsub! hashtag,
-        link_to(hashtag, "http://twitter.com/hashtag/#{hashtag[1..-1]}", target: '_blank')
+        link_to(hashtag, "//twitter.com/hashtag/#{hashtag[1..-1]}", target: '_blank')
     end
 
     tweet_text.html_safe
