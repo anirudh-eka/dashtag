@@ -1,24 +1,21 @@
 
-var renderPost = function (post, bgColor) {
-  var postContainer = $(document.createElement("div")).addClass('post-container item')
+var renderPost = function (tweet, bgColor) {
+  var postContainer = $(document.createElement("div")).addClass('tweet-container item')
 
-  postContainer.append("<section class='post-id'></section>");
-  postContainer.find(".post-id").text(unescapeHtml(post.id));
+  postContainer.append("<section class='tweet-text'></section>");
+  postContainer.find(".tweet-text").text(unescapeHtml(tweet.text));
 
-  postContainer.append("<section class='post-text'></section>");
-  postContainer.find(".post-text").text(unescapeHtml(post.text));
+  postContainer.append("<section class='tweet-username'></section>");
+  postContainer.find(".tweet-username").html("<img src='" + tweet.profile_image_url + "' class='avatar' /> @" + tweet.screen_name);  
 
-  postContainer.append("<section class='post-username'></section>");
-  postContainer.find(".post-username").html("<img src='" + post.profile_image_url + "' class='avatar' /> @" + post.screen_name);  
-
-  postContainer.append("<section class='post-picture'></section>");
-  if (post.media_url){
-    postContainer.find(".post-picture").html("<img src='" + post.media_url + "' />");  
+  postContainer.append("<section class='tweet-picture'></section>");
+  if (tweet.media_url){
+    postContainer.find(".tweet-picture").html("<img src='" + tweet.media_url + "' />");  
   }
 
 
   postContainer.addClass("background-color-"+bgColor);
-  postContainer.append("<section class='post-created-at'><i class='fa fa-2x fa-"+post.source+"'></i>"+post.formatted_time_of_post+"</section>");
+  postContainer.append("<section class='tweet-created-at'><i class='fa fa-2x fa-"+tweet.source+"'></i>"+tweet.formatted_time_of_post+"</section>");
   return postContainer;
 }
 
