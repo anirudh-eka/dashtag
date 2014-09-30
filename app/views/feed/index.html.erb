@@ -7,11 +7,17 @@
 <% i = 0%>
   <% @posts.each do |post| %>
 
-
   <% i += 1%>
+
     <div class="tweet-container background-color-<%=i%>">
       <section class="tweet-text">
+
+        <%if post.source == 'twitter'%>
+            <%= add_tweet_links CGI.unescapeHTML(post[:text]), post[:urls] %>
+        <%else%>
         <%= CGI.unescapeHTML(post.text) %>
+        <%end%>
+
       </section>
       <section class="tweet-username">
         <img src=<%= post.profile_image_url %> class="avatar" /> @<%= post.screen_name %>
@@ -22,7 +28,7 @@
         <% end %>
       </section>
       <section class="tweet-created-at"><i class="fa fa-2x fa-<%=post.source%>"></i>
-        <%= post.time_of_post.strftime("%a %b %d %l:%M %p") %>
+        <%= post.formatted_time_of_post %>
       </section>
     </div>
   <% i = 0 if i == 4 %>
