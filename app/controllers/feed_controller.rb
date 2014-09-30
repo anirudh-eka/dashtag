@@ -27,10 +27,4 @@ class FeedController < ApplicationController
     @posts = Post.all_sorted_by_time_of_post(ENV["HASHTAG"]).page(requested_page).per(@number_of_posts_in_page)
     render json: @posts
   end
-
-  private
-  
-  def update_tweets_and_grams_with_hashtag(hashtag)
-    APIService.instance.get_posts(hashtag)
-  end
 end
