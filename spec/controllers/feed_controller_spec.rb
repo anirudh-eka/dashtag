@@ -36,14 +36,7 @@ describe FeedController do
         expect(Post).to receive(:get_new_posts)
         get :index, :format => :json
       end
-      it "should render hashtag links for new twitter posts" do
-        future = Time.now + 1
-        post = FactoryGirl.create(:post, created_at: future, text: "float like a butterfly #word", time_of_post: future, source: 'twitter')
-        allow(Post).to receive(:get_new_posts) { [post] }
-        allow(APIService.instance).to receive(:pull_posts)
-
-        get :index, :format => :json
-      end
+    end
   end
 
   describe 'GET #get_next_page' do
