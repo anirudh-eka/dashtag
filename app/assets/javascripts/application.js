@@ -25,6 +25,8 @@ $(document).on("ready", function(){
           msnry.layout();
       });
 
+  replaceInitiallyLoadedTimestamps();
+
   setUpScroll();
 
   window.setInterval(function(){
@@ -44,6 +46,20 @@ $(document).on("ready", function(){
     });
   }, 5000);
 });
+
+var formatDateToLocalTimezone = function(timestamp) {
+    var date = timestamp.toString().substring(0, 11);
+    return date.concat(timestamp.toLocaleTimeString());
+}
+
+var replaceInitiallyLoadedTimestamps = function() {
+  var timestamps = $(".tweet-created-at");
+
+  for(var i=0; i< timestamps.length-1 ; i++) {
+    var timestamp = new Date($(timestamps[i]).text().trim());
+    $(timestamps[i]).text(formatDateToLocalTimezone(timestamp));
+  }
+}
 
 var setUpScroll = function () {$('#up').on('click', function(e){
     e.preventDefault();
