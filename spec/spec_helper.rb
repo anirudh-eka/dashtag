@@ -6,7 +6,6 @@ require 'rspec/autorun'
 require 'capybara/rspec'
 require 'webmock/rspec'
 require 'database_cleaner'
-require 'pry'
 
 # require File.expand_path('../config/application', __FILE__)
 
