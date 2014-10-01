@@ -5,12 +5,10 @@ var formatDateToLocalTimezone = function(timestampDate) {
 
 var replaceInitiallyLoadedTimestamps = function() {
   var timestamps = $(".time-of-post");
-  console.log(timestamps)
+  
   for(var i=0; i < timestamps.length ; i++) {
     var timestampString = $(timestamps[i]).text().trim();
     var timestampDate = parseDateFromUTC(timestampString);
-    console.log(i)
-    console.log(timestampDate)
     $(timestamps[i]).text(formatDateToLocalTimezone(timestampDate));
   }
 }
