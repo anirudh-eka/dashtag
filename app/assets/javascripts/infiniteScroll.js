@@ -12,6 +12,9 @@ $(window).scroll(function() {
       ifModified: true,
       dataType: "json",
       success: function(data, status){
+        if(data == null){
+          $("#loading").empty();
+        }
         if(status != "notmodified") {
           $("#loading").empty();
           var newPosts = create_post_content(data);

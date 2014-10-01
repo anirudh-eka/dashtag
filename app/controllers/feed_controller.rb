@@ -30,7 +30,7 @@ class FeedController < ApplicationController
 
   def get_next_page
     @posts = Post.next_fifty_posts(params[:last_post_id])
-    render json: @posts
+    @posts.empty? ? (render json: @posts, status: :not_modified) : (render json: @posts)
   end
 end
 
