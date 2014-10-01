@@ -29,8 +29,9 @@
           <img src=<%= post.media_url %> />
         <% end %>
       </section>
-      <section class="post-created-at"><i class="fa fa-2x fa-<%=post.source%>"></i>
-        <%= raw post.time_of_post %>
+      <section class="post-created-at">
+        <i class="fa fa-2x fa-<%=post.source%>"></i>
+        <span class="time-of-post"> <%= raw post.time_of_post %> </span>
       </section>
     </div>
   <% i = 0 if i == 4 %>
