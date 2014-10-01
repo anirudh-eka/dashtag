@@ -56,12 +56,16 @@ describe FeedController do
     end
 
     it 'should return a maximum of 50 posts' do
-      (0..90).each do |i|
-        FactoryGirl.create(:post, time_of_post: Time.now - i)
-      end
-
+      (0..90).each { |i| FactoryGirl.create(:post, time_of_post: Time.now - i)}
       get :get_next_page, last_post_id: third_post.id, :format => :json
       expect(assigns(:posts).count).to eq(50)
+    end
+
+    it 'should return status not_modified if there are no more posts left' do
+      (0..60).each { |i| FactoryGirl.create(:post, time_of_post: Time.now - i)} 
+      get :get_next_page, last_post_id: Post.last.id, :format => :json
+      
+      expect(response.status).to eq(304)
     end
   end
 end
