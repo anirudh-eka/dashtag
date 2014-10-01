@@ -19,9 +19,7 @@ var renderPost = function (post, bgColor) {
   var formattedDate = formatDateToLocalTimezone(new Date(post.formatted_time_of_post));
 
   postContainer.addClass("background-color-"+bgColor);
-  postContainer.append("<section class='post-created-at'>
-    <i class='fa fa-2x fa-"+post.source+"'></i>
-    <span class='time-of-post'>"+formattedDate+"</span></section>");
+  postContainer.append("<section class='post-created-at'><i class='fa fa-2x fa-"+post.source+"'></i>" + formattedDate  +"</section>");
   return postContainer;
 }
 
