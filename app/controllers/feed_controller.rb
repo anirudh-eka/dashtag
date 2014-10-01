@@ -4,7 +4,6 @@ class FeedController < ApplicationController
   include YoutubeVideoHelper
   include ActionView::Helpers::UrlHelper
 
-  @number_of_posts_in_page = 50
   def index
     respond_to do |format|
       format.html do
