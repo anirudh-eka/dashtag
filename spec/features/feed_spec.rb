@@ -10,6 +10,7 @@ describe 'home' do
   it 'should display single tweets details', js: true do
     sleep ENV["API_Rate"].to_i + 0.5
     visit '/'
+
     page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
     page.should have_content('@bullcityrecords')
     page.should have_content('Fri Sep 21 11:40:54 PM')
