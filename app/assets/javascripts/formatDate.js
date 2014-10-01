@@ -4,7 +4,7 @@ var formatDateToLocalTimezone = function(timestampDate) {
 }
 
 var replaceInitiallyLoadedTimestamps = function() {
-  var timestamps = $(".post-created-at");
+  var timestamps = $(".time-of-post");
 
   for(var i=0; i< timestamps.length-1 ; i++) {
     var timestampString = $(timestamps[i]).text().trim();
