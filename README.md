@@ -17,6 +17,7 @@ Environment Variables
 Currently the application expects the following variables in the environment:
 -	HASHTAG
 -	CENSORED_WORDS
+-	CENSORED_USERS
 -	TWITTER_BEARER_CREDENTIALS
 - 	INSTAGRAM_CLIENT_ID
 
@@ -35,9 +36,14 @@ To prevent from storing posts from certain users set the environment variable `C
 
 	CENSORED_USERS=badGuy
 
-If you want censor multiple users, simply delimit them with "|", like so
+If you want to censor multiple users, simply delimit them with "|", like so
 
 	CENSORED_USERS=badGuy|UglyDog
+
+If you don't want to censor users or words, simply don't put a value after the equal for `CENSORED_USERS` or `CENSORED_WORDS`, like so:
+	
+	CENSORED_USERS=
+	CENSORED_WORDS=
 
 `Twitter Bearer Credentials` should be set to the Twitter Key followed by a colon and the Twitter secret, like so:
 
@@ -87,4 +93,4 @@ The testing framework used is Rspec and Capybara. To run them:
 
 What's in the future?
 ---------------------
-We're working on supporting multiple hashtags
+We're working on supporting facebook and videos
