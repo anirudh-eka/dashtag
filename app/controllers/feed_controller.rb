@@ -26,6 +26,9 @@ class FeedController < ApplicationController
 
   def get_next_page
     @posts = Post.next_posts(params[:last_post_id], 100)
+    @posts.each do |post|
+      post.text = add_post_links post
+    end
     @posts.empty? ? (render json: @posts, status: :not_modified) : (render json: @posts)
   end
 end
