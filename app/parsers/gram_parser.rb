@@ -8,7 +8,7 @@ class GramParser
       screen_name = gram["user"]["username"]
       
       
-      unless text_has_censored_words(text) || user_is_censored(screen_name)
+      unless ParserHelper.text_has_censored_words(text) || ParserHelper.user_is_censored(screen_name)
 
         unless gram["images"].nil?
           unless gram["images"]["standard_resolution"].nil?
@@ -30,15 +30,5 @@ class GramParser
       end
     end
     return parsed_response
-  end
-
-  private
-
-  def self.text_has_censored_words(text)
-    (text && text.match(/.*(#{ENV["CENSORED_WORDS"]}).*/i))
-  end
-
-  def self.user_is_censored(screen_name)
-    (screen_name && screen_name.match(/.*(#{ENV["CENSORED_USERS"]}).*/i))   
   end
 end
