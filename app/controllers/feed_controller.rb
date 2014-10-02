@@ -1,6 +1,6 @@
 class FeedController < ApplicationController
 
-  include TwitterHelper
+  include PostHelper
   include YoutubeVideoHelper
   include ActionView::Helpers::UrlHelper
 
@@ -15,10 +15,7 @@ class FeedController < ApplicationController
         @posts = Post.get_new_posts(ENV["HASHTAG"])
         if @posts
           @posts.each do |post|
-            post.text = CGI.unescapeHTML(post.text)
-            if post.source == 'twitter'
-             post.text = add_tweet_links post[:text], post[:urls]
-            end
+             post.text = add_post_links post
           end
           render json: @posts
         else
