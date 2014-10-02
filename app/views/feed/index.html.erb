@@ -14,11 +14,7 @@
       </section>
       <section class="post-text">
 
-        <%if post.source == 'twitter'%>
-            <%= add_tweet_links CGI.unescapeHTML(post[:text]), post[:urls] %>
-        <%else%>
-        <%= CGI.unescapeHTML(post.text) %>
-        <%end%>
+            <%= add_post_links post %>
 
       </section>
       <section class="post-username">
