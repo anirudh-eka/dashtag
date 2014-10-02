@@ -42,6 +42,7 @@ describe APIService do
     end
   end
 
+
   describe "quiet pull" do
     it 'calls loud pull' do 
       expect(APIService.instance).to receive(:pull_posts!).with("#{ENV["HASHTAG"]}").and_return(nil)

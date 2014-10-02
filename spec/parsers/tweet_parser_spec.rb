@@ -22,4 +22,10 @@ describe TweetParser do
     result = TweetParser.parse(response)
     expect(result).to be_empty
   end
+
+   it "should not parse tweets from censored users" do 
+    response = SampleTweetResponses.tweets_from_censored_users
+    result = TweetParser.parse(response)
+    expect(result).to be_empty
+  end
 end

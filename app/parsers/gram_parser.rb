@@ -5,9 +5,10 @@ class GramParser
     response["data"].each do |gram|
     
       text = (gram["caption"] && gram["caption"]["text"]) || String.new
+      screen_name = gram["user"]["username"]
       
       
-      unless text && text.match(/.*(#{ENV["CENSORED_WORDS"]}).*/i)   
+      unless ParserHelper.text_has_censored_words(text) || ParserHelper.user_is_censored(screen_name)
 
         unless gram["images"].nil?
           unless gram["images"]["standard_resolution"].nil?
@@ -15,7 +16,6 @@ class GramParser
           end
         end
         
-        screen_name = gram["user"]["username"]
         profile_image_url = gram["user"]["profile_picture"]
         created_at = DateTime.strptime(gram["created_time"], "%s")
 
