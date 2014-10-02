@@ -6,7 +6,7 @@ class FeedController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @posts = Post.newest_fifty_posts(ENV["HASHTAG"])
+        @posts = Post.sorted_posts(ENV["HASHTAG"], 100)
         render "index"
       end
 
@@ -25,7 +25,7 @@ class FeedController < ApplicationController
   end
 
   def get_next_page
-    @posts = Post.next_fifty_posts(params[:last_post_id])
+    @posts = Post.next_posts(params[:last_post_id], 100)
     @posts.empty? ? (render json: @posts, status: :not_modified) : (render json: @posts)
   end
 end
