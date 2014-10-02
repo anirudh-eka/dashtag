@@ -1,4 +1,4 @@
-class ParserHelper
+module ParserHelper
   def self.text_has_censored_words(text)
     (text && text.match(/.*(#{ENV["CENSORED_WORDS"]}).*/i))
   end
