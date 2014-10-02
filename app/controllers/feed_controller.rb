@@ -1,7 +1,6 @@
 class FeedController < ApplicationController
 
   include PostHelper
-  include YoutubeVideoHelper
   include ActionView::Helpers::UrlHelper
 
   def index
