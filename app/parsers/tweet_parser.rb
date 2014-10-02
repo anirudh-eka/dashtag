@@ -12,7 +12,7 @@ class TweetParser
       media = tweet["entities"]["media"]
       media_url = (media ? media[0]["media_url_https"] : nil)
 
-      unless text.match(/.*(#{ENV["CENSORED_WORDS"]}).*/i)         
+      unless text_has_censored_words(text) || user_is_censored(screen_name)
         parsed_response << { source: "twitter",
                             text: text,
                             screen_name: screen_name,
@@ -22,5 +22,15 @@ class TweetParser
       end
     end
     return parsed_response
+  end
+
+  private
+
+  def self.text_has_censored_words(text)
+    (text && text.match(/.*(#{ENV["CENSORED_WORDS"]}).*/i))
+  end
+
+  def self.user_is_censored(screen_name)
+    (screen_name && screen_name.match(/.*(#{ENV["CENSORED_USERS"]}).*/i))   
   end
 end
