@@ -25,7 +25,7 @@ module PostHelper
     return post if post.source != 'twitter'
 
     extract_hashtags(post.text).each do |hashtag|
-      post.text.gsub! hashtag,
+      post.text.gsub! /#{hashtag}\b/i,
         link_to(hashtag, "http://twitter.com/hashtag/#{hashtag[1..-1]}", target: '_blank')
     end
 

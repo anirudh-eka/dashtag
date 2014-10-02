@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe PostHelper do
-  let(:twitter_post) { FactoryGirl.create(:post, created_at: Time.now, text: '#helpus "@batman and @robin!" #gotham http://dccomics.com http://www.imdb.com/title/tt0118688/', time_of_post: Time.now, source: 'twitter') }
+  let(:twitter_post) { FactoryGirl.create(:post, created_at: Time.now, text: '#helpus "@batman and @robin!" #gothamcity #gotham http://dccomics.com http://www.imdb.com/title/tt0118688/', time_of_post: Time.now, source: 'twitter') }
   let(:instagram_post) { FactoryGirl.create(:post, created_at: Time.now, text: '@Julia and @Julian you both should support #JackieRobinsonWest http://jackierobinsonwest.org/', time_of_post: Time.now, source: 'instagram') }
 
   describe 'add_tweet_links' do
@@ -36,15 +36,10 @@ describe PostHelper do
   end
 
   describe 'link_hashtags_twitter' do
-    context 'Twitter posts' do
-      subject { helper.link_hashtags_twitter twitter_post }
-      its([:text]) { should include('//twitter.com/hashtag/helpus') }
-      its([:text]) { should include('//twitter.com/hashtag/gotham') }
-    end
-    context 'Instagram posts' do
-      subject { helper.link_hashtags_twitter instagram_post }
-      its([:text]) { should_not include('//twitter.com/hashtag/JackieRobinsonWest') }
-    end
+    subject { helper.link_hashtags_twitter twitter_post }
+    its([:text]) { should include('//twitter.com/hashtag/helpus') }
+    its([:text]) { should include('//twitter.com/hashtag/gothamcity" target="_blank">#gothamcity</a>') }
+    its([:text]) { should include('//twitter.com/hashtag/gotham" target="_blank">#gotham</a>') }
   end
 
   describe 'link_urls' do
@@ -82,7 +77,7 @@ describe PostHelper do
 
   describe 'extract_hashtags' do
     subject { helper.extract_hashtags twitter_post.text }
-    it { should eq(%w[#helpus #gotham]) }
+    it { should eq(%w[#helpus #gothamcity #gotham]) }
   end
 
   describe 'extract_urls' do
