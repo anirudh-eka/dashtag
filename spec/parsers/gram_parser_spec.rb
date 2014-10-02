@@ -22,4 +22,10 @@ describe GramParser do
     result = GramParser.parse(response)
     expect(result).to be_empty
   end
+  
+  it "should not add grams by censored users" do 
+    response = SampleInstagramResponses.instagram_response_from_censored_users
+    result = GramParser.parse(response)
+    expect(result).to be_empty
+  end
 end

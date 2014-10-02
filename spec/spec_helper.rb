@@ -51,10 +51,12 @@ RSpec.configure do |config|
   config.order = "random"
   config.before(:all) do
     ENV["CENSORED_WORDS"]="Big|Brother|watching"
+    ENV["CENSORED_USERS"]="BadUser|dirtyuser"
     ENV["API_Rate"] = 1.to_s
     ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
     ENV["HASHTAG"] = "fda"
+
   end
 
   config.before :each do
