@@ -1,6 +1,6 @@
 module PostHelper
   def add_post_links(post)
-    link_hashtags link_usernames(post)
+    link_urls link_hashtags link_usernames(post)
   end
 
   def link_usernames(post)
@@ -28,6 +28,15 @@ module PostHelper
     post.text.html_safe
   end
 
+  def link_urls(post_text)
+    extract_urls(post_text).each do |url|
+      post_text.gsub! url,
+        link_to(url, url, target: '_blank')
+    end
+
+    post_text.html_safe
+  end
+
   def extract_usernames(post_text)
     return [] if post_text.blank?
 
@@ -42,5 +51,13 @@ module PostHelper
     tweet_text.split(' ').map {|word|
       $1 if word.strip =~ /^(#\w+)/
     }.compact.uniq
+  end
+
+  def extract_urls(post_text)
+    return [] if post_text.blank?
+
+    post_text.split(' ').keep_if { |word|
+      word.start_with?('http') && !word.end_with?('…')
+    }
   end
 end
