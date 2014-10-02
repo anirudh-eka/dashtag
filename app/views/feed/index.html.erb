@@ -4,33 +4,8 @@
 <a id="hashtag-anchor"></a>
 
 <div id="posts-list">
-<% i = 0%>
-  <% @posts.each do |post| %>
-
-  <% i += 1%>
-    <div class="post-container background-color-<%=i%>">
-      <section class="post-id">
-        <%= post.id %>
-      </section>
-      <section class="post-text">
-
-            <%= add_post_links post %>
-
-      </section>
-      <section class="post-username">
-        <img src=<%= post.profile_image_url %> class="avatar" /> @<%= post.screen_name %>
-      </section>
-      <section class="post-picture">
-        <% if post.media_url %>
-          <img src=<%= post.media_url %> />
-        <% end %>
-      </section>
-      <section class="post-created-at">
-        <i class="fa fa-2x fa-<%=post.source%>"></i>
-        <span class="time-of-post"> <%= raw post.time_of_post %> </span>
-      </section>
-    </div>
-  <% i = 0 if i == 4 %>
+  <% @posts.each_with_index do |post, i| %>
+    <%= render 'post', post: post, i: i %>
   <% end %>
 </div>
 
