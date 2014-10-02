@@ -13,9 +13,7 @@ class FeedController < ApplicationController
       format.json do
         @posts = Post.get_new_posts(ENV["HASHTAG"])
         if @posts
-          @posts.each do |post|
-             post.text = add_post_links post
-          end
+          add_links_to_posts(@posts)
           render json: @posts
         else
           render json: @posts, status: :not_modified
@@ -26,10 +24,16 @@ class FeedController < ApplicationController
 
   def get_next_page
     @posts = Post.next_posts(params[:last_post_id], 100)
-    @posts.each do |post|
+    add_links_to_posts(@posts)
+    @posts.empty? ? (render json: @posts, status: :not_modified) : (render json: @posts)
+  end
+
+  private
+
+  def add_links_to_posts(posts)
+    posts.each do |post|
       post.text = add_post_links post
     end
-    @posts.empty? ? (render json: @posts, status: :not_modified) : (render json: @posts)
   end
 end
 
