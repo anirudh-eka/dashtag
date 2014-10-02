@@ -1,6 +1,10 @@
 module PostHelper
   def add_post_links(post)
-    link_urls link_hashtags link_usernames(post)
+    linked_post = link_urls link_usernames(post)
+    if linked_post.source == 'twitter' 
+      linked_post = youtube_embed_twitter link_hashtags_twitter(linked_post)
+    end
+    linked_post.text.html_safe
   end
 
   def link_usernames(post)
@@ -17,24 +21,24 @@ module PostHelper
     post
   end
 
-  def link_hashtags(post)
-    return post.text.html_safe if post.source != 'twitter'
+  def link_hashtags_twitter(post)
+    return post if post.source != 'twitter'
 
     extract_hashtags(post.text).each do |hashtag|
       post.text.gsub! hashtag,
         link_to(hashtag, "http://twitter.com/hashtag/#{hashtag[1..-1]}", target: '_blank')
     end
 
-    post.text.html_safe
+    post
   end
 
-  def link_urls(post_text)
-    extract_urls(post_text).each do |url|
-      post_text.gsub! url,
+  def link_urls(post)
+    extract_urls(post.text).each do |url|
+      post.text.gsub! url,
         link_to(url, url, target: '_blank')
     end
 
-    post_text.html_safe
+    post
   end
 
   def extract_usernames(post_text)
