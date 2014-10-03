@@ -28,4 +28,10 @@ describe TweetParser do
     result = TweetParser.parse(response)
     expect(result).to be_empty
   end
+
+  it "should replace url in text if same as image url" do 
+    response = SampleTweetResponses.tweet_response_with_media
+    result = TweetParser.parse(response)
+    expect(result).to_not include("http://t.co/8EO3BWutLc")
+  end
 end
