@@ -1,14 +1,11 @@
 module SampleTweetResponses
-  def self.tweet_response_with_media
-    @@tweet_response_with_media = {
+  def self.tweet_response_with_image
+    @@tweet_response_with_image = {
         "statuses" => [
           {
             "created_at" => "Fri Sep 21 23:40:54 +0000 2012",
-            "id_str" => "249292149810667520",
             "entities" => {
               "media" => [{
-                "id"=>471376386016686080, 
-                "id_str"=>"471376386016686080", 
                 "indices"=>[71, 93], 
                 "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
                 "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
@@ -18,25 +15,20 @@ module SampleTweetResponses
                 "type"=>"photo", 
               }],
               "urls" => [ ],
-              "hashtags" => [{
-                  "text" => "#{ENV["HASHTAG"]}",
-                  "indices" => [ 20, 34 ]
-              }]
+              "hashtags" => [ ]
             },
-            "text" => "here's a @youtubevid about something! http://t.co/8EO3BWutLc",
+            "text" => "here's a photo about something! http://t.co/8EO3BWutLc",
             "id" => 493767633179652096,
             "user" => {
               "name" => "Drew Torrez",
               "profile_image_url" => "http://pbs.twimg.com/profile_images/378800000534787015/662e71dfcc6fa9e14e527252a21eef90_normal.jpeg",
               "created_at" => "Tue Apr 07 19:05:07 +0000 2009",
               "id" => 26959507,
-              "id_str" => "26959507",
               "entities" => {
                 "url" => { "urls" => [ ] },
                 "description" => { "urls" => [ ] }
               },
               "url" => "http://bullcityrecords.com/wnng/",
-              "profile_image_url_https" => "https://pbs.twimg.com/profile_images/378800000534787015/662e71dfcc6fa9e14e527252a21eef90_normal.jpeg",
               "description" => "some description about this post",
               "screen_name" => "popsicletreat"
             }

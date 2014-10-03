@@ -30,7 +30,7 @@ describe TweetParser do
   end
 
   it "should replace url in text if same as image url" do 
-    response = SampleTweetResponses.tweet_response_with_media
+    response = SampleTweetResponses.tweet_response_with_image
     result = TweetParser.parse(response)
     expect(result).to_not include("http://t.co/8EO3BWutLc")
   end
