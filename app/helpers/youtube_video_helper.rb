@@ -1,5 +1,7 @@
 module YoutubeVideoHelper
   def youtube_embed_twitter(tweet_post)
+    return tweet_post if tweet_post.source != 'twitter'
+
     tweet_text = tweet_post.text
     video_id = youtube_extract_id(tweet_text)
 
@@ -7,19 +9,17 @@ module YoutubeVideoHelper
 
     embed_code = youtube_embed_code(video_id)
 
-    tweet_text.
-      gsub!(%r{(\ *https*:)*(//)*youtu.be/#{video_id}\ *}, embed_code).
+    tweet_post.text.
+      gsub!(%r{(\ *https*:)*(//)*youtu.be/#{video_id}\ *}, embed_code)
+
+    tweet_post.text.
       gsub!(%r{\ *(https*:)*(//)*(www.)*youtube.com/watch\?v=(.*)\ *}, embed_code)
 
     tweet_post
   end
 
-  def youtube_embed_url(video_id) 
-    "//www.youtube.com/embed/#{video_id}"
-  end
-
   def youtube_embed_code(video_id) 
-    %{ <iframe src="#{youtube_embed_url video_id}" frameborder="0" allowfullscreen></iframe> }
+    %{ <div class="youtube-video"><iframe src="//www.youtube.com/embed/#{video_id}" frameborder="0" height="100%" allowfullscreen></iframe></div> }
   end
 
   def youtube_extract_id(text)

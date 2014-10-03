@@ -45,22 +45,22 @@ describe PostHelper do
   describe 'link_urls' do
     context 'Twitter posts' do
       subject { helper.link_urls twitter_post }
-      its([:text]) { should include('<a href="http://dccomics.com"') }
-      its([:text]) { should include('http://dccomics.com</a>') }
-      its([:text]) { should include('<a href="http://www.imdb.com/title/tt0118688/"') }
-      its([:text]) { should include('http://www.imdb.com/title/tt0118688/</a>') }
+      it { should include('<a href="http://dccomics.com"') }
+      it { should include('http://dccomics.com</a>') }
+      it { should include('<a href="http://www.imdb.com/title/tt0118688/"') }
+      it { should include('http://www.imdb.com/title/tt0118688/</a>') }
     end
 
     context 'Instagram posts' do
       subject { helper.link_urls instagram_post }
-      its([:text]) { should include('<a href="http://jackierobinsonwest.org/"') }
-      its([:text]) { should include('>http://jackierobinsonwest.org/</a>') }
+      it { should include('<a href="http://jackierobinsonwest.org/"') }
+      it { should include('>http://jackierobinsonwest.org/</a>') }
     end
 
     context 'Too long text' do
       let(:truncated_twitter_post) { FactoryGirl.create(:post, source: 'twitter', text: 'H.E. Sheichk Prof Alh Yahya AJJ Jammeh Babili Mansa extends message http…') }
       subject { helper.link_urls truncated_twitter_post }
-      its([:text]) { should_not include('<a href="htt') }
+      it { should_not include('<a href="htt') }
     end
   end
 

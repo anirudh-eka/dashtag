@@ -1,9 +1,31 @@
 module SampleTweetResponses
+  def self.tweet_response_with_youtube
+    @@tweet_response_with_youtube = {
+        "statuses" => [
+          {
+            "entities" => {
+              "urls" => [
+              {
+                "url" => "http://t.co/npprk1guZR",
+                "expanded_url" => "http://youtu.be/lmnop",
+                "display_url" => "youtu.be/lmnop"
+              },
+              {
+                "url" => "http://t.co/udp1Px9fLM",
+                "expanded_url" => "http://youtube.com/abcde",
+                "display_url" => "youtube.com/abcde"
+              }],
+            },
+            "text" => "watch these videos! http://t.co/npprk1guZR http://t.co/udp1Px9fLM",
+          }
+        ]
+      }
+  end
+
   def self.tweet_response_with_image
     @@tweet_response_with_image = {
         "statuses" => [
           {
-            "created_at" => "Fri Sep 21 23:40:54 +0000 2012",
             "entities" => {
               "media" => [{
                 "indices"=>[71, 93], 
@@ -14,24 +36,9 @@ module SampleTweetResponses
                 "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1", 
                 "type"=>"photo", 
               }],
-              "urls" => [ ],
-              "hashtags" => [ ]
+              "urls" => [ ], "hashtags" => [ ]
             },
             "text" => "here's a photo about something! http://t.co/8EO3BWutLc",
-            "id" => 493767633179652096,
-            "user" => {
-              "name" => "Drew Torrez",
-              "profile_image_url" => "http://pbs.twimg.com/profile_images/378800000534787015/662e71dfcc6fa9e14e527252a21eef90_normal.jpeg",
-              "created_at" => "Tue Apr 07 19:05:07 +0000 2009",
-              "id" => 26959507,
-              "entities" => {
-                "url" => { "urls" => [ ] },
-                "description" => { "urls" => [ ] }
-              },
-              "url" => "http://bullcityrecords.com/wnng/",
-              "description" => "some description about this post",
-              "screen_name" => "popsicletreat"
-            }
           }
         ]
       }
