@@ -1,4 +1,50 @@
 module SampleTweetResponses
+  def self.tweet_response_with_media
+    @@tweet_response_with_media = {
+        "statuses" => [
+          {
+            "created_at" => "Fri Sep 21 23:40:54 +0000 2012",
+            "id_str" => "249292149810667520",
+            "entities" => {
+              "media" => [{
+                "id"=>471376386016686080, 
+                "id_str"=>"471376386016686080", 
+                "indices"=>[71, 93], 
+                "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
+                "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
+                "url"=>"http://t.co/8EO3BWutLc", 
+                "display_url"=>"pic.twitter.com/8EO3BWutLc", 
+                "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1", 
+                "type"=>"photo", 
+              }],
+              "urls" => [ ],
+              "hashtags" => [{
+                  "text" => "#{ENV["HASHTAG"]}",
+                  "indices" => [ 20, 34 ]
+              }]
+            },
+            "text" => "here's a @youtubevid about something! http://t.co/8EO3BWutLc",
+            "id" => 493767633179652096,
+            "user" => {
+              "name" => "Drew Torrez",
+              "profile_image_url" => "http://pbs.twimg.com/profile_images/378800000534787015/662e71dfcc6fa9e14e527252a21eef90_normal.jpeg",
+              "created_at" => "Tue Apr 07 19:05:07 +0000 2009",
+              "id" => 26959507,
+              "id_str" => "26959507",
+              "entities" => {
+                "url" => { "urls" => [ ] },
+                "description" => { "urls" => [ ] }
+              },
+              "url" => "http://bullcityrecords.com/wnng/",
+              "profile_image_url_https" => "https://pbs.twimg.com/profile_images/378800000534787015/662e71dfcc6fa9e14e527252a21eef90_normal.jpeg",
+              "description" => "some description about this post",
+              "screen_name" => "popsicletreat"
+            }
+          }
+        ]
+      }
+  end
+
   def self.tweets_with_censored_words 
   @@tweets_with_censored_words = {
       "statuses" => [
@@ -233,6 +279,7 @@ module SampleTweetResponses
   ############
     }
   end
+
   def self.second_tweet_response
     @@second_tweet_response = {
       "statuses" => [
@@ -567,6 +614,7 @@ module SampleTweetResponses
       }
     }
   end
+
   def self.tweet_response
     @@tweet_response = {
         "statuses" => [
