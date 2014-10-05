@@ -54,7 +54,7 @@ module PostHelper
     return [] if tweet_text.blank?
 
     tweet_text.split(' ').map {|word|
-      $1 if word.strip =~ /^(#\w+)/
+      $1 if word.strip =~ /^(#\w+)/ && !word.end_with?('…')
     }.compact.uniq
   end
 

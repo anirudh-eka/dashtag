@@ -3,13 +3,16 @@ require 'spec_helper'
 describe PostHelper do
   let(:twitter_post) { FactoryGirl.create(:post, created_at: Time.now, text: '#helpus "@batman and @robin!" #gothamcity #gotham http://dccomics.com http://www.imdb.com/title/tt0118688/', time_of_post: Time.now, source: 'twitter') }
 
-  let(:twitter_post_with_youtube) { FactoryGirl.create(:post, created_at: Time.now, text: 'Its #Friday, you aint got no job... https://www.youtube.com/watch?v=q4tbZ7xnEjk', time_of_post: Time.now, source: 'twitter') }
-
   let(:instagram_post) { FactoryGirl.create(:post, created_at: Time.now, text: '@Julia and @Julian you both should support #JackieRobinsonWest http://jackierobinsonwest.org/', time_of_post: Time.now, source: 'instagram') }
 
-  let(:instagram_post_with_youtube) { FactoryGirl.create(:post, created_at: Time.now, text: 'Video is now live on YouTube enjoy: https://m.youtube.com/watch?v=Qi6wjbKMnRA #lunaFollow', time_of_post: Time.now, source: 'instagram') }
+  let(:truncated_link_twitter) { FactoryGirl.create(:post, source: 'twitter', text: 'http://www.thoughtworks.com http…') }
+  let(:truncated_hashtag_twitter) { FactoryGirl.create(:post, source: 'twitter', text: '#letstrythis #willitwork #hashtagoveruse #though…') }
 
   describe 'add_post_links' do
+    let(:twitter_post_with_youtube) { FactoryGirl.create(:post, created_at: Time.now, text: 'Its #Friday, you aint got no job... https://www.youtube.com/watch?v=q4tbZ7xnEjk', time_of_post: Time.now, source: 'twitter') }
+
+    let(:instagram_post_with_youtube) { FactoryGirl.create(:post, created_at: Time.now, text: 'Video is now live on YouTube enjoy: https://m.youtube.com/watch?v=Qi6wjbKMnRA #lunaFollow', time_of_post: Time.now, source: 'instagram') }
+
     context 'Twitter post' do
       context 'should render links for regular URLs, hashtag and username' do
         subject { helper.add_post_links twitter_post }
@@ -84,9 +87,8 @@ describe PostHelper do
     end
 
     context 'should not embed URL if truncated' do
-      let(:truncated_twitter_post) { FactoryGirl.create(:post, source: 'twitter', text: 'H.E. Sheichk Prof Alh Yahya AJJ Jammeh Babili Mansa extends message http…') }
-      subject { helper.link_urls truncated_twitter_post }
-      it { should_not include('<a href="htt') }
+      subject { helper.link_urls truncated_link_twitter }
+      it { should_not include('<a href="htt…') }
     end
   end
 
@@ -102,12 +104,26 @@ describe PostHelper do
   end
 
   describe 'extract_hashtags' do
-    subject { helper.extract_hashtags twitter_post.text }
-    it { should eq(%w[#helpus #gothamcity #gotham]) }
+    context 'should get hashtags for Twitter post' do
+      subject { helper.extract_hashtags twitter_post.text }
+      it { should eq(%w[#helpus #gothamcity #gotham]) }
+    end
+
+    context 'should not get hashtag if truncated' do
+      subject { helper.extract_hashtags truncated_hashtag_twitter.text }
+      it { should eq(%w[#letstrythis #willitwork #hashtagoveruse]) }
+    end
   end
 
   describe 'extract_urls' do
-    subject { helper.extract_urls twitter_post.text }
-    it { should eq(%w[http://dccomics.com http://www.imdb.com/title/tt0118688/]) }
+    context 'should get URLs for Twitter post' do
+      subject { helper.extract_urls twitter_post.text }
+      it { should eq(%w[http://dccomics.com http://www.imdb.com/title/tt0118688/]) }
+    end
+
+    context 'should not get URL if truncated' do
+      subject { helper.extract_urls truncated_link_twitter.text }
+      it { should eq(%w[http://www.thoughtworks.com]) }
+    end
   end
 end
