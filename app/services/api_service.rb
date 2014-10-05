@@ -24,8 +24,8 @@ class APIService
       @last_update = Time.now
 
       parsed_response = []
-      parsed_response += pull_instagram_posts_and_parse(hashtag)
-      parsed_response += pull_twitter_posts_and_parse(hashtag)
+      parsed_response += pull_instagram_posts_and_parse(hashtag) if ENV["INSTAGRAM_CLIENT_ID"] != ""
+      parsed_response += pull_twitter_posts_and_parse(hashtag) if ENV["TWITTER_BEARER_CREDENTIALS"] != ""
       parsed_response.each do |attributes|
         Post.create(attributes)
       end
