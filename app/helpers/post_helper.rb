@@ -46,7 +46,7 @@ module PostHelper
     return [] if post_text.blank?
 
     post_text.split(' ').map {|word|
-      $2 if word.strip =~ /^(\W*)(@\w+)/
+      $2 if word.strip =~ /^(\W*)(@\w+)/ && !word.end_with?('…')
     }.compact.uniq
   end
 
