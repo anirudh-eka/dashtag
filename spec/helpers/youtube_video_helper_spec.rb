@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe YoutubeVideoHelper do
-  let(:twitter_post) { FactoryGirl.create(:post, created_at: Time.now, text: '#helpus "@batman and @robin!" #gotham http://youtu.be/a1b2c3d4 http://dccomics.com', time_of_post: Time.now, source: 'twitter') }
+  let(:twitter_post) { FactoryGirl.create(:post, text: '#helpus "@batman and @robin!" #gotham http://youtu.be/a1b2c3d4 http://dccomics.com', source: 'twitter') }
 
   let(:video_embed_code) do
     '<iframe width="560" height="315" src="//www.youtube.com/embed/1-sBRRWBxSg" frameborder="0" allowfullscreen></iframe>'

@@ -6,9 +6,9 @@ describe PostHelper do
   let(:instagram_post) { FactoryGirl.create(:post, text: '@Julia and @Julian you both should support #JackieRobinsonWest http://jackierobinsonwest.org/', source: 'instagram') }
 
   describe 'add_post_links' do
-    let(:twitter_post_with_youtube) { FactoryGirl.create(:post, text: 'Its #Friday, you aint got no job... https://www.youtube.com/watch?v=q4tbZ7xnEjk', source: 'twitter') }
+    let(:twitter_post_with_videos) { FactoryGirl.create(:post, text: 'Its #Friday, you aint got no job... https://vine.co/v/MI3PU9Ag9Wu https://www.youtube.com/watch?v=q4tbZ7xnEjk', source: 'twitter') }
 
-    let(:instagram_post_with_youtube) { FactoryGirl.create(:post, text: 'Video is now live on YouTube enjoy: https://m.youtube.com/watch?v=Qi6wjbKMnRA #lunaFollow', source: 'instagram') }
+    let(:instagram_post_with_videos) { FactoryGirl.create(:post, text: 'Video is now live on YouTube enjoy: https://m.youtube.com/watch?v=Qi6wjbKMnRA #lunaFollow', source: 'instagram') }
 
     context 'Twitter post' do
       context 'should render links for regular URLs, hashtag and username' do
@@ -19,10 +19,11 @@ describe PostHelper do
         it { should include('http://www.imdb.com/title/tt0118688/</a>') }
       end
 
-      context 'should embed but not render link for youtube' do
-        subject { helper.add_post_links twitter_post_with_youtube }
+      context 'should embed but not render link for videos' do
+        subject { helper.add_post_links twitter_post_with_videos }
         it { should include('<iframe')}
-        it { should_not include('<a href="https://m.youtube.com/watch?v=Qi6wjbKMnRA"')}
+        it { should_not include('<a href="https://www.youtube.com/watch?v=q4tbZ7xnEjk"')}
+        it { should_not include('<a href="https://vine.co/v/MI3PU9Ag9Wu"')}
         it { should include('<a href="http://twitter.com/hashtag/Friday"')}
       end
     end
@@ -37,7 +38,7 @@ describe PostHelper do
       end
 
       context 'should embed but not render link for youtube' do
-        subject { helper.add_post_links instagram_post_with_youtube }
+        subject { helper.add_post_links instagram_post_with_videos }
         it { should_not include('<iframe')}
         it { should include('Video is now live on YouTube enjoy:')}
         it { should include('<a href="https://m.youtube.com/watch?v=Qi6wjbKMnRA"')}

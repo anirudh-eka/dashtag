@@ -1,6 +1,6 @@
 module PostHelper
   def add_post_links(post)
-    link_urls link_usernames youtube_embed_twitter link_hashtags_twitter(post)
+    link_urls link_usernames vine_embed_twitter youtube_embed_twitter link_hashtags_twitter(post)
   end
 
   def link_usernames(post)
@@ -31,7 +31,7 @@ module PostHelper
   def link_urls(post)
     extract_urls(post.text).each do |url|
 
-      if (post.source == 'twitter' && has_youtube?(url))
+      if (post.source == 'twitter' && (has_youtube?(url) || has_vine?(url)))
         return
       end
 
