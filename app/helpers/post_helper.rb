@@ -13,13 +13,8 @@ module PostHelper
 
   def link_mentions(post)
     extract_usernames(post.text).each do |username|
-      if post.source == 'twitter'
-        post.text.gsub! /#{username}\b/i,
-                        link_to(username, "//#{post.source}.com/#{username}", target: '_blank')
-      else
-        post.text.gsub! /#{username}\b/i,
+      post.text.gsub! /#{username}\b/i,
                         link_to(username, "//#{post.source}.com/#{username.delete('@')}", target: '_blank')
-      end
     end
 
     post
