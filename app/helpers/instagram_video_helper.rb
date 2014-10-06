@@ -1,5 +1,5 @@
 module InstagramVideoHelper
-  def instagram_embed_video(instagram_post)
+  def embed_instagram_video(instagram_post)
     return instagram_post if instagram_post.source != 'instagram' || !has_instagram_video?(instagram_post)
 
     instagram_post.text << instagram_embed_code(instagram_post.post_id)
