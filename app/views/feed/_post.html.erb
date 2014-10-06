@@ -5,16 +5,16 @@
   <section class="post-text">
     <%= add_post_links post %>
   </section>
-  <section class="post-username">
-    <img src=<%= post.profile_image_url %> class="avatar" /> <%= link_to "@"+post.screen_name, "//"+post.source+".com/"+post.screen_name, target: '_blank' %>
-  </section>
   <section class="post-picture">
     <% if post.media_url %>
       <img src=<%= post.media_url %> />
     <% end %>
   </section>
+  <section class="post-username">
+    <img src=<%= post.profile_image_url %> class="avatar" /> <%= link_to "@"+post.screen_name, "//"+post.source+".com/"+post.screen_name, target: '_blank' %>
+  </section>
   <section class="post-created-at">
     <i class="fa fa-2x fa-<%=post.source%>"></i>
-    <span class="time-of-post"> <%= raw post.time_of_post %> </span>
+    <span class="time-of-post"> <%= post.time_of_post %> </span>
   </section>
 </div>
