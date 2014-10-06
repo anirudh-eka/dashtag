@@ -15,7 +15,8 @@ describe APIService do
           screen_name: "bullcityrecords",
           time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
           profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
-          media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"
+          media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+          post_id: "249292149810667520"
         )
 
         gram = FactoryGirl.build(:post, source: "instagram",
@@ -23,7 +24,8 @@ describe APIService do
         screen_name: "jolanda_cirigliano",
         time_of_post: DateTime.strptime("1410884290", "%s"),
         profile_image_url: "http://photos-h.ak.instagram.com/hphotos-ak-xfa1/10448944_676691075735007_832582745_a.jpg",
-        media_url: "http://scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10691617_1510929602485903_1047906060_n.jpg")
+        media_url: "http://scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10691617_1510929602485903_1047906060_n.jpg",
+        post_id: "tA0dgLCmn5")
 
         APIService.instance.pull_posts!("#{ENV["HASHTAG"]}")
         expect(Post.all).to include(tweet)

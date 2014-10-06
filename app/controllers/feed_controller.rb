@@ -3,6 +3,7 @@ class FeedController < ApplicationController
   include PostHelper
   include YoutubeVideoHelper
   include VineVideoHelper
+  include InstagramVideoHelper
   include ActionView::Helpers::UrlHelper
 
   def index

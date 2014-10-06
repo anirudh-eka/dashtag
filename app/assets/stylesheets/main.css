@@ -45,11 +45,14 @@ a#hashtag-anchor {
     transition: all .2s ease-in-out;
 }
 
+.post-text > iframe {
+  margin-top: 20px;
+}
+
 .youtube-video {
   height: 200px;
   margin: 0.5em;
 }
-
 
 .vine-video {
   display: block;
