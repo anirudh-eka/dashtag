@@ -97,7 +97,7 @@ describe PostHelper do
     end
 
     context 'should not get username if truncated' do
-      subject { helper.extract_usernames '@Dostoyevsky @Tolstoy @Nabokov @Pushk…' }
+      subject { helper.extract_usernames '@Dostoyevsky @Tolstoy @Nabokov @Pushk… @ronald...' }
       it { should eq(%w[@Dostoyevsky @Tolstoy @Nabokov]) }
     end
   end
@@ -109,7 +109,7 @@ describe PostHelper do
     end
 
     context 'should not get hashtag if truncated' do
-      subject { helper.extract_hashtags '#letstrythis #willitwork #hashtagoveruse #though…' }
+      subject { helper.extract_hashtags '#letstrythis #willitwork #hashtagoveruse #though… #ronald...' }
       it { should eq(%w[#letstrythis #willitwork #hashtagoveruse]) }
     end
   end
@@ -121,7 +121,7 @@ describe PostHelper do
     end
 
     context 'should not get URL if truncated' do
-      subject { helper.extract_urls 'http://www.thoughtworks.com http…' }
+      subject { helper.extract_urls 'http://www.thoughtworks.com http… http...' }
       it { should eq(%w[http://www.thoughtworks.com]) }
     end
   end

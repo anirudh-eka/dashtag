@@ -46,7 +46,7 @@ module PostHelper
     return [] if post_text.blank?
 
     post_text.split(' ').map {|word|
-      $2 if word.strip =~ /^(\W*)(@\w+)/ && !word.end_with?('…')
+      $2 if word.strip =~ /^(\W*)(@\w+)/ && !ends_with_ellipsis?(word)
     }.compact.uniq
   end
 
@@ -54,7 +54,7 @@ module PostHelper
     return [] if tweet_text.blank?
 
     tweet_text.split(' ').map {|word|
-      $1 if word.strip =~ /^(#\w+)/ && !word.end_with?('…')
+      $1 if word.strip =~ /^(#\w+)/ && !ends_with_ellipsis?(word)
     }.compact.uniq
   end
 
@@ -62,7 +62,12 @@ module PostHelper
     return [] if post_text.blank?
 
     post_text.split(' ').keep_if { |word|
-      word.start_with?('http') && !word.end_with?('…')
+      word.start_with?('http') && !ends_with_ellipsis?(word)
     }
   end
+
+  def ends_with_ellipsis?(word)
+    return word.end_with?('...') || word.end_with?('…') 
+  end
+
 end
