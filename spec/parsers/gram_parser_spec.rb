@@ -1,18 +1,24 @@
 require 'spec_helper'
 
 describe GramParser do
+  let(:image_response) { SampleInstagramResponses.instagram_response }
 
-  let(:response) { SampleInstagramResponses.instagram_response }
+  it 'should have nil media_url for video instagram response' do 
+    result = GramParser.parse(SampleInstagramResponses.instagram_video_response).first
 
-  it 'should parse gram attributes from instagram response' do 
+    expect(result[:media_url]).to be_nil
+  end
+
+  it 'should parse gram attributes from image instagram response' do 
     attributes = { source: "instagram",
         text: "[ t o d a y ] \n#me #noi #iger #Italia #italian #love #myboyfriend #tatoo #tatoowhitlove #ops #opslove #sempreassieme #tiamo #aspasso #september #tempodelcavolo #chedobbiamofà",
         screen_name: "jolanda_cirigliano",
         time_of_post: DateTime.strptime("1410884290", "%s"),
         profile_image_url: "http://photos-h.ak.instagram.com/hphotos-ak-xfa1/10448944_676691075735007_832582745_a.jpg",
-        media_url: "http://scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10691617_1510929602485903_1047906060_n.jpg" }
+        media_url: "http://scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10691617_1510929602485903_1047906060_n.jpg",
+        post_id: "tA0dgLCmn5" }
 
-    result = GramParser.parse(response)
+    result = GramParser.parse(image_response)
 
     expect(result).to include(attributes)
   end

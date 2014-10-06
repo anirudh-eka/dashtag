@@ -26,6 +26,7 @@ module SampleTweetResponses
     @@tweet_response_with_image = {
         "statuses" => [
           {
+            "id_str" => "249292149810667520",
             "entities" => {
               "media" => [{
                 "indices"=>[71, 93], 

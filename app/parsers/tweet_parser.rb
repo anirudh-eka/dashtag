@@ -11,6 +11,8 @@ class TweetParser
       media = tweet["entities"]["media"]
       media_url = (media ? media[0]["media_url_https"] : nil)
 
+      post_id = tweet["id_str"]
+
       text = replace_media_links(tweet)
 
       unless ParserHelper.text_has_censored_words(text) || ParserHelper.user_is_censored(screen_name)
@@ -19,7 +21,8 @@ class TweetParser
                             screen_name: screen_name,
                             time_of_post: created_at,
                             profile_image_url: profile_image_url,
-                            media_url: media_url }
+                            media_url: media_url,
+                            post_id: post_id  }
       end
     end
     return parsed_response
