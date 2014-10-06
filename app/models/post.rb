@@ -1,6 +1,5 @@
 class Post < ActiveRecord::Base
-	validates_presence_of :screen_name, :time_of_post,
-	 					:profile_image_url, :source
+	validates_presence_of :screen_name, :time_of_post, :profile_image_url, :source, :post_id
 
 	validates_uniqueness_of :screen_name, scope: :time_of_post
 
@@ -17,7 +16,8 @@ class Post < ActiveRecord::Base
     screen_name == post.screen_name &&
     time_of_post == post.time_of_post &&
     media_url == post.media_url &&
-    source == post.source
+    source == post.source &&
+    post_id == post.post_id
   end
 
   def self.all(hashtag=false)

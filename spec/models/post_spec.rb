@@ -13,22 +13,25 @@ describe Post do
       time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
       profile_image_url: "xyz",
       text: "Hey there",
-      media_url: "abc")
+      media_url: "abc",
+      post_id: "123")
 
-        @gram_two = Post.create!(
+    @gram_two = Post.create!(
       source: "instagram",
       screen_name: "ABCDEFG",
       time_of_post: "Fri Sep 20 23:40:54 +0000 2012",
       profile_image_url: "xyz",
       text: "friendship",
-      media_url: "def")
+      media_url: "def",
+      post_id: "456")
 
     @tweet_one = Post.create!(
       source: "twitter",
       text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
       screen_name: "bullcityrecords",
       time_of_post: "Fri Sep 21 22:40:54 +0000 2012",
-      profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg")
+      profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
+      post_id: "789")
 
 
   end
@@ -76,14 +79,16 @@ describe Post do
                     created_at: (last_pull_stub - 30),
                     time_of_post: (time_of_post),
                     source: "twitter",
-                    text: "the old post")
+                    text: "the old post",
+                    post_id: "qwe")
 
         new_post = Post.create!(screen_name: "cassius_clay",
                     profile_image_url: "stuff.com",
                     created_at: (last_pull_stub + 30),
                     time_of_post: (time_of_post + 2),
                     source: "twitter",
-                    text: "the new post")
+                    text: "the new post",
+                    post_id: "iop")
 
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
         allow(APIService.instance).to receive(:pull_posts).and_return(true)
