@@ -48,15 +48,15 @@ describe PostHelper do
 
   end
 
-  describe 'link_usernames' do
+  describe 'link_mentions' do
     context 'Twitter post' do
-      subject { helper.link_usernames twitter_post }
+      subject { helper.link_mentions twitter_post }
       its([:text]) { should include('//twitter.com/@batman') }
       its([:text]) { should include('//twitter.com/@robin') }
     end
 
     context 'Instagram post' do
-      subject { helper.link_usernames instagram_post }
+      subject { helper.link_mentions instagram_post }
       its([:text]) { should include('//instagram.com/Julia')}
       its([:text]) { should include('//instagram.com/Julian')}
     end

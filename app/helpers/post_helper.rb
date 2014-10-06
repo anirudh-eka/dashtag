@@ -1,9 +1,17 @@
 module PostHelper
   def add_post_links(post)
-    link_urls link_usernames instagram_embed_video vine_embed_twitter youtube_embed_twitter link_hashtags_twitter(post)
+    render_post_links embed_instagram_video embed_twitter_content(post) 
   end
 
-  def link_usernames(post)
+  def render_post_links(post) 
+    link_urls link_mentions(post)
+  end
+
+  def embed_twitter_content(post)
+    vine_embed_twitter youtube_embed_twitter link_hashtags_twitter(post)
+  end
+
+  def link_mentions(post)
     extract_usernames(post.text).each do |username|
       if post.source == 'twitter'
         post.text.gsub! /#{username}\b/i,
