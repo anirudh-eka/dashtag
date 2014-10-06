@@ -1,7 +1,5 @@
 module VineVideoHelper
   def vine_embed_twitter(tweet_post)
-    return tweet_post if tweet_post.source != 'twitter'
-
     tweet_text = tweet_post.text
     video_id = vine_extract_id(tweet_text)
 
