@@ -14,7 +14,7 @@ describe PostHelper do
       context 'should render links for regular URLs, hashtag and username' do
         subject { helper.add_post_links twitter_post }
         it { should include('//twitter.com/hashtag/helpus') }
-        it { should include('//twitter.com/@batman') }
+        it { should include('//twitter.com/batman') }
         it { should include('<a href="http://www.imdb.com/title/tt0118688/"') }
         it { should include('http://www.imdb.com/title/tt0118688/</a>') }
       end
@@ -51,8 +51,8 @@ describe PostHelper do
   describe 'link_mentions' do
     context 'Twitter post' do
       subject { helper.link_mentions twitter_post }
-      its([:text]) { should include('//twitter.com/@batman') }
-      its([:text]) { should include('//twitter.com/@robin') }
+      its([:text]) { should include('//twitter.com/batman') }
+      its([:text]) { should include('//twitter.com/robin') }
     end
 
     context 'Instagram post' do
