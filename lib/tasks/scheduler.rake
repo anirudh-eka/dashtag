@@ -1,9 +1,11 @@
-desc "This task is called by the Heroku scheduler add-on"
-task :update_feed => :environment do
-  Rails.application.eager_load!
-  puts "Updating feed..."
-  puts "*" * 80
-  TweetService.get_tweets_by_hashtag ENV["HASHTAG"]
-  # NewsFeed.update
-  puts "done."
+desc "This task can be called by the Heroku scheduler add-on"
+namespace :db do
+	task :clear_half_db => :environment do
+	  t = Time.now
+	  puts "Clearing 50% of old posts..."
+	  old_posts = Post.order(time_of_post: :asc).first(Post.all.count/2)
+	  old_posts.each(&:destroy)
+	  puts "done in #{Time.now - t} seconds."
+	end
 end
+
