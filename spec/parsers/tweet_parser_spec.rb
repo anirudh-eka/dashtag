@@ -10,7 +10,8 @@ describe TweetParser do
           screen_name: "bullcityrecords",
           time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
           profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
-          media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"}
+          media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+          post_id: "249292149810667520" }
 
       result = TweetParser.parse(response)
 

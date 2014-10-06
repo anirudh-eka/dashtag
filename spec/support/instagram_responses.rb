@@ -1,4 +1,34 @@
 module SampleInstagramResponses
+  def self.instagram_video_response
+    @@instagram_video_response = {
+      "data" => [
+        {"attribution"=> "null",
+        "tags"=>  [ "beautiful", "cute", "fashion", "love", "summer", "food" ],
+        "type"=> "video",
+        "created_time"=> "1410884290",
+        "link"=> "http://instagram.com/p/tA0deztkuN/",
+        "videos" => {
+            "low_resolution" => {
+                "url" => "http://distilleryvesper9-13.ak.instagram.com/090d06dad9cd11e2aa0912313817975d_102.mp4",
+                "width" => 480,
+                "height" => 480
+            },
+            "standard_resolution" => {
+                "url" => "http://distilleryvesper9-13.ak.instagram.com/090d06dad9cd11e2aa0912313817975d_101.mp4",
+                "width" => 640,
+                "height" => 640
+            },
+        },
+        "caption"=>  "null",
+        "id"=> "810878657289931661_1461058473",
+        "user"=>  {
+          "username"=> "oksanasovas",
+          "profile_picture"=> "http://photos-f.ak.instagram.com/hphotos-ak-xaf1/10597252_804558659575749_663313685_a.jpg",
+          "id"=> "1461058473"
+        }
+      } ] }
+    end
+
   def self.instagram_response_with_no_caption
     @@instagram_response_with_no_caption = {
       "data" => [
@@ -91,34 +121,9 @@ module SampleInstagramResponses
        
   	{"attribution"=> "null",
         "tags"=>  [
-          "beautiful",
-          "cute",
-          "fashion",
-          "love",
-          "summer",
-          "food",
-          "instalike",
-          "tbt",
-          "igers",
-          "follow",
-          "instadaily",
-          "instamood",
-          "friends",
-          "girl",
-          "me",
-          "swag",
-          "like4like",
-          "tflers",
-          "followme",
-          "instagood",
-          "tagsforlikes",
-          "amazing",
-          "bestoftheday",
-          "fun",
-          "smile",
-          "photooftheday",
-          "picoftheday",
-          "happy"
+          "beautiful", "cute", "fashion", "love", "summer", "food", "instalike", "tbt", "igers", "follow",
+          "instadaily", "instamood", "friends", "girl", "me", "swag", "like4like", "tflers", "followme", "instagood",
+          "tagsforlikes", "amazing", "bestoftheday", "fun", "smile", "photooftheday", "picoftheday", "happy"
         ],
         "type"=> "image",
         "location"=>  {
