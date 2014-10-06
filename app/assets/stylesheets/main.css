@@ -50,6 +50,12 @@ a#hashtag-anchor {
   margin: 0.5em;
 }
 
+
+.vine-video {
+  display: block;
+  margin: auto; 
+}
+
 .post-container {
   margin: 5px 5px;
   width: 30%;
@@ -61,7 +67,6 @@ a#hashtag-anchor {
   -webkit-border-radius: 6px; 
   -moz-border-radius: 6px; 
   border-radius: 6px; 
-
 }
 
 .post-picture img {

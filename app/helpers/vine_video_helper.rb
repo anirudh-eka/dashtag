@@ -20,7 +20,7 @@ module VineVideoHelper
   end
 
   def vine_embed_code(video_id)
-    %{ <iframe src="https://vine.co/v/#{video_id}/embed/simple" width="320" height="320" frameborder="0"></iframe> }
+    %{ <iframe src="https://vine.co/v/#{video_id}/embed/simple" width="320" height="320" class="vine-video" frameborder="0"></iframe> }
   end
 
   def vine_extract_id(text)
