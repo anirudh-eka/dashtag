@@ -8,13 +8,13 @@ var renderPost = function (post, bgColor) {
   postContainer.append("<section class='post-text'></section>");
   postContainer.find(".post-text").html((post.text));
 
-  postContainer.append("<section class='post-username'></section>");
-  postContainer.find(".post-username").html("<img src='" + post.profile_image_url + "' class='avatar' /><a href='//" + post.source + ".com/" + post.screen_name + "' target='_blank'>@" + post.screen_name + "</a>");  
-
   postContainer.append("<section class='post-picture'></section>");
   if (post.media_url){
-    postContainer.find(".post-picture").html("<img src='" + post.media_url + "' />");  
+    postContainer.find(".post-picture").html("<img src='" + post.media_url + "' />");
   }
+
+  postContainer.append("<section class='post-username'></section>");
+  postContainer.find(".post-username").html("<img src='" + post.profile_image_url + "' class='avatar' /><a href='//" + post.source + ".com/" + post.screen_name + "' target='_blank'>@" + post.screen_name + "</a>");
 
   var formattedDate = formatDateToLocalTimezone(new Date(post.formatted_time_of_post));
 
