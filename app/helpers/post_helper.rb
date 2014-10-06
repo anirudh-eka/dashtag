@@ -8,6 +8,8 @@ module PostHelper
   end
 
   def embed_twitter_content(post)
+    return post if post.source != 'twitter'
+
     vine_embed_twitter youtube_embed_twitter link_hashtags_twitter(post)
   end
 
@@ -21,8 +23,6 @@ module PostHelper
   end
 
   def link_hashtags_twitter(post)
-    return post if post.source != 'twitter'
-
     extract_hashtags(post.text).each do |hashtag|
       post.text.gsub! /#{hashtag}\b/i,
         link_to(hashtag, "http://twitter.com/hashtag/#{hashtag[1..-1]}", target: '_blank')
@@ -40,8 +40,7 @@ module PostHelper
         return
       end
 
-      post.text.gsub! url,
-        link_to(url, url, target: '_blank')
+      post.text.gsub! url, link_to(url, url, target: '_blank')
     end
 
     post.text.html_safe
@@ -71,6 +70,8 @@ module PostHelper
       word.start_with?('http') && !ends_with_ellipsis?(word)
     }
   end
+
+  private
 
   def ends_with_ellipsis?(word)
     return word.end_with?('...') || word.end_with?('…') 
