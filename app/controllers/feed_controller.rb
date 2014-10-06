@@ -12,31 +12,28 @@ class FeedController < ApplicationController
         @posts = Post.sorted_posts(ENV["HASHTAG"], 100)
         render "index"
       end
-
       format.json do
         @posts = Post.get_new_posts(ENV["HASHTAG"])
-        if @posts
-          add_links_to_posts(@posts)
-          render json: @posts
-        else
-          render json: @posts, status: :not_modified
-        end
+        render_json_posts @posts
       end
     end
   end
 
   def get_next_page
     @posts = Post.next_posts(params[:last_post_id], 100)
-    add_links_to_posts(@posts)
-    @posts.empty? ? (render json: @posts, status: :not_modified) : (render json: @posts)
+    render_json_posts @posts
   end
 
   private
 
-  def add_links_to_posts(posts)
-    posts.each do |post|
-      post.text = add_post_links post
+  def render_json_posts(posts)
+    if posts.nil? || posts.empty?
+      render json: posts, status: :not_modified
+    else
+      posts.each { |post| post.text = add_post_links post }
+      render json: posts
     end
   end
+
 end
 

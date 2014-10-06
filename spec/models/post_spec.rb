@@ -42,7 +42,7 @@ describe Post do
       Post.all("#{ENV["HASHTAG"]}")
     end
   end
-  
+
   context "when getting all posts without a hashtag" do
     it 'should not pull new posts from api' do
       expect(APIService.instance).to_not receive(:get_posts)
@@ -64,10 +64,10 @@ describe Post do
     expect(Post.grams).to include(@gram_two)
     expect(Post.grams.count).to eq(2)
   end
-  
+
   describe 'gets new posts since last pull' do
-    context "when api does pull new posts" do 
-      before(:each) do 
+    context "when api does pull new posts" do
+      before(:each) do
         allow(APIService.instance).to receive(:get_posts).and_return(true)
       end
       it "should return only posts after last pull", dont_run_in_snap: true do
@@ -97,8 +97,8 @@ describe Post do
         expect(result).to eq([new_post])
       end
     end
-    context "when api does not pull new posts" do 
-      before(:each) do 
+    context "when api does not pull new posts" do
+      before(:each) do
         allow(APIService.instance).to receive(:pull_posts).and_return(nil)
       end
       it "should return nil" do
