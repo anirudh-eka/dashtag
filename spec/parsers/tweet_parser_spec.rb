@@ -39,10 +39,10 @@ describe TweetParser do
     end
   end
 
-  describe 'replace links with youtube' do
+  describe 'replace links with short urls' do
     it "should " do 
       response = SampleTweetResponses.tweet_response_with_youtube["statuses"].first
-      result = TweetParser.replace_links_with_youtube(response)
+      result = TweetParser.replace_short_links(response)
       expect(result).to_not include("http://t.co/udp1Px9fLM")
       expect(result).to_not include("http://t.co/npprk1guZR")
       expect(result).to include("http://youtu.be/lmnop")
