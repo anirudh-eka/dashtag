@@ -127,6 +127,10 @@ a#hashtag-anchor {
   text-align: center;
 }
 
+.footer a {
+  color: rgba(80, 136, 251, 1);
+}
+
 .background-color-1 {
   background: #F23390;
   /*background: rgb(240,186,149);*/
