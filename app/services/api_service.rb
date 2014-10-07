@@ -24,8 +24,8 @@ class APIService
       @last_update = Time.now
 
       parsed_response = []
-      parsed_response += pull_instagram_posts_and_parse(hashtag) if ENV["INSTAGRAM_CLIENT_ID"] != ""
-      parsed_response += pull_twitter_posts_and_parse(hashtag) if ENV["TWITTER_BEARER_CREDENTIALS"] != ""
+      parsed_response += pull_instagram_posts_and_parse(hashtag) if EnvironmentService.instagram_client_id
+      parsed_response += pull_twitter_posts_and_parse(hashtag) if EnvironmentService.twitter_bearer_credentials
       parsed_response.each do |attributes|
         Post.create(attributes)
       end
@@ -37,7 +37,7 @@ class APIService
   private
 
 	def pull_instagram_posts_and_parse(hashtag)
-    instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
+    instagram_client_id = EnvironmentService.instagram_client_id
     response = HTTParty.get("https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{instagram_client_id}")
 
     GramParser.parse(response.parsed_response)
@@ -51,7 +51,7 @@ class APIService
   end
 
   def twitter_bearer_token
-    authorization_key = Base64.encode64(ENV["TWITTER_BEARER_CREDENTIALS"]).gsub("\n","")
+    authorization_key = Base64.encode64(EnvironmentService.twitter_bearer_credentials).gsub("\n","")
     
     resp = HTTParty.post('https://api.twitter.com/oauth2/token',
       :headers => { 
