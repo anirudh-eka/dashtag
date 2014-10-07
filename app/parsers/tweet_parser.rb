@@ -5,13 +5,6 @@ class TweetParser
     response["statuses"].each do |tweet|
       
       screen_name = tweet["user"]["screen_name"]
-      created_at = tweet["created_at"]
-      profile_image_url = tweet["user"]["profile_image_url"]
-
-      media = tweet["entities"]["media"]
-      media_url = (media ? media[0]["media_url_https"] : nil)
-
-      post_id = tweet["id_str"]
 
       text = replace_media_links(tweet)
 
@@ -19,22 +12,27 @@ class TweetParser
         parsed_response << { source: "twitter",
                             text: text,
                             screen_name: screen_name,
-                            time_of_post: created_at,
-                            profile_image_url: profile_image_url,
-                            media_url: media_url,
-                            post_id: post_id  }
+                            time_of_post: tweet["created_at"],
+                            profile_image_url: tweet["user"]["profile_image_url"],
+                            media_url: get_media_url(tweet),
+                            post_id: tweet["id_str"] }
       end
     end
-    return parsed_response
+
+    parsed_response
+  end
+
+  def self.get_media_url(tweet)
+    media = tweet["entities"]["media"]
+    return media ? media[0]["media_url_https"] : nil
   end
 
   def self.replace_media_links(tweet)
-    replace_links_with_youtube strip_photo_url(tweet)
+    replace_short_links strip_photo_url(tweet)
   end
 
   def self.strip_photo_url(tweet)
-    media = tweet["entities"]["media"]
-    media_link = (media ? media[0]["url"] : nil)
+    media_link = get_media_url(tweet)
 
     return tweet if media_link.nil? 
 
@@ -43,7 +41,7 @@ class TweetParser
     tweet
   end
 
-  def self.replace_links_with_youtube(tweet)
+  def self.replace_short_links(tweet)
     urls = tweet["entities"]["urls"]
 
     return tweet["text"] if urls.empty? 
