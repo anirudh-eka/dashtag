@@ -1,4 +1,4 @@
-Hashtag Displayer
+Dashtag
 =================
 Check out the example of Hashtag Displayer [here on our staging site](http://hashtag-displayer-staging-1.herokuapp.com/).
 
