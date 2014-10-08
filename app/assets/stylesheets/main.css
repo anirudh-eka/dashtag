@@ -109,10 +109,7 @@ a#hashtag-anchor {
  }
 
 .post-created-at {
-  text-align: right;
   font-size: 11px;
-  width: 43%;
-  float: right;
   display: inline-block;
 }
 
