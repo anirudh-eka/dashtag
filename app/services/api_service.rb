@@ -1,4 +1,3 @@
-require 'pry'
 require 'singleton'
 
 class APIService
