@@ -82,7 +82,7 @@ a#hashtag-anchor {
 }
 
 .post-container section {
-    margin: 20px 0 0 0;
+    margin: 11px 0 0 0;
 }
 
 .post-text {
@@ -128,28 +128,23 @@ a#hashtag-anchor {
   color: rgba(80, 136, 251, 1);
 }
 
+/*ThoughtWorks Magenta*/
 .background-color-1 {
-  /*ThoughtWorks Magenta*/
-  background: rgb(239, 91, 161);
+  background: rgb(177, 28, 84);
 }
-
-.background-color-2 {
-  /*ThoughtWorks Orange*/
-  background: rgb(247, 143, 49);
-}
-
+/*ThoughtWorks Turquoise*/
 .background-color-3 {
-  /*ThoughtWorks Turquoise*/
-  background: rgb(38, 189, 207);
+    background: rgb(128, 201, 210)
 }
 
+/*ThoughtWorks Orange*/
+.background-color-2 {
+background: rgb(247, 143, 49);
+}
+
+/*ThoughtWorks Green  */
 .background-color-4 {
-  /*background: rgb(26, 115, 186);*/
-  background: rgb(181, 185, 53)
-  /*background: rgb(177, 28, 84);*/
-  /*background: rgb(177, 28, 84);*/
-  /*background: rgb(38,189,207);*/
-  /*background: rgb(128,201,210);*/
+  background: rgb(181, 185, 53);
 }
 
 #last_page_requested{
