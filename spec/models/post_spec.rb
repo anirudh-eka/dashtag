@@ -5,6 +5,13 @@ describe Post do
   it { should validate_presence_of(:time_of_post) }
   it { should validate_presence_of(:profile_image_url) }
   it { should validate_presence_of(:source) }
+  it "should validate that the post is not a retweet" do 
+    retweet = FactoryGirl.build(:post, 
+      text: "RT @akacharleswade: Pouring rain. So what. Stay in these streets! #UmbrellaRevolution",
+      source: "twitter")
+    expect{ retweet.save! }.to raise_error()
+    expect(retweet.errors.messages[:text]).to eq(["can't be a retweet"]) 
+  end
 
   before :each do
     @gram_one = Post.create!(
@@ -35,7 +42,6 @@ describe Post do
 
 
   end
-
   context "when getting all posts with a hashtag" do
     it 'should pull new posts from api' do
       expect(APIService.instance).to receive(:pull_posts)

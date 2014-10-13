@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
 	validates_presence_of :screen_name, :time_of_post, :profile_image_url, :source, :post_id
-
+  validate :post_is_not_a_retweet
 	validates_uniqueness_of :screen_name, scope: :time_of_post
 
   def as_json(options={})
@@ -43,6 +43,11 @@ class Post < ActiveRecord::Base
     where("time_of_post < ?", last_post.time_of_post).order(time_of_post: :desc)
   end
 
+  def post_is_not_a_retweet
+    if source == "twitter" && text.match(/(RT @[\S]+:)/)
+      errors.add(:text, "can't be a retweet")
+    end
+  end
 
 private
 
