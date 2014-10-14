@@ -5,12 +5,18 @@ describe Post do
   it { should validate_presence_of(:time_of_post) }
   it { should validate_presence_of(:profile_image_url) }
   it { should validate_presence_of(:source) }
-  it "should validate that the post is not a retweet" do 
-    retweet = FactoryGirl.build(:post, 
-      text: "RT @akacharleswade: Pouring rain. So what. Stay in these streets! #UmbrellaRevolution",
-      source: "twitter")
-    expect{ retweet.save! }.to raise_error()
-    expect(retweet.errors.messages[:text]).to eq(["can't be a retweet"]) 
+  context "when disable retweets is turned off" do
+    before(:each) do 
+      expect(EnvironmentService).to receive(:disable_retweets) {true}
+    end
+    
+    it "should validate that the post is not a retweet" do 
+      retweet = FactoryGirl.build(:post, 
+        text: "RT @akacharleswade: Pouring rain. So what. Stay in these streets! #UmbrellaRevolution",
+        source: "twitter")
+      expect{ retweet.save! }.to raise_error()
+      expect(retweet.errors.messages[:text]).to eq(["can't be a retweet"]) 
+    end
   end
 
   before :each do
