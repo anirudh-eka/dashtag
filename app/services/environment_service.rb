@@ -8,4 +8,8 @@ class EnvironmentService
 		return nil if ENV["INSTAGRAM_CLIENT_ID"] == ""
 		ENV["INSTAGRAM_CLIENT_ID"]
 	end
+
+	def self.disable_retweets
+		ENV["DISABLE_RETWEETS"] != "false"
+	end
 end

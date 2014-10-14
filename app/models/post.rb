@@ -44,7 +44,7 @@ class Post < ActiveRecord::Base
   end
 
   def post_is_not_a_retweet
-    if source == "twitter" && text.match(/(RT @[\S]+:)/)
+    if EnvironmentService.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
       errors.add(:text, "can't be a retweet")
     end
   end
