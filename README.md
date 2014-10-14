@@ -51,7 +51,7 @@ To find the key and secret for your app follow these [directions](https://dev.tw
 
 `Instagram Client Id` should be set to the client id you get back from [registering your application with Instagram](http://instagram.com/developer/clients/register/). Where it prompts for `Website` and `OAuth redirect_uri:` and you will need to put your site's address.  You should not need to change the defaults for `Disable implicit OAuth` or `Enforce signed header`.  You only need the CLIENT_ID that they give you, not the secret or anything else.
 
-The application by default does not capture retweet posts from twitter. To capture retweets, set the `DISABLE_RETWEETS`, environment variable to 'false'. 
+The application by default does not capture retweet posts from twitter. To capture retweets, set the `DISABLE_RETWEETS`, environment variable to 'false'.
 
 To Run Locally
 ---------------
