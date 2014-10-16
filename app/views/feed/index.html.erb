@@ -1,7 +1,8 @@
-<a href="#hashtag-anchor" id="up" class="hashtag-title">
-  <h1>#<%=ENV["HASHTAG"]%></h1>
-</a>
-<a id="hashtag-anchor"></a>
+
+<%= link_to "http://www.congoevents.org/" do %>
+<div class = "hash-header">#<%= ENV["HASHTAG"].upcase %></div>
+
+<%- end %>
 
 <div id="posts-list">
   <% @posts.each_with_index do |post, i| %>

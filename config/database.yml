@@ -1,17 +1,17 @@
 development:
   adapter: postgresql
   encoding: utf8
-  database: hashtag_displayer_development
+  database: congoweek2014_development
   pool: 5
 
 test: &TEST
   adapter: postgresql
   encoding: utf8
-  database: hashtag_displayer_test
+  database: congoweek2014_test
   pool: 5
 
 production:
   adapter: postgresql
   encoding: utf8
-  database: hashtag_displayer_production
+  database: congoweek2014_production
   pool: 5
