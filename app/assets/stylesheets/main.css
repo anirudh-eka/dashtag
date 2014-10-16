@@ -5,9 +5,7 @@ body {
   background-color: #EFEFEF;
 }
 
-body {
-  margin-top: 65px;
-}
+
 
 #posts-list
 {
@@ -34,14 +32,10 @@ a {
   font-weight: 200;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
 a#hashtag-anchor {
- display: block; 
+ display: block;
  position: relative;
- top: -250px; 
+ top: -250px;
  visibility: hidden;
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
@@ -61,7 +55,7 @@ a#hashtag-anchor {
 
 .vine-video {
   display: block;
-  margin: auto; 
+  margin: auto;
 }
 
 .post-container {
@@ -72,9 +66,9 @@ a#hashtag-anchor {
   float: left;
   padding: 1.5% .75%;
   margin: 5px;
-  -webkit-border-radius: 6px; 
-  -moz-border-radius: 6px; 
-  border-radius: 6px; 
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
 }
 
 .post-picture img {
@@ -131,20 +125,27 @@ a#hashtag-anchor {
 /*ThoughtWorks Magenta*/
 .background-color-1 {
   background: rgb(177, 28, 84);
+  background: black;
+
 }
 /*ThoughtWorks Turquoise*/
 .background-color-3 {
-    background: rgb(128, 201, 210)
+  background: rgb(128, 201, 210);
+  background: #4386DB;
+
 }
 
 /*ThoughtWorks Orange*/
 .background-color-2 {
-background: rgb(247, 143, 49);
+  background: rgb(247, 143, 49);
+  background: #01288D;
 }
 
 /*ThoughtWorks Green  */
 .background-color-4 {
   background: rgb(181, 185, 53);
+  background: gray;
+
 }
 
 #last_page_requested{
@@ -152,16 +153,24 @@ background: rgb(247, 143, 49);
 }
 
 .hashtag-title {
-  text-decoration: none;
+   text-decoration: none;
    z-index: 1;
-   background-color: #EFEFEF;
    position: fixed;
    top:0; left:0;
    width: 100%;
  }
 
- .hashtag-title:hover {
-  background-color: #F6F6F6;
+ .hash-header{
+    background-color: rgb(136, 65, 65);
+    font-size: 32px;
+    font-weight: 400;
+    text-align: center;
+    padding: 20px;
+ }
+
+ .hash-header:hover {
+  background-color: rgb(184, 149, 149);
+  text-decoration: none;
  }
 
 @media ( min-width: 768px )
@@ -171,9 +180,6 @@ background: rgb(247, 143, 49);
         margin: 10px 0 10px 0;
     }
 
-    body {
-        margin-top: 85px;
-    }
     .post-container
     {
         width: 45.876%;
@@ -191,9 +197,7 @@ background: rgb(247, 143, 49);
         margin: 15px 0 15px 0;
     }
 
-    body {
-        margin-top: 95px;
-    }
+
     #posts-list
     {
         padding-left: 0;
