@@ -2,7 +2,7 @@
     "name": "Hashtag_displayer",
     "description": "Displays tweets and instagrams of a certain hashtag",
     "website": "https://github.com/anirudh-eka/hashtag_displayer",
-    "repository": "https://github.com/anirudh-eka/hashtag_displayer.git",
+    "repository": "https://github.com/anirudh-eka/hashtag_displayer",
     "success_url": "/",
     "keywords": [
         "Social",
@@ -10,13 +10,16 @@
         "instagram"
     ],    
     "scripts": {
-        "postdeploy": "rake db:migrate"
+        "postdeploy": "bundle exec rake db:migrate"
     },
 
     "env": {
+        "RAILS_ENV": "production",
         "HASHTAG": "",
         "CENSORED_WORDS": "asdfasdfasdfasdf",
         "TWITTER_BEARER_CREDENTIALS": "",
         "INSTAGRAM_CLIENT_ID": ""
-    }
+    },
+
+    "addons": ["heroku-postgresql"]
 }
