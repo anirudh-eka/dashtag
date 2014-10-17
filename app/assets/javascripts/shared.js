@@ -23,7 +23,7 @@ var renderPost = function (post, bgColor) {
     var createdAtSection = "<i class='fa fa-2x fa-" + post.source + "'></i><span class='time-of-post'>"
         + formattedDate + "</span>";
 
-    postContainer.append(originalPostLink(post, createdAtSection));
+    postContainer.append("<section class='post-created-at'>" + originalPostLink(post, createdAtSection) + "</section>");
 
     return postContainer;
 }
@@ -64,5 +64,5 @@ var originalPostLink = function (post, createdAtSection) {
         postLink = 'https://instagram.com/' + 'p/' + post.post_id;
     }
 
-    return "<section class='post-created-at'><a href='" + postLink + "' target='_blank'>" + createdAtSection + "</a></section>";
+    return "<a href='" + postLink + "' target='_blank'>" + createdAtSection + "</a>";
 }
