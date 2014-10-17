@@ -9,7 +9,8 @@ var renderPost = function (post, bgColor) {
 
     postContainer.append("<section class='post-picture'></section>");
     if (post.media_url) {
-        postContainer.find(".post-picture").html("<img src='" + post.media_url + "' />");
+        var postImage = "<img src='" + post.media_url + "' />";
+        postContainer.find(".post-picture").html(originalPostLink(post, postImage));
     }
 
     postContainer.append("<section class='post-username'></section>");
