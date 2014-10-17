@@ -15,16 +15,16 @@
 
     "env": {
         "HASHTAG": {
-            "required": true 
+            "required": 'true' 
             },
         "CENSORED_WORDS": {
-            "required": false 
+            "required": 'false' 
             },
         "TWITTER_BEARER_CREDENTIALS": {
-            "required": false 
+            "required": 'false' 
             },
         "INSTAGRAM_CLIENT_ID": {
-            "required": false 
+            "required": 'false' 
             }
     }
 }
