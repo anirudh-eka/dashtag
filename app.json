@@ -14,6 +14,9 @@
     "RAILS_ENV": "production",
     "RACK_ENV": "production",
     "SECRET_KEY_BASE": "REDACTED",
-    "HASHTAG": "connectjs"
+    "HASHTAG": "connectjs",
+    "TWITTER_BEARER_CREDENTIALS": "someBearerCredential",
+    "INSTAGRAM_CLIENT_ID": "someClientId",
+    "CENSORED_WORDS": "somewords|bigbrother"
   }
 }
