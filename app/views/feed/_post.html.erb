@@ -19,10 +19,12 @@
     <img src=<%= post.profile_image_url %> class="avatar" /> <%= link_to "@"+post.screen_name, "//"+post.source+".com/"+post.screen_name, target: '_blank' %>
   </section>
   <section class="post-created-at">
+    <% unless post.post_id == nil %>
     <% if post.source == 'twitter' %>
         <a href=<%= 'https://twitter.com/' + post.screen_name + '/' + 'status/' + post.post_id %> target='_blank'>
     <% elsif post.source == 'instagram' %>
         <a href=<%= 'https://instagram.com/' + 'p/' + post.post_id %> target='_blank'>
+    <% end %>
     <% end %>
     <i class="fa fa-2x fa-<%= post.source %>"></i>
     <span class="time-of-post"> <%= post.time_of_post %> </span>
