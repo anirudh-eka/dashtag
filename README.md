@@ -9,7 +9,7 @@ The application uses [Twitter's REST API](https://dev.twitter.com/rest/reference
 To Deploy To Heroku
 -------------------
  Simply put the environment variables, as described below, into Heroku's dashboard after hitting the Deploy to Heroku Button above. 
- [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/anirudh-eka/hashtag_displayer.git)
+ [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/anirudh-eka/dashtag.git)
 
 
 Environment Variables
