@@ -20,11 +20,15 @@
         "CENSORED_WORDS": {
             "required": false 
             },
+        "CENSORED_USERS": {
+            "required": false 
+            },
         "TWITTER_BEARER_CREDENTIALS": {
             "required": false 
             },
         "INSTAGRAM_CLIENT_ID": {
             "required": false 
-            }
+            },
+        "DISABLE_RETWEETS": "true"
     }
 }
