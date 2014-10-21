@@ -10,9 +10,6 @@
     "heroku-postgresql:hobby-dev"
   ],
   "env": {
-    "LANG": "en_US.UTF-8",
-    "RAILS_ENV": "production",
-    "RACK_ENV": "production",
     "HASHTAG": "connectjs",
     "TWITTER_BEARER_CREDENTIALS": "someBearerCredential",
     "INSTAGRAM_CLIENT_ID": "someClientId",
