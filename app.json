@@ -1,18 +1,35 @@
 {
-  "name": "Hashtag Displayer",
-  "description": "TODO: Add a short description about Hashtag Displayer",
-  "keywords": [
-    "small",
-    "sharp",
-    "tool"
-  ],
-  "addons": [
-    "heroku-postgresql:hobby-dev"
-  ],
-  "env": {
-    "HASHTAG": "connectjs",
-    "TWITTER_BEARER_CREDENTIALS": "someBearerCredential",
-    "INSTAGRAM_CLIENT_ID": "someClientId",
-    "CENSORED_WORDS": "somewords|bigbrother"
-  }
+    "name": "Dashtag",
+    "description": "Displays tweets and instagrams of a certain hashtag",
+    "website": "https://github.com/anirudh-eka/dashtag",
+    "repository": "https://github.com/anirudh-eka/dashtag",
+    "success_url": "/",
+    "keywords": [
+        "Social",
+        "twitter",
+        "instagram"
+    ],    
+    "scripts": {
+        "postdeploy": "bundle exec rake db:migrate"
+    },
+
+    "env": {
+        "HASHTAG": {
+            "required": true 
+            },
+        "CENSORED_WORDS": {
+            "required": false 
+            },
+        "CENSORED_USERS": {
+            "required": false 
+            },
+        "TWITTER_BEARER_CREDENTIALS": {
+            "required": false 
+            },
+        "INSTAGRAM_CLIENT_ID": {
+            "required": false 
+            },
+        "DISABLE_RETWEETS": "true"
+    },
+    "addons": ["heroku-postgresql"]
 }
