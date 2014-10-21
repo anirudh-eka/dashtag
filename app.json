@@ -1,8 +1,8 @@
 {
     "name": "Dashtag",
     "description": "Displays tweets and instagrams of a certain hashtag",
-    "website": "https://github.com/anirudh-eka/hashtag_displayer",
-    "repository": "https://github.com/anirudh-eka/hashtag_displayer",
+    "website": "https://github.com/anirudh-eka/dashtag",
+    "repository": "https://github.com/anirudh-eka/dashtag",
     "success_url": "/",
     "keywords": [
         "Social",
