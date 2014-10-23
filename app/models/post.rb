@@ -59,7 +59,7 @@ private
 
   def clear_oldest_post_if_limit_is_reached
     unless Post.all.empty?
-      if Post.count > EnvironmentService.db_row_limit && !(errors.any?)
+      if Post.count > EnvironmentService.db_row_limit
         Post.order(time_of_post: :desc).last.destroy!
       end
     end
