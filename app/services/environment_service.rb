@@ -14,9 +14,9 @@ class EnvironmentService
 		ENV["DISABLE_RETWEETS"].downcase != "false"
 	end
 
-	def self.db_rows_limit
+	def self.db_row_limit
 		begin
-			Integer(ENV["DB_ROWS_LIMIT"])
+			Integer(ENV["DB_ROW_LIMIT"])
 		rescue ArgumentError, TypeError
 			8000
 		end

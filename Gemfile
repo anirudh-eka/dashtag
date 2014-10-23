@@ -53,6 +53,9 @@ group :production do
 end
 
 gem 'pry'
+gem 'pry-byebug'
+# gem 'pry-rails'
+# gem 'pry-plus'
 # gem 'pry-debugger'
 
 ruby "2.1.3"
