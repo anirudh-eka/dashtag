@@ -39,4 +39,28 @@ describe EnvironmentService do
       ENV["DISABLE_RETWEETS"] = test_env      
     end
   end
+
+  describe "db_rows_limit" do 
+    it "should return what is set in env" do 
+      test_env = ENV["DB_ROWS_LIMIT"]
+      ENV["DB_ROWS_LIMIT"] = "3000"
+      expect(EnvironmentService.db_rows_limit).to eq(3000)
+      ENV["DB_ROWS_LIMIT"] = test_env 
+    end
+
+    it "should return 8000 by default" do
+      test_env = ENV["DB_ROWS_LIMIT"]
+      ENV["DB_ROWS_LIMIT"] = ""
+      expect(EnvironmentService.db_rows_limit).to eq(8000)
+      ENV["DB_ROWS_LIMIT"] = test_env      
+    end
+
+    
+    it "should return 8000 if entry is not integer" do
+      test_env = ENV["DB_ROWS_LIMIT"]
+      ENV["DB_ROWS_LIMIT"] = "stuff"
+      expect(EnvironmentService.db_rows_limit).to eq(8000)
+      ENV["DB_ROWS_LIMIT"] = test_env      
+    end    
+  end
 end
