@@ -10,7 +10,8 @@ class EnvironmentService
 	end
 
 	def self.disable_retweets
-		ENV["DISABLE_RETWEETS"] != "false"
+    return nil unless ENV["DISABLE_RETWEETS"]
+		ENV["DISABLE_RETWEETS"].downcase != "false"
 	end
 
 	def self.db_rows_limit
