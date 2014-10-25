@@ -77,7 +77,7 @@ describe Post do
     expect(Post.tweets.count).to eq(1)
   end
 
-  it 'should return all grams when doing Post.grams' do
+  it 'should return all grams when doing Post.grams', dont_run_in_snap: true do
     gram_one = FactoryGirl.create(:post, source: "instagram")
     gram_two = FactoryGirl.create(:post, screen_name: "someone_different", source: "instagram")
     expect(Post.grams).to include(gram_one)
