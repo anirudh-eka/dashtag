@@ -128,8 +128,6 @@ a#hashtag-anchor {
   color: rgba(80, 136, 251, 1);
 }
 
-
-
 #last_page_requested{
   display:none;
 }
@@ -146,6 +144,27 @@ a#hashtag-anchor {
  .hashtag-title:hover {
   background-color: #F6F6F6;
  }
+
+ /*Default Background Colors*/
+/*ThoughtWorks Magenta*/
+.background-color-1 {
+  background: #B11C54;
+}
+
+/*ThoughtWorks Orange*/
+.background-color-2 {
+  background: #F78F31;
+}
+
+/*ThoughtWorks Turquoise*/
+.background-color-3 {
+  background: #80C9D2;
+}
+
+/*ThoughtWorks Green  */
+.background-color-4 {
+  background: #B5B935;
+}
 
 @media ( min-width: 768px )
 {
