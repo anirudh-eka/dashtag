@@ -23,7 +23,25 @@ class EnvironmentService
 	end
 
 	def self.color_1
-		return "rgb(177, 28, 84)" if ENV["COLOR_1"] == nil || ENV["COLOR_1"] == ""
-		ENV["COLOR_1"]
+		return color(1, "rgb(177, 28, 84)")
+	end
+
+	def self.color_2
+		return color(2, "rgb(247, 143, 49)")
+	end
+
+	def self.color_3
+		return color(3, "rgb(128, 201, 210)")
+	end
+
+	def self.color_4
+		return color(4, "rgb(181, 185, 53)")
+	end
+
+	private
+
+	def self.color(num, default_color)
+		return default_color if ENV["COLOR_#{num}"] == nil || ENV["COLOR_#{num}"] == ""
+		ENV["COLOR_#{num}"]
 	end
 end

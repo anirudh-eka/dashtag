@@ -78,6 +78,53 @@ describe EnvironmentService do
       expect(EnvironmentService.color_1).to eq("rgb(177, 28, 84)")
       ENV["COLOR_1"] = test_env
     end
+  end
 
+    describe "color_2" do
+    it "should return what is set in env" do 
+      test_env = ENV["COLOR_2"]
+      ENV["COLOR_2"] = "#07c"
+      expect(EnvironmentService.color_2).to eq("#07c")
+      ENV["COLOR_2"] = test_env 
+    end
+
+    it "should return rgb(247, 143, 49) by default" do
+      test_env = ENV["COLOR_2"]
+      ENV["COLOR_2"] = nil
+      expect(EnvironmentService.color_2).to eq("rgb(247, 143, 49)")
+      ENV["COLOR_2"] = test_env
+    end
+  end
+
+    describe "color_3" do
+    it "should return what is set in env" do 
+      test_env = ENV["COLOR_3"]
+      ENV["COLOR_3"] = "#07c"
+      expect(EnvironmentService.color_3).to eq("#07c")
+      ENV["COLOR_3"] = test_env 
+    end
+
+    it "should return rgb(128, 201, 210) by default" do
+      test_env = ENV["COLOR_3"]
+      ENV["COLOR_3"] = nil
+      expect(EnvironmentService.color_3).to eq("rgb(128, 201, 210)")
+      ENV["COLOR_3"] = test_env
+    end
+  end
+
+    describe "color_4" do
+    it "should return what is set in env" do 
+      test_env = ENV["COLOR_4"]
+      ENV["COLOR_4"] = "#07c"
+      expect(EnvironmentService.color_4).to eq("#07c")
+      ENV["COLOR_4"] = test_env 
+    end
+
+    it "should return rgb(181, 185, 53) by default" do
+      test_env = ENV["COLOR_4"]
+      ENV["COLOR_4"] = nil
+      expect(EnvironmentService.color_4).to eq("rgb(181, 185, 53)")
+      ENV["COLOR_4"] = test_env
+    end
   end
 end
