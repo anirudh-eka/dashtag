@@ -14,13 +14,18 @@ To Deploy To Heroku
 
 Environment Variables
 ---------------------
-Currently the application expects the following variables in the environment:
--	HASHTAG
--	CENSORED_WORDS
+Currently the application uses the following variables in the environment (required is marked with *):
+-	HASHTAG *
+-	CENSORED_WORDS 
 -	CENSORED_USERS
 -	TWITTER_BEARER_CREDENTIALS
 - 	INSTAGRAM_CLIENT_ID
--	DISABLE_RETWEETS
+-	DISABLE_RETWEETS (default: true)
+-	DB_ROW_LIMIT (default: 8000)
+-	COLOR_1	(default: #B11C54)
+-	COLOR_2	(default: #F78F31)
+-	COLOR_3	(default: #80C9D2)
+-	COLOR_4	(default: #B5B935)
 
 `Hashtag` should be set to the text of the hashtag excluding the initial '#'. So if you wanted all of the posts with the "#peace" on Twitter, you set: 
 	HASHTAG=peace
@@ -52,6 +57,10 @@ To find the key and secret for your app follow these [directions](https://dev.tw
 `Instagram Client Id` should be set to the client id you get back from [registering your application with Instagram](http://instagram.com/developer/clients/register/). Where it prompts for `Website` and `OAuth redirect_uri:` and you will need to put your site's address.  You should not need to change the defaults for `Disable implicit OAuth` or `Enforce signed header`.  You only need the CLIENT_ID that they give you, not the secret or anything else.
 
 The application by default does not capture retweet posts from twitter. To capture retweets, set the `DISABLE_RETWEETS`, environment variable to 'false'.
+
+The application by default limits the amount of posts saved in the db to 8000. Once that limit is reached for each new post added the oldest post *determined by the time it was posted on instagram/twitter (and not when it was entered into the db)* is deleted. To change the limit, set `DB_ROW_LIMIT` to the number of rows you would prefer. 
+
+Background colors of the posts can also be customized by setting `COLOR_1`, `COLOR_2`, `COLOR_3`, and `COLOR_4` to the hexidecimal(starting with the '#'). By default the colors are "#B11C54", "#F78F31", "#80C9D2", and "#B5B935".
 
 To Run Locally
 ---------------
