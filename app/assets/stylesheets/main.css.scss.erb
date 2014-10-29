@@ -130,21 +130,22 @@ a#hashtag-anchor {
 
 /*ThoughtWorks Magenta*/
 .background-color-1 {
-  background: rgb(177, 28, 84);
-}
-/*ThoughtWorks Turquoise*/
-.background-color-3 {
-    background: rgb(128, 201, 210)
+  background: <%= EnvironmentService.color_1 %>;
 }
 
 /*ThoughtWorks Orange*/
 .background-color-2 {
-background: rgb(247, 143, 49);
+background: <%= EnvironmentService.color_2 %>;
+}
+
+/*ThoughtWorks Turquoise*/
+.background-color-3 {
+    background: <%= EnvironmentService.color_3 %>;
 }
 
 /*ThoughtWorks Green  */
 .background-color-4 {
-  background: rgb(181, 185, 53);
+  background: <%= EnvironmentService.color_4 %>;
 }
 
 #last_page_requested{
