@@ -10,7 +10,7 @@ class EnvironmentService
 	end
 
 	def self.disable_retweets
-    return nil unless ENV["DISABLE_RETWEETS"]
+    	return true unless ENV["DISABLE_RETWEETS"]
 		ENV["DISABLE_RETWEETS"].downcase != "false"
 	end
 
@@ -20,5 +20,10 @@ class EnvironmentService
 		rescue ArgumentError, TypeError
 			8000
 		end
+	end
+
+	def self.color_1
+		return "rgb(177, 28, 84)" if ENV["COLOR_1"] == nil || ENV["COLOR_1"] == ""
+		ENV["COLOR_1"]
 	end
 end
