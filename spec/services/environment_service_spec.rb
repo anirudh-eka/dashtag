@@ -7,7 +7,7 @@ describe EnvironmentService do
     end
     it "should return nil if twitter credentials are not set in env" do
       default_cred = ENV["TWITTER_BEARER_CREDENTIALS"]
-      ENV["TWITTER_BEARER_CREDENTIALS"] = ""
+      ENV["TWITTER_BEARER_CREDENTIALS"] = nil
       expect(EnvironmentService.twitter_bearer_credentials).to be_nil
       ENV["TWITTER_BEARER_CREDENTIALS"] = default_cred
     end
@@ -18,7 +18,7 @@ describe EnvironmentService do
     end
     it "should return nil if twitter credentials are not set in env" do
       default_cred = ENV["INSTAGRAM_CLIENT_ID"]
-      ENV["INSTAGRAM_CLIENT_ID"] = ""
+      ENV["INSTAGRAM_CLIENT_ID"] = nil
       expect(EnvironmentService.instagram_client_id).to be_nil
       ENV["INSTAGRAM_CLIENT_ID"] = default_cred
     end
@@ -34,7 +34,7 @@ describe EnvironmentService do
 
     it "should return true by default" do
       test_env = ENV["DISABLE_RETWEETS"]
-      ENV["DISABLE_RETWEETS"] = ""
+      ENV["DISABLE_RETWEETS"] = nil
       expect(EnvironmentService.disable_retweets).to eq(true)
       ENV["DISABLE_RETWEETS"] = test_env      
     end
@@ -50,7 +50,7 @@ describe EnvironmentService do
 
     it "should return 8000 by default" do
       test_env = ENV["DB_ROW_LIMIT"]
-      ENV["DB_ROW_LIMIT"] = ""
+      ENV["DB_ROW_LIMIT"] = nil
       expect(EnvironmentService.db_row_limit).to eq(8000)
       ENV["DB_ROW_LIMIT"] = test_env      
     end
@@ -62,5 +62,22 @@ describe EnvironmentService do
       expect(EnvironmentService.db_row_limit).to eq(8000)
       ENV["DB_ROW_LIMIT"] = test_env      
     end    
+  end
+
+  describe "color_1" do
+    it "should return what is set in env" do 
+      test_env = ENV["COLOR_1"]
+      ENV["COLOR_1"] = "#07c"
+      expect(EnvironmentService.color_1).to eq("#07c")
+      ENV["COLOR_1"] = test_env 
+    end
+
+    it "should return rgb(177, 28, 84) by default" do
+      test_env = ENV["COLOR_1"]
+      ENV["COLOR_1"] = nil
+      expect(EnvironmentService.color_1).to eq("rgb(177, 28, 84)")
+      ENV["COLOR_1"] = test_env
+    end
+
   end
 end
