@@ -29,7 +29,12 @@
         "INSTAGRAM_CLIENT_ID": {
             "required": false 
             },
-        "DISABLE_RETWEETS": "true"
+        "DISABLE_RETWEETS": "true",
+        "DB_ROW_LIMIT": "8000",
+        "COLOR_1":"#B11C54",
+        "COLOR_2":"#F78F31",
+        "COLOR_3":"#80C9D2",
+        "COLOR_4":"#B5B935"
     },
     "addons": ["heroku-postgresql"]
 }
