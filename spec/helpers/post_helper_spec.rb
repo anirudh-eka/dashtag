@@ -50,23 +50,24 @@ describe PostHelper do
 
   describe 'link_mentions' do
     context 'Twitter post' do
-      subject { helper.link_mentions twitter_post }
-      its([:text]) { should include('//twitter.com/batman') }
-      its([:text]) { should include('//twitter.com/robin') }
+      subject { (helper.link_mentions twitter_post).text }
+
+      it { should include('//twitter.com/batman') }
+      it { should include('//twitter.com/robin') }
     end
 
     context 'Instagram post' do
-      subject { helper.link_mentions instagram_post }
-      its([:text]) { should include('//instagram.com/Julia')}
-      its([:text]) { should include('//instagram.com/Julian')}
+      subject { (helper.link_mentions instagram_post).text }
+      it { should include('//instagram.com/Julia')}
+      it { should include('//instagram.com/Julian')}
     end
   end
 
   describe 'link_hashtags_twitter' do
-    subject { helper.link_hashtags_twitter twitter_post }
-    its([:text]) { should include('//twitter.com/hashtag/helpus') }
-    its([:text]) { should include('//twitter.com/hashtag/gothamcity" target="_blank">#gothamcity</a>') }
-    its([:text]) { should include('//twitter.com/hashtag/gotham" target="_blank">#gotham</a>') }
+    subject { (helper.link_hashtags_twitter twitter_post).text }
+    it { should include('//twitter.com/hashtag/helpus') }
+    it { should include('//twitter.com/hashtag/gothamcity" target="_blank">#gothamcity</a>') }
+    it { should include('//twitter.com/hashtag/gotham" target="_blank">#gotham</a>') }
   end
 
   describe 'link_urls' do
