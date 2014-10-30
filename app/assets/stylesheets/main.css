@@ -39,9 +39,9 @@ a:hover {
 }
 
 a#hashtag-anchor {
- display: block; 
+ display: block;
  position: relative;
- top: -250px; 
+ top: -250px;
  visibility: hidden;
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
@@ -61,7 +61,7 @@ a#hashtag-anchor {
 
 .vine-video {
   display: block;
-  margin: auto; 
+  margin: auto;
 }
 
 .post-container {
@@ -72,9 +72,9 @@ a#hashtag-anchor {
   float: left;
   padding: 1.5% .75%;
   margin: 5px;
-  -webkit-border-radius: 6px; 
-  -moz-border-radius: 6px; 
-  border-radius: 6px; 
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
 }
 
 .post-picture img {
