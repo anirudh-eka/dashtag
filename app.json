@@ -1,8 +1,8 @@
 {
-    "name": "Hashtag_displayer",
+    "name": "Dashtag",
     "description": "Displays tweets and instagrams of a certain hashtag",
-    "website": "https://github.com/anirudh-eka/hashtag_displayer",
-    "repository": "https://github.com/anirudh-eka/hashtag_displayer.git",
+    "website": "https://github.com/anirudh-eka/dashtag",
+    "repository": "https://github.com/anirudh-eka/dashtag",
     "success_url": "/",
     "keywords": [
         "Social",
@@ -10,13 +10,31 @@
         "instagram"
     ],    
     "scripts": {
-        "postdeploy": "rake db:migrate"
+        "postdeploy": "bundle exec rake db:migrate"
     },
 
     "env": {
-        "HASHTAG": "",
-        "CENSORED_WORDS": "asdfasdfasdfasdf",
-        "TWITTER_BEARER_CREDENTIALS": "",
-        "INSTAGRAM_CLIENT_ID": ""
-    }
+        "HASHTAG": {
+            "required": true 
+            },
+        "CENSORED_WORDS": {
+            "required": false 
+            },
+        "CENSORED_USERS": {
+            "required": false 
+            },
+        "TWITTER_BEARER_CREDENTIALS": {
+            "required": false 
+            },
+        "INSTAGRAM_CLIENT_ID": {
+            "required": false 
+            },
+        "DISABLE_RETWEETS": "true",
+        "DB_ROW_LIMIT": "8000",
+        "COLOR_1":"#B11C54",
+        "COLOR_2":"#F78F31",
+        "COLOR_3":"#80C9D2",
+        "COLOR_4":"#B5B935"
+    },
+    "addons": ["heroku-postgresql"]
 }

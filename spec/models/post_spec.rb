@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Post do
+
   it { should validate_presence_of(:screen_name) }
   it { should validate_presence_of(:time_of_post) }
   it { should validate_presence_of(:profile_image_url) }
@@ -19,35 +20,37 @@ describe Post do
     end
   end
 
-  before :each do
-    @gram_one = Post.create!(
-      source: "instagram",
-      screen_name: "qwerty",
-      time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
-      profile_image_url: "xyz",
-      text: "Hey there",
-      media_url: "abc",
-      post_id: "123")
+  context "when number of posts hit db_row_limit" do 
+    before(:each) do 
+      allow(EnvironmentService).to receive(:db_row_limit) {2}
+    end
 
-    @gram_two = Post.create!(
-      source: "instagram",
-      screen_name: "ABCDEFG",
-      time_of_post: "Fri Sep 20 23:40:54 +0000 2012",
-      profile_image_url: "xyz",
-      text: "friendship",
-      media_url: "def",
-      post_id: "456")
+    it "should delete oldest post" do
+      oldest_tweet = FactoryGirl.create(:post, time_of_post: "Fri Sep 18 23:40:54 +0000 1980")
+      FactoryGirl.create(:post, time_of_post: "Fri Sep 18 23:40:54 +0000 1990")
+      new_tweet = FactoryGirl.create(:post, 
+        text: "Pouring rain. So what. #soWhat",
+        source: "twitter",
+        time_of_post: "Fri Sep 21 23:40:54 +0000 2014")
+      
+      expect(Post.all.include?(oldest_tweet)).to be_falsy
+    end
 
-    @tweet_one = Post.create!(
-      source: "twitter",
-      text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
-      screen_name: "bullcityrecords",
-      time_of_post: "Fri Sep 21 22:40:54 +0000 2012",
-      profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
-      post_id: "789")
+    it "should not delete oldest post if new one fails validation" do
+      FactoryGirl.create(:post, time_of_post: "Fri Sep 18 23:40:54 +0000 1990")
+      oldest_tweet = FactoryGirl.create(:post, time_of_post: "Fri Sep 18 23:40:54 +0000 1980")      
+      new_tweet = FactoryGirl.build(:post, 
+        text: "Pouring rain. So what. #soWhat",
+        source: "twitter",
+        screen_name: nil,
+        time_of_post: "Fri Sep 21 23:40:54 +0000 2014")
 
-
+      new_tweet.save
+      expect(Post.all.include?(oldest_tweet)).to be_truthy
+    end
   end
+  
+
   context "when getting all posts with a hashtag" do
     it 'should pull new posts from api' do
       expect(APIService.instance).to receive(:pull_posts)
@@ -63,17 +66,22 @@ describe Post do
   end
 
   it 'should not equal another post when the attributes are different' do
-    expect(@gram_one).to_not eq(@gram_two)
+    gram_one = FactoryGirl.create(:post, source: "instagram")
+    gram_two = FactoryGirl.create(:post, screen_name: "someone_different", source: "instagram")
+    expect(gram_one).to_not eq(gram_two)
   end
 
   it 'should return all tweets when doing Post.tweets' do
-    expect(Post.tweets).to include(@tweet_one)
+    tweet = FactoryGirl.create(:post, time_of_post: "Fri Sep 18 23:40:54 +0000 1980", source: "twitter")
+    expect(Post.tweets).to include(tweet)
     expect(Post.tweets.count).to eq(1)
   end
 
-  it 'should return all grams when doing Post.grams' do
-    expect(Post.grams).to include(@gram_one)
-    expect(Post.grams).to include(@gram_two)
+  it 'should return all grams when doing Post.grams', dont_run_in_snap: true do
+    gram_one = FactoryGirl.create(:post, source: "instagram")
+    gram_two = FactoryGirl.create(:post, screen_name: "someone_different", source: "instagram")
+    expect(Post.grams).to include(gram_one)
+    expect(Post.grams).to include(gram_two)
     expect(Post.grams.count).to eq(2)
   end
 

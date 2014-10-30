@@ -122,32 +122,6 @@ a#hashtag-anchor {
   color: rgba(80, 136, 251, 1);
 }
 
-/*ThoughtWorks Magenta*/
-.background-color-1 {
-  background: rgb(177, 28, 84);
-  background: black;
-
-}
-/*ThoughtWorks Turquoise*/
-.background-color-3 {
-  background: rgb(128, 201, 210);
-  background: #4386DB;
-
-}
-
-/*ThoughtWorks Orange*/
-.background-color-2 {
-  background: rgb(247, 143, 49);
-  background: #01288D;
-}
-
-/*ThoughtWorks Green  */
-.background-color-4 {
-  background: rgb(181, 185, 53);
-  background: gray;
-
-}
-
 #last_page_requested{
   display:none;
 }
@@ -172,6 +146,27 @@ a#hashtag-anchor {
   background-color: rgb(184, 149, 149);
   text-decoration: none;
  }
+
+ /*Default Background Colors*/
+/*ThoughtWorks Magenta*/
+.background-color-1 {
+  background: #B11C54;
+}
+
+/*ThoughtWorks Orange*/
+.background-color-2 {
+  background: #F78F31;
+}
+
+/*ThoughtWorks Turquoise*/
+.background-color-3 {
+  background: #80C9D2;
+}
+
+/*ThoughtWorks Green  */
+.background-color-4 {
+  background: #B5B935;
+}
 
 @media ( min-width: 768px )
 {
