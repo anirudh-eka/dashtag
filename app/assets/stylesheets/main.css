@@ -5,7 +5,9 @@ body {
   background-color: #EFEFEF;
 }
 
-
+body {
+  margin-top: 65px;
+}
 
 #posts-list
 {
@@ -30,6 +32,10 @@ a {
   color: rgb(234, 234, 234);
   text-decoration: none;
   font-weight: 200;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 a#hashtag-anchor {
@@ -127,24 +133,16 @@ a#hashtag-anchor {
 }
 
 .hashtag-title {
-   text-decoration: none;
+  text-decoration: none;
    z-index: 1;
+   background-color: #EFEFEF;
    position: fixed;
    top:0; left:0;
    width: 100%;
  }
 
- .hash-header{
-    background-color: rgb(136, 65, 65);
-    font-size: 32px;
-    font-weight: 400;
-    text-align: center;
-    padding: 20px;
- }
-
- .hash-header:hover {
-  background-color: rgb(184, 149, 149);
-  text-decoration: none;
+ .hashtag-title:hover {
+  background-color: #F6F6F6;
  }
 
  /*Default Background Colors*/
@@ -175,6 +173,9 @@ a#hashtag-anchor {
         margin: 10px 0 10px 0;
     }
 
+    body {
+        margin-top: 85px;
+    }
     .post-container
     {
         width: 45.876%;
@@ -192,7 +193,9 @@ a#hashtag-anchor {
         margin: 15px 0 15px 0;
     }
 
-
+    body {
+        margin-top: 95px;
+    }
     #posts-list
     {
         padding-left: 0;

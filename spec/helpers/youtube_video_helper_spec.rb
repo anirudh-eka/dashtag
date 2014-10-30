@@ -12,10 +12,10 @@ describe YoutubeVideoHelper do
   end
 
   describe 'youtube_embed_twitter' do
-    subject { helper.youtube_embed_twitter twitter_post }
-    its([:text]) { should include('<iframe') }
-    its([:text]) { should include('youtube.com/embed/a1b2c3d4') }
-    its([:text]) { should_not include('href="http://youtu.be"') }
+    subject { (helper.youtube_embed_twitter twitter_post).text }
+    it { should include('<iframe') }
+    it { should include('youtube.com/embed/a1b2c3d4') }
+    it { should_not include('href="http://youtu.be"') }
   end
 
   describe 'youtube_extract_id' do
