@@ -26,24 +26,8 @@ describe 'home' do
     page.should have_image(instagram_media_image)
   end
 
-  xit 'should add a tweet via automatic update', :js=> true do
-    visit '/'
-
-    page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
-    page.should have_content('@bullcityrecords')
-    page.should have_content('Fri Sep 21 11:30 PM')
-
-    update_tweets_in_db
-    
-    sleep(30.seconds)
-
-    page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
-    page.should have_content('@bullcityrecords')
-    page.should have_content('Fri Sep 21 11:30 PM')
-  end
-
   it 'should not have several swear words' do
-    Capybara.use_default_driver 
+    Capybara.use_default_driver
     sleep ENV["API_Rate"].to_i + 0.5
     stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{ENV["HASHTAG"]}").
       with(headers: {"Authorization"=>/Bearer .+/}).
@@ -53,11 +37,6 @@ describe 'home' do
     ENV["CENSORED_WORDS"].split("|").each do |word|
       page.should_not have_content(word)
     end
-  end
-
-  def update_tweets_in_db
-    Rails.application.load_tasks
-    Rake::Task["update_feed"].invoke
   end
 end
 

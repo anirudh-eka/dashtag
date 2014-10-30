@@ -27,14 +27,6 @@ class Post < ActiveRecord::Base
     super()
   end
 
-  def self.tweets
-    where(source: "twitter")
-  end
-
-  def self.grams
-    where(source: "instagram")
-  end
-
   def self.sorted_posts(hashtag=false, limit=nil)
     limit ? all(hashtag).order(time_of_post: :desc).limit(limit) : all(hashtag).order(time_of_post: :desc)
   end
