@@ -53,9 +53,12 @@ group :production do
 end
 
 gem 'pry'
-gem 'pry-debugger'
+gem 'pry-byebug'
+# gem 'pry-rails'
+# gem 'pry-plus'
+# gem 'pry-debugger'
 
-ruby "2.1.1"
+ruby "2.1.3"
 # gem 'whenever', :require => false
 
 # Use ActiveModel has_secure_password
