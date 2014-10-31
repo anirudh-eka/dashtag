@@ -10,7 +10,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.get_new_posts(hashtag)
-    order(time_of_post: :desc).select { |post| is_post_from_last_pull?(post) } if APIService.instance.pull_posts(hashtag)
+    all_sorted_posts.select { |post| is_post_from_last_pull?(post) } if APIService.instance.pull_posts(hashtag)
   end
 
   def ==(post)
@@ -22,19 +22,19 @@ class Post < ActiveRecord::Base
     post_id == post.post_id
   end
 
-  def self.all(hashtag=false)
+  def self.all_sorted_posts(hashtag=false)
     APIService.instance.pull_posts(hashtag) if hashtag
-    super().order(time_of_post: :desc)
+    all.order(time_of_post: :desc).reject{ |post| censored?(post)}
   end
 
-  def self.sorted_posts(hashtag=false, limit=nil)
-    limit ? all(hashtag).limit(limit).reject{ |post| censored?(post)} : all(hashtag).reject{ |post| censored?(post)}
+  def self.limited_sorted_posts(limit, hashtag=false)
+    all_sorted_posts(hashtag).first(limit)
   end
 
   def self.next_posts(last_post_id, limit=nil)
     last_post = find(last_post_id)
-    return all.where("time_of_post < ?", last_post.time_of_post).limit(limit).reject{ |post| censored?(post)} if limit
-    all.where("time_of_post < ?", last_post.time_of_post).reject{ |post| censored?(post) }
+    return all_sorted_posts.select{ |post| post.time_of_post < last_post.time_of_post }.first(limit) if limit
+    all_sorted_posts.select{ |post| post.time_of_post < last_post.time_of_post }
   end
 
   def post_is_not_a_retweet
@@ -52,7 +52,7 @@ private
   end
 
   def clear_oldest_post_if_limit_is_reached
-    Post.order(time_of_post: :desc).last.destroy! if Post.count > EnvironmentService.db_row_limit
+    Post.all_sorted_posts.last.destroy! if Post.count > EnvironmentService.db_row_limit
   end
 
 end

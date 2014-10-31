@@ -9,7 +9,7 @@ class FeedController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @posts = Post.sorted_posts(ENV["HASHTAG"], 100)
+        @posts = Post.limited_sorted_posts(100, ENV["HASHTAG"])
         render "index"
       end
       format.json do
