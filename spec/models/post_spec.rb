@@ -62,7 +62,7 @@ describe Post do
     let(:second_post) { FactoryGirl.create(:post, created_at: Time.now, text: "float like a butterfly", time_of_post: Time.now) }
     it 'should get next posts' do
       first_post.id, second_post.id = first_post.id, second_post.id
-      next_posts = Post.next_posts(third_post.id)
+      next_posts = Post.next_posts(third_post)
       expect(next_posts).to eq([second_post, first_post])
     end
 
@@ -71,7 +71,7 @@ describe Post do
       allow(EnvironmentService).to receive(:censored_words).and_return("moth")
 
       first_post.id, second_post.id = first_post.id, second_post.id
-      next_posts = Post.next_posts(third_post.id)
+      next_posts = Post.next_posts(third_post)
       expect(next_posts).to eq([first_post])
     end
 
@@ -80,7 +80,7 @@ describe Post do
       allow(EnvironmentService).to receive(:censored_users).and_return("someoneBad")
 
       first_post.id, second_post.id = first_post.id, second_post.id
-      next_posts = Post.next_posts(third_post.id)
+      next_posts = Post.next_posts(third_post)
       expect(next_posts).to eq([second_post])
     end
   end
