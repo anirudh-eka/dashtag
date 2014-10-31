@@ -9,8 +9,9 @@ class Post < ActiveRecord::Base
     super.as_json().merge({formatted_time_of_post: time_of_post})
   end
 
-  def self.get_new_posts(hashtag)
-    all_sorted_posts.select { |post| is_post_from_last_pull?(post) } if APIService.instance.pull_posts(hashtag)
+  def self.get_new_posts
+    APIService.instance.pull_posts
+    all_sorted_posts.select { |post| is_post_from_last_pull?(post) }
   end
 
   def ==(post)
@@ -22,13 +23,12 @@ class Post < ActiveRecord::Base
     post_id == post.post_id
   end
 
-  def self.all_sorted_posts(hashtag=false)
-    APIService.instance.pull_posts(hashtag) if hashtag
+  def self.all_sorted_posts
     all.order(time_of_post: :desc).reject{ |post| censored?(post)}
   end
 
   def self.limited_sorted_posts(limit, hashtag=false)
-    all_sorted_posts(hashtag).first(limit)
+    all_sorted_posts.first(limit)
   end
 
   def self.next_posts(last_post_id, limit=nil)

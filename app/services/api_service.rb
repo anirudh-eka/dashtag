@@ -8,23 +8,23 @@ class APIService
     @last_update = Time.new(1720)
   end
 
-  def pull_posts(hashtag)
+  def pull_posts
     begin
-      pull_posts!(hashtag)
+      pull_posts!
     rescue
       nil
     end
   end
 
-  def pull_posts!(hashtag)
+  def pull_posts!
     rate_to_hit_api = ENV["API_Rate"] ? ENV["API_Rate"].to_f : 15
 
     if (Time.now - last_update > rate_to_hit_api)
       @last_update = Time.now
 
       parsed_response = []
-      parsed_response += pull_instagram_posts_and_parse(hashtag) if EnvironmentService.instagram_client_id
-      parsed_response += pull_twitter_posts_and_parse(hashtag) if EnvironmentService.twitter_bearer_credentials
+      parsed_response += pull_instagram_posts_and_parse(EnvironmentService.hashtag) if EnvironmentService.instagram_client_id
+      parsed_response += pull_twitter_posts_and_parse(EnvironmentService.hashtag) if EnvironmentService.twitter_bearer_credentials
       parsed_response.each do |attributes|
         Post.create(attributes)
       end
