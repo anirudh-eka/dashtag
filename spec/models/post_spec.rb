@@ -71,6 +71,28 @@ describe Post do
     expect(gram_one).to_not eq(gram_two)
   end
 
+  it 'should get next posts' do
+    first_post = FactoryGirl.create(:post, created_at: Time.now - 1, text: "floated like a butterfly", time_of_post: Time.now - 1)
+    second_post = FactoryGirl.create(:post, created_at: Time.now, text: "float like a butterfly", time_of_post: Time.now)
+    third_post = FactoryGirl.create(:post, created_at: Time.now + 1, text: "will float like a butterfly", time_of_post: Time.now + 1)
+
+    first_post.id, second_post.id = first_post.id, second_post.id
+    next_posts = Post.next_posts(third_post.id)
+    expect(next_posts).to eq([second_post, first_post])
+  end
+
+  it 'should screen posts based on censored words' do
+    post = FactoryGirl.create(:post, text: "somethingBad")
+    allow(EnvironmentService).to receive(:censored_words).and_return("somethingBad")
+    expect(Post.sorted_posts).to_not include(post)
+  end
+
+  it 'should screen posts based on censored users' do
+    post = FactoryGirl.create(:post, screen_name: "someoneBad")
+    allow(EnvironmentService).to receive(:censored_users).and_return("someoneBad")
+    expect(Post.sorted_posts).to_not include(post)
+  end
+
   describe 'gets new posts since last pull' do
     context "when api does pull new posts" do
       before(:each) do
