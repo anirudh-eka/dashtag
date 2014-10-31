@@ -24,6 +24,30 @@ describe EnvironmentService do
     end
   end
 
+  describe "censored words" do
+    it "should return censored words set in env" do
+      expect(EnvironmentService.censored_words).to eq(ENV["CENSORED_WORDS"])
+    end
+    it "should return nil if twitter credentials are not set in env" do
+      default_cred = ENV["CENSORED_WORDS"]
+      ENV["CENSORED_WORDS"] = nil
+      expect(EnvironmentService.censored_words).to be_nil
+      ENV["CENSORED_WORDS"] = default_cred
+    end
+  end
+
+  describe "censored users" do
+    it "should return censored users set in env" do
+      expect(EnvironmentService.censored_users).to eq(ENV["CENSORED_USERS"])
+    end
+    it "should return nil if twitter credentials are not set in env" do
+      default_cred = ENV["CENSORED_USERS"]
+      ENV["CENSORED_USERS"] = nil
+      expect(EnvironmentService.censored_users).to be_nil
+      ENV["CENSORED_USERS"] = default_cred
+    end
+  end
+
   describe "disable retweets" do
     it "should return what is set in env in downcase" do
       test_env = ENV["DISABLE_RETWEETS"]

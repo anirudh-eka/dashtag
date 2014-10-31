@@ -10,7 +10,7 @@ class APIService
 
   def pull_posts(hashtag)
     begin
-      pull_posts!(hashtag)  
+      pull_posts!(hashtag)
     rescue
       nil
     end
@@ -51,9 +51,9 @@ class APIService
 
   def twitter_bearer_token
     authorization_key = Base64.encode64(EnvironmentService.twitter_bearer_credentials).gsub("\n","")
-    
+
     resp = HTTParty.post('https://api.twitter.com/oauth2/token',
-      :headers => { 
+      :headers => {
         "Authorization" => "Basic #{authorization_key}",
         "User-Agent" => "Hashtag Displayer Feed v1.0",
         "Content-Type" => "application/x-www-form-urlencoded;charset=UTF-8"

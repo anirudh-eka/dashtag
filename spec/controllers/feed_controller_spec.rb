@@ -15,11 +15,10 @@ describe FeedController do
 
       context "returns all posts in db" do
         it "should call api service to pull most recent tweets and return posts in descending order", dont_run_in_snap: true do
-
           expect(APIService.instance).to receive(:pull_posts)
-
+          array = [third_post, second_post, first_post]
           get :index, :format => :html
-          expect(assigns(:posts)).to eq([third_post, second_post, first_post])
+          expect(assigns(:posts)).to eq(array)
         end
 
         it "should limit number of posts to 100 posts" do
@@ -42,7 +41,6 @@ describe FeedController do
         allow(Post).to receive(:get_new_posts) { [post] }
         allow(APIService.instance).to receive(:pull_posts)
         get :index, :format => :json
-
         expect(assigns(:posts).first.text).to eq('float like a butterfly <a href="http://twitter.com/hashtag/word" target="_blank">#word</a>')
       end
     end

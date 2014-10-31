@@ -24,36 +24,35 @@ class Post < ActiveRecord::Base
 
   def self.all(hashtag=false)
     APIService.instance.pull_posts(hashtag) if hashtag
-    super()
+    super().order(time_of_post: :desc)
   end
 
   def self.sorted_posts(hashtag=false, limit=nil)
-    limit ? all(hashtag).order(time_of_post: :desc).limit(limit) : all(hashtag).order(time_of_post: :desc)
+    limit ? all(hashtag).limit(limit).reject{ |post| censored?(post)} : all(hashtag).reject{ |post| censored?(post)}
   end
 
   def self.next_posts(last_post_id, limit=nil)
     last_post = find(last_post_id)
-    return where("time_of_post < ?", last_post.time_of_post).order(time_of_post: :desc).limit(limit) if limit
-    where("time_of_post < ?", last_post.time_of_post).order(time_of_post: :desc)
+    return all.where("time_of_post < ?", last_post.time_of_post).limit(limit).reject{ |post| censored?(post)} if limit
+    all.where("time_of_post < ?", last_post.time_of_post).reject{ |post| censored?(post) }
   end
 
   def post_is_not_a_retweet
-    if EnvironmentService.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
-      errors.add(:text, "can't be a retweet")
-    end
+    errors.add(:text, "can't be a retweet") if EnvironmentService.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
   end
 
 private
+
+  def self.censored?(post)
+    ParserHelper.text_has_censored_words(post.text) || ParserHelper.user_is_censored(post.screen_name)
+  end
 
   def self.is_post_from_last_pull?(post)
     post.created_at > APIService.instance.last_update
   end
 
   def clear_oldest_post_if_limit_is_reached
-    unless Post.all.empty?
-      if Post.count > EnvironmentService.db_row_limit
-        Post.order(time_of_post: :desc).last.destroy!
-      end
-    end
+    Post.order(time_of_post: :desc).last.destroy! if Post.count > EnvironmentService.db_row_limit
   end
+
 end
