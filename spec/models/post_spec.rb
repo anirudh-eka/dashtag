@@ -57,9 +57,9 @@ describe Post do
   end
 
   describe "#next_posts" do
-    let(:third_post) {FactoryGirl.create(:post, created_at: Time.now + 1, text: "will float like a butterfly", time_of_post: Time.now + 1)}
-    let(:first_post) { FactoryGirl.create(:post, created_at: Time.now - 1, text: "floated like a butterfly", time_of_post: Time.now - 1)}
-    let(:second_post) { FactoryGirl.create(:post, created_at: Time.now, text: "float like a butterfly", time_of_post: Time.now) }
+    let!(:third_post) {FactoryGirl.create(:post, created_at: Time.now + 1, text: "will float like a butterfly", time_of_post: Time.now + 1)}
+    let!(:first_post) { FactoryGirl.create(:post, created_at: Time.now - 1, text: "floated like a butterfly", time_of_post: Time.now - 1)}
+    let!(:second_post) { FactoryGirl.create(:post, created_at: Time.now, text: "float like a butterfly", time_of_post: Time.now) }
     it 'should get next posts' do
       first_post.id, second_post.id = first_post.id, second_post.id
       next_posts = Post.next_posts(third_post)
