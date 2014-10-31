@@ -13,7 +13,7 @@ class FeedController < ApplicationController
         render "index"
       end
       format.json do
-        @posts = Post.get_new_posts(ENV["HASHTAG"])
+        @posts = Post.get_new_posts
         render_json_posts @posts
       end
     end

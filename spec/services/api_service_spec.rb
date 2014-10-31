@@ -27,13 +27,13 @@ describe APIService do
         media_url: "http://scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10691617_1510929602485903_1047906060_n.jpg",
         post_id: "tA0dgLCmn5")
 
-        APIService.instance.pull_posts!("#{ENV["HASHTAG"]}")
+        APIService.instance.pull_posts!
         expect(Post.all).to include(tweet)
         expect(Post.all).to include(gram)
     end
   end
 
-  describe 'loud pull' do 
+  describe 'loud pull' do
     context 'when time since last pull is less than api rate limit' do
       before(:each) do
         ENV["API_Rate"] = 15.to_s
@@ -41,11 +41,11 @@ describe APIService do
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
       it "should throw exception" do
-        expect { APIService.instance.pull_posts!("#{ENV["HASHTAG"]}") }.to raise_error("Time since last pull is less than api rate limit")
+        expect { APIService.instance.pull_posts! }.to raise_error("Time since last pull is less than api rate limit")
         ENV["API_Rate"] = 1.to_s
       end
     end
-    context "when time since last pull is greater than the api rate limit" do 
+    context "when time since last pull is greater than the api rate limit" do
       before(:each) do
         sleep ENV["API_Rate"].to_i + 0.5
       end
@@ -54,7 +54,7 @@ describe APIService do
           default_env_twitter_keys = ENV["TWITTER_BEARER_CREDENTIALS"]
           ENV["TWITTER_BEARER_CREDENTIALS"] = ""
           expect(APIService.instance).to_not receive(:pull_twitter_posts_and_parse)
-          APIService.instance.pull_posts!("#{ENV["HASHTAG"]}")
+          APIService.instance.pull_posts!
           ENV["TWITTER_BEARER_CREDENTIALS"] = default_env_twitter_keys
         end
       end
@@ -63,7 +63,7 @@ describe APIService do
           default_env_instagram_keys = ENV["INSTAGRAM_CLIENT_ID"]
           ENV["INSTAGRAM_CLIENT_ID"] = ""
           expect(APIService.instance).to_not receive(:pull_instagram_posts_and_parse)
-          APIService.instance.pull_posts!("#{ENV["HASHTAG"]}")
+          APIService.instance.pull_posts!
           ENV["INSTAGRAM_CLIENT_ID"] = default_env_instagram_keys
         end
       end
@@ -71,9 +71,9 @@ describe APIService do
   end
 
   describe "quiet pull" do
-    it 'calls loud pull' do 
-      expect(APIService.instance).to receive(:pull_posts!).with("#{ENV["HASHTAG"]}").and_return(nil)
-      APIService.instance.pull_posts("#{ENV["HASHTAG"]}")
+    it 'calls loud pull' do
+      expect(APIService.instance).to receive(:pull_posts!).and_return(nil)
+      APIService.instance.pull_posts
     end
 
     context 'when time since last pull is less than api rate limit' do
@@ -83,7 +83,7 @@ describe APIService do
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
       it "should return nil" do
-        expect(APIService.instance.pull_posts("#{ENV["HASHTAG"]}")).to be_nil
+        expect(APIService.instance.pull_posts).to be_nil
       end
     end
   end

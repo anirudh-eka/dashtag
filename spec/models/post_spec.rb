@@ -50,21 +50,6 @@ describe Post do
     end
   end
 
-
-  context "when getting all posts with a hashtag" do
-    it 'should pull new posts from api' do
-      expect(APIService.instance).to receive(:pull_posts)
-      Post.all_sorted_posts("#{ENV["HASHTAG"]}")
-    end
-  end
-
-  context "when getting all posts without a hashtag" do
-    it 'should not pull new posts from api' do
-      expect(APIService.instance).to_not receive(:get_posts)
-      Post.all_sorted_posts
-    end
-  end
-
   it 'should not equal another post when the attributes are different' do
     gram_one = FactoryGirl.create(:post, source: "instagram")
     gram_two = FactoryGirl.create(:post, screen_name: "someone_different", source: "instagram")
@@ -141,7 +126,7 @@ describe Post do
 
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
         allow(APIService.instance).to receive(:pull_posts).and_return(true)
-        result = Post.get_new_posts("#{ENV["HASHTAG"]}")
+        result = Post.get_new_posts
         expect(result).to_not eq([old_post, new_post])
         expect(result).to eq([new_post])
       end
@@ -150,8 +135,8 @@ describe Post do
       before(:each) do
         allow(APIService.instance).to receive(:pull_posts).and_return(nil)
       end
-      it "should return nil" do
-        expect(Post.get_new_posts("#{ENV["HASHTAG"]}")).to be_nil
+      it "should return empty" do
+        expect(Post.get_new_posts).to be_empty
       end
     end
   end

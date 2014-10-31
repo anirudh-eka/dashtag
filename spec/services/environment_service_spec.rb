@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe EnvironmentService do
+  describe "hashtag" do
+    it "should return hashtag set in env" do
+      expect(EnvironmentService.hashtag).to eq(ENV["HASHTAG"])
+    end
+  end
+
   describe "twitter credentials" do
     it "should return twitter credentials set in env" do
       expect(EnvironmentService.twitter_bearer_credentials).to eq(ENV["TWITTER_BEARER_CREDENTIALS"])

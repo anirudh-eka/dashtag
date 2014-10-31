@@ -1,4 +1,8 @@
 class EnvironmentService
+	def self.hashtag
+		ENV["HASHTAG"]
+	end
+
 	def self.twitter_bearer_credentials
 		ENV["TWITTER_BEARER_CREDENTIALS"] == "" ? nil : ENV["TWITTER_BEARER_CREDENTIALS"]
 	end

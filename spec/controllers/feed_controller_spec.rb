@@ -8,14 +8,8 @@ describe FeedController do
   describe 'GET #index' do
 
     context "with HTML request" do
-      it 'should tell API service to get latest posts and update db' do
-        expect(APIService.instance).to receive(:pull_posts).with(ENV["HASHTAG"])
-        get :index, :format => :html
-      end
-
       context "returns all posts in db" do
-        it "should call api service to pull most recent tweets and return posts in descending order", dont_run_in_snap: true do
-          expect(APIService.instance).to receive(:pull_posts)
+        it "should return all posts in descending order", dont_run_in_snap: true do
           array = [third_post, second_post, first_post]
           get :index, :format => :html
           expect(assigns(:posts)).to eq(array)
@@ -38,7 +32,6 @@ describe FeedController do
       it "should render hashtag links for new twitter posts" do
         future = Time.now + 1
         post = FactoryGirl.create(:post, created_at: future, text: "float like a butterfly #word", time_of_post: future, source: 'twitter')
-        allow(Post).to receive(:get_new_posts) { [post] }
         allow(APIService.instance).to receive(:pull_posts)
         get :index, :format => :json
         expect(assigns(:posts).first.text).to eq('float like a butterfly <a href="http://twitter.com/hashtag/word" target="_blank">#word</a>')
