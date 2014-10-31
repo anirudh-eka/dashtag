@@ -64,7 +64,7 @@ describe FeedController do
       past_post = FactoryGirl.create(:post, created_at: past, text: "float like a butterfly #word", time_of_post: past, source: 'twitter')
       allow(Post).to receive(:next_posts) { [past_post] }
 
-      get :get_next_page, last_post_id: 1, :format => :json
+      get :get_next_page, last_post_id: past_post.id, :format => :json
 
       expect(assigns(:posts).first.text).to eq('float like a butterfly <a href="http://twitter.com/hashtag/word" target="_blank">#word</a>')
     end

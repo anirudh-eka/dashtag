@@ -27,13 +27,16 @@ class Post < ActiveRecord::Base
     all.order(time_of_post: :desc).reject{ |post| censored?(post)}
   end
 
-  def self.limited_sorted_posts(limit, hashtag=false)
+  def self.limited_sorted_posts(limit)
     all_sorted_posts.first(limit)
   end
 
-  def self.next_posts(last_post_id, limit=nil)
-    last_post = find(last_post_id)
-    return all_sorted_posts.select{ |post| post.time_of_post < last_post.time_of_post }.first(limit) if limit
+  def self.next_posts(last_post, limit=nil)
+    return all_next_posts(last_post).first(limit) if limit
+    all_next_posts(last_post)
+  end
+
+  def self.all_next_posts(last_post)
     all_sorted_posts.select{ |post| post.time_of_post < last_post.time_of_post }
   end
 
