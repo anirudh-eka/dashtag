@@ -33,7 +33,7 @@ describe Post do
         source: "twitter",
         time_of_post: "Fri Sep 21 23:40:54 +0000 2014")
 
-      expect(Post.all.include?(oldest_tweet)).to be_falsy
+      expect(Post.all_sorted_posts.include?(oldest_tweet)).to be_falsy
     end
 
     it "should not delete oldest post if new one fails validation" do
@@ -46,7 +46,7 @@ describe Post do
         time_of_post: "Fri Sep 21 23:40:54 +0000 2014")
 
       new_tweet.save
-      expect(Post.all.include?(oldest_tweet)).to be_truthy
+      expect(Post.all_sorted_posts.include?(oldest_tweet)).to be_truthy
     end
   end
 
@@ -54,14 +54,14 @@ describe Post do
   context "when getting all posts with a hashtag" do
     it 'should pull new posts from api' do
       expect(APIService.instance).to receive(:pull_posts)
-      Post.all("#{ENV["HASHTAG"]}")
+      Post.all_sorted_posts("#{ENV["HASHTAG"]}")
     end
   end
 
   context "when getting all posts without a hashtag" do
     it 'should not pull new posts from api' do
       expect(APIService.instance).to_not receive(:get_posts)
-      Post.all
+      Post.all_sorted_posts
     end
   end
 
@@ -100,17 +100,17 @@ describe Post do
     end
   end
 
-  describe "#sorted_posts" do
+  describe "#limited_sorted_posts" do
     it 'should screen posts based on censored words' do
       post = FactoryGirl.create(:post, text: "somethingBad")
       allow(EnvironmentService).to receive(:censored_words).and_return("somethingBad")
-      expect(Post.sorted_posts).to_not include(post)
+      expect(Post.limited_sorted_posts 10).to_not include(post)
     end
 
     it 'should screen posts based on censored users' do
       post = FactoryGirl.create(:post, screen_name: "someoneBad")
       allow(EnvironmentService).to receive(:censored_users).and_return("someoneBad")
-      expect(Post.sorted_posts).to_not include(post)
+      expect(Post.limited_sorted_posts 10).to_not include(post)
     end
   end
 
