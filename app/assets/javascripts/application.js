@@ -57,10 +57,13 @@ var service = {
       ifModified: true,
       dataType: "json",
       success: function(response, status){
-          console.log(status)
+        console.log(status)
 
         if(status != "notmodified") {
           $(self).trigger("next-posts", [response]);
+        }
+        else{
+          $(self).trigger("next-posts:notmodified");
         }
       }
     });
@@ -93,6 +96,13 @@ var controller = {
         $('#posts-list').append(newPosts);
         layOutMasonry();
       });
+
+      $(service).on("next-posts:notmodified", function(){
+        console.log("this is the end");
+        $("#loading").empty();
+        $("#load-posts-btn").text("There are no more posts!");
+      });
+
     });
   }
 }
