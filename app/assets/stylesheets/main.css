@@ -166,6 +166,10 @@ a#hashtag-anchor {
   background: #B5B935;
 }
 
+#load-posts-btn {
+  color: black;
+}
+
 @media ( min-width: 768px )
 {
 
