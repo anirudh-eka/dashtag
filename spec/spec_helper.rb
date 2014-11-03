@@ -6,13 +6,16 @@ require 'rspec/autorun'
 require 'capybara/rspec'
 require 'webmock/rspec'
 require 'database_cleaner'
+require 'capybara/poltergeist'
 require 'pry'
 
 # require File.expand_path('../config/application', __FILE__)
 
-WebMock.disable_net_connect!(allow_localhost: true)  # WebMock.disable_net_connect!({:allow_localhost => true}) 
+WebMock.disable_net_connect!(allow_localhost: true)  # WebMock.disable_net_connect!({:allow_localhost => true})
 
-Capybara.javascript_driver = :selenium 
+
+# Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -73,7 +76,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.before(:each) do 
+  config.before(:each) do
     auth_response = {"access_token"=>"AAAAAAAAAAAAAAAAAAAAAHfMXgAAAAAAqjpb4OtAUv4B1pjCzS7nZ%2FTzgqo%3D473OZ91sDRgjEGKlEnCl9NSnfkNSs524yvxFjPrAAX6lQsuHUV",
      "token_type"=>"bearer"}.to_json
 
@@ -81,7 +84,7 @@ RSpec.configure do |config|
     stub_request(:post, /https:\/\/#{ENV["TWITTER_BEARER_CREDENTIALS"]}@api.twitter.com\/oauth2\/token/).
       with(headers: {"content-type"=>"application/x-www-form-urlencoded;charset=UTF-8"},
         body: {"grant_type"=>"client_credentials"}).
-      to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} }) 
+      to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
 
     stub_request(:get, "https://api.instagram.com/v1/tags/#{ENV["HASHTAG"]}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}")
       .to_return( {:status => 200, :body => SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
