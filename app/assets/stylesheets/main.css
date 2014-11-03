@@ -170,6 +170,10 @@ a#hashtag-anchor {
   color: black;
 }
 
+#load-posts-btn a {
+  color: black;
+}
+
 @media ( min-width: 768px )
 {
 
