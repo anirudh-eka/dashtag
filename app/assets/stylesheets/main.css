@@ -166,6 +166,26 @@ a#hashtag-anchor {
   background: #B5B935;
 }
 
+.load-older-posts {
+  color: black;
+  text-align: center;
+  padding-top: 70px;
+}
+
+.load-older-posts a {
+  color: black;
+  padding: 5px;
+  border: solid 1px;
+  border-radius: 1px;
+  text-decoration: none;
+  background-color: #EFEFEF;
+}
+
+.load-older-posts a:hover {
+  background-color: #F6F6F6;
+  text-decoration: underline;
+}
+
 @media ( min-width: 768px )
 {
 
