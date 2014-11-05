@@ -8,6 +8,4 @@ module ParserHelper
   	return false if EnvironmentService.censored_users == "" || EnvironmentService.censored_users == nil
     (screen_name && screen_name.match(/.*(#{EnvironmentService.censored_users}).*/i))
   end
-
-
 end

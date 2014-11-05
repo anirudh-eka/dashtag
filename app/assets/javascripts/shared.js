@@ -17,7 +17,7 @@ var renderPost = function (post, bgColor) {
     postContainer.find(".post-username").html("<img src='" + post.profile_image_url + "' class='avatar' /><a href='//"
         + post.source + ".com/" + post.screen_name + "' target='_blank'>@" + post.screen_name + "</a>");
 
-    var formattedDate = formatDateToLocalTimezone(new Date(post.formatted_time_of_post));
+    var formattedDate = formatDateHelper.formatDateToLocalTimezone(new Date(post.formatted_time_of_post));
 
     postContainer.addClass("background-color-" + bgColor);
 
