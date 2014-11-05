@@ -6,6 +6,4 @@
 //    }
 // });
 
-// function getLastPostId() {
-//   return $("#posts-list").find(".post-id").last().text();
-// }
+

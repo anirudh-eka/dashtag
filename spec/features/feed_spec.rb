@@ -21,7 +21,8 @@ describe 'home' do
 
     sleep 6
 
-    page.should have_content("Thee Namaste Nerdz. ##{ENV["HASHTAG"]}")
+
+    page.should have_content("Thee Namaste Nerdz. ##{ENV['HASHTAG']}")
     page.should have_content('@bullcityrecords')
     page.should have_css("i.fa.fa-2x.fa-twitter")
     page.should have_image(twitter_profile_image)
