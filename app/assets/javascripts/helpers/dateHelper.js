@@ -1,4 +1,4 @@
-var formatDateHelper = {
+var dateHelper = {
   formatDateToLocalTimezone: function(timestampDate) {
     var date = timestampDate.toString().substring(0, 11);
     return date.concat(timestampDate.toLocaleTimeString());
