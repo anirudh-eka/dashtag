@@ -2,7 +2,6 @@ var ajaxService = {
   setup: function(){
     var self = this;
     window.setInterval(function(){
-      console.log("sent request!!")
       $.ajax({
         type: "GET",
         url: "/",
@@ -11,8 +10,6 @@ var ajaxService = {
         dataType: "json",
         success: function(response, status){
           if(status != "notmodified") {
-            console.log("SUCCESS!!")
-            console.log(response)
             $(self).trigger("new-posts", [response]);
           }
         }
@@ -21,7 +18,6 @@ var ajaxService = {
   },
 
   getNextPosts: function(){
-    console.log("get next post is called")
     var self = this;
     $.ajax({
       type: "GET",
@@ -33,8 +29,6 @@ var ajaxService = {
       ifModified: true,
       dataType: "json",
       success: function(response, status){
-        console.log(status)
-
         if(status != "notmodified") {
           $(self).trigger("next-posts", [response]);
         }

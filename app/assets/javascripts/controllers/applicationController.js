@@ -3,17 +3,12 @@ var applicationController = {
     var self = this;
 
     var newPostModels = [];
-    console.log("newPostModels");
-    console.log(newPostModels);
 
     $(ajaxService).on("new-posts", function(e, rawPostData){
 
       $.each(rawPostData, function(index, rawPost){
         newPostModels.push(self.createPost(rawPost));
       });
-
-      console.log("newPostModels");
-      console.log(newPostModels);
 
       var newPostViewModels = renderPostHelper.createPostContent(newPostModels);
 
@@ -52,7 +47,6 @@ var applicationController = {
       });
 
       $(ajaxService).on("next-posts:notmodified", function(){
-        console.log("this is the end");
         $("#loading").empty();
         $("#load-posts-btn").text("There are no more posts!");
       });
