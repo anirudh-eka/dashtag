@@ -29,6 +29,7 @@ var service = {
   setup: function(){
     var self = this;
     window.setInterval(function(){
+      console.log("sent request!!")
       $.ajax({
         type: "GET",
         url: "/",
@@ -37,6 +38,8 @@ var service = {
         dataType: "json",
         success: function(response, status){
           if(status != "notmodified") {
+            console.log("SUCCESS!!")
+            console.log(response)
             $(self).trigger("new-posts", [response]);
           }
         }
@@ -74,25 +77,100 @@ var service = {
 
 }
 
+function Post(id, text, media_url, screen_name, profile_image_url, source, time_of_post) {
+  this.id = id;
+  this.text = text;
+  this.media_url = media_url;
+  this.screen_name = screen_name;
+  this.profile_image_url = profile_image_url;
+  this.source = source;
+  this.timeOfPost = time_of_post;
+}
+
 var controller = {
   setupRenderPost: function() {
-    $(service).on("new-posts", function(e, data){
-      var newPosts = create_post_content(data);
-          $('#posts-list').prepend(newPosts);
-          layOutMasonry();
+    var self = this;
+
+    var newPostsArr = [];
+    console.log("newPostsArr");
+    console.log(newPostsArr);
+
+    $(service).on("new-posts", function(e, rawPostData){
+
+      $.each(rawPostData, function(index, rawPost){
+        newPostsArr.push(self.createPost(rawPost));
+      });
+
+      console.log("newPostsArr");
+      console.log(newPostsArr);
+
+      var newPosts = self.createPostContent(newPostsArr);
+      $('#posts-list').prepend(newPosts);
+      layOutMasonry();
+
     })
   },
 
+  createPost: function(rawPost) {
+    return new Post(rawPost.id, rawPost.text, rawPost.media_url, rawPost.screen_name, rawPost.profile_image_url, rawPost.source, rawPost.formatted_time_of_post)
+  },
+
+  createPostContent: function(postsArr) {
+    console.log("createPostContent")
+    var bgColor = getColorNumber();
+    var newPosts = [];
+    var theLength = postsArr.length;
+    for (var i = 0; i < theLength ; i++) {
+        var postContainer = this.renderPost(postsArr.pop(), bgColor);
+        newPosts.push(postContainer);
+        if (bgColor >= 4) {
+            bgColor = 0;
+        }
+        bgColor += 1;
+    }
+    return newPosts;
+  },
+
+  renderPost: function (post, bgColor) {
+    var postContainer = $(document.createElement("div")).addClass('post-container item')
+
+    postContainer.append("<section class='post-id'></section>");
+    postContainer.find(".post-id").html((post.id));
+
+    postContainer.append("<section class='post-text'></section>");
+    postContainer.find(".post-text").html((post.text));
+
+    postContainer.append("<section class='post-picture'></section>");
+    if (post.media_url) {
+        var postImage = "<img src='" + post.media_url + "' />";
+        postContainer.find(".post-picture").html(originalPostLink(post, postImage));
+    }
+
+    postContainer.append("<section class='post-username'></section>");
+    postContainer.find(".post-username").html("<img src='" + post.profile_image_url + "' class='avatar' /><a href='//"
+        + post.source + ".com/" + post.screen_name + "' target='_blank'>@" + post.screen_name + "</a>");
+
+    var formattedDate = formatDateHelper.formatDateToLocalTimezone(new Date(post.timeOfPost));
+
+    postContainer.addClass("background-color-" + bgColor);
+
+    var createdAtSection = "<i class='fa fa-2x fa-" + post.source + "'></i><span class='time-of-post'>"
+        + formattedDate + "</span>";
+
+    postContainer.append("<section class='post-created-at'>" + originalPostLink(post, createdAtSection) + "</section>");
+
+    return postContainer;
+  },
+
   setupInfinteScroll: function() {
+    var self = this;
     $("#load-posts-btn").on("click", function(){
-      console.log("clicked")
       $("#loading").empty()
       $("#loading").append("<i class='fa fa-spinner faa-spin animated'></i>")
       service.getNextPosts();
       $(service).on("next-posts", function(e, data){
-        console.log("heard it!");
         $("#loading").empty();
-        var newPosts = create_post_content(data);
+        var newPosts = self.createPostContent(data);
         $('#posts-list').append(newPosts);
         layOutMasonry();
       });
@@ -115,7 +193,7 @@ $(document).on("ready", function(){
           msnry.layout();
       });
 
-  replaceInitiallyLoadedTimestamps();
+  formatDateHelper.replaceInitiallyLoadedTimestamps();
 
   setUpScroll();
 
