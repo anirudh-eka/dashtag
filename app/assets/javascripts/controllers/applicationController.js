@@ -2,21 +2,23 @@ var applicationController = {
   setupRenderPost: function() {
     var self = this;
 
-    var newPostsArr = [];
-    console.log("newPostsArr");
-    console.log(newPostsArr);
+    var newPostModels = [];
+    console.log("newPostModels");
+    console.log(newPostModels);
 
     $(ajaxService).on("new-posts", function(e, rawPostData){
 
       $.each(rawPostData, function(index, rawPost){
-        newPostsArr.push(self.createPost(rawPost));
+        newPostModels.push(self.createPost(rawPost));
       });
 
-      console.log("newPostsArr");
-      console.log(newPostsArr);
+      console.log("newPostModels");
+      console.log(newPostModels);
 
-      var newPosts = renderPostHelper.createPostContent(newPostsArr);
-      $('#posts-list').prepend(newPosts);
+      var newPostViewModels = renderPostHelper.createPostContent(newPostModels);
+
+      $('#posts-list').prepend(newPostViewModels);
+      newPostModels = [];
       masonryService.layOutMasonry();
 
     })

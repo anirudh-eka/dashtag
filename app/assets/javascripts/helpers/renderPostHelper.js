@@ -31,23 +31,17 @@ var renderPostHelper = {
 	},
 
 	createPostContent: function(postsArr) {
-    console.log("createPostContent")
-    var bgColor = this.getColorNumber();
     var newPosts = [];
-    var theLength = postsArr.length;
-    for (var i = 0; i < theLength ; i++) {
-        var postContainer = renderPostHelper.renderPost(postsArr.pop(), bgColor);
-        newPosts.push(postContainer);
-        if (bgColor >= 4) {
-            bgColor = 0;
-        }
-        bgColor += 1;
-    }
+    var self = this;
+    $.each(postsArr, function(index, postModel){
+      var postViewModel = renderPostHelper.renderPost(postModel, self.getColorNumber(index));
+      newPosts.unshift(postViewModel);
+    });
     return newPosts;
   },
 
-  getColorNumber: function () {
-    return Math.floor((Math.random() * 10)) % 4 + 1;
+  getColorNumber: function (index) {
+    return index % 4 + 1;
 	},
 
 	originalPostLink: function (post, createdAtSection) {
