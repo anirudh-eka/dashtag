@@ -14,7 +14,7 @@ var ajaxService = {
           }
         }
       });
-    }, 5000);
+    }, <%= EnvironmentService.ajax_interval %>);
   },
 
   getNextPosts: function(){
