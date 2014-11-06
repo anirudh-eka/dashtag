@@ -16,11 +16,11 @@ describe 'home' do
   end
 
   it 'should auto update posts after 5 seconds', js: true do
+    allow(EnvironmentService).to receive(:ajax_interval).and_return("500")
 
     visit '/'
 
-    sleep 6
-
+    sleep 1.1
 
     page.should have_content("Thee Namaste Nerdz. ##{ENV['HASHTAG']}")
     page.should have_content('@bullcityrecords')
