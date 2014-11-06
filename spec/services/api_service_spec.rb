@@ -3,7 +3,7 @@ require 'spec_helper'
 describe APIService do
   context 'when time since last pull is greater than api rate limit' do
     before(:each) do
-      ENV["API_Rate"] = 15.to_s
+      ENV["API_RATE"] = 15.to_s
       last_pull_stub = Time.now - 20
       allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
     end
@@ -36,18 +36,18 @@ describe APIService do
   describe 'loud pull' do
     context 'when time since last pull is less than api rate limit' do
       before(:each) do
-        ENV["API_Rate"] = 15.to_s
+        ENV["API_RATE"] = 15.to_s
         last_pull_stub = Time.now
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
       it "should throw exception" do
         expect { APIService.instance.pull_posts! }.to raise_error("Time since last pull is less than api rate limit")
-        ENV["API_Rate"] = 1.to_s
+        ENV["API_RATE"] = 1.to_s
       end
     end
     context "when time since last pull is greater than the api rate limit" do
       before(:each) do
-        sleep ENV["API_Rate"].to_i + 0.5
+        sleep ENV["API_RATE"].to_i + 0.5
       end
       context "when twitter api keys are not provided in the env" do
         it "should not pull from twitter and parse" do
@@ -78,7 +78,7 @@ describe APIService do
 
     context 'when time since last pull is less than api rate limit' do
       before(:each) do
-        ENV["API_Rate"] = 15.to_s
+        ENV["API_RATE"] = 15.to_s
         last_pull_stub = Time.now
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
