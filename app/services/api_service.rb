@@ -17,7 +17,7 @@ class APIService
   end
 
   def pull_posts!
-    rate_to_hit_api = ENV["API_Rate"] ? ENV["API_Rate"].to_f : 15
+    rate_to_hit_api = EnvironmentService.api_rate
 
     if (Time.now - last_update > rate_to_hit_api)
       @last_update = Time.now
