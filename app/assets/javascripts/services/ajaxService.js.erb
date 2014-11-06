@@ -9,6 +9,9 @@ var ajaxService = {
         ifModified: true,
         dataType: "json",
         success: function(response, status){
+          console.log("*********************************")
+          console.log(status)
+          console.log(response)
           if(status != "notmodified") {
             $(self).trigger("new-posts", [response]);
           }
