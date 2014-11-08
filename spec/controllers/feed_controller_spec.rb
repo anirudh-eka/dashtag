@@ -25,9 +25,9 @@ describe FeedController do
       end
     end
     context "with JSON request" do
-      it "should tell service to get posts for social media feeds and update db" do
-        expect(Post).to receive(:get_new_posts)
-        get :index, :format => :json
+      it "should convert last_update_time from client to miliseconds and get posts after that time" do
+        expect(Post).to receive(:get_new_posts).with(1415474499.122)
+        get :index, :format => :json, :last_update_time => "1415474499122"
       end
       it "should render hashtag links for new twitter posts" do
         future = Time.now + 1
