@@ -9,9 +9,9 @@ class Post < ActiveRecord::Base
     super.as_json().merge({formatted_time_of_post: time_of_post})
   end
 
-  def self.get_new_posts
+  def self.get_new_posts(last_update_time)
     APIService.instance.pull_posts
-    all_sorted_posts.select { |post| is_post_from_last_pull?(post) }
+    all_sorted_posts.select { |post| is_post_from_last_pull?(post, last_update_time) }
   end
 
   def ==(post)
@@ -50,8 +50,9 @@ private
     ParserHelper.text_has_censored_words(post.text) || ParserHelper.user_is_censored(post.screen_name)
   end
 
-  def self.is_post_from_last_pull?(post)
-    post.created_at > APIService.instance.last_update
+  def self.is_post_from_last_pull?(post, last_update_time)
+    post_is_newer_than_the_last_update_time = post.created_at.to_f > last_update_time
+    return post_is_newer_than_the_last_update_time
   end
 
   def clear_oldest_post_if_limit_is_reached

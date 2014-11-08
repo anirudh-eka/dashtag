@@ -13,7 +13,7 @@ class FeedController < ApplicationController
         render "index"
       end
       format.json do
-        @posts = Post.get_new_posts
+        @posts = Post.get_new_posts(convert_to_seconds(params[:last_update_time]))
         render_json_posts @posts
       end
     end
@@ -35,5 +35,8 @@ class FeedController < ApplicationController
     end
   end
 
+  def convert_to_seconds(time)
+    time.to_f/1000
+  end
 end
 
