@@ -100,45 +100,34 @@ describe Post do
     end
   end
 
-  describe 'gets new posts since last pull' do
-    context "when api does pull new posts" do
-      before(:each) do
-        allow(APIService.instance).to receive(:get_posts).and_return(true)
-      end
-      it "should return only posts after last pull", dont_run_in_snap: true do
-        last_pull_stub = Time.now
-        time_of_post = Time.now - 5
+  describe '#get_new_posts' do
+    let(:last_update_time) { Time.now.to_f }
+    let(:time_of_new_post) { last_update_time + 1 }
+    let(:time_of_old_post) { last_update_time - 1 }
 
-        old_post = Post.create!(screen_name: "cassius_clay",
-                    profile_image_url: "stuff.com",
-                    created_at: (last_pull_stub - 30),
-                    time_of_post: (time_of_post),
-                    source: "twitter",
-                    text: "the old post",
-                    post_id: "qwe")
-
-        new_post = Post.create!(screen_name: "cassius_clay",
-                    profile_image_url: "stuff.com",
-                    created_at: (last_pull_stub + 30),
-                    time_of_post: (time_of_post + 2),
-                    source: "twitter",
-                    text: "the new post",
-                    post_id: "iop")
-
-        allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
-        allow(APIService.instance).to receive(:pull_posts).and_return(true)
-        result = Post.get_new_posts
-        expect(result).to_not eq([old_post, new_post])
-        expect(result).to eq([new_post])
-      end
+    it "should pull tell api service to pull posts" do
+      last_update_time = Time.now.to_f
+      expect(APIService.instance).to receive(:pull_posts)
+      Post.get_new_posts(last_update_time)
     end
-    context "when api does not pull new posts" do
-      before(:each) do
-        allow(APIService.instance).to receive(:pull_posts).and_return(nil)
-      end
-      it "should return empty" do
-        expect(Post.get_new_posts).to be_empty
-      end
+
+    it "should return only posts after time passed" do
+      allow(APIService.instance).to receive(:pull_posts).and_return(true)
+
+      old_post = FactoryGirl.create(:post,
+                  created_at: Time.at(time_of_old_post),
+                  time_of_post: Time.at(time_of_old_post),
+                  text: "the old post")
+
+      new_post = FactoryGirl.create(:post,
+                  created_at: Time.at(time_of_new_post),
+                  time_of_post: Time.at(time_of_new_post),
+                  text: "the new post")
+
+      
+      result = Post.get_new_posts(last_update_time)
+      expect(result.count).to eq(1)
+      expect(result.first.id).to eq(new_post.id)
     end
   end
 end
