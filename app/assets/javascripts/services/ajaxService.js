@@ -1,16 +1,25 @@
+
 var ajaxService = {
+  last_update_time: 0,
   setup: function(){
     var self = this;
     window.setInterval(function(){
+      console.log("new interval")
       $.ajax({
         type: "GET",
         url: "/",
+        data: {
+        "last_update_time": self.last_update_time
+            },
         contentType: "application/json; charset=utf-8",
         ifModified: true,
         dataType: "json",
         success: function(response, status){
           if(status != "notmodified") {
             $(self).trigger("new-posts", [response]);
+            console.log("success ")
+            console.log(self.last_update_time)
+            self.last_update_time = Date.now();
           }
         }
       });
