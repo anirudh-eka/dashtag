@@ -13,6 +13,8 @@ class FeedController < ApplicationController
         render "index"
       end
       format.json do
+        puts "*" * 80
+        p params[:last_update_time]
         @posts = Post.get_new_posts
         render_json_posts @posts
       end
