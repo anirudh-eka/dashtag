@@ -15,22 +15,36 @@ describe 'home' do
     page.should have_content(post.screen_name)
   end
 
-  it 'should auto update posts after 5 seconds', js: true do
+  it 'should auto update posts only when on top of page', js: true do
+    10.times {FactoryGirl.create(:random_post)}
 
     visit '/'
+    page.execute_script('window.scrollTo(0,100000)')
+
     sleep 6
+
+    page.should_not have_content("Thee Namaste Nerdz. ##{ENV['HASHTAG']}")
+    page.should_not have_content('@bullcityrecords')
+    page.should_not have_image(twitter_profile_image)
+    page.should_not have_image(twitter_media_image)
+
+    page.should_not have_content("#elevator #kiss #love #budapest #basilica #tired")
+    page.should_not have_content('@pollywoah')
+    page.should_not have_image(instagram_profile_image)
+    page.should_not have_image(instagram_media_image)
+
+    page.execute_script('window.scrollTo(0,0)')
 
     page.should have_content("Thee Namaste Nerdz. ##{ENV['HASHTAG']}")
     page.should have_content('@bullcityrecords')
-    page.should have_css("i.fa.fa-2x.fa-twitter")
     page.should have_image(twitter_profile_image)
     page.should have_image(twitter_media_image)
 
     page.should have_content("#elevator #kiss #love #budapest #basilica #tired")
     page.should have_content('@pollywoah')
-    page.should have_css("i.fa.fa-2x.fa-instagram")
     page.should have_image(instagram_profile_image)
     page.should have_image(instagram_media_image)
+
   end
 
 end

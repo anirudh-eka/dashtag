@@ -10,11 +10,14 @@ var applicationController = {
         newPostModels.push(self.createPost(rawPost));
       });
 
-      var newPostViewModels = renderPostHelper.createPostContent(newPostModels);
-
-      $('#posts-list').prepend(newPostViewModels);
-      newPostModels = [];
-      masonryService.layOutMasonry();
+      $(window).scroll(function() {
+        if($(window).scrollTop() === 0) {
+          var newPostViewModels = renderPostHelper.createPostContent(newPostModels);
+          $('#posts-list').prepend(newPostViewModels);
+          newPostModels = [];
+          masonryService.layOutMasonry();
+        }
+      });
 
     })
   },

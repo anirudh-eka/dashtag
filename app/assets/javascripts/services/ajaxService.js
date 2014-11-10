@@ -1,10 +1,9 @@
 
 var ajaxService = {
-  last_update_time: 0,
+  last_update_time: Date.now(),
   setup: function(){
     var self = this;
     window.setInterval(function(){
-      console.log("new interval")
       $.ajax({
         type: "GET",
         url: "/",
@@ -17,8 +16,6 @@ var ajaxService = {
         success: function(response, status){
           if(status != "notmodified") {
             $(self).trigger("new-posts", [response]);
-            console.log("success ")
-            console.log(self.last_update_time)
             self.last_update_time = Date.now();
           }
         }
