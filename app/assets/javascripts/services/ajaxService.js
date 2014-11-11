@@ -1,9 +1,10 @@
 
 var ajaxService = {
   last_update_time: Date.now(),
+
   setup: function(){
     var self = this;
-    window.setInterval(function(){
+    var loop = function(){
       $.ajax({
         type: "GET",
         url: "/",
@@ -18,9 +19,13 @@ var ajaxService = {
             $(self).trigger("new-posts", [response]);
             self.last_update_time = Date.now();
           }
+        },
+        complete: function() {
+          setTimeout(loop, 5000);
         }
       });
-    }, 5000);
+    };
+    loop();
   },
 
   getNextPosts: function(){

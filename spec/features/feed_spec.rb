@@ -15,25 +15,9 @@ describe 'home' do
     page.should have_content(post.screen_name)
   end
 
-  it 'should auto update posts only when on top of page', js: true do
-    10.times {FactoryGirl.create(:random_post)}
+  it 'should auto update only when on top of page', js: true do
 
     visit '/'
-    page.execute_script('window.scrollTo(0,100000)')
-
-    sleep 6
-
-    page.should_not have_content("Thee Namaste Nerdz. ##{ENV['HASHTAG']}")
-    page.should_not have_content('@bullcityrecords')
-    page.should_not have_image(twitter_profile_image)
-    page.should_not have_image(twitter_media_image)
-
-    page.should_not have_content("#elevator #kiss #love #budapest #basilica #tired")
-    page.should_not have_content('@pollywoah')
-    page.should_not have_image(instagram_profile_image)
-    page.should_not have_image(instagram_media_image)
-
-    page.execute_script('window.scrollTo(0,0)')
 
     page.should have_content("Thee Namaste Nerdz. ##{ENV['HASHTAG']}")
     page.should have_content('@bullcityrecords')
@@ -45,6 +29,15 @@ describe 'home' do
     page.should have_image(instagram_profile_image)
     page.should have_image(instagram_media_image)
 
+    page.execute_script('window.scrollTo(0,100000)')
+
+    sleep 5
+
+    page.should_not have_content("DAT ISH CRAY AIN'T IT ##{ENV['HASHTAG']}")
+
+    page.execute_script('window.scrollTo(0,0)')
+
+    page.should have_content("DAT ISH CRAY AIN'T IT ##{ENV['HASHTAG']}")
   end
 
 end

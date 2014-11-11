@@ -1,25 +1,33 @@
 var applicationController = {
   setupRenderPost: function() {
     var self = this;
-
     var newPostModels = [];
+    var active = false;
 
     $(ajaxService).on("new-posts", function(e, rawPostData){
 
       $.each(rawPostData, function(index, rawPost){
         newPostModels.push(self.createPost(rawPost));
       });
+      renderPostsForTop();
+    })
 
-      $(window).scroll(function() {
-        if($(window).scrollTop() === 0) {
+    $(window).scroll(function() {
+      renderPostsForTop();
+    });
+
+    function renderPostsForTop() {
+      if(!active) {
+        if($(window).scrollTop() === 0 && newPostModels.length != 0) {
+          active = true;
           var newPostViewModels = renderPostHelper.createPostContent(newPostModels);
           $('#posts-list').prepend(newPostViewModels);
-          newPostModels = [];
           masonryService.layOutMasonry();
+          newPostModels = [];
+          active = false;
         }
-      });
-
-    })
+      }
+    }
   },
 
   setupScroll: function () {
