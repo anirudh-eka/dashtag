@@ -13,15 +13,7 @@ class FeedController < ApplicationController
         render "index"
       end
       format.json do
-        puts "*" * 100
-        puts params[:last_update_time]
-        puts "*" * 100
-
         @posts = Post.get_new_posts(convert_to_seconds(params[:last_update_time]))
-
-        puts "-" * 80
-        p @posts.count if @posts
-        puts "-" * 80
         render_json_posts @posts
       end
     end

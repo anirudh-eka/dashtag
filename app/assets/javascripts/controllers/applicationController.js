@@ -1,7 +1,6 @@
 var applicationController = {
   setupRenderPost: function() {
     var self = this;
-
     var newPostModels = [];
     var active = false;
 
@@ -10,11 +9,11 @@ var applicationController = {
       $.each(rawPostData, function(index, rawPost){
         newPostModels.push(self.createPost(rawPost));
       });
-        renderPostsForTop();
+      renderPostsForTop();
     })
 
     $(window).scroll(function() {
-        renderPostsForTop();
+      renderPostsForTop();
     });
 
     function renderPostsForTop() {
@@ -24,7 +23,6 @@ var applicationController = {
           var newPostViewModels = renderPostHelper.createPostContent(newPostModels);
           $('#posts-list').prepend(newPostViewModels);
           masonryService.layOutMasonry();
-          console.log(newPostModels);
           newPostModels = [];
           active = false;
         }
