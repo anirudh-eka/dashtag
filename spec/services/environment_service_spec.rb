@@ -2,26 +2,37 @@ require 'spec_helper'
 
 describe EnvironmentService do
   describe "header title" do
+    def header_title_helper_for(env_title_value)
+      default_val = ENV["HEADER_TITLE"]
+      default_title = "##{EnvironmentService.hashtag_array.join(" #")}"
+      ENV["HEADER_TITLE"] = env_title_value
+      expect(EnvironmentService.header_title).to eq(default_title)
+      ENV["HEADER_TITLE"] = default_val
+    end
+
     it "should return a title for user set in env" do
       expect(EnvironmentService.header_title).to eq(ENV["HEADER_TITLE"])
     end
 
-    it "should return string of hashtags if title is not set in env" do
-      default_val = ENV["HEADER_TITLE"]
-      default_title = "##{EnvironmentService.hashtag_array.join(" #")}"
-      ENV["HEADER_TITLE"] = nil
-      expect(EnvironmentService.header_title).to eq(default_title)
-      ENV["HEADER_TITLE"] = ""
-      expect(EnvironmentService.header_title).to eq(default_title)
-      ENV["HEADER_TITLE"] = default_val
+    it "should return string of hashtags if title is nil" do
+      header_title_helper_for(nil)
+    end
+    it "should return string of hashtags if title is empty" do
+      header_title_helper_for("")
     end
   end
 
+
   describe "hashtags" do
-    it "should return an empty array if hashtag is not set in env" do
+    it "should return an empty array if hashtag is nil" do
       default_val = ENV["HASHTAGS"]
       ENV["HASHTAGS"] = nil
       expect(EnvironmentService.hashtag_array).to be_empty
+      ENV["HASHTAGS"] = default_val
+    end
+
+    it "should return an empty array if hashtag is empty" do
+      default_val = ENV["HASHTAGS"]
       ENV["HASHTAGS"] = ""
       expect(EnvironmentService.hashtag_array).to be_empty
       ENV["HASHTAGS"] = default_val
