@@ -31,7 +31,7 @@ class EnvironmentService
 		begin
 			Integer(ENV["API_RATE"])
 		rescue ArgumentError, TypeError
-			15
+			6 * EnvironmentService.hashtag_array.count
 		end
 	end
 
