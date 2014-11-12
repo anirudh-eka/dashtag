@@ -1,4 +1,8 @@
 class EnvironmentService
+	def self.header_title
+		ENV["HEADER_TITLE"] == "" || !ENV["HEADER_TITLE"] ? "##{EnvironmentService.hashtag_array.join(" #")}" : ENV["HEADER_TITLE"]
+	end
+
 	def self.hashtag_array
 		ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
 	end

@@ -1,7 +1,23 @@
 require 'spec_helper'
 
 describe EnvironmentService do
-  describe "hashtag" do
+  describe "header title" do
+    it "should return a title for user set in env" do
+      expect(EnvironmentService.header_title).to eq(ENV["HEADER_TITLE"])
+    end
+
+    it "should return string of hashtags if title is not set in env" do
+      default_val = ENV["HEADER_TITLE"]
+      default_title = "##{EnvironmentService.hashtag_array.join(" #")}"
+      ENV["HEADER_TITLE"] = nil
+      expect(EnvironmentService.header_title).to eq(default_title)
+      ENV["HEADER_TITLE"] = ""
+      expect(EnvironmentService.header_title).to eq(default_title)
+      ENV["HEADER_TITLE"] = default_val
+    end
+  end
+
+  describe "hashtags" do
     it "should return an empty array if hashtag is not set in env" do
       default_val = ENV["HASHTAGS"]
       ENV["HASHTAGS"] = nil

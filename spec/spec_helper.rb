@@ -14,8 +14,8 @@ require 'pry'
 WebMock.disable_net_connect!(allow_localhost: true)  # WebMock.disable_net_connect!({:allow_localhost => true})
 
 
-Capybara.javascript_driver = :selenium
-# Capybara.javascript_driver = :poltergeist
+# Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -61,6 +61,7 @@ RSpec.configure do |config|
     ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
     ENV["HASHTAGS"] = "fda|dogs"
+    ENV["HEADER_TITLE"] = "My Dogs"
 
   end
 
