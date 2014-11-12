@@ -26,7 +26,6 @@ var renderPostHelper = {
 				+ formattedDate + "</span>";
 
 		postContainer.append("<section class='post-created-at'>" + this.originalPostLink(post, createdAtSection) + "</section>");
-
 		return postContainer;
 	},
 
