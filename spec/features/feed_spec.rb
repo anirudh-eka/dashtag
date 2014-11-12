@@ -2,8 +2,9 @@ require 'spec_helper'
 require 'rake'
 
 describe 'home' do
-  let(:twitter_profile_image) {"http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg"}
-  let(:twitter_media_image) {"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg"}
+
+  let(:twitter_profile_image) {"http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg"}
+  let(:twitter_media_image) {"http://media-cache-ak0.pinimg.com/736x/cf/69/d9/cf69d915e40a62409133e533b64186f1.jpg"}
   let(:instagram_profile_image) {"http://images.ak.instagram.com/profiles/profile_33110152_75sq_1380185157.jpg"}
   let(:instagram_media_image) {"http://scontent-a.cdninstagram.com/hphotos-xfa1/t51.2885-15/10684067_323739034474097_279647979_n.jpg"}
 
@@ -18,8 +19,7 @@ describe 'home' do
   it 'should auto update only when on top of page', js: true do
 
     visit '/'
-
-    page.should have_content("Thee Namaste Nerdz. ##{ENV['HASHTAG']}")
+    page.should have_content("Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}")
     page.should have_content('@bullcityrecords')
     page.should have_image(twitter_profile_image)
     page.should have_image(twitter_media_image)
@@ -33,11 +33,11 @@ describe 'home' do
 
     sleep 5
 
-    page.should_not have_content("DAT ISH CRAY AIN'T IT ##{ENV['HASHTAG']}")
+    page.should_not have_content("DAT ISH CRAY AIN'T IT ##{EnvironmentService.hashtag_array.first}")
 
     page.execute_script('window.scrollTo(0,0)')
 
-    page.should have_content("DAT ISH CRAY AIN'T IT ##{ENV['HASHTAG']}")
+    page.should have_content("DAT ISH CRAY AIN'T IT ##{EnvironmentService.hashtag_array.first}")
   end
 
 end
