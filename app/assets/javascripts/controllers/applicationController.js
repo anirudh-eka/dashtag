@@ -46,14 +46,18 @@ var applicationController = {
 
   setupLoadOlderPosts: function() {
     var self = this;
+    var nextPostModels = [];
+
     $("#load-posts-btn").on("click", function(){
-      $("#loading").empty()
-      $("#loading").append("<i class='fa fa-spinner faa-spin animated'></i>")
       ajaxService.getNextPosts();
-      $(ajaxService).on("next-posts", function(e, data){
-        $("#loading").empty();
-        var newPosts = renderPostHelper.createPostContent(data);
-        $('#posts-list').append(newPosts);
+      $(ajaxService).on("next-posts", function(e, rawPostData){
+
+        $.each(rawPostData, function(index, rawPost){
+          nextPostModels.push(self.createPost(rawPost));
+        });
+
+        var nextPosts = renderPostHelper.createPostContent(nextPostModels);
+        $('#posts-list').append(nextPosts);
         masonryService.layOutMasonry();
       });
 
