@@ -62,7 +62,6 @@ RSpec.configure do |config|
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
     ENV["HASHTAGS"] = "fda|dogs"
     ENV["HEADER_TITLE"] = "My Dogs"
-
   end
 
   config.before :each do

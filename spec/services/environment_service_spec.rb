@@ -22,6 +22,30 @@ describe EnvironmentService do
     end
   end
 
+  describe "header link" do
+    it "should return a link for user set in env" do
+      default_val = ENV["HEADER_LINK"]
+      ENV["HEADER_LINK"] = "MY CUSTOM HEADER"
+      expect(EnvironmentService.header_link).to eq(ENV["HEADER_LINK"])
+      ENV["HEADER_LINK"] = default_val
+    end
+
+    it "should return #hashtag-anchor if header-link is nil" do
+      default_val = ENV["HEADER_LINK"]
+      ENV["HEADER_LINK"] = nil
+      expect(EnvironmentService.header_link).to eq("#hashtag-anchor")
+      ENV["HEADER_LINK"] = default_val
+    end
+
+    it "should return #hashtag-anchor if header-link is empty" do
+      default_val = ENV["HEADER_LINK"]
+      ENV["HEADER_LINK"] = ""
+      expect(EnvironmentService.header_link).to eq("#hashtag-anchor")
+      ENV["HEADER_LINK"] = default_val
+    end
+  end
+
+
 
   describe "hashtags" do
     it "should return an empty array if hashtag is nil" do
@@ -153,7 +177,6 @@ describe EnvironmentService do
       expect(EnvironmentService.ajax_interval).to eq(5000)
     end
   end
-
 
   describe "db_row_limit" do
     it "should return what is set in env" do
