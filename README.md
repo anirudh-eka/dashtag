@@ -67,9 +67,9 @@ If you don't want to censor users or words, simply don't put `CENSORED_USERS` or
 
 	API_RATE=15
 
-Refer to Twitter Limits [here](https://dev.twitter.com/rest/public/rate-limiting)
+Refer to Twitter API Limits [here](https://dev.twitter.com/rest/public/rate-limiting).
 
-Refer to Instagram Limits [here](http://instagram.com/developer/limits/)
+Refer to Instagram API Limits [here](http://instagram.com/developer/limits/).
 
 `Twitter Bearer Credentials` should be set to the Twitter Key followed by a colon and the Twitter secret, like so:
 
