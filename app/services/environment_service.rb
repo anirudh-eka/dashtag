@@ -1,6 +1,10 @@
 class EnvironmentService
-	def self.hashtag
-		ENV["HASHTAG"]
+	def self.header_title
+		ENV["HEADER_TITLE"] == "" || !ENV["HEADER_TITLE"] ? "##{EnvironmentService.hashtag_array.join(" #")}" : ENV["HEADER_TITLE"]
+	end
+
+	def self.hashtag_array
+		ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
 	end
 
 	def self.twitter_bearer_credentials
@@ -27,7 +31,7 @@ class EnvironmentService
 		begin
 			Integer(ENV["API_RATE"])
 		rescue ArgumentError, TypeError
-			15
+			6 * EnvironmentService.hashtag_array.count
 		end
 	end
 

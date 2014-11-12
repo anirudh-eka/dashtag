@@ -1,9 +1,49 @@
 require 'spec_helper'
 
 describe EnvironmentService do
-  describe "hashtag" do
-    it "should return hashtag set in env" do
-      expect(EnvironmentService.hashtag).to eq(ENV["HASHTAG"])
+  describe "header title" do
+    def header_title_helper_for(env_title_value)
+      default_val = ENV["HEADER_TITLE"]
+      default_title = "##{EnvironmentService.hashtag_array.join(" #")}"
+      ENV["HEADER_TITLE"] = env_title_value
+      expect(EnvironmentService.header_title).to eq(default_title)
+      ENV["HEADER_TITLE"] = default_val
+    end
+
+    it "should return a title for user set in env" do
+      expect(EnvironmentService.header_title).to eq(ENV["HEADER_TITLE"])
+    end
+
+    it "should return string of hashtags if title is nil" do
+      header_title_helper_for(nil)
+    end
+    it "should return string of hashtags if title is empty" do
+      header_title_helper_for("")
+    end
+  end
+
+
+  describe "hashtags" do
+    it "should return an empty array if hashtag is nil" do
+      default_val = ENV["HASHTAGS"]
+      ENV["HASHTAGS"] = nil
+      expect(EnvironmentService.hashtag_array).to be_empty
+      ENV["HASHTAGS"] = default_val
+    end
+
+    it "should return an empty array if hashtag is empty" do
+      default_val = ENV["HASHTAGS"]
+      ENV["HASHTAGS"] = ""
+      expect(EnvironmentService.hashtag_array).to be_empty
+      ENV["HASHTAGS"] = default_val
+    end
+
+    it 'should parse EnvironmentService.hashtag into an array' do
+      default_val = ENV["HASHTAGS"]
+      ENV["HASHTAGS"] = "yolo|dance|christmas"
+      expected_array = ['yolo', 'dance', 'christmas']
+      expect(EnvironmentService.hashtag_array).to eq(expected_array)
+      ENV["HASHTAGS"] = default_val
     end
   end
 
@@ -71,48 +111,46 @@ describe EnvironmentService do
   end
 
   describe "api_rate" do
+    before(:each) { @test_env = ENV["API_RATE"] }
+    after(:each) { ENV["API_RATE"] = @test_env }
+
     it "should return what is set in env" do
-      test_env = ENV["API_RATE"]
       ENV["API_RATE"] = "10"
       expect(EnvironmentService.api_rate).to eq(10)
-      ENV["API_RATE"] = test_env
     end
 
-    it "should return 15 by default" do
-      test_env = ENV["API_RATE"]
+    it "should return 6 * hashtag count by default" do
+      hashtag_count = EnvironmentService.hashtag_array.count
       ENV["API_RATE"] = nil
-      expect(EnvironmentService.api_rate).to eq(15)
-      ENV["API_RATE"] = test_env
+      expect(EnvironmentService.api_rate).to eq(6 * hashtag_count)
     end
 
-    it "should return 15 if entry is not integer" do
-      test_env = ENV["API_RATE"]
+    it "should return 6 * hashtag count if entry is not integer" do
+      hashtag_count = EnvironmentService.hashtag_array.count
       ENV["API_RATE"] = "stuff"
-      expect(EnvironmentService.api_rate).to eq(15)
-      ENV["API_RATE"] = test_env
+      expect(EnvironmentService.api_rate).to eq(6 * hashtag_count)
     end
+
   end
 
+
   describe "ajax_interval" do
+    before(:each){ @test_env = ENV["AJAX_INTERVAL"] }
+    after(:each){ ENV["AJAX_INTERVAL"] = @test_env }
+
     it "should return what is set in env" do
-      test_env = ENV["AJAX_INTERVAL"]
       ENV["AJAX_INTERVAL"] = "1000"
       expect(EnvironmentService.ajax_interval).to eq(1000)
-      ENV["AJAX_INTERVAL"] = test_env
     end
 
     it "should return 5000 by default" do
-      test_env = ENV["AJAX_INTERVAL"]
       ENV["AJAX_INTERVAL"] = nil
       expect(EnvironmentService.ajax_interval).to eq(5000)
-      ENV["AJAX_INTERVAL"] = test_env
     end
 
     it "should return 5000 if entry is not integer" do
-      test_env = ENV["AJAX_INTERVAL"]
       ENV["AJAX_INTERVAL"] = "stuff"
       expect(EnvironmentService.ajax_interval).to eq(5000)
-      ENV["AJAX_INTERVAL"] = test_env
     end
   end
 
@@ -150,7 +188,7 @@ describe EnvironmentService do
     end
   end
 
-    describe "color_2" do
+  describe "color_2" do
     it "should return what is set in env" do
       test_env = ENV["COLOR_2"]
       ENV["COLOR_2"] = "#07c"
@@ -159,7 +197,7 @@ describe EnvironmentService do
     end
   end
 
-    describe "color_3" do
+  describe "color_3" do
     it "should return what is set in env" do
       test_env = ENV["COLOR_3"]
       ENV["COLOR_3"] = "#07c"
@@ -168,7 +206,7 @@ describe EnvironmentService do
     end
   end
 
-    describe "color_4" do
+  describe "color_4" do
     it "should return what is set in env" do
       test_env = ENV["COLOR_4"]
       ENV["COLOR_4"] = "#07c"
