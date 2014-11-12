@@ -29,13 +29,13 @@ module SampleTweetResponses
             "id_str" => "249292149810667520",
             "entities" => {
               "media" => [{
-                "indices"=>[71, 93], 
-                "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-                "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-                "url"=>"http://t.co/8EO3BWutLc", 
-                "display_url"=>"pic.twitter.com/8EO3BWutLc", 
-                "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1", 
-                "type"=>"photo", 
+                "indices"=>[71, 93],
+                "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+                "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+                "url"=>"http://t.co/8EO3BWutLc",
+                "display_url"=>"pic.twitter.com/8EO3BWutLc",
+                "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1",
+                "type"=>"photo",
               }],
               "urls" => [ ], "hashtags" => [ ]
             },
@@ -45,7 +45,7 @@ module SampleTweetResponses
       }
   end
 
-  def self.tweets_with_censored_words 
+  def self.tweets_with_censored_words
   @@tweets_with_censored_words = {
       "statuses" => [
         {
@@ -56,19 +56,19 @@ module SampleTweetResponses
           "id_str" => "249292149810667520",
           "entities" => {
             "media" => [{
-              "id"=>471376386016686080, 
-              "id_str"=>"471376386016686080", 
-              "indices"=>[71, 93], 
-              "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-              "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-              "url"=>"http://t.co/8EO3BWutLc", 
-              "display_url"=>"pic.twitter.com/8EO3BWutLc", 
-              "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1", 
-              "type"=>"photo", 
+              "id"=>471376386016686080,
+              "id_str"=>"471376386016686080",
+              "indices"=>[71, 93],
+              "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+              "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+              "url"=>"http://t.co/8EO3BWutLc",
+              "display_url"=>"pic.twitter.com/8EO3BWutLc",
+              "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1",
+              "type"=>"photo",
               "sizes"=>{
-                "medium"=>{"w"=>600, "h"=>600, "resize"=>"fit"}, 
-                "thumb"=>{"w"=>150, "h"=>150, "resize"=>"crop"}, 
-                "large"=>{"w"=>960, "h"=>960, "resize"=>"fit"}, 
+                "medium"=>{"w"=>600, "h"=>600, "resize"=>"fit"},
+                "thumb"=>{"w"=>150, "h"=>150, "resize"=>"crop"},
+                "large"=>{"w"=>960, "h"=>960, "resize"=>"fit"},
                 "small"=>{"w"=>340, "h"=>340, "resize"=>"fit"}
                 }
             }],
@@ -295,7 +295,7 @@ module SampleTweetResponses
             ],
             "hashtags" => [
               {
-                "text" => "#{ENV["HASHTAG"]}",
+                "text" => "#{EnvironmentService.hashtag_array.first}",
                 "indices" => [
                   20,
                   34
@@ -308,7 +308,7 @@ module SampleTweetResponses
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "DAT ISH CRAY AIN'T IT ##{ENV["HASHTAG"]}",
+          "text" => "DAT ISH CRAY AIN'T IT ##{EnvironmentService.hashtag_array.first}",
           "metadata" => {
             "iso_language_code" => "pl",
             "result_type" => "recent"
@@ -392,19 +392,19 @@ module SampleTweetResponses
           "id_str" => "249292149810667520",
           "entities" => {
             "media" => [{
-              "id"=>471376386016686080, 
-              "id_str"=>"471376386016686080", 
-              "indices"=>[71, 93], 
-              "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-              "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-              "url"=>"http://t.co/8EO3BWutLc", 
-              "display_url"=>"pic.twitter.com/8EO3BWutLc", 
-              "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1", 
-              "type"=>"photo", 
+              "id"=>471376386016686080,
+              "id_str"=>"471376386016686080",
+              "indices"=>[71, 93],
+              "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+              "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+              "url"=>"http://t.co/8EO3BWutLc",
+              "display_url"=>"pic.twitter.com/8EO3BWutLc",
+              "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1",
+              "type"=>"photo",
               "sizes"=>{
-                "medium"=>{"w"=>600, "h"=>600, "resize"=>"fit"}, 
-                "thumb"=>{"w"=>150, "h"=>150, "resize"=>"crop"}, 
-                "large"=>{"w"=>960, "h"=>960, "resize"=>"fit"}, 
+                "medium"=>{"w"=>600, "h"=>600, "resize"=>"fit"},
+                "thumb"=>{"w"=>150, "h"=>150, "resize"=>"crop"},
+                "large"=>{"w"=>960, "h"=>960, "resize"=>"fit"},
                 "small"=>{"w"=>340, "h"=>340, "resize"=>"fit"}
                 }
             }],
@@ -413,7 +413,7 @@ module SampleTweetResponses
             ],
             "hashtags" => [
               {
-                "text" => "#{ENV["HASHTAG"]}",
+                "text" => "#{EnvironmentService.hashtag_array.first}",
                 "indices" => [
                   20,
                   34
@@ -426,7 +426,7 @@ module SampleTweetResponses
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
+          "text" => "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
           "metadata" => {
             "iso_language_code" => "pl",
             "result_type" => "recent"
@@ -514,7 +514,7 @@ module SampleTweetResponses
             ],
             "hashtags" => [
               {
-                "text" => "#{ENV["HASHTAG"]}",
+                "text" => "#{EnvironmentService.hashtag_array.first}",
                 "indices" => [
                   29,
                   43
@@ -526,7 +526,7 @@ module SampleTweetResponses
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "Mexican Heaven, Mexican Hell ##{ENV["HASHTAG"]}",
+          "text" => "Mexican Heaven, Mexican Hell ##{EnvironmentService.hashtag_array.first}",
           "metadata" => {
             "iso_language_code" => "en",
             "result_type" => "recent"
@@ -604,12 +604,12 @@ module SampleTweetResponses
       "search_metadata" => {
         "max_id" => 250126199840518145,
         "since_id" => 24012619984051000,
-        "refresh_url" => "?since_id=250126199840518145&q=%23#{ENV["HASHTAG"]}&result_type=mixed&include_entities=1",
-        "next_results" => "?max_id=249279667666817023&q=%23#{ENV["HASHTAG"]}&count=4&include_entities=1&result_type=mixed",
+        "refresh_url" => "?since_id=250126199840518145&q=%23#{EnvironmentService.hashtag_array.first}&result_type=mixed&include_entities=1",
+        "next_results" => "?max_id=249279667666817023&q=%23#{EnvironmentService.hashtag_array.first}&count=4&include_entities=1&result_type=mixed",
         "count" => 4,
         "completed_in" => 0.035,
         "since_id_str" => "24012619984051000",
-        "query" => "%23#{ENV["HASHTAG"]}",
+        "query" => "%23#{EnvironmentService.hashtag_array.first}",
         "max_id_str" => "250126199840518145"
       }
     }
@@ -626,19 +626,19 @@ module SampleTweetResponses
             "id_str" => "249292149810667520",
             "entities" => {
               "media" => [{
-                "id"=>471376386016686080, 
-                "id_str"=>"471376386016686080", 
-                "indices"=>[71, 93], 
-                "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-                "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-                "url"=>"http://t.co/8EO3BWutLc", 
-                "display_url"=>"pic.twitter.com/8EO3BWutLc", 
-                "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1", 
-                "type"=>"photo", 
+                "id"=>471376386016686080,
+                "id_str"=>"471376386016686080",
+                "indices"=>[71, 93],
+                "media_url"=>"http://media-cache-ak0.pinimg.com/736x/cf/69/d9/cf69d915e40a62409133e533b64186f1.jpg",
+                "media_url_https"=>"http://media-cache-ak0.pinimg.com/736x/cf/69/d9/cf69d915e40a62409133e533b64186f1.jpg",
+                "url"=>"http://t.co/8EO3BWutLc",
+                "display_url"=>"pic.twitter.com/8EO3BWutLc",
+                "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1",
+                "type"=>"photo",
                 "sizes"=>{
-                  "medium"=>{"w"=>600, "h"=>600, "resize"=>"fit"}, 
-                  "thumb"=>{"w"=>150, "h"=>150, "resize"=>"crop"}, 
-                  "large"=>{"w"=>960, "h"=>960, "resize"=>"fit"}, 
+                  "medium"=>{"w"=>600, "h"=>600, "resize"=>"fit"},
+                  "thumb"=>{"w"=>150, "h"=>150, "resize"=>"crop"},
+                  "large"=>{"w"=>960, "h"=>960, "resize"=>"fit"},
                   "small"=>{"w"=>340, "h"=>340, "resize"=>"fit"}
                   }
               }],
@@ -647,7 +647,7 @@ module SampleTweetResponses
               ],
               "hashtags" => [
                 {
-                  "text" => "#{ENV["HASHTAG"]}",
+                  "text" => "#{EnvironmentService.hashtag_array.first}",
                   "indices" => [
                     20,
                     34
@@ -660,7 +660,7 @@ module SampleTweetResponses
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
+            "text" => "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
             "metadata" => {
               "iso_language_code" => "pl",
               "result_type" => "recent"
@@ -677,7 +677,7 @@ module SampleTweetResponses
               "profile_sidebar_border_color" => "BDDCAD",
               "profile_background_tile" => true,
               "name" => "Chaz Martenstein",
-              "profile_image_url" => "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
+              "profile_image_url" => "http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg",
               "created_at" => "Tue Apr 07 19:05:07 +0000 2009",
               "location" => "Durham, NC",
               "follow_request_sent" => nil,
@@ -748,7 +748,7 @@ module SampleTweetResponses
               ],
               "hashtags" => [
                 {
-                  "text" => "#{ENV["HASHTAG"]}",
+                  "text" => "#{EnvironmentService.hashtag_array.first}",
                   "indices" => [
                     29,
                     43
@@ -760,7 +760,7 @@ module SampleTweetResponses
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "Mexican Heaven, Mexican Hell ##{ENV["HASHTAG"]}",
+            "text" => "Mexican Heaven, Mexican Hell ##{EnvironmentService.hashtag_array.first}",
             "metadata" => {
               "iso_language_code" => "en",
               "result_type" => "recent"
@@ -838,12 +838,12 @@ module SampleTweetResponses
         "search_metadata" => {
           "max_id" => 250126199840518145,
           "since_id" => 24012619984051000,
-          "refresh_url" => "?since_id=250126199840518145&q=%23#{ENV["HASHTAG"]}&result_type=mixed&include_entities=1",
-          "next_results" => "?max_id=249279667666817023&q=%23#{ENV["HASHTAG"]}&count=4&include_entities=1&result_type=mixed",
+          "refresh_url" => "?since_id=250126199840518145&q=%23#{EnvironmentService.hashtag_array.first}&result_type=mixed&include_entities=1",
+          "next_results" => "?max_id=249279667666817023&q=%23#{EnvironmentService.hashtag_array.first}&count=4&include_entities=1&result_type=mixed",
           "count" => 4,
           "completed_in" => 0.035,
           "since_id_str" => "24012619984051000",
-          "query" => "%23#{ENV["HASHTAG"]}",
+          "query" => "%23#{EnvironmentService.hashtag_array.first}",
           "max_id_str" => "250126199840518145"
         }
       }
@@ -860,19 +860,19 @@ module SampleTweetResponses
             "id_str" => "249292149810667520",
             "entities" => {
               "media" => [{
-                "id"=>471376386016686080, 
-                "id_str"=>"471376386016686080", 
-                "indices"=>[71, 93], 
-                "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-                "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg", 
-                "url"=>"http://t.co/8EO3BWutLc", 
-                "display_url"=>"pic.twitter.com/8EO3BWutLc", 
-                "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1", 
-                "type"=>"photo", 
+                "id"=>471376386016686080,
+                "id_str"=>"471376386016686080",
+                "indices"=>[71, 93],
+                "media_url"=>"http://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+                "media_url_https"=>"https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+                "url"=>"http://t.co/8EO3BWutLc",
+                "display_url"=>"pic.twitter.com/8EO3BWutLc",
+                "expanded_url"=>"http://twitter.com/scumbling/status/471376390852317184/photo/1",
+                "type"=>"photo",
                 "sizes"=>{
-                  "medium"=>{"w"=>600, "h"=>600, "resize"=>"fit"}, 
-                  "thumb"=>{"w"=>150, "h"=>150, "resize"=>"crop"}, 
-                  "large"=>{"w"=>960, "h"=>960, "resize"=>"fit"}, 
+                  "medium"=>{"w"=>600, "h"=>600, "resize"=>"fit"},
+                  "thumb"=>{"w"=>150, "h"=>150, "resize"=>"crop"},
+                  "large"=>{"w"=>960, "h"=>960, "resize"=>"fit"},
                   "small"=>{"w"=>340, "h"=>340, "resize"=>"fit"}
                   }
               }],
@@ -881,7 +881,7 @@ module SampleTweetResponses
               ],
               "hashtags" => [
                 {
-                  "text" => "#{ENV["HASHTAG"]}",
+                  "text" => "#{EnvironmentService.hashtag_array.first}",
                   "indices" => [
                     20,
                     34
@@ -894,7 +894,7 @@ module SampleTweetResponses
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
+            "text" => "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
             "metadata" => {
               "iso_language_code" => "pl",
               "result_type" => "recent"
@@ -982,7 +982,7 @@ module SampleTweetResponses
               ],
               "hashtags" => [
                 {
-                  "text" => "#{ENV["HASHTAG"]}",
+                  "text" => "#{EnvironmentService.hashtag_array.first}",
                   "indices" => [
                     29,
                     43
@@ -994,7 +994,7 @@ module SampleTweetResponses
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "Mexican Heaven, Mexican Hell ##{ENV["HASHTAG"]}",
+            "text" => "Mexican Heaven, Mexican Hell ##{EnvironmentService.hashtag_array.first}",
             "metadata" => {
               "iso_language_code" => "en",
               "result_type" => "recent"
@@ -1072,12 +1072,12 @@ module SampleTweetResponses
         "search_metadata" => {
           "max_id" => 250126199840518145,
           "since_id" => 24012619984051000,
-          "refresh_url" => "?since_id=250126199840518145&q=%23#{ENV["HASHTAG"]}&result_type=mixed&include_entities=1",
-          "next_results" => "?max_id=249279667666817023&q=%23#{ENV["HASHTAG"]}&count=4&include_entities=1&result_type=mixed",
+          "refresh_url" => "?since_id=250126199840518145&q=%23#{EnvironmentService.hashtag_array.first}&result_type=mixed&include_entities=1",
+          "next_results" => "?max_id=249279667666817023&q=%23#{EnvironmentService.hashtag_array.first}&count=4&include_entities=1&result_type=mixed",
           "count" => 4,
           "completed_in" => 0.035,
           "since_id_str" => "24012619984051000",
-          "query" => "%23#{ENV["HASHTAG"]}",
+          "query" => "%23#{EnvironmentService.hashtag_array.first}",
           "max_id_str" => "250126199840518145"
         }
       }

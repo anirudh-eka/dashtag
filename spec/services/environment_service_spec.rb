@@ -2,8 +2,21 @@ require 'spec_helper'
 
 describe EnvironmentService do
   describe "hashtag" do
-    it "should return hashtag set in env" do
-      expect(EnvironmentService.hashtag).to eq(ENV["HASHTAG"])
+    it "should return an empty array if hashtag is not set in env" do
+      default_val = ENV["HASHTAGS"]
+      ENV["HASHTAGS"] = nil
+      expect(EnvironmentService.hashtag_array).to be_empty
+      ENV["HASHTAGS"] = ""
+      expect(EnvironmentService.hashtag_array).to be_empty
+      ENV["HASHTAGS"] = default_val
+    end
+
+    it 'should parse EnvironmentService.hashtag into an array' do
+      default_val = ENV["HASHTAGS"]
+      ENV["HASHTAGS"] = "yolo|dance|christmas"
+      expected_array = ['yolo', 'dance', 'christmas']
+      expect(EnvironmentService.hashtag_array).to eq(expected_array)
+      ENV["HASHTAGS"] = default_val
     end
   end
 

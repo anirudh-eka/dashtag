@@ -1,6 +1,6 @@
 class EnvironmentService
-	def self.hashtag
-		ENV["HASHTAG"]
+	def self.hashtag_array
+		ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
 	end
 
 	def self.twitter_bearer_credentials

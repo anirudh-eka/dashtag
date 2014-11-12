@@ -14,8 +14,8 @@ require 'pry'
 WebMock.disable_net_connect!(allow_localhost: true)  # WebMock.disable_net_connect!({:allow_localhost => true})
 
 
-# Capybara.javascript_driver = :selenium
-Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :selenium
+# Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -60,7 +60,7 @@ RSpec.configure do |config|
     ENV["API_RATE"] = 1.to_s
     ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
-    ENV["HASHTAG"] = "fda"
+    ENV["HASHTAGS"] = "fda|dogs"
 
   end
 
@@ -87,12 +87,14 @@ RSpec.configure do |config|
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
 
-    stub_request(:get, "https://api.instagram.com/v1/tags/#{ENV["HASHTAG"]}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}")
+    EnvironmentService.hashtag_array.each do |hashtag|
+      stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}")
       .to_return( {:status => 200, :body => SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
-    stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{ENV["HASHTAG"]}").
+      stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}").
       with(headers: {"Authorization"=>/Bearer .+/}).
       to_return( {:status => 200, :body => SampleTweetResponses.tweet_response.to_json, :headers => {'content-type' => 'application/json'} },
         {:status => 200, :body => SampleTweetResponses.second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
+    end
   end
 end
