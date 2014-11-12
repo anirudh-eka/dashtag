@@ -11,11 +11,11 @@ describe APIService do
     it "parses grams and tweets from response and creates posts with parsed data" do
         tweet = FactoryGirl.build(:post,
           source: "twitter",
-          text: "Thee Namaste Nerdz. ##{ENV["HASHTAG"]}",
+          text: "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
           screen_name: "bullcityrecords",
           time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
-          profile_image_url: "http://a0.twimg.com/profile_images/447958234/Lichtenstein_normal.jpg",
-          media_url: "https://pbs.twimg.com/media/BoqqU1wIMAAr_zO.jpg",
+          profile_image_url: "http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg",
+          media_url: "http://media-cache-ak0.pinimg.com/736x/cf/69/d9/cf69d915e40a62409133e533b64186f1.jpg",
           post_id: "249292149810667520"
         )
 
@@ -26,10 +26,17 @@ describe APIService do
         profile_image_url: "http://photos-h.ak.instagram.com/hphotos-ak-xfa1/10448944_676691075735007_832582745_a.jpg",
         media_url: "http://scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10691617_1510929602485903_1047906060_n.jpg",
         post_id: "tA0dgLCmn5")
-
         APIService.instance.pull_posts!
         expect(Post.all).to include(tweet)
         expect(Post.all).to include(gram)
+    end
+
+    it 'should pull instagram and twitter posts for each hashtag' do
+      EnvironmentService.hashtag_array.each do |hashtag|
+        expect(APIService.instance).to receive(:pull_instagram_posts_and_parse).with(hashtag).and_return([])
+        expect(APIService.instance).to receive(:pull_twitter_posts_and_parse).with(hashtag).and_return([])
+      end
+      APIService.instance.pull_posts!
     end
   end
 
@@ -83,6 +90,7 @@ describe APIService do
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
       it "should return nil" do
+
         expect(APIService.instance.pull_posts).to be_nil
       end
     end

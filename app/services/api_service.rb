@@ -18,13 +18,14 @@ class APIService
 
   def pull_posts!
     rate_to_hit_api = EnvironmentService.api_rate
-
     if (Time.now - last_update > rate_to_hit_api)
       @last_update = Time.now
 
       parsed_response = []
-      parsed_response += pull_instagram_posts_and_parse(EnvironmentService.hashtag) if EnvironmentService.instagram_client_id
-      parsed_response += pull_twitter_posts_and_parse(EnvironmentService.hashtag) if EnvironmentService.twitter_bearer_credentials
+      EnvironmentService.hashtag_array.each do |hashtag|
+        parsed_response += pull_instagram_posts_and_parse(hashtag) if EnvironmentService.instagram_client_id
+        parsed_response += pull_twitter_posts_and_parse(hashtag) if EnvironmentService.twitter_bearer_credentials
+      end
       parsed_response.each do |attributes|
         Post.create(attributes)
       end
@@ -38,7 +39,6 @@ class APIService
 	def pull_instagram_posts_and_parse(hashtag)
     instagram_client_id = EnvironmentService.instagram_client_id
     response = HTTParty.get("https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{instagram_client_id}")
-
     GramParser.parse(response.parsed_response)
 	end
 
