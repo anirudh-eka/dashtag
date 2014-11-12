@@ -32,7 +32,7 @@ var applicationController = {
 
   setupScroll: function () {
     $('#up').on('click', function(e){
-      e.preventDefault();
+
       var target= $('#hashtag-anchor');
       $('html, body').stop().animate({
           scrollTop: target.offset().top

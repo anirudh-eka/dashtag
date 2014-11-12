@@ -35,7 +35,7 @@ describe 'home' do
 
     page.should_not have_content("DAT ISH CRAY AIN'T IT ##{EnvironmentService.hashtag_array.first}")
 
-    page.execute_script('window.scrollTo(0,0)')
+    click_link "up"
 
     page.should have_content("DAT ISH CRAY AIN'T IT ##{EnvironmentService.hashtag_array.first}")
   end

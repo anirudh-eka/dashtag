@@ -16,6 +16,7 @@ Environment Variables
 ---------------------
 Currently the application uses the following variables in the environment (required is marked with *):
 - HEADER_TITLE (default: user's hashtags separated by spaces)
+- HEADER_LINK (default: will link to top of page)
 -	HASHTAGS *
 -	CENSORED_WORDS
 -	CENSORED_USERS
@@ -36,6 +37,12 @@ To add a custom page title to your feed as well as a header title, you set:
 If no title is provided the default title will be set as the user's hashtags separated by spaces. For example, for the given HASHTAGS=peace|love|happiness, the header title will display
 
 	#peace #love #happiness
+
+To add an external link to your header title, you set:
+
+	HEADER_LINK=https://www.google.com
+
+* You must use absolute urls for links to work.
 
 `Hashtags` should be set to the text of the hashtag excluding the initial '#'. So if you wanted all of the posts with the "#peace" on Twitter, you set:
 

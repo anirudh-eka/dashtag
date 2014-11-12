@@ -3,6 +3,10 @@ class EnvironmentService
 		ENV["HEADER_TITLE"] == "" || !ENV["HEADER_TITLE"] ? "##{EnvironmentService.hashtag_array.join(" #")}" : ENV["HEADER_TITLE"]
 	end
 
+	def self.header_link
+		ENV["HEADER_LINK"]  == "" || !ENV["HEADER_LINK"] ? "#hashtag-anchor" : ENV["HEADER_LINK"]
+	end
+
 	def self.hashtag_array
 		ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
 	end
