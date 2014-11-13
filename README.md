@@ -17,6 +17,13 @@ Environment Variables
 Currently the application uses the following variables in the environment (required is marked with *):
 - HEADER_TITLE (default: user's hashtags separated by spaces)
 - HEADER_LINK (default: will link to top of page)
+- HEADER_COLOR (default: #EFEFEF)
+- BACKGROUND_COLOR (default: #EFEFEF)
+- FONT_FAMILY (default: Open Sans, sans-serif)
+-	POST_COLOR_1	(default: #B11C54)
+-	POST_COLOR_2	(default: #F78F31)
+-	POST_COLOR_3	(default: #80C9D2)
+-	POST_COLOR_4	(default: #B5B935)
 -	HASHTAGS *
 -	CENSORED_WORDS
 -	CENSORED_USERS
@@ -25,10 +32,6 @@ Currently the application uses the following variables in the environment (requi
 - INSTAGRAM_CLIENT_ID
 -	DISABLE_RETWEETS (default: true)
 -	DB_ROW_LIMIT (default: 8000)
--	COLOR_1	(default: #B11C54)
--	COLOR_2	(default: #F78F31)
--	COLOR_3	(default: #80C9D2)
--	COLOR_4	(default: #B5B935)
 
 To add a custom page title to your feed as well as a header title, you set:
 
@@ -43,6 +46,26 @@ To add an external link to your header title, you set:
 	HEADER_LINK=https://www.google.com
 
 * You must use absolute urls for links to work.
+
+To add a custom header color, you set:
+
+	HEADER_COLOR="#B11C54" or "maroon" or "rgba(250,0,0,0.2)"
+
+To add custom colors for the post background, you can set:
+
+	POST_COLOR_1="#B11C54" or "maroon" or "rgba(250,0,0,0.2)"
+
+To add custom background page color, you can set:
+
+	BACKGROUND_COLOR="#B11C54" or "maroon" or "rgba(250,0,0,0.2)"
+
+* All color values must be wrapped in quotes!
+
+To change the text font of the feed, you can set:
+
+	FONT_FAMILY=Tahoma, Geneva, sans-serif
+
+* The font_family input must not have quotes and can be separated by commas as shown above
 
 `Hashtags` should be set to the text of the hashtag excluding the initial '#'. So if you wanted all of the posts with the "#peace" on Twitter, you set:
 
@@ -126,10 +149,3 @@ Running tests
 The testing framework used is Rspec and Capybara. To run them:
 
 	$ rspec
-
-*Note: Currently one feature test is pending*
-
-
-What's in the future?
----------------------
-We're working on supporting facebook and videos

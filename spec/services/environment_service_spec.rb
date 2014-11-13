@@ -202,39 +202,67 @@ describe EnvironmentService do
     end
   end
 
-  describe "color_1" do
+  describe "font_family" do
     it "should return what is set in env" do
-      test_env = ENV["COLOR_1"]
-      ENV["COLOR_1"] = "#07c"
-      expect(EnvironmentService.color_1).to eq("#07c")
-      ENV["COLOR_1"] = test_env
+      test_env = ENV["FONT_FAMILY"]
+      ENV["FONT_FAMILY"] = "Comic-Sans"
+      expect(EnvironmentService.font_family).to eq("Comic-Sans")
+      ENV["FONT_FAMILY"] = test_env
     end
   end
 
-  describe "color_2" do
+  describe "header_color" do
     it "should return what is set in env" do
-      test_env = ENV["COLOR_2"]
-      ENV["COLOR_2"] = "#07c"
-      expect(EnvironmentService.color_2).to eq("#07c")
-      ENV["COLOR_2"] = test_env
+      test_env = ENV["HEADER_COLOR"]
+      ENV["HEADER_COLOR"] = "#07c"
+      expect(EnvironmentService.header_color).to eq("#07c")
+      ENV["HEADER_COLOR"] = test_env
     end
   end
 
-  describe "color_3" do
+
+  describe "background_color" do
     it "should return what is set in env" do
-      test_env = ENV["COLOR_3"]
-      ENV["COLOR_3"] = "#07c"
-      expect(EnvironmentService.color_3).to eq("#07c")
-      ENV["COLOR_3"] = test_env
+      test_env = ENV["BACKGROUND_COLOR"]
+      ENV["BACKGROUND_COLOR"] = "#07c"
+      expect(EnvironmentService.background_color).to eq("#07c")
+      ENV["BACKGROUND_COLOR"] = test_env
     end
   end
 
-  describe "color_4" do
+  describe "post_color_1" do
     it "should return what is set in env" do
-      test_env = ENV["COLOR_4"]
-      ENV["COLOR_4"] = "#07c"
-      expect(EnvironmentService.color_4).to eq("#07c")
-      ENV["COLOR_4"] = test_env
+      test_env = ENV["POST_COLOR_1"]
+      ENV["POST_COLOR_1"] = "#07c"
+      expect(EnvironmentService.post_color_1).to eq("#07c")
+      ENV["POST_COLOR_1"] = test_env
+    end
+  end
+
+  describe "post_color_2" do
+    it "should return what is set in env" do
+      test_env = ENV["POST_COLOR_2"]
+      ENV["POST_COLOR_2"] = "#07c"
+      expect(EnvironmentService.post_color_2).to eq("#07c")
+      ENV["POST_COLOR_2"] = test_env
+    end
+  end
+
+  describe "post_color_3" do
+    it "should return what is set in env" do
+      test_env = ENV["POST_COLOR_3"]
+      ENV["POST_COLOR_3"] = "#07c"
+      expect(EnvironmentService.post_color_3).to eq("#07c")
+      ENV["POST_COLOR_3"] = test_env
+    end
+  end
+
+  describe "post_color_4" do
+    it "should return what is set in env" do
+      test_env = ENV["POST_COLOR_4"]
+      ENV["POST_COLOR_4"] = "#07c"
+      expect(EnvironmentService.post_color_4).to eq("#07c")
+      ENV["POST_COLOR_4"] = test_env
     end
   end
 end
