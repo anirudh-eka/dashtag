@@ -8,33 +8,59 @@
         "Social",
         "twitter",
         "instagram"
-    ],    
+    ],
     "scripts": {
         "postdeploy": "bundle exec rake db:migrate"
     },
 
     "env": {
-        "HASHTAG": {
-            "required": true 
+        "HASHTAGS": {
+            "required": true
             },
         "CENSORED_WORDS": {
-            "required": false 
+            "required": false
             },
         "CENSORED_USERS": {
-            "required": false 
+            "required": false
             },
         "TWITTER_BEARER_CREDENTIALS": {
-            "required": false 
+            "required": false
             },
         "INSTAGRAM_CLIENT_ID": {
-            "required": false 
+            "required": false
+            },
+        "FONT_FAMILY": {
+            "required": false
+            },
+        "HEADER_TITLE": {
+            "required": false
+            },
+        "HEADER_LINK": {
+            "required": false
+            },
+        "HEADER_COLOR": {
+            "required": false
+            },
+        "BACKGROUND_COLOR": {
+            "required": false
+            },
+        "POST_COLOR_1": {
+            "required": false
+            },
+        "POST_COLOR_2": {
+            "required": false
+            },
+        "POST_COLOR_3": {
+            "required": false
+            },
+        "POST_COLOR_4": {
+            "required": false
+            },
+        "API_RATE": {
+            "required": false
             },
         "DISABLE_RETWEETS": "true",
         "DB_ROW_LIMIT": "8000",
-        "COLOR_1":"#B11C54",
-        "COLOR_2":"#F78F31",
-        "COLOR_3":"#80C9D2",
-        "COLOR_4":"#B5B935"
     },
     "addons": ["heroku-postgresql"]
 }
