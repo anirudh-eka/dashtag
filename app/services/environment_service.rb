@@ -55,19 +55,31 @@ class EnvironmentService
 		end
 	end
 
-	def self.color_1
-		ENV["COLOR_1"]
+	def self.font_family
+		ENV["FONT_FAMILY"]
 	end
 
-	def self.color_2
-		ENV["COLOR_2"]
+	def self.header_color
+		ENV["HEADER_COLOR"]
 	end
 
-	def self.color_3
-		ENV["COLOR_3"]
+	def self.background_color
+		ENV["BACKGROUND_COLOR"]
 	end
 
-	def self.color_4
-		ENV["COLOR_4"]
+	def self.post_color_1
+		ENV["POST_COLOR_1"]
+	end
+
+	def self.post_color_2
+		ENV["POST_COLOR_2"]
+	end
+
+	def self.post_color_3
+		ENV["POST_COLOR_3"]
+	end
+
+	def self.post_color_4
+		ENV["POST_COLOR_4"]
 	end
 end

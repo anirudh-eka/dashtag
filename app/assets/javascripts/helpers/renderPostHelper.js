@@ -20,7 +20,7 @@ var renderPostHelper = {
 
 		var formattedDate = dateHelper.formatDateToLocalTimezone(new Date(post.timeOfPost));
 
-		postContainer.addClass("background-color-" + bgColor);
+		postContainer.addClass("post-color-" + bgColor);
 
 		var createdAtSection = "<i class='fa fa-2x fa-" + post.source + "'></i><span class='time-of-post'>"
 				+ formattedDate + "</span>";

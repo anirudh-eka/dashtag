@@ -23,7 +23,6 @@ h1 {
   text-align: center;
   letter-spacing: .5px;
   font-weight: 300;
-  font-style: italic;
   line-height: 2;
   margin: 0;
 }
@@ -86,8 +85,7 @@ a#hashtag-anchor {
 }
 
 .post-text {
-  font-style: italic;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .post-username {
@@ -147,22 +145,22 @@ a#hashtag-anchor {
 
  /*Default Background Colors*/
 /*ThoughtWorks Magenta*/
-.background-color-1 {
+.post-color-1 {
   background: #B11C54;
 }
 
 /*ThoughtWorks Orange*/
-.background-color-2 {
+.post-color-2 {
   background: #F78F31;
 }
 
 /*ThoughtWorks Turquoise*/
-.background-color-3 {
+.post-color-3 {
   background: #80C9D2;
 }
 
 /*ThoughtWorks Green  */
-.background-color-4 {
+.post-color-4 {
   background: #B5B935;
 }
 
