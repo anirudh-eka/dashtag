@@ -60,7 +60,7 @@
             "required": false
             },
         "DISABLE_RETWEETS": "true",
-        "DB_ROW_LIMIT": "8000",
+        "DB_ROW_LIMIT": "8000"
     },
     "addons": ["heroku-postgresql"]
 }
