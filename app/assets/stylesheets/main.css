@@ -132,15 +132,21 @@ a#hashtag-anchor {
 
 .hashtag-title {
   text-decoration: none;
-   z-index: 1;
-   background-color: #EFEFEF;
-   position: fixed;
-   top:0; left:0;
-   width: 100%;
+  z-index: 1;
+  background-color: #EFEFEF;
+  position: fixed;
+  top:0; left:0;
+  width: 100%;
  }
 
- .hashtag-title:hover {
+.hashtag-title:hover {
   background-color: #F6F6F6;
+  text-decoration: none;
+  -webkit-transition: background-color 0.7s ease-out;
+  -moz-transition: background-color 0.7s ease-out;
+  -o-transition: background-color 0.7s ease-out;
+  -ms-transition: background-color 0.7s ease-out;
+  transition: background-color 0.7s ease-out;
  }
 
  /*Default Background Colors*/
@@ -176,12 +182,16 @@ a#hashtag-anchor {
   border: solid 1px;
   border-radius: 1px;
   text-decoration: none;
-  background-color: #EFEFEF;
+  background-color: lightgray;
 }
 
 .load-older-posts a:hover {
-  background-color: #F6F6F6;
-  text-decoration: underline;
+  background-color: #EFEFEF;
+  -webkit-transition: background-color 0.7s ease-out;
+  -moz-transition: background-color 0.7s ease-out;
+  -o-transition: background-color 0.7s ease-out;
+  -ms-transition: background-color 0.7s ease-out;
+  transition: background-color 0.7s ease-out;
 }
 
 @media ( min-width: 768px )
