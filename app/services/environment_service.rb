@@ -8,6 +8,7 @@ class EnvironmentService
 	end
 
 	def self.hashtag_array
+		return [ENV["HASHTAG"]] if ENV["HASHTAG"]
 		ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
 	end
 
@@ -20,7 +21,7 @@ class EnvironmentService
 	end
 
 	def self.disable_retweets
-  	!ENV["DISABLE_RETWEETS"] ? true : ENV["DISABLE_RETWEETS"].downcase != "false"
+  		!ENV["DISABLE_RETWEETS"] ? true : ENV["DISABLE_RETWEETS"].downcase != "false"
 	end
 
 	def self.censored_words
