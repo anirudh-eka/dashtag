@@ -69,6 +69,14 @@ describe EnvironmentService do
       expect(EnvironmentService.hashtag_array).to eq(expected_array)
       ENV["HASHTAGS"] = default_val
     end
+
+    it "should provide backwards support for apps that set the env variable as 'hashtag'" do
+      default_val = ENV["HASHTAG"]
+      ENV["HASHTAG"] = "yolo"
+      expected_array = ['yolo']
+      expect(EnvironmentService.hashtag_array).to eq(expected_array)
+      ENV["HASHTAG"] = default_val
+    end
   end
 
   describe "twitter credentials" do
