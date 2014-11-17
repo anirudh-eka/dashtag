@@ -17,7 +17,24 @@
 //= require imagesloaded.pkgd
 //= require_tree .
 
+"use strict";
+
+// var app = app || {};
+
+var dashtag = dashtag || {}
+var ajaxService = dashtag.ajaxService();
+var masonryService = dashtag.masonryService();
+var dateHelper = dashtag.dateHelper();
+var applicationController = dashtag.applicationController();
+var renderPostHelper = dashtag.renderPostHelper();
+
 $(document).on("ready", function(){
+
+	// app.createRunner({
+	// 	ajaxService :
+
+	// }).run();
+
 
   masonryService.layOutMasonry();
 
