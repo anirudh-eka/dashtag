@@ -17,35 +17,11 @@
 //= require imagesloaded.pkgd
 //= require_tree .
 
-"use strict";
-
-// var app = app || {};
-
 var dashtag = dashtag || {}
-var ajaxService = dashtag.ajaxService();
-var masonryService = dashtag.masonryService();
-var dateHelper = dashtag.dateHelper();
-var applicationController = dashtag.applicationController();
-var renderPostHelper = dashtag.renderPostHelper();
 
 $(document).on("ready", function(){
+	var main = dashtag.main();
+	main.run();
 
-	// app.createRunner({
-	// 	ajaxService :
-
-	// }).run();
-
-
-  masonryService.layOutMasonry();
-
-  dateHelper.replaceInitiallyLoadedTimestamps();
-
-  applicationController.setupScroll();
-
-  ajaxService.setup();
-
-  applicationController.setupRenderPost();
-
-  applicationController.setupLoadOlderPosts();
 });
 

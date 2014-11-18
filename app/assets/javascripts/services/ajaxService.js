@@ -1,16 +1,10 @@
-"use strict";
-
 var dashtag = dashtag || {}
 
 dashtag.ajaxService = function() {
   var that = {};
   var last_update_time = Date.now();
 
-  that.setup = function(){
-    loop();
-  };
-
-  var loop = function(){
+  var ajaxLoop = function(){
     $.ajax({
       type: "GET",
       url: "/",
@@ -27,13 +21,17 @@ dashtag.ajaxService = function() {
         }
       },
       complete: function() {
-        setTimeout(loop, 5000);
+        setTimeout(ajaxLoop, 5000);
       }
     });
   };
 
   var getLastPostId = function(){
     return $("#posts-list").find(".post-id").last().text();
+  };
+
+  that.setup = function(){
+    ajaxLoop();
   };
 
   that.getNextPosts = function(){
