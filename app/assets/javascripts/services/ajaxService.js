@@ -8,7 +8,6 @@ dashtag.ajaxService = function() {
     return $("#posts-list").find(".post-id").last().text();
   };
 
-
   that.setup = function(){
     var loop = function(){
 
