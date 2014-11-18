@@ -21,11 +21,11 @@ dashtag.renderPostHelper = function(spec){
 				postContainer.find(".post-picture").html(originalPostLink(post, postImage));
 		}
 
+		postContainer.append("<section class='post-username'></section>");
+		postContainer.find(".post-username").html("<img src='" + post.profile_image_url + "' class='avatar' /><a href='//"
 				+ post.source + ".com/" + post.screen_name + "' target='_blank'>@" + post.screen_name + "</a>");
 
-		var formattedDate = dateHelper.formatDateToLocalTimezone(new Date(post.timeOfPost));
-
-		postContainer.addClass("post-color-" + bgColor);
+		var formattedDate = dateHelper.formatDateToLocalTimezone(new Date(post.time_of_post));
 
 		postContainer.addClass("post-color-" + bgColor);
 

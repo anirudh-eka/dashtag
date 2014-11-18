@@ -16,11 +16,11 @@ dashtag.dateHelper = function() {
     var date = timestampDate.toString().substring(0, 11);
     return date.concat(timestampDate.toLocaleTimeString());
   };
+
+  that.replaceInitiallyLoadedTimestamps = function() {
     var timestamps = $(".time-of-post");
 
     for(var i=0; i < timestamps.length ; i++) {
-      var timestampString = $(timestamps[i]).text().trim();
-      var timestampDate = parseDateFromUTC(timestampString);
       var timestampString = $(timestamps[i]).text().trim();
       var timestampDate = parseDateFromUTC(timestampString);
       $(timestamps[i]).text(that.formatDateToLocalTimezone(timestampDate));
