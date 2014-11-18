@@ -1,5 +1,3 @@
-"use strict";
-
 var dashtag = dashtag || {}
 
 dashtag.masonryService = function(){

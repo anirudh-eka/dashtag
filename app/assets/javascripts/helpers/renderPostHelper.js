@@ -1,11 +1,10 @@
-"use strict";
-
 var dashtag = dashtag || {}
 
-dashtag.renderPostHelper = function(){
+dashtag.renderPostHelper = function(spec){
 	var that = {};
+  var dateHelper = spec.dateHelper;
 
-	that.renderPost = function (post, bgColor) {
+	var renderPost = function (post, bgColor) {
 		var postContainer = $(document.createElement("div")).addClass('post-container item')
 
 		postContainer.append("<section class='post-id'></section>");
@@ -35,15 +34,6 @@ dashtag.renderPostHelper = function(){
 		return postContainer;
 	};
 
-	that.createPostContent = function(postsArr) {
-    var newPosts = [];
-    $.each(postsArr, function(index, postModel){
-      var postViewModel = that.renderPost(postModel, getColorNumber(index));
-      newPosts.unshift(postViewModel);
-    });
-    return newPosts;
-  };
-
   var getColorNumber = function (index) {
     return index % 4 + 1;
 	};
@@ -59,5 +49,15 @@ dashtag.renderPostHelper = function(){
 
     return "<a href='" + postLink + "' target='_blank'>" + createdAtSection + "</a>";
   };
+
+	that.createPostContent = function(postsArr) {
+    var newPosts = [];
+    $.each(postsArr, function(index, postModel){
+      var postViewModel = renderPost(postModel, getColorNumber(index));
+      newPosts.unshift(postViewModel);
+    });
+    return newPosts;
+  };
+
   return that;
 }

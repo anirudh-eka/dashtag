@@ -1,5 +1,3 @@
-"use strict";
-
 var dashtag = dashtag || {}
 
 dashtag.dateHelper = function() {
@@ -26,5 +24,6 @@ dashtag.dateHelper = function() {
       $(timestamps[i]).text(that.formatDateToLocalTimezone(timestampDate));
     }
   };
+
   return that;
 }
