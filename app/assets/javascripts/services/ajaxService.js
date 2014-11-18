@@ -1,23 +1,31 @@
+"use strict";
 
-var ajaxService = {
-  last_update_time: Date.now(),
+var dashtag = dashtag || {}
 
-  setup: function(){
-    var self = this;
+dashtag.ajaxService = function() {
+  var that = {};
+  var last_update_time = Date.now();
+
+  var getLastPostId = function(){
+    return $("#posts-list").find(".post-id").last().text();
+  };
+
+  that.setup = function(){
     var loop = function(){
+
       $.ajax({
         type: "GET",
         url: "/",
         data: {
-        "last_update_time": self.last_update_time
+        "last_update_time": last_update_time
             },
         contentType: "application/json; charset=utf-8",
         ifModified: true,
         dataType: "json",
         success: function(response, status){
           if(status != "notmodified") {
-            $(self).trigger("new-posts", [response]);
-            self.last_update_time = Date.now();
+            $(that).trigger("new-posts", [response]);
+            last_update_time = Date.now();
           }
         },
         complete: function() {
@@ -26,31 +34,31 @@ var ajaxService = {
       });
     };
     loop();
-  },
+  };
 
-  getNextPosts: function(){
-    var self = this;
+  that.getNextPosts = function(){
     $.ajax({
       type: "GET",
       url: "/get_next_page",
       data: {
-        "last_post_id": self.getLastPostId()
+        "last_post_id": getLastPostId()
             },
       contentType: "application/json; charset=utf-8",
       ifModified: true,
       dataType: "json",
       success: function(response, status){
         if(status != "notmodified") {
-          $(self).trigger("next-posts", [response]);
+          $(that).trigger("next-posts", [response]);
         }
         else{
-          $(self).trigger("next-posts:notmodified");
+          $(that).trigger("next-posts:notmodified");
         }
       }
     });
-  },
-  getLastPostId: function(){
-    return $("#posts-list").find(".post-id").last().text();
-  }
+  };
 
+  return that;
 }
+
+
+

@@ -1,23 +1,31 @@
-var dateHelper = {
-  formatDateToLocalTimezone: function(timestampDate) {
-    var date = timestampDate.toString().substring(0, 11);
-    return date.concat(timestampDate.toLocaleTimeString());
-  },
+"use strict";
 
-  replaceInitiallyLoadedTimestamps: function() {
-    var timestamps = $(".time-of-post");
+var dashtag = dashtag || {}
 
-    for(var i=0; i < timestamps.length ; i++) {
-      var timestampString = $(timestamps[i]).text().trim();
-      var timestampDate = this.parseDateFromUTC(timestampString);
-      $(timestamps[i]).text(this.formatDateToLocalTimezone(timestampDate));
-    }
-  },
+dashtag.dateHelper = function() {
+  var that = {};
 
-  parseDateFromUTC: function(date) {
+  var parseDateFromUTC = function(date) {
     var timeUnits = date.split(/[-\s:]+/),
       year = timeUnits[0], month = timeUnits[1]-1, date = timeUnits[2],
       hour = timeUnits[3], minutes = timeUnits[4], seconds = timeUnits[5];
     return new Date(year, month, date, hour, minutes, seconds);
-  }
+  };
+
+  that.formatDateToLocalTimezone = function(timestampDate) {
+    var date = timestampDate.toString().substring(0, 11);
+    return date.concat(timestampDate.toLocaleTimeString());
+  };
+
+  that.replaceInitiallyLoadedTimestamps = function() {
+    var timestamps = $(".time-of-post");
+
+    for(var i=0; i < timestamps.length ; i++) {
+      var timestampString = $(timestamps[i]).text().trim();
+      var timestampDate = parseDateFromUTC(timestampString);
+      $(timestamps[i]).text(that.formatDateToLocalTimezone(timestampDate));
+    }
+  };
+
+  return that;
 }
