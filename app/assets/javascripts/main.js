@@ -1,3 +1,5 @@
+"use strict";
+
 var dashtag = dashtag || {}
 
 dashtag.main = function() {

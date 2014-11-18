@@ -1,3 +1,5 @@
+"use strict";
+
 var dashtag = dashtag || {}
 
 dashtag.ajaxService = function() {
@@ -23,7 +25,6 @@ dashtag.ajaxService = function() {
         success: function(response, status){
           if(status != "notmodified") {
             $(that).trigger("new-posts", [response]);
-            console.log(that);
             last_update_time = Date.now();
           }
         },
