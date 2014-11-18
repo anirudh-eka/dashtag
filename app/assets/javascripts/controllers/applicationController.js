@@ -1,3 +1,5 @@
+"use strict";
+
 var dashtag = dashtag || {}
 
 dashtag.applicationController = function(spec) {
@@ -6,10 +8,11 @@ dashtag.applicationController = function(spec) {
   var active = false;
   var renderPostHelper = spec.renderPostHelper;
   var ajaxService = spec.ajaxService;
-  var masonryService = spec.masonryService;
-
   var createPost = function(rawPost) {
-    return new Post(rawPost.id, rawPost.text, rawPost.media_url, rawPost.screen_name, rawPost.profile_image_url, rawPost.source, rawPost.formatted_time_of_post)
+    return new Post(rawPost);
+    // return new Post(rawPost.id, rawPost.text, rawPost.media_url, rawPost.screen_name, rawPost.profile_image_url, rawPost.source, rawPost.formatted_time_of_post)
+  };
+
   };
 
   var renderPostsForTop = function() {

@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require imagesloaded.pkgd
 //= require_tree .
+"use strict";
 
 var dashtag = dashtag || {}
 
