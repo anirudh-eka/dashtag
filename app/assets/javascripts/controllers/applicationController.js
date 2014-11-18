@@ -2,6 +2,8 @@ var dashtag = dashtag || {}
 
 dashtag.applicationController = function(spec) {
   var that = {};
+  var newPostModels = [];
+  var active = false;
   var renderPostHelper = spec.renderPostHelper;
   var ajaxService = spec.ajaxService;
   var masonryService = spec.masonryService;
@@ -10,7 +12,7 @@ dashtag.applicationController = function(spec) {
     return new Post(rawPost.id, rawPost.text, rawPost.media_url, rawPost.screen_name, rawPost.profile_image_url, rawPost.source, rawPost.formatted_time_of_post)
   };
 
-  var renderPostsForTop = function(active, newPostModels) {
+  var renderPostsForTop = function() {
     if(!active) {
       if($(window).scrollTop() === 0 && newPostModels.length != 0) {
         active = true;
@@ -24,19 +26,16 @@ dashtag.applicationController = function(spec) {
   };
 
   that.setupRenderPost = function() {
-    var newPostModels = [];
-    var active = false;
-
     $(ajaxService).on("new-posts", function(e, rawPostData){
 
       $.each(rawPostData, function(index, rawPost){
         newPostModels.push(createPost(rawPost));
       });
-      renderPostsForTop(active, newPostModels);
+      renderPostsForTop();
     })
 
     $(window).scroll(function() {
-      renderPostsForTop(active, newPostModels);
+      renderPostsForTop();
     });
   };
 
@@ -64,6 +63,7 @@ dashtag.applicationController = function(spec) {
         var nextPosts = renderPostHelper.createPostContent(nextPostModels);
         $('#posts-list').append(nextPosts);
         masonryService.layOutMasonry();
+        nextPostModels = []
       });
 
       $(ajaxService).on("next-posts:notmodified", function(){
