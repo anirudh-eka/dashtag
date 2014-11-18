@@ -27,7 +27,7 @@ dashtag.applicationController = function(spec) {
     var newPostModels = [];
     var active = false;
 
-    $("#posts-list").on("new-posts", function(e, rawPostData){
+    $(ajaxService).on("new-posts", function(e, rawPostData){
 
       $.each(rawPostData, function(index, rawPost){
         newPostModels.push(createPost(rawPost));
@@ -55,7 +55,7 @@ dashtag.applicationController = function(spec) {
 
     $("#load-posts-btn").on("click", function(){
       ajaxService.getNextPosts();
-      $("#posts-list").on("next-posts", function(e, rawPostData){
+      $(ajaxService).on("next-posts", function(e, rawPostData){
 
         $.each(rawPostData, function(index, rawPost){
           nextPostModels.push(createPost(rawPost));
@@ -66,7 +66,7 @@ dashtag.applicationController = function(spec) {
         masonryService.layOutMasonry();
       });
 
-      $("#posts-list").on("next-posts:notmodified", function(){
+      $(ajaxService).on("next-posts:notmodified", function(){
         $("#loading").empty();
         $("#load-posts-btn").text("There are no more posts!");
       });

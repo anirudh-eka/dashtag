@@ -22,6 +22,5 @@ var dashtag = dashtag || {}
 $(document).on("ready", function(){
 	var main = dashtag.main();
 	main.run();
-
 });
 
