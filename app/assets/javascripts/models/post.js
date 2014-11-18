@@ -16,7 +16,6 @@
 // 	return self;
 // }
 
-
 function Post(id, text, media_url, screen_name, profile_image_url, source, time_of_post) {
   this.id = id;
   this.text = text;

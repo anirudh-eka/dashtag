@@ -30,7 +30,6 @@ describe 'home' do
     page.should have_image(instagram_media_image)
 
     page.execute_script('window.scrollTo(0,100000)')
-
     sleep 5
 
     page.should_not have_content("DAT ISH CRAY AIN'T IT ##{EnvironmentService.hashtag_array.first}")
