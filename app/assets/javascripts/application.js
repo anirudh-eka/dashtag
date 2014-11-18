@@ -16,19 +16,12 @@
 //= require turbolinks
 //= require imagesloaded.pkgd
 //= require_tree .
+"use strict";
+
+var dashtag = dashtag || {}
 
 $(document).on("ready", function(){
-
-  masonryService.layOutMasonry();
-
-  dateHelper.replaceInitiallyLoadedTimestamps();
-
-  applicationController.setupScroll();
-
-  ajaxService.setup();
-
-  applicationController.setupRenderPost();
-
-  applicationController.setupLoadOlderPosts();
+	var main = dashtag.main();
+	main.run();
 });
 

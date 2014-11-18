@@ -13,7 +13,6 @@ require 'pry'
 
 WebMock.disable_net_connect!(allow_localhost: true)  # WebMock.disable_net_connect!({:allow_localhost => true})
 
-
 # Capybara.javascript_driver = :selenium
 Capybara.javascript_driver = :poltergeist
 
