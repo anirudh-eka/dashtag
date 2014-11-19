@@ -194,6 +194,46 @@ a#hashtag-anchor {
   transition: background-color 0.7s ease-out;
 }
 
+a.reply {
+  background:transparent url(<%= asset_path "reply.png" %>) no-repeat right;
+  display:inline-block;
+  height:24px;
+  width:24px;
+}
+
+a.retweet {
+  background:transparent url(<%= asset_path "retweet.png" %>) no-repeat right;
+  display:inline-block;
+  height:24px;
+  width:24px;
+}
+
+a.favorite {
+  background:transparent url(<%= asset_path "favorite.png" %>) no-repeat right;
+  display:inline-block;
+  height:24px;
+  width:24px;
+}
+
+a.reply:hover {
+  background: url(<%= asset_path "reply_hover.png" %>) no-repeat right;
+  height:24px;
+  width:24px;
+}
+
+a.retweet:hover {
+  background: url(<%= asset_path "retweet_hover.png" %>) no-repeat right;
+  height:24px;
+  width:24px;
+}
+
+a.favorite:hover {
+  background: url(<%= asset_path "favorite_hover.png" %>) no-repeat right;
+  height:24px;
+  width:24px;
+}
+
+
 @media ( min-width: 768px )
 {
 
