@@ -10,8 +10,8 @@ describe 'home' do
 
   it "should display post in db" do
     post = FactoryGirl.create(:post)
-
     visit '/'
+
     page.should have_content(post.text)
     page.should have_content(post.screen_name)
 
