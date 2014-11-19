@@ -26,7 +26,7 @@ dashtag.renderPostHelper = function(spec){
 				+ post.source + ".com/" + post.screen_name + "' target='_blank'>@" + post.screen_name + "</a>");
 
 		postContainer.append("<section class='web-intent'></section>");
-		if (post.source === 'twitter') {
+		if (post.post_id && post.source === 'twitter') {
 			var replyLink = "https://twitter.com/intent/tweet?in_reply_to=" + post.post_id;
 			var retweetLink = "https://twitter.com/intent/retweet?tweet_id=" + post.post_id;
 			var favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + post.post_id;

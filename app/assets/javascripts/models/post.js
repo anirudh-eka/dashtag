@@ -10,6 +10,7 @@ function Post(data) {
 		'screen_name',
 		'profile_image_url',
 		'source',
+		'post_id',
 		'time_of_post'
 	];
 	fields.forEach(function(field) {
