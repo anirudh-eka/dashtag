@@ -25,6 +25,16 @@ dashtag.renderPostHelper = function(spec){
 		postContainer.find(".post-username").html("<img src='" + post.profile_image_url + "' class='avatar' /><a href='//"
 				+ post.source + ".com/" + post.screen_name + "' target='_blank'>@" + post.screen_name + "</a>");
 
+		postContainer.append("<section class='web-intent'></section>");
+		if (post.source === 'twitter') {
+			var replyLink = "https://twitter.com/intent/tweet?in_reply_to=" + post.post_id;
+			var retweetLink = "https://twitter.com/intent/retweet?tweet_id=" + post.post_id;
+			var favoriteLink = "https://twitter.com/intent/favorite?tweet_id=" + post.post_id;
+			postContainer.find(".web-intent").html("<a href='" + replyLink + "' class= 'reply'></a>" +
+																							"<a href='" + retweetLink + "' class= 'retweet'></a>" +
+																							"<a href='" + favoriteLink + "' class= 'favorite'></a>");
+		}
+
 		var formattedDate = dateHelper.formatDateToLocalTimezone(new Date(post.time_of_post));
 
 		postContainer.addClass("post-color-" + bgColor);

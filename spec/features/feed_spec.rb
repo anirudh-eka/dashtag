@@ -14,10 +14,19 @@ describe 'home' do
     visit '/'
     page.should have_content(post.text)
     page.should have_content(post.screen_name)
+
+  end
+
+  it 'should display web intents for only twitter_posts', js: true do
+    visit '/'
+    count = Post.where(source: "twitter").count
+
+    expect(page).to have_css("a.reply", count: count)
+    expect(page).to have_css("a.retweet", count: count)
+    expect(page).to have_css("a.favorite", count: count)
   end
 
   it 'should auto update only when on top of page', js: true do
-
     visit '/'
     page.should have_content("Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}")
     page.should have_content('@bullcityrecords')
