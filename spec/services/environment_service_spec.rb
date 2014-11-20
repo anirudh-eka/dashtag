@@ -176,18 +176,26 @@ describe EnvironmentService do
       expect(EnvironmentService.api_rate).to eq(10)
     end
 
-    it "should return 6 * hashtag count by default" do
+    it "should return 6 * hashtag count by default and hashtag count is greater than user count" do
       hashtag_count = EnvironmentService.hashtag_array.count
       ENV["API_RATE"] = nil
       expect(EnvironmentService.api_rate).to eq(6 * hashtag_count)
     end
 
-    it "should return 6 * hashtag count if entry is not integer" do
+    it "should return 6 * hashtag count if entry is not integer and hashtag count is greater than user count" do
       hashtag_count = EnvironmentService.hashtag_array.count
       ENV["API_RATE"] = "stuff"
       expect(EnvironmentService.api_rate).to eq(6 * hashtag_count)
     end
 
+    it "should return 6 * users count if entry is not integer and users count is greater than hashtag count" do
+      test_env = ENV["USERS_ARRAY"]
+      ENV["USERS_ARRAY"] = "my|screen|name|4th_user|g3"
+      users_count = EnvironmentService.users_array.count
+      ENV["API_RATE"] = "stuff"
+      expect(EnvironmentService.api_rate).to eq(6 * users_count)
+      ENV["USERS_ARRAY"] = test_env
+    end
   end
 
 

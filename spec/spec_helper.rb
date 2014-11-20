@@ -60,6 +60,7 @@ RSpec.configure do |config|
     ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
     ENV["HASHTAGS"] = "fda|dogs"
+    ENV["USERS_ARRAY"] = "king|dogs"
     ENV["HASHTAG"] = nil
     ENV["HEADER_TITLE"] = "My Dogs"
   end
