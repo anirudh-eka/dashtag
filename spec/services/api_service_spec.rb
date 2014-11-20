@@ -38,6 +38,13 @@ describe APIService do
       end
       APIService.instance.pull_posts!
     end
+
+    it 'should pull twitter posts from each user from users_array' do
+      EnvironmentService.users_array do |user|
+        expect(APIService.instance).to receive(:pull_twitter_posts_from_users_and_parse).with(user).and_return([])
+      end
+      APIService.instance.pull_posts!
+    end
   end
 
   describe 'loud pull' do

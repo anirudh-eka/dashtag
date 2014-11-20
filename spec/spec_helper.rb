@@ -96,5 +96,13 @@ RSpec.configure do |config|
       to_return( {:status => 200, :body => SampleTweetResponses.tweet_response.to_json, :headers => {'content-type' => 'application/json'} },
         {:status => 200, :body => SampleTweetResponses.second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
     end
+
+    EnvironmentService.users_array.each do |user|
+      stub_request(:get, "https://api.twitter.com/1.1/statuses/user_timeline.json?count=50&screen_name=#{user}").
+      with(headers: {"Authorization"=>/Bearer .+/}).
+      to_return( {:status => 200, :body => SampleTweetResponses.tweet_response.to_json, :headers => {'content-type' => 'application/json'} },
+        {:status => 200, :body => SampleTweetResponses.second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
+    end
+
   end
 end
