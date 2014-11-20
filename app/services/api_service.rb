@@ -17,26 +17,32 @@ class APIService
   end
 
   def pull_posts!
-    rate_to_hit_api = EnvironmentService.api_rate
-    if (Time.now - last_update > rate_to_hit_api)
+    # binding.pry
+    if (Time.now - last_update > EnvironmentService.api_rate)
+      # binding.pry
+
       @last_update = Time.now
 
       parsed_responses = []
+
       EnvironmentService.hashtag_array.each do |hashtag|
         parsed_responses += pull_instagram_posts_and_parse(hashtag) if EnvironmentService.instagram_client_id
         parsed_responses += pull_twitter_posts_and_parse(hashtag) if EnvironmentService.twitter_bearer_credentials
       end
+
       EnvironmentService.users_array.each do |user|
         parsed_responses += pull_twitter_posts_from_users_and_parse(user) if EnvironmentService.twitter_bearer_credentials
       end
+        # binding.pry
 
       parsed_responses.each do |attributes|
-
         Post.create(attributes)
+        # binding.pry
       end
     else
       raise "Time since last pull is less than api rate limit"
     end
+    # binding.pry
   end
 
   private

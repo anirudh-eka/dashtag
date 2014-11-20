@@ -2,25 +2,12 @@ class TweetParser
 
   def self.parse(response)
     parsed_response = []
-    response["statuses"] ? response["statuses"].each {|tweet| self.parse_tweet(tweet, parsed_response)} :
+    # binding.pry
+    response.class != Array ? response["statuses"].each {|tweet| self.parse_tweet(tweet, parsed_response)} :
                            response.each {|tweet| self.parse_tweet(tweet, parsed_response)}
+
+    # binding.pry
     parsed_response
-  end
-
-  def self.parse_tweet(tweet, parsed_response)
-    screen_name = tweet["user"]["screen_name"]
-      text = replace_media_links(tweet)
-
-      unless ParserHelper.text_has_censored_words(text) || ParserHelper.user_is_censored(screen_name)
-        parsed_response << { source: "twitter",
-                            text: text,
-                            screen_name: screen_name,
-                            time_of_post: tweet["created_at"],
-                            profile_image_url: tweet["user"]["profile_image_url"],
-                            media_url: get_media_url(tweet),
-                            post_id: tweet["id_str"] }
-
-      end
   end
 
   def self.get_media_url(tweet)
@@ -53,4 +40,21 @@ class TweetParser
 
     tweet["text"]
   end
+
+  private
+
+    def self.parse_tweet(tweet, parsed_response)
+    screen_name = tweet["user"]["screen_name"]
+      text = replace_media_links(tweet)
+
+      unless ParserHelper.text_has_censored_words(text) || ParserHelper.user_is_censored(screen_name)
+        parsed_response << { source: "twitter",
+                            text: text,
+                            screen_name: screen_name,
+                            time_of_post: tweet["created_at"],
+                            profile_image_url: tweet["user"]["profile_image_url"],
+                            media_url: get_media_url(tweet),
+                            post_id: tweet["id_str"] }
+      end
+    end
 end

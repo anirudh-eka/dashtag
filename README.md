@@ -25,6 +25,7 @@ Currently the application uses the following variables in the environment (requi
 -	POST_COLOR_3	(default: #80C9D2)
 -	POST_COLOR_4	(default: #B5B935)
 -	HASHTAGS *
+- USERS_ARRAY
 -	CENSORED_WORDS
 -	CENSORED_USERS
 - API_RATE (default: 6 seconds * hashtag_count)
@@ -74,6 +75,10 @@ To change the text font of the feed, you can set:
 If you want to see posts for multiple hashtags, simply delimit them with "|", like so
 
 	HASHTAGS=peace|love|happiness
+
+If you want to see posts for specific users, simply delimit them with "|", like so
+
+	USERS_ARRAY=screen_name|twitter_user|happy_user
 
 To prevent from storing posts with certain words set the environment variable `CENSORED_WORDS` to the words you dont want to include in the .env file. For example, to censor posts that contain the word, "question", add the following line in the .env file:
 
