@@ -20,11 +20,26 @@ describe 'home' do
   it 'should display web intents for only twitter_posts', js: true do
     visit '/'
     count = Post.where(source: "twitter").count
+    # binding.pry
 
     expect(page).to have_css("a.reply", count: count)
     expect(page).to have_css("a.retweet", count: count)
     expect(page).to have_css("a.favorite", count: count)
   end
+
+
+  # it 'should have links to web intents for twitter_posts', js: true do
+  #   visit '/'
+  #   binding.pry
+
+  #   count = Post.where(source: "twitter").count
+  #   all('.reply')[0].click
+  #   expect(page).to have_css("a.reply", count: count)
+  #   expect(page).to have_css("a.retweet", count: count)
+  #   expect(page).to have_css("a.favorite", count: count)
+
+  # end
+
 
   it 'should auto update only when on top of page', js: true do
     visit '/'
