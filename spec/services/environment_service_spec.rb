@@ -22,6 +22,30 @@ describe EnvironmentService do
     end
   end
 
+  describe "users_array" do
+    it 'should parse EnvironmentService.users_array into an array' do
+      default_val = ENV["USERS_ARRAY"]
+      ENV["USERS_ARRAY"] = "yolo|dance|christmas"
+      expected_array = ['yolo', 'dance', 'christmas']
+      expect(EnvironmentService.users_array).to eq(expected_array)
+      ENV["USERS_ARRAY"] = default_val
+    end
+
+    it "should return an empty array if users_array are not set in env" do
+      default_cred = ENV["USERS_ARRAY"]
+      ENV["USERS_ARRAY"] = nil
+      expect(EnvironmentService.users_array).to be_empty
+      ENV["USERS_ARRAY"] = default_cred
+    end
+
+    it "should return an empty array if users_array are not set in env" do
+      default_cred = ENV["USERS_ARRAY"]
+      ENV["USERS_ARRAY"] = ""
+      expect(EnvironmentService.users_array).to be_empty
+      ENV["USERS_ARRAY"] = default_cred
+    end
+  end
+
   describe "header link" do
     it "should return a link for user set in env" do
       default_val = ENV["HEADER_LINK"]
@@ -83,6 +107,7 @@ describe EnvironmentService do
     it "should return twitter credentials set in env" do
       expect(EnvironmentService.twitter_bearer_credentials).to eq(ENV["TWITTER_BEARER_CREDENTIALS"])
     end
+
     it "should return nil if twitter credentials are not set in env" do
       default_cred = ENV["TWITTER_BEARER_CREDENTIALS"]
       ENV["TWITTER_BEARER_CREDENTIALS"] = nil

@@ -7,6 +7,10 @@ class EnvironmentService
 		ENV["HEADER_LINK"]  == "" || !ENV["HEADER_LINK"] ? "#hashtag-anchor" : ENV["HEADER_LINK"]
 	end
 
+	def self.users_array
+		ENV["USERS_ARRAY"] == "" || !ENV["USERS_ARRAY"] ? [] : ENV["USERS_ARRAY"].split("|")
+	end
+
 	def self.hashtag_array
 		return [ENV["HASHTAG"]] if ENV["HASHTAG"]
 		ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
