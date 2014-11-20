@@ -40,7 +40,7 @@ class EnvironmentService
 		begin
 			Integer(ENV["API_RATE"])
 		rescue ArgumentError, TypeError
-			6 * EnvironmentService.hashtag_array.count
+			[6 * EnvironmentService.hashtag_array.count, 6 * EnvironmentService.users_array.count].max
 		end
 	end
 

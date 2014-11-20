@@ -17,7 +17,6 @@ class APIService
   end
 
   def pull_posts!
-    # binding.pry
     if (Time.now - last_update > EnvironmentService.api_rate)
       # binding.pry
 
