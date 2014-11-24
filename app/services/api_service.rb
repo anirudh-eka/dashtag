@@ -3,9 +3,11 @@ require 'singleton'
 class APIService
   include Singleton
   attr_reader :last_update
+  attr_reader :instagram_user_ids
 
   def initialize
     @last_update = Time.new(1720)
+    @instagram_user_ids = pull_instagram_user_id_from_users
   end
 
   def pull_posts
@@ -32,7 +34,7 @@ class APIService
         parsed_responses += pull_twitter_posts_from_users_and_parse(user) if EnvironmentService.twitter_bearer_credentials
       end
 
-      EnvironmentService.instagram_user_ids.each do |user_id|
+      instagram_user_ids.each do |user_id|
         parsed_responses += pull_instagram_posts_from_users_and_parse(user_id) if EnvironmentService.instagram_client_id
       end
 
@@ -68,6 +70,18 @@ class APIService
     def pull_twitter_posts_from_users_and_parse(screen_name)
       response = HTTParty.get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=#{screen_name}&count=50", :headers => { "Authorization" => "Bearer #{twitter_bearer_token}", "User-Agent" => "#NAAwayDay Feed v1.0"})
       TweetParser.parse(response.parsed_response)
+    end
+
+    def pull_instagram_user_id_from_users
+      instagram_client_id = EnvironmentService.instagram_client_id
+      instagram_ids = []
+      EnvironmentService.instagram_users.each do |user|
+        response = HTTParty.get("https://api.instagram.com/v1/users/search?q=#{user}&client_id=#{instagram_client_id}")
+        instagram_ids << response["data"].first["id"] if response["data"].first
+      end
+      EnvironmentService.instagram_user_ids.each { |id| instagram_ids << id }
+
+      instagram_ids
     end
 
     def twitter_bearer_token

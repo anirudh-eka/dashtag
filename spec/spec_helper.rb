@@ -59,6 +59,7 @@ RSpec.configure do |config|
     ENV["API_RATE"] = 1.to_s
     ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
+    ENV["INSTAGRAM_USER_IDS"] = "1234|24536"
     ENV["HASHTAGS"] = "fda|dogs"
     ENV["TWITTER_USERS"] = "king|dogs"
     ENV["HASHTAG"] = nil
@@ -108,5 +109,12 @@ RSpec.configure do |config|
       stub_request(:get, "https://api.instagram.com/v1/users/#{user_id}/media/recent/?client_id=#{EnvironmentService.instagram_client_id}").
       to_return( {:status => 200, :body => SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
     end
+
+    stub_request(:get, /.*api.instagram.com\/v1\/users\/search.*/).
+    to_return( {:status => 200, :body => SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
+
+    stub_request(:get, "https://api.instagram.com/v1/users/#{SampleInstagramResponses.instagram_response["data"].first["id"]}/media/recent/?client_id=#{EnvironmentService.instagram_client_id}").
+    to_return( {:status => 200, :body => SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
+
   end
 end

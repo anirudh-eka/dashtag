@@ -26,6 +26,7 @@ Currently the application uses the following variables in the environment (requi
 -	POST_COLOR_4	(default: #B5B935)
 -	HASHTAGS *
 - TWITTER_USERS
+- INSTAGRAM_USERS
 - INSTAGRAM_USER_IDS
 -	CENSORED_WORDS
 -	CENSORED_USERS
@@ -77,11 +78,17 @@ If you want to see posts for multiple hashtags, simply delimit them with "|", li
 
 	HASHTAGS=peace|love|happiness
 
-If you want to see posts for specific twitter users, simply delimit them with "|", like so
+If you want to see posts for specific Twitter Users, simply delimit them with "|", like so
 
 	TWITTER_USERS=screen_name|twitter_user|happy_user
 
-If you want to see posts for specific instagram users, you will need to find the user_ids for the desired users, and simply delimit them with "|", like so
+* You may use INSTAGRAM_USERS and/or INSTAGRAM_USER_IDS to determine which Instagram users to follow.
+
+If you want to see posts for specific Instagram Users by user_name, simply delimit them with "|", like so
+
+	INSTAGRAM_USERS=kingjames|trey5
+
+If you want to see posts for specific Instagram Users by user_id, simply delimit them with "|", like so
 
 	INSTAGRAM_USER_IDS=19410587|18808100
 
