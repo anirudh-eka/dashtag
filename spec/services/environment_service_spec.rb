@@ -70,6 +70,30 @@ describe EnvironmentService do
     end
   end
 
+  describe "instagram_users" do
+    it 'should parse EnvironmentService.instagram_users into an array' do
+      default_val = ENV["INSTAGRAM_USERS"]
+      ENV["INSTAGRAM_USERS"] = "kingjames|trey5"
+      expected_array = ['kingjames', 'trey5']
+      expect(EnvironmentService.instagram_users).to eq(expected_array)
+      ENV["INSTAGRAM_USERS"] = default_val
+    end
+
+    it "should return an empty array if instagram_users are not set in env" do
+      default_cred = ENV["INSTAGRAM_USERS"]
+      ENV["INSTAGRAM_USERS"] = nil
+      expect(EnvironmentService.instagram_users).to be_empty
+      ENV["INSTAGRAM_USERS"] = default_cred
+    end
+
+    it "should return an empty array if instagram_users are not set in env" do
+      default_cred = ENV["INSTAGRAM_USERS"]
+      ENV["INSTAGRAM_USERS"] = ""
+      expect(EnvironmentService.instagram_users).to be_empty
+      ENV["INSTAGRAM_USERS"] = default_cred
+    end
+  end
+
   describe "header link" do
     it "should return a link for user set in env" do
       default_val = ENV["HEADER_LINK"]

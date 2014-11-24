@@ -1,6 +1,22 @@
 require 'spec_helper'
 
 describe APIService do
+  context 'when initialized' do
+    it "sets last_update as a time" do
+      expect(APIService.instance.last_update).to_not be_nil
+      expect(APIService.instance.last_update.class).to eq(Time)
+    end
+
+    it "sets instagram_user_ids from Instagram Users" do
+      instagram_ids = []
+      instagram_id = SampleInstagramResponses.instagram_response["data"].first["id"]
+      EnvironmentService.instagram_users.count.times { instagram_ids << instagram_id}
+
+      EnvironmentService.instagram_user_ids.each { |id| instagram_ids << id }
+      expect(APIService.instance.instagram_user_ids).to eq(instagram_ids)
+    end
+  end
+
   context 'when time since last pull is greater than api rate limit' do
     before(:each) do
       ENV["API_RATE"] = 15.to_s
@@ -47,12 +63,12 @@ describe APIService do
     end
 
     it 'should pull instagram posts from each user_id from instagram_user_ids' do
-      EnvironmentService.instagram_user_ids.each do |user_id|
+      allow(APIService.instance).to receive(:instagram_user_ids).and_return([1234, 4345])
+      APIService.instance.instagram_user_ids.each do |user_id|
         expect(APIService.instance).to receive(:pull_instagram_posts_from_users_and_parse).with(user_id).and_return([])
       end
       APIService.instance.pull_posts!
     end
-
   end
 
   describe 'loud pull' do

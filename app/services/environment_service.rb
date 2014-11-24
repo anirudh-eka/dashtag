@@ -16,7 +16,7 @@ class EnvironmentService
 	end
 
 	def self.instagram_users
-
+		ENV["INSTAGRAM_USERS"] == "" || !ENV["INSTAGRAM_USERS"] ? [] : ENV["INSTAGRAM_USERS"].split("|")
 	end
 
 	def self.hashtag_array
