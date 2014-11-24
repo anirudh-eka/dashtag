@@ -22,6 +22,30 @@ describe EnvironmentService do
     end
   end
 
+  describe "twitter_users_array" do
+    it 'should parse EnvironmentService.twitter_users_array into an array' do
+      default_val = ENV["TWITTER_USERS_ARRAY"]
+      ENV["TWITTER_USERS_ARRAY"] = "yolo|dance|christmas"
+      expected_array = ['yolo', 'dance', 'christmas']
+      expect(EnvironmentService.twitter_users_array).to eq(expected_array)
+      ENV["TWITTER_USERS_ARRAY"] = default_val
+    end
+
+    it "should return an empty array if twitter_users_array are not set in env" do
+      default_cred = ENV["TWITTER_USERS_ARRAY"]
+      ENV["TWITTER_USERS_ARRAY"] = nil
+      expect(EnvironmentService.twitter_users_array).to be_empty
+      ENV["TWITTER_USERS_ARRAY"] = default_cred
+    end
+
+    it "should return an empty array if twitter_users_array are not set in env" do
+      default_cred = ENV["TWITTER_USERS_ARRAY"]
+      ENV["TWITTER_USERS_ARRAY"] = ""
+      expect(EnvironmentService.twitter_users_array).to be_empty
+      ENV["TWITTER_USERS_ARRAY"] = default_cred
+    end
+  end
+
   describe "header link" do
     it "should return a link for user set in env" do
       default_val = ENV["HEADER_LINK"]
@@ -83,6 +107,7 @@ describe EnvironmentService do
     it "should return twitter credentials set in env" do
       expect(EnvironmentService.twitter_bearer_credentials).to eq(ENV["TWITTER_BEARER_CREDENTIALS"])
     end
+
     it "should return nil if twitter credentials are not set in env" do
       default_cred = ENV["TWITTER_BEARER_CREDENTIALS"]
       ENV["TWITTER_BEARER_CREDENTIALS"] = nil
@@ -151,18 +176,26 @@ describe EnvironmentService do
       expect(EnvironmentService.api_rate).to eq(10)
     end
 
-    it "should return 6 * hashtag count by default" do
+    it "should return 6 * hashtag count by default and hashtag count is greater than user count" do
       hashtag_count = EnvironmentService.hashtag_array.count
       ENV["API_RATE"] = nil
       expect(EnvironmentService.api_rate).to eq(6 * hashtag_count)
     end
 
-    it "should return 6 * hashtag count if entry is not integer" do
+    it "should return 6 * hashtag count if entry is not integer and hashtag count is greater than user count" do
       hashtag_count = EnvironmentService.hashtag_array.count
       ENV["API_RATE"] = "stuff"
       expect(EnvironmentService.api_rate).to eq(6 * hashtag_count)
     end
 
+    it "should return 6 * users count if entry is not integer and users count is greater than hashtag count" do
+      test_env = ENV["TWITTER_USERS_ARRAY"]
+      ENV["TWITTER_USERS_ARRAY"] = "my|screen|name|4th_user|g3"
+      users_count = EnvironmentService.twitter_users_array.count
+      ENV["API_RATE"] = "stuff"
+      expect(EnvironmentService.api_rate).to eq(6 * users_count)
+      ENV["TWITTER_USERS_ARRAY"] = test_env
+    end
   end
 
 

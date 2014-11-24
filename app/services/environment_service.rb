@@ -7,6 +7,10 @@ class EnvironmentService
 		ENV["HEADER_LINK"]  == "" || !ENV["HEADER_LINK"] ? "#hashtag-anchor" : ENV["HEADER_LINK"]
 	end
 
+	def self.twitter_users_array
+		ENV["TWITTER_USERS_ARRAY"] == "" || !ENV["TWITTER_USERS_ARRAY"] ? [] : ENV["TWITTER_USERS_ARRAY"].split("|")
+	end
+
 	def self.hashtag_array
 		return [ENV["HASHTAG"]] if ENV["HASHTAG"]
 		ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
@@ -36,7 +40,7 @@ class EnvironmentService
 		begin
 			Integer(ENV["API_RATE"])
 		rescue ArgumentError, TypeError
-			6 * EnvironmentService.hashtag_array.count
+			[6 * EnvironmentService.hashtag_array.count, 6 * EnvironmentService.twitter_users_array.count].max
 		end
 	end
 

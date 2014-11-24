@@ -38,6 +38,13 @@ describe APIService do
       end
       APIService.instance.pull_posts!
     end
+
+    it 'should pull twitter posts from each user from twitter_users_array' do
+      EnvironmentService.twitter_users_array do |user|
+        expect(APIService.instance).to receive(:pull_twitter_posts_from_users_and_parse).with(user).and_return([])
+      end
+      APIService.instance.pull_posts!
+    end
   end
 
   describe 'loud pull' do
@@ -61,6 +68,7 @@ describe APIService do
           default_env_twitter_keys = ENV["TWITTER_BEARER_CREDENTIALS"]
           ENV["TWITTER_BEARER_CREDENTIALS"] = ""
           expect(APIService.instance).to_not receive(:pull_twitter_posts_and_parse)
+          expect(APIService.instance).to_not receive(:pull_twitter_posts_from_users_and_parse)
           APIService.instance.pull_posts!
           ENV["TWITTER_BEARER_CREDENTIALS"] = default_env_twitter_keys
         end
@@ -90,7 +98,6 @@ describe APIService do
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
       it "should return nil" do
-
         expect(APIService.instance.pull_posts).to be_nil
       end
     end

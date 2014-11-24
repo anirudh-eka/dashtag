@@ -17,16 +17,22 @@ class APIService
   end
 
   def pull_posts!
-    rate_to_hit_api = EnvironmentService.api_rate
-    if (Time.now - last_update > rate_to_hit_api)
+    if (Time.now - last_update > EnvironmentService.api_rate)
+
       @last_update = Time.now
 
-      parsed_response = []
+      parsed_responses = []
+
       EnvironmentService.hashtag_array.each do |hashtag|
-        parsed_response += pull_instagram_posts_and_parse(hashtag) if EnvironmentService.instagram_client_id
-        parsed_response += pull_twitter_posts_and_parse(hashtag) if EnvironmentService.twitter_bearer_credentials
+        parsed_responses += pull_instagram_posts_and_parse(hashtag) if EnvironmentService.instagram_client_id
+        parsed_responses += pull_twitter_posts_and_parse(hashtag) if EnvironmentService.twitter_bearer_credentials
       end
-      parsed_response.each do |attributes|
+
+      EnvironmentService.twitter_users_array.each do |user|
+        parsed_responses += pull_twitter_posts_from_users_and_parse(user) if EnvironmentService.twitter_bearer_credentials
+      end
+
+      parsed_responses.each do |attributes|
         Post.create(attributes)
       end
     else
@@ -36,30 +42,34 @@ class APIService
 
   private
 
-	def pull_instagram_posts_and_parse(hashtag)
-    instagram_client_id = EnvironmentService.instagram_client_id
-    response = HTTParty.get("https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{instagram_client_id}")
-    GramParser.parse(response.parsed_response)
-	end
+  	def pull_instagram_posts_and_parse(hashtag)
+      instagram_client_id = EnvironmentService.instagram_client_id
+      response = HTTParty.get("https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{instagram_client_id}")
+      GramParser.parse(response.parsed_response)
+  	end
 
-  def pull_twitter_posts_and_parse(hashtag)
-    response = HTTParty.get("https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}",
-    :headers => { "Authorization" => "Bearer #{twitter_bearer_token}",
-      "User-Agent" => "#NAAwayDay Feed v1.0"})
-    TweetParser.parse(response.parsed_response)
-  end
+    def pull_twitter_posts_and_parse(hashtag)
+      response = HTTParty.get("https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}",
+      :headers => { "Authorization" => "Bearer #{twitter_bearer_token}",
+        "User-Agent" => "#NAAwayDay Feed v1.0"})
+      TweetParser.parse(response.parsed_response)
+    end
 
-  def twitter_bearer_token
-    authorization_key = Base64.encode64(EnvironmentService.twitter_bearer_credentials).gsub("\n","")
+    def pull_twitter_posts_from_users_and_parse(screen_name)
+      response = HTTParty.get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=#{screen_name}&count=50", :headers => { "Authorization" => "Bearer #{twitter_bearer_token}", "User-Agent" => "#NAAwayDay Feed v1.0"})
+      TweetParser.parse(response.parsed_response)
+    end
 
-    resp = HTTParty.post('https://api.twitter.com/oauth2/token',
-      :headers => {
-        "Authorization" => "Basic #{authorization_key}",
-        "User-Agent" => "Hashtag Displayer Feed v1.0",
-        "Content-Type" => "application/x-www-form-urlencoded;charset=UTF-8"
-        },
-      body: {"grant_type" => "client_credentials"}
-    )
-    resp["access_token"]
-  end
+    def twitter_bearer_token
+      authorization_key = Base64.encode64(EnvironmentService.twitter_bearer_credentials).gsub("\n","")
+      resp = HTTParty.post('https://api.twitter.com/oauth2/token',
+        :headers => {
+          "Authorization" => "Basic #{authorization_key}",
+          "User-Agent" => "Hashtag Displayer Feed v1.0",
+          "Content-Type" => "application/x-www-form-urlencoded;charset=UTF-8"
+          },
+        body: {"grant_type" => "client_credentials"}
+      )
+      resp["access_token"]
+    end
 end
