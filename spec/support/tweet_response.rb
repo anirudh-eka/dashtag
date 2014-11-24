@@ -325,7 +325,7 @@ module SampleTweetResponses
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "USER TWEETS",
+          "text" => "TWITTER USER TWEETS",
           "metadata" => {
             "iso_language_code" => "pl",
             "result_type" => "recent"
@@ -394,7 +394,7 @@ module SampleTweetResponses
             "friends_count" => 348,
             "following" => nil,
             "show_all_inline_media" => true,
-            "screen_name" => "#{EnvironmentService.twitter_users_array.first}"
+            "screen_name" => "#{EnvironmentService.twitter_users.first}"
           },
           "in_reply_to_screen_name" => nil,
           "source" => "web",
@@ -425,7 +425,7 @@ module SampleTweetResponses
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "USER TWEETS",
+          "text" => "TWITTER USER TWEETS",
           "metadata" => {
             "iso_language_code" => "en",
             "result_type" => "recent"
@@ -493,7 +493,7 @@ module SampleTweetResponses
             "friends_count" => 63,
             "following" => nil,
             "show_all_inline_media" => false,
-            "screen_name" => "#{EnvironmentService.twitter_users_array.first}"
+            "screen_name" => "#{EnvironmentService.twitter_users.first}"
           },
           "in_reply_to_screen_name" => nil,
           "source" => "web",

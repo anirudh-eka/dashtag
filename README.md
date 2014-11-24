@@ -25,7 +25,8 @@ Currently the application uses the following variables in the environment (requi
 -	POST_COLOR_3	(default: #80C9D2)
 -	POST_COLOR_4	(default: #B5B935)
 -	HASHTAGS *
-- TWITTER_USERS_ARRAY
+- TWITTER_USERS
+- INSTAGRAM_USER_IDS
 -	CENSORED_WORDS
 -	CENSORED_USERS
 - API_RATE (default: 6 seconds * hashtag_count)
@@ -76,9 +77,13 @@ If you want to see posts for multiple hashtags, simply delimit them with "|", li
 
 	HASHTAGS=peace|love|happiness
 
-If you want to see posts for specific users, simply delimit them with "|", like so
+If you want to see posts for specific twitter users, simply delimit them with "|", like so
 
-	TWITTER_USERS_ARRAY=screen_name|twitter_user|happy_user
+	TWITTER_USERS=screen_name|twitter_user|happy_user
+
+If you want to see posts for specific instagram users, you will need to find the user_ids for the desired users, and simply delimit them with "|", like so
+
+	INSTAGRAM_USER_IDS=19410587|18808100
 
 To prevent from storing posts with certain words set the environment variable `CENSORED_WORDS` to the words you dont want to include in the .env file. For example, to censor posts that contain the word, "question", add the following line in the .env file:
 
