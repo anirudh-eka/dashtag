@@ -29,6 +29,15 @@
         "INSTAGRAM_CLIENT_ID": {
             "required": false
             },
+        "TWITTER_USERS": {
+            "required": false
+            },
+        "INSTAGRAM_USERS": {
+            "required": false
+            },
+        "INSTAGRAM_USER_IDS": {
+            "required": false
+            },
         "FONT_FAMILY": {
             "required": false
             },
