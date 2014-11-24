@@ -24,9 +24,20 @@ describe 'home' do
     expect(page).to have_css("a.retweet", count: count)
     expect(page).to have_css("a.favorite", count: count)
 
-    expect(all('.reply')[0][:href]).to include("https://twitter.com/intent/tweet?in_reply_to=")
-    expect(all('.retweet')[0][:href]).to include("https://twitter.com/intent/retweet?tweet_id=")
-    expect(all('.favorite')[0][:href]).to include("https://twitter.com/intent/favorite?tweet_id=")
+    all('.reply').each do |link|
+      expect(link[:href]).to start_with("https://twitter.com/intent/tweet?in_reply_to=")
+      expect(link[:href].last).to match("[0-9]")
+    end
+
+    all('.retweet').each do |link|
+      expect(link[:href]).to start_with("https://twitter.com/intent/retweet?tweet_id=")
+      expect(link[:href].last).to match("[0-9]")
+    end
+
+    all('.favorite').each do |link|
+      expect(link[:href]).to start_with("https://twitter.com/intent/favorite?tweet_id=")
+      expect(link[:href].last).to match("[0-9]")
+    end
   end
 
   it 'should auto update only when on top of page', js: true do
@@ -45,8 +56,12 @@ describe 'home' do
     page.should have_image(instagram_media_image)
 
     # content from Twitter User Timeline API
-    page.should have_content('USER TWEETS')
-    page.should have_content("@#{EnvironmentService.twitter_users_array.first}")
+    page.should have_content('TWITTER USER TWEETS')
+    page.should have_content("@#{EnvironmentService.twitter_users.first}")
+
+    # content from Instagram User API
+    page.should have_content('POST FROM INSTAGRAM_USER')
+    page.should have_content('@INSTAGRAM_USER')
 
     # only auto updates on top of page
     page.execute_script('window.scrollTo(0,100000)')
