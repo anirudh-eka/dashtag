@@ -60,6 +60,7 @@ RSpec.configure do |config|
     ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
     ENV["HASHTAGS"] = "fda|dogs"
+    ENV["TWITTER_USERS_ARRAY"] = "king|dogs"
     ENV["HASHTAG"] = nil
     ENV["HEADER_TITLE"] = "My Dogs"
   end
@@ -96,5 +97,12 @@ RSpec.configure do |config|
       to_return( {:status => 200, :body => SampleTweetResponses.tweet_response.to_json, :headers => {'content-type' => 'application/json'} },
         {:status => 200, :body => SampleTweetResponses.second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
     end
+
+    EnvironmentService.twitter_users_array.each do |user|
+      stub_request(:get, "https://api.twitter.com/1.1/statuses/user_timeline.json?count=50&screen_name=#{user}").
+      with(headers: {"Authorization"=>/Bearer .+/}).
+      to_return( {:status => 200, :body => SampleTweetResponses.user_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
+    end
+
   end
 end

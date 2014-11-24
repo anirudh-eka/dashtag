@@ -11,6 +11,7 @@ class Post < ActiveRecord::Base
 
   def self.get_new_posts(last_update_time)
     APIService.instance.pull_posts
+    # binding.pry
     all_sorted_posts.select { |post| is_post_from_last_pull?(post, last_update_time) }
   end
 
