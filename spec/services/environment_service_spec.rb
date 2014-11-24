@@ -22,27 +22,51 @@ describe EnvironmentService do
     end
   end
 
-  describe "twitter_users_array" do
-    it 'should parse EnvironmentService.twitter_users_array into an array' do
-      default_val = ENV["TWITTER_USERS_ARRAY"]
-      ENV["TWITTER_USERS_ARRAY"] = "yolo|dance|christmas"
+  describe "twitter_users" do
+    it 'should parse EnvironmentService.twitter_users into an array' do
+      default_val = ENV["TWITTER_USERS"]
+      ENV["TWITTER_USERS"] = "yolo|dance|christmas"
       expected_array = ['yolo', 'dance', 'christmas']
-      expect(EnvironmentService.twitter_users_array).to eq(expected_array)
-      ENV["TWITTER_USERS_ARRAY"] = default_val
+      expect(EnvironmentService.twitter_users).to eq(expected_array)
+      ENV["TWITTER_USERS"] = default_val
     end
 
-    it "should return an empty array if twitter_users_array are not set in env" do
-      default_cred = ENV["TWITTER_USERS_ARRAY"]
-      ENV["TWITTER_USERS_ARRAY"] = nil
-      expect(EnvironmentService.twitter_users_array).to be_empty
-      ENV["TWITTER_USERS_ARRAY"] = default_cred
+    it "should return an empty array if twitter_users are not set in env" do
+      default_cred = ENV["TWITTER_USERS"]
+      ENV["TWITTER_USERS"] = nil
+      expect(EnvironmentService.twitter_users).to be_empty
+      ENV["TWITTER_USERS"] = default_cred
     end
 
-    it "should return an empty array if twitter_users_array are not set in env" do
-      default_cred = ENV["TWITTER_USERS_ARRAY"]
-      ENV["TWITTER_USERS_ARRAY"] = ""
-      expect(EnvironmentService.twitter_users_array).to be_empty
-      ENV["TWITTER_USERS_ARRAY"] = default_cred
+    it "should return an empty array if twitter_users are not set in env" do
+      default_cred = ENV["TWITTER_USERS"]
+      ENV["TWITTER_USERS"] = ""
+      expect(EnvironmentService.twitter_users).to be_empty
+      ENV["TWITTER_USERS"] = default_cred
+    end
+  end
+
+  describe "instagram_user_ids" do
+    it 'should parse EnvironmentService.instagram_user_ids into an array' do
+      default_val = ENV["INSTAGRAM_USER_IDS"]
+      ENV["INSTAGRAM_USER_IDS"] = "12345|2345345345|1235345"
+      expected_array = ['12345', '2345345345', '1235345']
+      expect(EnvironmentService.instagram_user_ids).to eq(expected_array)
+      ENV["INSTAGRAM_USER_IDS"] = default_val
+    end
+
+    it "should return an empty array if instagram_user_ids are not set in env" do
+      default_cred = ENV["INSTAGRAM_USER_IDS"]
+      ENV["INSTAGRAM_USER_IDS"] = nil
+      expect(EnvironmentService.instagram_user_ids).to be_empty
+      ENV["INSTAGRAM_USER_IDS"] = default_cred
+    end
+
+    it "should return an empty array if instagram_user_ids are not set in env" do
+      default_cred = ENV["INSTAGRAM_USER_IDS"]
+      ENV["INSTAGRAM_USER_IDS"] = ""
+      expect(EnvironmentService.instagram_user_ids).to be_empty
+      ENV["INSTAGRAM_USER_IDS"] = default_cred
     end
   end
 
@@ -189,12 +213,12 @@ describe EnvironmentService do
     end
 
     it "should return 6 * users count if entry is not integer and users count is greater than hashtag count" do
-      test_env = ENV["TWITTER_USERS_ARRAY"]
-      ENV["TWITTER_USERS_ARRAY"] = "my|screen|name|4th_user|g3"
-      users_count = EnvironmentService.twitter_users_array.count
+      test_env = ENV["TWITTER_USERS"]
+      ENV["TWITTER_USERS"] = "my|screen|name|4th_user|g3"
+      users_count = EnvironmentService.twitter_users.count
       ENV["API_RATE"] = "stuff"
       expect(EnvironmentService.api_rate).to eq(6 * users_count)
-      ENV["TWITTER_USERS_ARRAY"] = test_env
+      ENV["TWITTER_USERS"] = test_env
     end
   end
 
