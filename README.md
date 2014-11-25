@@ -14,7 +14,7 @@ To Deploy To Heroku
 
 Environment Variables
 ---------------------
-Currently the application uses the following variables in the environment (required is marked with *):
+Currently the application uses the following variables in the environment:
 - HEADER_TITLE (default: user's hashtags separated by spaces)
 - HEADER_LINK (default: will link to top of page)
 - HEADER_COLOR (default: #EFEFEF)
@@ -24,7 +24,7 @@ Currently the application uses the following variables in the environment (requi
 -	POST_COLOR_2	(default: #F78F31)
 -	POST_COLOR_3	(default: #80C9D2)
 -	POST_COLOR_4	(default: #B5B935)
--	HASHTAGS *
+-	HASHTAGS
 - TWITTER_USERS
 - INSTAGRAM_USERS
 - INSTAGRAM_USER_IDS
