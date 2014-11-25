@@ -14,7 +14,6 @@ describe TweetParser do
           post_id: "249292149810667520" }
 
       result = TweetParser.parse(response)
-
       expect(result).to include(attributes)
     end
 
