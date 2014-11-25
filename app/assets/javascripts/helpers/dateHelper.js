@@ -7,9 +7,9 @@ dashtag.dateHelper = function() {
 
   var parseDateFromUTC = function(date) {
     var timeUnits = date.split(/[-\s:]+/),
-      year = timeUnits[0], month = timeUnits[1]-1, date = timeUnits[2],
+      year = timeUnits[0], month = timeUnits[1]-1, day = timeUnits[2],
       hour = timeUnits[3], minutes = timeUnits[4], seconds = timeUnits[5];
-    return new Date(year, month, date, hour, minutes, seconds);
+    return new Date(year, month, day, hour, minutes, seconds);
   };
 
   that.formatDateToLocalTimezone = function(timestampDate) {
@@ -17,9 +17,7 @@ dashtag.dateHelper = function() {
     return date.concat(timestampDate.toLocaleTimeString());
   };
 
-  that.replaceInitiallyLoadedTimestamps = function() {
-    var timestamps = $(".time-of-post");
-
+  that.replaceInitiallyLoadedTimestamps = function(timestamps) {
     for(var i=0; i < timestamps.length ; i++) {
       var timestampString = $(timestamps[i]).text().trim();
       var timestampDate = parseDateFromUTC(timestampString);
@@ -29,3 +27,4 @@ dashtag.dateHelper = function() {
 
   return that;
 }
+
