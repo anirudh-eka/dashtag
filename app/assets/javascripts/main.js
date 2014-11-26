@@ -16,7 +16,7 @@ dashtag.main = function() {
  	that.run = function(){
  		masonryService.layOutMasonry();
 
-	  dateHelper.replaceInitiallyLoadedTimestamps();
+	  dateHelper.replaceInitiallyLoadedTimestamps($(".time-of-post"));
 
 	  applicationController.setupScroll();
 
