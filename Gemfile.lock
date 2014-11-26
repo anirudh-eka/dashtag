@@ -84,6 +84,12 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
+    jasmine (2.1.0)
+      jasmine-core (~> 2.1.0)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.1.2)
     jbuilder (2.2.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -107,6 +113,7 @@ GEM
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     pg (0.17.1)
+    phantomjs (1.9.7.1)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -236,6 +243,7 @@ DEPENDENCIES
   faker
   font-awesome-rails
   httparty
+  jasmine
   jbuilder (~> 2.0)
   jquery-rails
   pg
