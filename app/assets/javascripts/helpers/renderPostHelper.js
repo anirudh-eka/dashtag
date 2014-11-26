@@ -66,7 +66,7 @@ dashtag.renderPostHelper = function(spec){
     var newPosts = [];
     $.each(postsArr, function(index, postModel){
       var postViewModel = renderPost(postModel, getColorNumber(index));
-      newPosts.unshift(postViewModel);
+      newPosts.push(postViewModel);
     });
     return newPosts;
   };
