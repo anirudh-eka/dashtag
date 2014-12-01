@@ -24,7 +24,6 @@ dashtag.dateHelper = function() {
       $(timestamps[i]).text(that.formatDateToLocalTimezone(timestampDate));
     }
   };
-
   return that;
 }
 
