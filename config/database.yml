@@ -2,16 +2,19 @@ development:
   adapter: postgresql
   encoding: utf8
   database: hashtag_displayer_development
+  template: template0
   pool: 5
 
 test: &TEST
   adapter: postgresql
   encoding: utf8
   database: hashtag_displayer_test
+  template: template0
   pool: 5
 
 production:
   adapter: postgresql
   encoding: utf8
   database: hashtag_displayer_production
+  template: template0
   pool: 5
