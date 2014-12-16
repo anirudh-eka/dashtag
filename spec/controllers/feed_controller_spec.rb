@@ -9,10 +9,10 @@ describe FeedController do
 
     context "with HTML request" do
       context "returns all posts in db" do
-        it "should return all posts in descending order", dont_run_in_snap: true do
+        it "should return all posts in descending order" do
           array = [third_post, second_post, first_post]
           get :index, :format => :html
-          expect(assigns(:posts)).to eq(array)
+          expect(assigns(:posts)).to eql(array)
         end
 
         it "should limit number of posts to 100 posts" do
@@ -40,10 +40,10 @@ describe FeedController do
   end
 
   describe 'GET #get_next_page' do
-    it 'should return a list of older posts', dont_run_in_snap: true do
+    it 'should return a list of older posts' do
       first_post.id, second_post.id = first_post.id, second_post.id
       get :get_next_page, last_post_id: third_post.id, :format => :json
-      expect(assigns(:posts)).to eq([second_post, first_post])
+      expect(assigns(:posts)).to eql([second_post, first_post])
     end
 
     it 'should return a maximum of 100 posts' do
