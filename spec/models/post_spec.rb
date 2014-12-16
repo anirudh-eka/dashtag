@@ -57,17 +57,17 @@ describe Post do
   end
 
   describe "#next_posts" do
-    let!(:third_post) {FactoryGirl.create(:post, created_at: Time.now , text: "will float like a butterfly", time_of_post: Time.now + 1)}
-    let!(:second_post) { FactoryGirl.create(:post, created_at: Time.now - 5, text: "float like a butterfly", time_of_post: Time.now) }
-    let!(:first_post) { FactoryGirl.create(:post, created_at: Time.now - 10, text: "floated like a butterfly", time_of_post: Time.now - 1)}
+    let!(:third_post) {FactoryGirl.create(:post, created_at: Time.now , text: "will float like a butterfly", time_of_post: "Sep 18 23:40:54 +0000 2002")}
+    let!(:second_post) { FactoryGirl.create(:post, created_at: Time.now - 5, text: "float like a butterfly", time_of_post: "Sep 18 23:40:54 +0000 2001") }
+    let!(:first_post) { FactoryGirl.create(:post, created_at: Time.now - 10, text: "floated like a butterfly", time_of_post: "Sep 18 23:40:54 +0000 2000")}
 
-    it 'should get next posts', dont_run_in_snap: true do
+    it 'should get next posts' do
       first_post.id, second_post.id = first_post.id, second_post.id
       next_posts = Post.next_posts(third_post)
       expect(next_posts).to eq([second_post, first_post])
     end
 
-    it "should screen next posts based on censored words", dont_run_in_snap: true do
+    it "should screen next posts based on censored words" do
       second_post.update_attribute(:text, "float like a moth")
       allow(EnvironmentService).to receive(:censored_words).and_return("moth")
 
@@ -76,7 +76,7 @@ describe Post do
       expect(next_posts).to eq([first_post])
     end
 
-    it "should screen next posts based on censored users", dont_run_in_snap: true do
+    it "should screen next posts based on censored users" do
       first_post.update_attribute(:screen_name, "someoneBad")
       allow(EnvironmentService).to receive(:censored_users).and_return("someoneBad")
 
@@ -124,7 +124,7 @@ describe Post do
                   time_of_post: Time.at(time_of_new_post),
                   text: "the new post")
 
-      
+
       result = Post.get_new_posts(last_update_time)
       expect(result.count).to eq(1)
       expect(result.first.id).to eq(new_post.id)

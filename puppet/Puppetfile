@@ -1,0 +1,6 @@
+forge "http://forge.puppetlabs.com"
+
+mod "jdowning-rbenv"
+mod "puppetlabs-postgresql"
+mod "3fs-phantomjs"
+
