@@ -80,7 +80,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    auth_response = {"access_token"=>"AAAAAAAAAAAAAAAAAAAAAHfMXgAAAAAAqjpb4OtAUv4B1pjCzS7nZ%2FTzgqo%3D473OZ91sDRgjEGKlEnCl9NSnfkNSs524yvxFjPrAAX6lQsuHUV",
+    auth_response = {"access_token"=>"ACCESS_TOKEN",
      "token_type"=>"bearer"}.to_json
 
 
