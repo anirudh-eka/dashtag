@@ -7,6 +7,18 @@ The application uses [Twitter's REST API](https://dev.twitter.com/rest/reference
 
 Check out the example of Hashtag Displayer [here on our staging site](http://hashtag-displayer-staging-1.herokuapp.com/).
 
+Contributing
+------------
+
+
+Screenshots
+-----------
+
+
+License
+-------
+
+
 To Deploy To Heroku
 -------------------
  Simply put the environment variables, as described below, into Heroku's dashboard after hitting the Deploy to Heroku Button above.
