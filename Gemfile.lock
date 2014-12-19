@@ -147,6 +147,8 @@ GEM
     pry-byebug (2.0.0)
       byebug (~> 3.4)
       pry (~> 0.10)
+    puma (2.10.2)
+      rack (>= 1.1, < 2.0)
     puppet (3.7.3)
       facter (> 1.6, < 3)
       hiera (~> 1.0)
@@ -282,6 +284,7 @@ DEPENDENCIES
   poltergeist
   pry
   pry-byebug
+  puma
   puppet
   rails (= 4.1.1)
   rails_12factor
