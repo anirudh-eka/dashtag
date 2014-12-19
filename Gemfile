@@ -30,6 +30,8 @@ gem 'spring',        group: :development
 
 gem 'font-awesome-rails'
 
+gem 'puma'
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl'
