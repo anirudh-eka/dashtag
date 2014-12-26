@@ -53,20 +53,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  config.before(:all) do
-    # ENV["CENSORED_WORDS"]="Big|Brother|watching"
-    
-    # ENV["CENSORED_USERS"]="BadUser|dirtyuser"
-
-    # ENV["API_RATE"] = 1.to_s
-    # ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
-    # ENV["INSTAGRAM_CLIENT_ID"] = "asd"
-    # ENV["INSTAGRAM_USER_IDS"] = "1234|24536"
-    # ENV["HASHTAGS"] = "fda|dogs"
-    # ENV["TWITTER_USERS"] = "king|dogs"
-    # ENV["HASHTAG"] = nil
-    # ENV["HEADER_TITLE"] = "My Dogs"
-  end
 
   config.before :each do
     if Capybara.current_driver == :rack_test
