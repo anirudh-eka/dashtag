@@ -19,7 +19,6 @@ describe APIService do
 
   context 'when time since last pull is greater than api rate limit' do
     before(:each) do
-      ENV["API_RATE"] = 15.to_s
       last_pull_stub = Time.now - 20
       allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
     end
@@ -74,36 +73,30 @@ describe APIService do
   describe 'loud pull' do
     context 'when time since last pull is less than api rate limit' do
       before(:each) do
-        ENV["API_RATE"] = 15.to_s
         last_pull_stub = Time.now
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
       it "should throw exception" do
         expect { APIService.instance.pull_posts! }.to raise_error("Time since last pull is less than api rate limit")
-        ENV["API_RATE"] = 1.to_s
       end
     end
     context "when time since last pull is greater than the api rate limit" do
       before(:each) do
-        sleep ENV["API_RATE"].to_i + 0.5
+        sleep EnvironmentService.api_rate + 0.5
       end
       context "when twitter api keys are not provided in the env" do
         it "should not pull from twitter and parse" do
-          default_env_twitter_keys = ENV["TWITTER_BEARER_CREDENTIALS"]
-          ENV["TWITTER_BEARER_CREDENTIALS"] = ""
+          allow(EnvironmentService).to receive(:twitter_bearer_credentials).and_return(nil)
           expect(APIService.instance).to_not receive(:pull_twitter_posts_and_parse)
           expect(APIService.instance).to_not receive(:pull_twitter_posts_from_users_and_parse)
           APIService.instance.pull_posts!
-          ENV["TWITTER_BEARER_CREDENTIALS"] = default_env_twitter_keys
         end
       end
       context "when instagram api keys are not provided in the env" do
         it "should not pull from twitter and parse" do
-          default_env_instagram_keys = ENV["INSTAGRAM_CLIENT_ID"]
-          ENV["INSTAGRAM_CLIENT_ID"] = ""
+          allow(EnvironmentService).to receive(:instagram_client_id).and_return(nil)
           expect(APIService.instance).to_not receive(:pull_instagram_posts_and_parse)
           APIService.instance.pull_posts!
-          ENV["INSTAGRAM_CLIENT_ID"] = default_env_instagram_keys
         end
       end
     end
@@ -117,7 +110,6 @@ describe APIService do
 
     context 'when time since last pull is less than api rate limit' do
       before(:each) do
-        ENV["API_RATE"] = 15.to_s
         last_pull_stub = Time.now
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end

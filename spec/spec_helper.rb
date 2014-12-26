@@ -95,13 +95,13 @@ RSpec.configure do |config|
      "token_type"=>"bearer"}.to_json
 
 
-    stub_request(:post, /https:\/\/#{ENV["TWITTER_BEARER_CREDENTIALS"]}@api.twitter.com\/oauth2\/token/).
+    stub_request(:post, /https:\/\/#{EnvironmentService.twitter_bearer_credentials}@api.twitter.com\/oauth2\/token/).
       with(headers: {"content-type"=>"application/x-www-form-urlencoded;charset=UTF-8"},
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
 
     EnvironmentService.hashtag_array.each do |hashtag|
-      stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}").
+      stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{EnvironmentService.instagram_client_id}").
       to_return( {:status => 200, :body => SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
       stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}").
