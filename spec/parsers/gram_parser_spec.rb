@@ -36,20 +36,16 @@ describe GramParser do
   end
 
   it "should allow no censoring of users" do 
-    default_env_censored_users = ENV["CENSORED_USERS"]
-    ENV["CENSORED_USERS"]=""
+    allow(EnvironmentService).to receive(:censored_users).and_return("")
     response = SampleInstagramResponses.instagram_response_from_censored_users
     result = GramParser.parse(response)
     expect(result).to_not be_empty
-    ENV["CENSORED_USERS"]= default_env_censored_users
   end
 
   it "should allow no censoring of words" do
-    default_env_censored_words = ENV["CENSORED_USERS"]
-    ENV["CENSORED_WORDS"]=""
+    allow(EnvironmentService).to receive(:censored_words).and_return("")
     response = SampleInstagramResponses.instagram_response_with_censored_words
     result = GramParser.parse(response)
     expect(result).to_not be_empty
-    ENV["CENSORED_WORDS"]= default_env_censored_words
   end
 end
