@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe EnvironmentService do
+  before(:each) do 
+    EnvironmentService.unstub(:censored_words)
+    EnvironmentService.unstub(:censored_users)
+    EnvironmentService.unstub(:api_rate)
+    EnvironmentService.unstub(:twitter_bearer_credentials)
+    EnvironmentService.unstub(:instagram_client_id)
+    EnvironmentService.unstub(:instagram_user_ids)
+    EnvironmentService.unstub(:hashtag_array)
+    EnvironmentService.unstub(:twitter_users)
+    EnvironmentService.unstub(:header_title)
+  end
   describe "header title" do
     def header_title_helper_for(env_title_value)
       default_val = ENV["HEADER_TITLE"]
@@ -10,8 +21,8 @@ describe EnvironmentService do
       ENV["HEADER_TITLE"] = default_val
     end
 
-    it "should return a title for user set in env" do
-      expect(EnvironmentService.header_title).to eq(ENV["HEADER_TITLE"])
+    it "should return a title for user set in env with '#'" do
+      expect(EnvironmentService.header_title).to eq("##{ENV["HEADER_TITLE"]}")
     end
 
     it "should return string of hashtags if title is nil" do
@@ -216,7 +227,10 @@ describe EnvironmentService do
   end
 
   describe "api_rate" do
-    before(:each) { @test_env = ENV["API_RATE"] }
+    before(:each) do 
+      allow(EnvironmentService).to receive(:hashtag_array) {["#MyHashtag"]}
+      @test_env = ENV["API_RATE"]
+    end
     after(:each) { ENV["API_RATE"] = @test_env }
 
     it "should return what is set in env" do

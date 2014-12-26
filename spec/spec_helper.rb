@@ -54,16 +54,18 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
   config.before(:all) do
-    ENV["CENSORED_WORDS"]="Big|Brother|watching"
-    ENV["CENSORED_USERS"]="BadUser|dirtyuser"
-    ENV["API_RATE"] = 1.to_s
-    ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
-    ENV["INSTAGRAM_CLIENT_ID"] = "asd"
-    ENV["INSTAGRAM_USER_IDS"] = "1234|24536"
-    ENV["HASHTAGS"] = "fda|dogs"
-    ENV["TWITTER_USERS"] = "king|dogs"
-    ENV["HASHTAG"] = nil
-    ENV["HEADER_TITLE"] = "My Dogs"
+    # ENV["CENSORED_WORDS"]="Big|Brother|watching"
+    
+    # ENV["CENSORED_USERS"]="BadUser|dirtyuser"
+
+    # ENV["API_RATE"] = 1.to_s
+    # ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
+    # ENV["INSTAGRAM_CLIENT_ID"] = "asd"
+    # ENV["INSTAGRAM_USER_IDS"] = "1234|24536"
+    # ENV["HASHTAGS"] = "fda|dogs"
+    # ENV["TWITTER_USERS"] = "king|dogs"
+    # ENV["HASHTAG"] = nil
+    # ENV["HEADER_TITLE"] = "My Dogs"
   end
 
   config.before :each do
@@ -73,6 +75,15 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :truncation
     end
     DatabaseCleaner.start
+    allow(EnvironmentService).to receive(:censored_words) {"Big|Brother|watching"}
+    allow(EnvironmentService).to receive(:censored_users) {"BadUser|dirtyuser"}
+    allow(EnvironmentService).to receive(:api_rate) {1}
+    allow(EnvironmentService).to receive(:twitter_bearer_credentials) {"randomCredential"}
+    allow(EnvironmentService).to receive(:instagram_client_id) {"randomGramCredential"}
+    allow(EnvironmentService).to receive(:instagram_user_ids) {['12345', '2345345345', '1235345']}
+    allow(EnvironmentService).to receive(:hashtag_array) {['yolo', 'dance', 'christmas']}
+    allow(EnvironmentService).to receive(:twitter_users) {['yoloer', 'dancer']}
+    allow(EnvironmentService).to receive(:header_title) {"My title"}
   end
 
   config.after do

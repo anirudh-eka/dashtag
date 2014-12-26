@@ -90,7 +90,7 @@ module SampleTweetResponses
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "#{ENV["CENSORED_WORDS"].split("|").sample()} #NAAwayDay",
+          "text" => "#{EnvironmentService.censored_words.split("|").sample()} #NAAwayDay",
           "metadata" => {
             "iso_language_code" => "pl",
             "result_type" => "recent"
@@ -190,7 +190,7 @@ module SampleTweetResponses
           },
           "in_reply_to_user_id_str" => nil,
           "contributors" => nil,
-          "text" => "#{ENV["CENSORED_WORDS"].split("|").sample()} #NAAwayDay",
+          "text" => "#{EnvironmentService.censored_words.split("|").sample()} #NAAwayDay",
           "metadata" => {
             "iso_language_code" => "en",
             "result_type" => "recent"
