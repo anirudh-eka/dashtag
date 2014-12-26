@@ -1185,7 +1185,7 @@ module SampleTweetResponses
               "friends_count" => 348,
               "following" => nil,
               "show_all_inline_media" => true,
-              "screen_name" => ENV["CENSORED_USERS"].split("|").sample()
+              "screen_name" => EnvironmentService.censored_users.split("|").sample()
             },
             "in_reply_to_screen_name" => nil,
             "source" => "web",
@@ -1284,7 +1284,7 @@ module SampleTweetResponses
               "friends_count" => 63,
               "following" => nil,
               "show_all_inline_media" => false,
-              "screen_name" => ENV["CENSORED_USERS"].split("|").sample()
+              "screen_name" => EnvironmentService.censored_users.split("|").sample()
             },
             "in_reply_to_screen_name" => nil,
             "source" => "web",
