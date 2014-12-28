@@ -20,7 +20,7 @@ class EnvironmentService
 	end
 
 	def self.hashtag_array
-		return [ENV["HASHTAG"]] if ENV["HASHTAG"]
+		return [ENV["HASHTAG"]] if ENV["HASHTAG"] && ENV["HASHTAGS"] == nil
 		ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
 	end
 
