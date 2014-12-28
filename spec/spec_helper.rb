@@ -53,6 +53,18 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+  config.before(:all) do
+    ENV["CENSORED_WORDS"]="Big|Brother|watching"
+    ENV["CENSORED_USERS"]="BadUser|dirtyuser"
+    ENV["API_RATE"] = 1.to_s
+    ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
+    ENV["INSTAGRAM_CLIENT_ID"] = "asd"
+    ENV["INSTAGRAM_USER_IDS"] = "1234|24536"
+    ENV["HASHTAGS"] = "fda|dogs"
+    ENV["TWITTER_USERS"] = "king|dogs"
+    ENV["HASHTAG"] = nil
+    ENV["HEADER_TITLE"] = "My Dogs"
+  end
 
   config.before :each do
     if Capybara.current_driver == :rack_test
@@ -61,15 +73,6 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :truncation
     end
     DatabaseCleaner.start
-    allow(EnvironmentService).to receive(:censored_words) {"Big|Brother|watching"}
-    allow(EnvironmentService).to receive(:censored_users) {"BadUser|dirtyuser"}
-    allow(EnvironmentService).to receive(:api_rate) {1}
-    allow(EnvironmentService).to receive(:twitter_bearer_credentials) {"randomCredential"}
-    allow(EnvironmentService).to receive(:instagram_client_id) {"randomGramCredential"}
-    allow(EnvironmentService).to receive(:instagram_user_ids) {['12345', '2345345345', '1235345']}
-    allow(EnvironmentService).to receive(:hashtag_array) {['yolo', 'dance', 'christmas']}
-    allow(EnvironmentService).to receive(:twitter_users) {['yoloer', 'dancer']}
-    allow(EnvironmentService).to receive(:header_title) {"My title"}
   end
 
   config.after do
@@ -81,13 +84,13 @@ RSpec.configure do |config|
      "token_type"=>"bearer"}.to_json
 
 
-    stub_request(:post, /https:\/\/#{EnvironmentService.twitter_bearer_credentials}@api.twitter.com\/oauth2\/token/).
+    stub_request(:post, /https:\/\/#{ENV["TWITTER_BEARER_CREDENTIALS"]}@api.twitter.com\/oauth2\/token/).
       with(headers: {"content-type"=>"application/x-www-form-urlencoded;charset=UTF-8"},
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
 
     EnvironmentService.hashtag_array.each do |hashtag|
-      stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{EnvironmentService.instagram_client_id}").
+      stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}").
       to_return( {:status => 200, :body => SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
       stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}").
