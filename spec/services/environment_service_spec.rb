@@ -10,8 +10,9 @@ describe EnvironmentService do
       ENV["HEADER_TITLE"] = default_val
     end
 
-    it "should return a title for user set in env" do
-      expect(EnvironmentService.header_title).to eq(ENV["HEADER_TITLE"])
+    it "should return a title for user set in env with '#'" do
+      ENV["HEADER_TITLE"] = "something"
+      expect(EnvironmentService.header_title).to eq("#{ENV["HEADER_TITLE"]}")
     end
 
     it "should return string of hashtags if title is nil" do
@@ -120,16 +121,18 @@ describe EnvironmentService do
 
 
   describe "hashtags" do
-    it "should return an empty array if hashtag is nil" do
+    it "should return an empty array if HASHTAGS and HASHTAG have a nil value" do
       default_val = ENV["HASHTAGS"]
       ENV["HASHTAGS"] = nil
+      ENV["HASHTAG"] = nil
       expect(EnvironmentService.hashtag_array).to be_empty
       ENV["HASHTAGS"] = default_val
     end
 
-    it "should return an empty array if hashtag is empty" do
+    it "should return an empty array if HASHTAGS and HASHTAG have an empty string value" do
       default_val = ENV["HASHTAGS"]
       ENV["HASHTAGS"] = ""
+      ENV["HASHTAG"] = ""
       expect(EnvironmentService.hashtag_array).to be_empty
       ENV["HASHTAGS"] = default_val
     end
@@ -142,12 +145,22 @@ describe EnvironmentService do
       ENV["HASHTAGS"] = default_val
     end
 
-    it "should provide backwards support for apps that set the env variable as 'hashtag'" do
+    it "should provide backwards support for apps that set the env variable as 'hashtag' and not using 'hashtags'" do
       default_val = ENV["HASHTAG"]
       ENV["HASHTAG"] = "yolo"
+      ENV["HASHTAGS"] = nil
       expected_array = ['yolo']
       expect(EnvironmentService.hashtag_array).to eq(expected_array)
       ENV["HASHTAG"] = default_val
+    end
+
+    context "if HASHTAG and HASHTAGS variable are set in environment" do 
+      it "should use HASHTAGS" do
+        ENV["HASHTAG"] = "love"
+        ENV["HASHTAGS"] = "yolo|dance|christmas"
+        expected_array = ['yolo', 'dance', 'christmas']
+        expect(EnvironmentService.hashtag_array).to eq(expected_array)
+      end
     end
   end
 
