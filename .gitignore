@@ -24,4 +24,4 @@
 .vagrant
 puppet/.tmp
 .librarian/*
-
+puppet/modules/*
