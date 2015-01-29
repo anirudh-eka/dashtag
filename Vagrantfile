@@ -4,7 +4,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu-server-12042-x64-vbox4210"
   config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
 
-  config.vm.network :forwarded_port, guest: 3000, host: 4000
+  config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.network :private_network, ip: "192.168.50.10"
 
   config.vm.provider :virtualbox do |vb|
     vb.name = "dashtag"

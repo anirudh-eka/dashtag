@@ -1,24 +1,38 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'webmock/rspec'
 require 'database_cleaner'
 require 'capybara/poltergeist'
-require 'pry'
+require 'shoulda/matchers'
+
+module Dashtag
+  require "factory_girl"
+  FactoryGirl.definition_file_paths = %w(spec/factories/dashtag)
+  FactoryGirl.find_definitions
+end
 
 # require File.expand_path('../config/application', __FILE__)
 
-WebMock.disable_net_connect!(allow_localhost: true)  # WebMock.disable_net_connect!({:allow_localhost => true})
+WebMock.disable_net_connect!(allow_localhost: true)
 
 # Capybara.javascript_driver = :selenium
 Capybara.javascript_driver = :poltergeist
+Capybara.default_driver = :poltergeist
+
+Capybara.register_driver :poltergeist do |app|
+  options = {
+    timeout: 120
+  }
+  Capybara::Poltergeist::Driver.new(app, options)
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("../support/**/*.rb")].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -89,32 +103,32 @@ RSpec.configure do |config|
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
 
-    EnvironmentService.hashtag_array.each do |hashtag|
+    Dashtag::EnvironmentService.hashtag_array.each do |hashtag|
       stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}").
-      to_return( {:status => 200, :body => SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
+      to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
       stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}").
       with(headers: {"Authorization"=>/Bearer .+/}).
-      to_return( {:status => 200, :body => SampleTweetResponses.tweet_response.to_json, :headers => {'content-type' => 'application/json'} },
-        {:status => 200, :body => SampleTweetResponses.second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
+      to_return( {:status => 200, :body => Dashtag::SampleTweetResponses.tweet_response.to_json, :headers => {'content-type' => 'application/json'} },
+        {:status => 200, :body => Dashtag::SampleTweetResponses.second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
     end
 
-    EnvironmentService.twitter_users.each do |user|
+    Dashtag::EnvironmentService.twitter_users.each do |user|
       stub_request(:get, "https://api.twitter.com/1.1/statuses/user_timeline.json?count=50&screen_name=#{user}").
       with(headers: {"Authorization"=>/Bearer .+/}).
-      to_return( {:status => 200, :body => SampleTweetResponses.user_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
+      to_return( {:status => 200, :body => Dashtag::SampleTweetResponses.user_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
     end
 
-    EnvironmentService.instagram_user_ids.each do |user_id|
-      stub_request(:get, "https://api.instagram.com/v1/users/#{user_id}/media/recent/?client_id=#{EnvironmentService.instagram_client_id}").
-      to_return( {:status => 200, :body => SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
+    Dashtag::EnvironmentService.instagram_user_ids.each do |user_id|
+      stub_request(:get, "https://api.instagram.com/v1/users/#{user_id}/media/recent/?client_id=#{Dashtag::EnvironmentService.instagram_client_id}").
+      to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
     end
 
     stub_request(:get, /.*api.instagram.com\/v1\/users\/search.*/).
-    to_return( {:status => 200, :body => SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
+    to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
-    stub_request(:get, "https://api.instagram.com/v1/users/#{SampleInstagramResponses.instagram_response["data"].first["id"]}/media/recent/?client_id=#{EnvironmentService.instagram_client_id}").
-    to_return( {:status => 200, :body => SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
+    stub_request(:get, "https://api.instagram.com/v1/users/#{Dashtag::SampleInstagramResponses.instagram_response["data"].first["id"]}/media/recent/?client_id=#{Dashtag::EnvironmentService.instagram_client_id}").
+    to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
   end
 end
