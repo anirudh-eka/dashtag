@@ -45,10 +45,10 @@ module Dashtag
       end
     end
 
-    it 'should auto update only when on top of page', js: true do
+    xit 'should auto update only when on top of page', js: true do
       visit '/'
-      sleep(5)
-
+      sleep 1
+      page.execute_script('window.scrollTo(0,100000)')
       # content from Twitter Search API
       page.should have_content("Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}")
       page.should have_content('@bullcityrecords')
