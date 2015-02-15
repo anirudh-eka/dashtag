@@ -7,11 +7,11 @@ require "dashtag/version"
 Gem::Specification.new do |s|
   s.name        = "dashtag"
   s.version     = Dashtag::VERSION
-  s.authors     = ["Patrick Turley [pturley]"]
-  s.email       = ["patrick.turley@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Dashtag."
-  s.description = "TODO: Description of Dashtag."
+  s.authors     = ["Anirudh Dhullipalla [anirudh_eka]"]
+  s.email       = ["rudysback@gmail.com"]
+  s.homepage    = "https://github.com/anirudh-eka/dashtag"
+  s.summary     = "Dashtag pulls tweets and instagram post based on hashtag(s) and/or username(s) and displays them using masonry."
+  s.description = "Dashtag pulls tweets and instagram post based on hashtag(s) and/or username(s) and displays them using masonry."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
