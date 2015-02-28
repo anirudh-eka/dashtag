@@ -19,3 +19,6 @@
 # Ignore .env
 /spec/dummy/.env
 /README.md
+
+# Ignore
+/spec/dummy/db/migrate/*
