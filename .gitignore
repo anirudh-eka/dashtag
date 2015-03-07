@@ -8,8 +8,7 @@
 /.bundle
 
 # Ignore the default SQLite database.
-/spec/dummy/db/*.sqlite3
-/spec/dummy/db/*.sqlite3-journal
+*.sqlite3
 
 # Ignore all logfiles and tempfiles.
 /spec/dummy/log/*
@@ -18,7 +17,3 @@
 
 # Ignore .env
 /spec/dummy/.env
-/README.md
-
-# Ignore
-/spec/dummy/db/migrate/*
