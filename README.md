@@ -143,44 +143,37 @@ Your final .env file should look like this:
 	TWITTER_BEARER_CREDENTIALS=YOUR_TWITTER_KEY:YOUR_TWITTER_SECRET
 	INSTAGRAM_CLIENT_ID=YOUR_INSTAGRAM_CLIENT_ID_CODE
 
-Setting up your virtual box
------------------------
+Contribute to Engine
+---------------------
 
-(You may skip this step and proceed to running the app locally if you do not want to use a virtual box)
+Clone the repo:
 
-Download Vagrant from (https://www.vagrantup.com/downloads)
-(vagrant will be added to system path and be available from the command line)
+	$ git clone https://github.com/anirudh-eka/dashtag.git
 
-Download VirtualBox from (https://www.virtualbox.org/wiki/Downloads)
-(provider for Vagrant)
+create/migrate the test database:
 
-In the root directory of your app, run the following commands to spin up your box:
+	$ cd dashtag
+	$ rake db:migrate RAILS_ENV=test
 
-	$ vagrant up (this may take a while)
-	$ vagrant ssh
-
-Proceed to next steps to run the app, and if everything worked you should be able to see the application at http://localhost:4000/ in your favorite browser.
-
-Running the app locally
------------------------
-
-Once you have the .env file setup, run bundler from the command line:
-
-	$ bundle
-
-create/migrate the database:
-
-	$ rake db:create && rake db:migrate
-
-and start the server:
-
-	$ rails s
-
-If everything worked you should be able to see the application at work at http://localhost:3000/ in your favorite browser.
-
-Running tests
--------------
-
-The testing framework used is Rspec and Capybara. To run them:
+run the tests (make sure they are passing before doing anything else):
 
 	$ rspec
+
+
+Running the dummy app
+---------------------
+
+If you want to see what the engine would look live you can run the dummy app. First migrate the db:
+
+	$ rake db:migrate
+
+Then change directories to the dummy app:
+
+	$ cd spec/dummy
+
+Here you can run rails commands that you would run at the root of a rails app. To start the server:
+
+	$ rails s 
+
+
+If everything worked you should be able to see the application at work at http://localhost:3000/ in your favorite browser.
