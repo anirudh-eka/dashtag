@@ -47,7 +47,7 @@ dashtag.renderPostHelper = function(spec){
 	};
 
   var getColorNumber = function (index) {
-    return index % 4 + 1;
+    return Math.floor(Math.random() * 4 + 1);
 	};
 
 	var originalPostLink = function (post, createdAtSection) {
