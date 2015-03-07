@@ -3,6 +3,10 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
+
+require 'dotenv'
+Dotenv.load
+
 require "dashtag"
 
 module Dummy
@@ -23,4 +27,3 @@ module Dummy
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
-
