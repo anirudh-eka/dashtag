@@ -12,8 +12,12 @@
 
 # Ignore all logfiles and tempfiles.
 *.log
+log
 !/spec/dummy/log/.keep
 /spec/dummy/tmp
 
 # Ignore .env
 /spec/dummy/.env
+
+# Ignore migrations in dummy
+/spec/dummy/db/migrate/*
