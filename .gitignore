@@ -20,4 +20,5 @@ log
 /spec/dummy/.env
 
 # Ignore migrations in dummy
-/spec/dummy/db/migrate/*
+/spec/dummy/db/migrate/*.rb
+!/spec/dummy/db/migrate/
