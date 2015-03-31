@@ -24,6 +24,13 @@ module Dashtag
       render_json_posts @posts
     end
 
+    def get_new_posts
+      puts "*" * 80
+      p "hit route"
+      @posts = Post.get_new_posts(convert_to_seconds(params[:last_update_time]))
+      render partial: "posts"
+    end
+
     private
 
     def render_json_posts(posts)

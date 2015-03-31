@@ -44,6 +44,34 @@ module Dashtag
       end
     end
 
+    describe 'GET #get_new_posts' do
+      it "should convert last_update_time from client to miliseconds and get posts after that time" do
+        expect(Post).to receive(:get_new_posts).with(1415474499.122)
+        get :get_new_posts, :format => :html, :last_update_time => "1415474499122"
+      end
+      it "should return view of new posts" do
+          present = Time.now
+          present_in_seconds = (present.to_f * 1000).to_s
+          future = present + 500
+          past = present - 500
+          future_post = FactoryGirl.create(:post, 
+            created_at: future, 
+            text: "float like a butterfly #word", 
+            time_of_post: future, 
+            source: 'twitter')
+          past_post = FactoryGirl.create(:post, 
+            created_at: past, 
+            text: "float like a butterfly #word", 
+            time_of_post: past, 
+            source: 'twitter')
+          allow(APIService.instance).to receive(:pull_posts)
+
+
+          get :get_new_posts, :format => :html, :last_update_time => present_in_seconds
+          expect(assigns(:posts)).to eq([future_post])
+      end
+    end
+
     describe 'GET #get_next_page' do
       it 'should return a list of older posts' do
         first_post.id, second_post.id = first_post.id, second_post.id

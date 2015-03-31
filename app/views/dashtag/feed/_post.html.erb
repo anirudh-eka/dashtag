@@ -26,7 +26,7 @@
       <a href="https://twitter.com/intent/favorite?tweet_id=<%= post.post_id %>" class= "favorite"></a>
     <% end %>
   </section>
-
+  <% if false %>
   <section class="post-created-at">
     <% unless post.post_id == nil %>
       <% if post.source == 'twitter' %>
@@ -39,4 +39,5 @@
     <span class="time-of-post"> <%= post.time_of_post %> </span>
     </a>
   </section>
+  <% end %>
 </div>

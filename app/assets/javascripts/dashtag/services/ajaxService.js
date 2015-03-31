@@ -15,16 +15,16 @@ dashtag.ajaxService = function() {
 
       $.ajax({
         type: "GET",
-        url: "/",
+        url: "/get_new_posts",
         data: {
         "last_update_time": last_update_time
             },
-        contentType: "application/json; charset=utf-8",
+        contentType: "application/html; charset=utf-8",
         ifModified: true,
-        dataType: "json",
+        dataType: "html",
         success: function(response, status){
           if(status != "notmodified") {
-            $(that).trigger("new-posts", [response]);
+            $(that).trigger("new-posts", response);
             last_update_time = Date.now();
           }
         },

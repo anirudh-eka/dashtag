@@ -4,7 +4,7 @@ var dashtag = dashtag || {}
 
 dashtag.applicationController = function(spec) {
   var that = {};
-  var newPostModels = [];
+  var postsHtmlToBeRendered = "";
   var active = false;
   var renderPostHelper = spec.renderPostHelper;
   var ajaxService = spec.ajaxService;
@@ -16,23 +16,19 @@ dashtag.applicationController = function(spec) {
 
   var renderPostsForTop = function() {
     if(!active) {
-      if($(window).scrollTop() === 0 && newPostModels.length != 0) {
+      if($(window).scrollTop() === 0 && postsHtmlToBeRendered != "1") {
         active = true;
-        var newPostViewModels = renderPostHelper.createPostContent(newPostModels);
-        $('#posts-list').prepend(newPostViewModels);
+        $('#posts-list').prepend(postsHtmlToBeRendered);
         masonryService.layOutMasonry();
-        newPostModels = [];
+        postsHtmlToBeRendered = "";
         active = false;
       }
     }
   };
 
   that.setupRenderPost = function() {
-    $(ajaxService).on("new-posts", function(e, rawPostData){
-
-      $.each(rawPostData, function(index, rawPost){
-        newPostModels.push(createPost(rawPost));
-      });
+    $(ajaxService).on("new-posts", function(e, postsHtml){
+      postsHtmlToBeRendered = postsHtml + postsHtmlToBeRendered
       renderPostsForTop();
     })
 
