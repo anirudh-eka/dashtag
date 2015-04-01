@@ -59,11 +59,12 @@ module Dashtag
 
 
         get :get_new_posts, :format => :html, :last_update_time => @present_in_miliseconds
-        expect(assigns(:posts)).to eq([future_post])
+        expect(assigns(:posts).count).to eq(1)
+        expect(assigns(:posts).first).to eq(future_post)
       end
 
       it 'should return status not_modified if there are no new posts' do
-        allow(Post).to receive(:get_new_posts).with(@present_in_seconds)
+        allow(Post).to receive(:get_new_posts).with(instance_of(Float))
         get :get_new_posts, :format => :html, :last_update_time => @present_in_miliseconds
         expect(response.status).to eq(304)
       end
