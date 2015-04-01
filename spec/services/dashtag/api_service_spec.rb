@@ -26,7 +26,7 @@ module Dashtag
       end
 
       it "parses grams and tweets from response and creates posts with parsed data" do
-          tweet = FactoryGirl.build(:post,
+          tweet = FactoryGirl.create(:post,
             source: "twitter",
             text: "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
             screen_name: "bullcityrecords",
@@ -36,7 +36,7 @@ module Dashtag
             post_id: "249292149810667520"
           )
 
-          gram = FactoryGirl.build(:post, source: "instagram",
+          gram = FactoryGirl.create(:post, source: "instagram",
           text: "[ t o d a y ] \n#me #noi #iger #Italia #italian #love #myboyfriend #tatoo #tatoowhitlove #ops #opslove #sempreassieme #tiamo #aspasso #september #tempodelcavolo #chedobbiamofà",
           screen_name: "jolanda_cirigliano",
           time_of_post: DateTime.strptime("1410884290", "%s"),
