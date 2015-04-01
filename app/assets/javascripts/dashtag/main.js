@@ -4,19 +4,12 @@ var dashtag = dashtag || {}
 
 dashtag.main = function() {
   var that = {};
-	var dateHelper = dashtag.dateHelper();
 	var masonryService = dashtag.masonryService();
-  var ajaxService = dashtag.ajaxService();
-	var renderPostHelper = dashtag.renderPostHelper({dateHelper : dateHelper});
-	var applicationController = dashtag.applicationController({
-																														renderPostHelper: renderPostHelper,
-																														ajaxService : ajaxService,
-																														masonryService: masonryService});
+	var ajaxService = dashtag.ajaxService();
+	var applicationController = dashtag.applicationController({ajaxService : ajaxService, masonryService: masonryService});
 
- 	that.run = function(){
- 		masonryService.layOutMasonry();
-
-	  dateHelper.replaceInitiallyLoadedTimestamps($(".time-of-post"));
+	that.run = function(){
+	  masonryService.layOutMasonry();
 
 	  applicationController.setupScroll();
 
@@ -25,7 +18,7 @@ dashtag.main = function() {
 	  applicationController.setupRenderPost();
 
 	  applicationController.setupLoadOlderPosts();
- 	}
+		}
   return that;
 }
 

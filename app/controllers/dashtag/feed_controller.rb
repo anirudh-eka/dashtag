@@ -12,33 +12,28 @@ module Dashtag
           @posts = Post.limited_sorted_posts(100)
           render "index"
         end
-        format.json do
-          @posts = Post.get_new_posts(convert_to_seconds(params[:last_update_time]))
-          render_json_posts @posts
-        end
       end
     end
 
-    def get_next_page
+    def get_older_posts
       @posts = Post.next_posts(Post.find(params[:last_post_id]), 100)
-      render_json_posts @posts
+      render_posts_with_status(@posts)
     end
 
     def get_new_posts
-      puts "*" * 80
-      p "hit route"
       @posts = Post.get_new_posts(convert_to_seconds(params[:last_update_time]))
-      render partial: "posts"
+      render_posts_with_status(@posts)
+      # render partial: "posts"
     end
 
     private
 
-    def render_json_posts(posts)
+    def render_posts_with_status(posts)
       if posts.nil? || posts.empty?
-        render json: posts, status: :not_modified
+        render partial: "posts", status: :not_modified
       else
-        posts.each { |post| post.text = add_post_links post }
-        render json: posts
+        # posts.each { |post| post.text = add_post_links post }
+        render partial: "posts"
       end
     end
 

@@ -36,22 +36,22 @@ dashtag.ajaxService = function() {
     loop();
   };
 
-  that.getNextPosts = function(){
+  that.getOlderPosts = function(){
     $.ajax({
       type: "GET",
-      url: "/get_next_page",
+      url: "/get_older_posts",
       data: {
         "last_post_id": getLastPostId()
             },
-      contentType: "application/json; charset=utf-8",
+      contentType: "application/html; charset=utf-8",
       ifModified: true,
-      dataType: "json",
+      dataType: "html",
       success: function(response, status){
         if(status != "notmodified") {
-          $(that).trigger("next-posts", [response]);
+          $(that).trigger("older-posts-loaded", response);
         }
         else{
-          $(that).trigger("next-posts:notmodified");
+          $(that).trigger("older-posts-loaded:notmodified");
         }
       }
     });

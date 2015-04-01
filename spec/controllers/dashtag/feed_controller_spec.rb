@@ -29,77 +29,64 @@ module Dashtag
           end
         end
       end
-      context "with JSON request" do
-        it "should convert last_update_time from client to miliseconds and get posts after that time" do
-          expect(Post).to receive(:get_new_posts).with(1415474499.122)
-          get :index, :format => :json, :last_update_time => "1415474499122"
-        end
-        it "should render hashtag links for new twitter posts" do
-          future = Time.now + 1
-          post = FactoryGirl.create(:post, created_at: future, text: "float like a butterfly #word", time_of_post: future, source: 'twitter')
-          allow(APIService.instance).to receive(:pull_posts)
-          get :index, :format => :json
-          expect(assigns(:posts).first.text).to eq('float like a butterfly <a target="_blank" href="http://twitter.com/hashtag/word">#word</a>')
-        end
-      end
     end
 
     describe 'GET #get_new_posts' do
+      before(:each) do 
+        @present = Time.now
+        @present_in_miliseconds = (@present.to_f * 1000).to_s
+        @present_in_seconds = (@present.to_f)
+      end
       it "should convert last_update_time from client to miliseconds and get posts after that time" do
         expect(Post).to receive(:get_new_posts).with(1415474499.122)
         get :get_new_posts, :format => :html, :last_update_time => "1415474499122"
       end
+      
       it "should return view of new posts" do
-          present = Time.now
-          present_in_seconds = (present.to_f * 1000).to_s
-          future = present + 500
-          past = present - 500
-          future_post = FactoryGirl.create(:post, 
-            created_at: future, 
-            text: "float like a butterfly #word", 
-            time_of_post: future, 
-            source: 'twitter')
-          past_post = FactoryGirl.create(:post, 
-            created_at: past, 
-            text: "float like a butterfly #word", 
-            time_of_post: past, 
-            source: 'twitter')
-          allow(APIService.instance).to receive(:pull_posts)
+        future = @present + 500
+        past = @present - 500
+        future_post = FactoryGirl.create(:post, 
+          created_at: future, 
+          text: "float like a butterfly #word", 
+          time_of_post: future, 
+          source: 'twitter')
+        past_post = FactoryGirl.create(:post, 
+          created_at: past, 
+          text: "float like a butterfly #word", 
+          time_of_post: past, 
+          source: 'twitter')
+        allow(APIService.instance).to receive(:pull_posts)
 
 
-          get :get_new_posts, :format => :html, :last_update_time => present_in_seconds
-          expect(assigns(:posts)).to eq([future_post])
+        get :get_new_posts, :format => :html, :last_update_time => @present_in_miliseconds
+        expect(assigns(:posts)).to eq([future_post])
+      end
+
+      it 'should return status not_modified if there are no new posts' do
+        allow(Post).to receive(:get_new_posts).with(@present_in_seconds)
+        get :get_new_posts, :format => :html, :last_update_time => @present_in_miliseconds
+        expect(response.status).to eq(304)
       end
     end
 
-    describe 'GET #get_next_page' do
+    describe 'GET #get_older_posts' do
       it 'should return a list of older posts' do
         first_post.id, second_post.id = first_post.id, second_post.id
-        get :get_next_page, last_post_id: third_post.id, :format => :json
+        get :get_older_posts, last_post_id: third_post.id, :format => :html
         expect(assigns(:posts)).to eql([second_post, first_post])
       end
 
       it 'should return a maximum of 100 posts' do
         (0..150).each { |i| FactoryGirl.create(:post, time_of_post: Time.now - i)}
-        get :get_next_page, last_post_id: third_post.id, :format => :json
+        get :get_older_posts, last_post_id: third_post.id, :format => :html
         expect(assigns(:posts).count).to eq(100)
       end
 
       it 'should return status not_modified if there are no more posts left' do
         (0..60).each { |i| FactoryGirl.create(:post, time_of_post: Time.now - i)}
-        get :get_next_page, last_post_id: Post.last.id, :format => :json
+        get :get_older_posts, last_post_id: Post.last.id, :format => :html
 
         expect(response.status).to eq(304)
-      end
-
-      it "should render hashtag links for posts" do
-        past = Time.now - 3
-        past_post = FactoryGirl.create(:post, created_at: past, text: "float like a butterfly #word", time_of_post: past, source: 'twitter')
-        allow(Post).to receive(:next_posts) { [past_post] }
-
-        get :get_next_page, last_post_id: past_post.id, :format => :json
-
-        expect(assigns(:posts).first.text).to eq('float like a butterfly <a target="_blank" href="http://twitter.com/hashtag/word">#word</a>')
       end
     end
   end

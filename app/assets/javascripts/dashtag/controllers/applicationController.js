@@ -6,7 +6,6 @@ dashtag.applicationController = function(spec) {
   var that = {};
   var postsHtmlToBeRendered = "";
   var active = false;
-  var renderPostHelper = spec.renderPostHelper;
   var ajaxService = spec.ajaxService;
   var masonryService = spec.masonryService
 
@@ -48,23 +47,15 @@ dashtag.applicationController = function(spec) {
   };
 
   that.setupLoadOlderPosts = function() {
-    var nextPostModels = [];
 
     $("#load-posts-btn").on("click", function(){
-      ajaxService.getNextPosts();
-      $(ajaxService).on("next-posts", function(e, rawPostData){
-
-        $.each(rawPostData, function(index, rawPost){
-          nextPostModels.push(createPost(rawPost));
-        });
-
-        var nextPosts = renderPostHelper.createPostContent(nextPostModels);
-        $('#posts-list').append(nextPosts);
+      ajaxService.getOlderPosts();
+      $(ajaxService).on("older-posts-loaded", function(e, olderPostsHtml){
+        $('#posts-list').append(olderPostsHtml);
         masonryService.layOutMasonry();
-        nextPostModels = []
       });
 
-      $(ajaxService).on("next-posts:notmodified", function(){
+      $(ajaxService).on("older-posts-loaded:notmodified", function(){
         $("#loading").empty();
         $("#load-posts-btn").text("There are no more posts!");
       });
