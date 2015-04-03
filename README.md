@@ -4,7 +4,7 @@ The hastag displayer is a light weight rails application that pulls tweets with 
 
 The application uses [Twitter's REST API](https://dev.twitter.com/rest/reference/get/search/tweets) and [Instagram's REST API](http://instagram.com/developer/). Please note this is not an exhaustive list of all tweets/instagrams with a particular hashtag.
 
-Check out the example of Hashtag Displayer [here on our staging site](http://hashtag-displayer-staging-1.herokuapp.com/).
+Check out the example of Hashtag Displayer [here on our demo site](https://dashtagdemo.herokuapp.com/).
 
 To Deploy To Heroku
 -------------------
