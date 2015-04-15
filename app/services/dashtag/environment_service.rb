@@ -22,7 +22,7 @@ module Dashtag
 
 		def self.hashtag_array
 			return [ENV["HASHTAG"]] if ENV["HASHTAG"] && ENV["HASHTAGS"] == nil
-			ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|")
+			ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|").map {|hashtag| hashtag.strip }
 		end
 
 		def self.twitter_bearer_credentials

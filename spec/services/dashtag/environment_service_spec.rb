@@ -155,6 +155,11 @@ module Dashtag
         ENV["HASHTAG"] = default_val
       end
 
+      it "should strip non-essential white space off hashtags" do
+        ENV["HASHTAGS"] = "\nyolo|cool|stuff\n\n"
+        expect(EnvironmentService.hashtag_array).to eq(%w(yolo cool stuff))
+      end
+
       context "if HASHTAG and HASHTAGS variable are set in environment" do
         it "should use HASHTAGS" do
           ENV["HASHTAG"] = "love"
