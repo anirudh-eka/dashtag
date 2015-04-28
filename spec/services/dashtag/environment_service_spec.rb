@@ -5,20 +5,58 @@ module Dashtag
     before(:each) do 
       @default_key = ENV["TWITTER_BEARER_KEY"]
       @default_secret = ENV["TWITTER_BEARER_SECRET"]
+      @default_header_title = ENV["HEADER_TITLE"]
+      @default_twitter_users = ENV["TWITTER_USERS"]
+      @default_instagram_user_id = ENV["INSTAGRAM_USER_IDS"]
+      @default_instagram_users = ENV["INSTAGRAM_USERS"]
+      @default_header_link = ENV["HEADER_LINK"]
+      @default_hashtags = ENV["HASHTAGS"]
+      @default_censored_words = ENV["CENSORED_WORDS"]
+      @default_instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
+      @default_censored_users = ENV["CENSORED_USERS"]
+      @test_disable_retweets = ENV["DISABLE_RETWEETS"]
+      @test_db_row_limit = ENV["DB_ROW_LIMIT"]
+      @test_ajax_interval = ENV["AJAX_INTERVAL"] 
+      @test_api_rate = ENV["API_RATE"] 
+      @test_font_family = ENV["FONT_FAMILY"]
+      @test_header_color = ENV["HEADER_COLOR"]
+      @test_background_color = ENV["BACKGROUND_COLOR"]
+      @test_post_color_1 = ENV["POST_COLOR_1"]
+      @test_post_color_2 = ENV["POST_COLOR_2"]
+      @test_post_color_3 = ENV["POST_COLOR_3"]
+      @test_post_color_4 = ENV["POST_COLOR_4"]
     end
 
     after(:each) do 
       ENV["TWITTER_BEARER_KEY"] = @default_key
       ENV["TWITTER_BEARER_SECRET"] = @default_secret
+      ENV["HEADER_TITLE"] = @default_header_title
+      ENV["TWITTER_USERS"] = @default_twitter_users
+      ENV["INSTAGRAM_USER_IDS"] = @default_instagram_user_id
+      ENV["INSTAGRAM_USERS"] =  @default_instagram_users
+      ENV["HEADER_LINK"] =  @default_header_link
+      ENV["HASHTAGS"] =  @default_hashtags
+      ENV["CENSORED_WORDS"] = @default_censored_words
+      ENV["INSTAGRAM_CLIENT_ID"] = @default_instagram_client_id
+      ENV["CENSORED_USERS"] = @default_censored_users 
+      ENV["DISABLE_RETWEETS"] = @test_disable_retweets
+      ENV["DB_ROW_LIMIT"] =  @test_db_row_limit
+      ENV["AJAX_INTERVAL"] =  @test_ajax_interval
+      ENV["API_RATE"] =  @test_api_rate
+      ENV["FONT_FAMILY"] =  @test_font_family 
+      ENV["HEADER_COLOR"] = @test_header_color
+      ENV["BACKGROUND_COLOR"] = @test_background_color
+      ENV["POST_COLOR_1"] =  @test_post_color_1
+      ENV["POST_COLOR_2"] = @test_post_color_2
+      ENV["POST_COLOR_3"] =  @test_post_color_3
+      ENV["POST_COLOR_4"] =  @test_post_color_4
     end
 
     describe "header title" do
       def header_title_helper_for(env_title_value)
-        default_val = ENV["HEADER_TITLE"]
         default_title = "##{EnvironmentService.hashtag_array.join(" #")}"
         ENV["HEADER_TITLE"] = env_title_value
         expect(EnvironmentService.header_title).to eq(default_title)
-        ENV["HEADER_TITLE"] = default_val
       end
 
       it "should return a title for user set in env with '#'" do
@@ -36,96 +74,72 @@ module Dashtag
 
     describe "twitter_users" do
       it 'should parse EnvironmentService.twitter_users into an array' do
-        default_val = ENV["TWITTER_USERS"]
         ENV["TWITTER_USERS"] = "yolo|dance|christmas"
         expected_array = ['yolo', 'dance', 'christmas']
         expect(EnvironmentService.twitter_users).to eq(expected_array)
-        ENV["TWITTER_USERS"] = default_val
       end
 
       it "should return an empty array if twitter_users are not set in env" do
-        default_cred = ENV["TWITTER_USERS"]
         ENV["TWITTER_USERS"] = nil
         expect(EnvironmentService.twitter_users).to be_empty
-        ENV["TWITTER_USERS"] = default_cred
       end
 
       it "should return an empty array if twitter_users are not set in env" do
-        default_cred = ENV["TWITTER_USERS"]
         ENV["TWITTER_USERS"] = ""
         expect(EnvironmentService.twitter_users).to be_empty
-        ENV["TWITTER_USERS"] = default_cred
       end
     end
 
     describe "instagram_user_ids" do
       it 'should parse EnvironmentService.instagram_user_ids into an array' do
-        default_val = ENV["INSTAGRAM_USER_IDS"]
         ENV["INSTAGRAM_USER_IDS"] = "12345|2345345345|1235345"
         expected_array = ['12345', '2345345345', '1235345']
         expect(EnvironmentService.instagram_user_ids).to eq(expected_array)
-        ENV["INSTAGRAM_USER_IDS"] = default_val
       end
 
       it "should return an empty array if instagram_user_ids are not set in env" do
-        default_cred = ENV["INSTAGRAM_USER_IDS"]
         ENV["INSTAGRAM_USER_IDS"] = nil
         expect(EnvironmentService.instagram_user_ids).to be_empty
-        ENV["INSTAGRAM_USER_IDS"] = default_cred
       end
 
       it "should return an empty array if instagram_user_ids are not set in env" do
-        default_cred = ENV["INSTAGRAM_USER_IDS"]
         ENV["INSTAGRAM_USER_IDS"] = ""
         expect(EnvironmentService.instagram_user_ids).to be_empty
-        ENV["INSTAGRAM_USER_IDS"] = default_cred
       end
     end
 
     describe "instagram_users" do
       it 'should parse EnvironmentService.instagram_users into an array' do
-        default_val = ENV["INSTAGRAM_USERS"]
         ENV["INSTAGRAM_USERS"] = "kingjames|trey5"
         expected_array = ['kingjames', 'trey5']
         expect(EnvironmentService.instagram_users).to eq(expected_array)
-        ENV["INSTAGRAM_USERS"] = default_val
       end
 
       it "should return an empty array if instagram_users are not set in env" do
-        default_cred = ENV["INSTAGRAM_USERS"]
         ENV["INSTAGRAM_USERS"] = nil
         expect(EnvironmentService.instagram_users).to be_empty
-        ENV["INSTAGRAM_USERS"] = default_cred
       end
 
       it "should return an empty array if instagram_users are not set in env" do
-        default_cred = ENV["INSTAGRAM_USERS"]
         ENV["INSTAGRAM_USERS"] = ""
         expect(EnvironmentService.instagram_users).to be_empty
-        ENV["INSTAGRAM_USERS"] = default_cred
       end
     end
 
     describe "header link" do
       it "should return a link for user set in env" do
-        default_val = ENV["HEADER_LINK"]
         ENV["HEADER_LINK"] = "MY CUSTOM HEADER"
         expect(EnvironmentService.header_link).to eq(ENV["HEADER_LINK"])
-        ENV["HEADER_LINK"] = default_val
       end
 
       it "should return #hashtag-anchor if header-link is nil" do
-        default_val = ENV["HEADER_LINK"]
         ENV["HEADER_LINK"] = nil
         expect(EnvironmentService.header_link).to eq("#hashtag-anchor")
-        ENV["HEADER_LINK"] = default_val
       end
 
       it "should return #hashtag-anchor if header-link is empty" do
-        default_val = ENV["HEADER_LINK"]
         ENV["HEADER_LINK"] = ""
         expect(EnvironmentService.header_link).to eq("#hashtag-anchor")
-        ENV["HEADER_LINK"] = default_val
       end
     end
 
@@ -133,36 +147,28 @@ module Dashtag
 
     describe "hashtags" do
       it "should return an empty array if HASHTAGS and HASHTAG have a nil value" do
-        default_val = ENV["HASHTAGS"]
         ENV["HASHTAGS"] = nil
         ENV["HASHTAG"] = nil
         expect(EnvironmentService.hashtag_array).to be_empty
-        ENV["HASHTAGS"] = default_val
       end
 
       it "should return an empty array if HASHTAGS and HASHTAG have an empty string value" do
-        default_val = ENV["HASHTAGS"]
         ENV["HASHTAGS"] = ""
         ENV["HASHTAG"] = ""
         expect(EnvironmentService.hashtag_array).to be_empty
-        ENV["HASHTAGS"] = default_val
       end
 
       it 'should parse EnvironmentService.hashtag into an array' do
-        default_val = ENV["HASHTAGS"]
         ENV["HASHTAGS"] = "yolo|dance|christmas"
         expected_array = ['yolo', 'dance', 'christmas']
         expect(EnvironmentService.hashtag_array).to eq(expected_array)
-        ENV["HASHTAGS"] = default_val
       end
 
       it "should provide backwards support for apps that set the env variable as 'hashtag' and not using 'hashtags'" do
-        default_val = ENV["HASHTAG"]
         ENV["HASHTAG"] = "yolo"
         ENV["HASHTAGS"] = nil
         expected_array = ['yolo']
         expect(EnvironmentService.hashtag_array).to eq(expected_array)
-        ENV["HASHTAG"] = default_val
       end
 
       it "should strip non-essential white space off hashtags" do
@@ -216,10 +222,8 @@ module Dashtag
         expect(EnvironmentService.instagram_client_id).to eq(ENV["INSTAGRAM_CLIENT_ID"])
       end
       it "should return nil if twitter credentials are not set in env" do
-        default_cred = ENV["INSTAGRAM_CLIENT_ID"]
         ENV["INSTAGRAM_CLIENT_ID"] = nil
-        expect(EnvironmentService.instagram_client_id).to be_nil
-        ENV["INSTAGRAM_CLIENT_ID"] = default_cred
+        expect(EnvironmentService.instagram_client_id).to be_nil 
       end
     end
 
@@ -228,10 +232,8 @@ module Dashtag
         expect(EnvironmentService.censored_words).to eq(ENV["CENSORED_WORDS"])
       end
       it "should return nil if twitter credentials are not set in env" do
-        default_cred = ENV["CENSORED_WORDS"]
         ENV["CENSORED_WORDS"] = nil
         expect(EnvironmentService.censored_words).to be_nil
-        ENV["CENSORED_WORDS"] = default_cred
       end
     end
 
@@ -240,33 +242,24 @@ module Dashtag
         expect(EnvironmentService.censored_users).to eq(ENV["CENSORED_USERS"])
       end
       it "should return nil if twitter credentials are not set in env" do
-        default_cred = ENV["CENSORED_USERS"]
         ENV["CENSORED_USERS"] = nil
         expect(EnvironmentService.censored_users).to be_nil
-        ENV["CENSORED_USERS"] = default_cred
       end
     end
 
     describe "disable retweets" do
       it "should return what is set in env in downcase" do
-        test_env = ENV["DISABLE_RETWEETS"]
         ENV["DISABLE_RETWEETS"] = "fAlSe"
         expect(EnvironmentService.disable_retweets).to eq(false)
-        ENV["DISABLE_RETWEETS"] = test_env
       end
 
       it "should return true by default" do
-        test_env = ENV["DISABLE_RETWEETS"]
         ENV["DISABLE_RETWEETS"] = nil
         expect(EnvironmentService.disable_retweets).to eq(true)
-        ENV["DISABLE_RETWEETS"] = test_env
       end
     end
 
     describe "api_rate" do
-      before(:each) { @test_env = ENV["API_RATE"] }
-      after(:each) { ENV["API_RATE"] = @test_env }
-
       it "should return what is set in env" do
         ENV["API_RATE"] = "10"
         expect(EnvironmentService.api_rate).to eq(10)
@@ -285,20 +278,15 @@ module Dashtag
       end
 
       it "should return 6 * users count if entry is not integer and users count is greater than hashtag count" do
-        test_env = ENV["TWITTER_USERS"]
         ENV["TWITTER_USERS"] = "my|screen|name|4th_user|g3"
         users_count = EnvironmentService.twitter_users.count
         ENV["API_RATE"] = "stuff"
         expect(EnvironmentService.api_rate).to eq(6 * users_count)
-        ENV["TWITTER_USERS"] = test_env
       end
     end
 
 
     describe "ajax_interval" do
-      before(:each){ @test_env = ENV["AJAX_INTERVAL"] }
-      after(:each){ ENV["AJAX_INTERVAL"] = @test_env }
-
       it "should return what is set in env" do
         ENV["AJAX_INTERVAL"] = "1000"
         expect(EnvironmentService.ajax_interval).to eq(1000)
@@ -317,89 +305,69 @@ module Dashtag
 
     describe "db_row_limit" do
       it "should return what is set in env" do
-        test_env = ENV["DB_ROW_LIMIT"]
         ENV["DB_ROW_LIMIT"] = "3000"
         expect(EnvironmentService.db_row_limit).to eq(3000)
-        ENV["DB_ROW_LIMIT"] = test_env
       end
 
       it "should return 8000 by default" do
-        test_env = ENV["DB_ROW_LIMIT"]
         ENV["DB_ROW_LIMIT"] = nil
         expect(EnvironmentService.db_row_limit).to eq(8000)
-        ENV["DB_ROW_LIMIT"] = test_env
       end
 
 
       it "should return 8000 if entry is not integer" do
-        test_env = ENV["DB_ROW_LIMIT"]
         ENV["DB_ROW_LIMIT"] = "stuff"
         expect(EnvironmentService.db_row_limit).to eq(8000)
-        ENV["DB_ROW_LIMIT"] = test_env
       end
     end
 
     describe "font_family" do
       it "should return what is set in env" do
-        test_env = ENV["FONT_FAMILY"]
         ENV["FONT_FAMILY"] = "Comic-Sans"
         expect(EnvironmentService.font_family).to eq("Comic-Sans")
-        ENV["FONT_FAMILY"] = test_env
       end
     end
 
     describe "header_color" do
       it "should return what is set in env" do
-        test_env = ENV["HEADER_COLOR"]
         ENV["HEADER_COLOR"] = "#07c"
         expect(EnvironmentService.header_color).to eq("#07c")
-        ENV["HEADER_COLOR"] = test_env
       end
     end
 
 
     describe "background_color" do
       it "should return what is set in env" do
-        test_env = ENV["BACKGROUND_COLOR"]
         ENV["BACKGROUND_COLOR"] = "#07c"
         expect(EnvironmentService.background_color).to eq("#07c")
-        ENV["BACKGROUND_COLOR"] = test_env
       end
     end
 
     describe "post_color_1" do
       it "should return what is set in env" do
-        test_env = ENV["POST_COLOR_1"]
         ENV["POST_COLOR_1"] = "#07c"
         expect(EnvironmentService.post_color_1).to eq("#07c")
-        ENV["POST_COLOR_1"] = test_env
       end
     end
 
     describe "post_color_2" do
       it "should return what is set in env" do
-        test_env = ENV["POST_COLOR_2"]
         ENV["POST_COLOR_2"] = "#07c"
         expect(EnvironmentService.post_color_2).to eq("#07c")
-        ENV["POST_COLOR_2"] = test_env
       end
     end
 
     describe "post_color_3" do
       it "should return what is set in env" do
-        test_env = ENV["POST_COLOR_3"]
         ENV["POST_COLOR_3"] = "#07c"
         expect(EnvironmentService.post_color_3).to eq("#07c")
-        ENV["POST_COLOR_3"] = test_env
       end
     end
 
     describe "post_color_4" do
       it "should return what is set in env" do
-        test_env = ENV["POST_COLOR_4"]
         ENV["POST_COLOR_4"] = "#07c"
         expect(EnvironmentService.post_color_4).to eq("#07c")
-        ENV["POST_COLOR_4"] = test_env
       end
     end
   end
