@@ -31,7 +31,8 @@ Currently the application uses the following variables in the environment:
 -	CENSORED_WORDS
 -	CENSORED_USERS
 - API_RATE (default: 6 seconds * hashtag_count)
--	TWITTER_BEARER_CREDENTIALS
+-	TWITTER_CONSUMER_KEY
+-	TWITTER_CONSUMER_SECRET
 - INSTAGRAM_CLIENT_ID
 -	DISABLE_RETWEETS (default: true)
 -	DB_ROW_LIMIT (default: 8000)
