@@ -2,6 +2,16 @@ require 'spec_helper'
 
 module Dashtag
   describe EnvironmentService do
+    before(:each) do 
+      @default_key = ENV["TWITTER_BEARER_KEY"]
+      @default_secret = ENV["TWITTER_BEARER_SECRET"]
+    end
+
+    after(:each) do 
+      ENV["TWITTER_BEARER_KEY"] = @default_key
+      ENV["TWITTER_BEARER_SECRET"] = @default_secret
+    end
+
     describe "header title" do
       def header_title_helper_for(env_title_value)
         default_val = ENV["HEADER_TITLE"]
@@ -172,15 +182,34 @@ module Dashtag
 
     describe "twitter credentials" do
       it "should return twitter credentials set in env" do
-        expect(EnvironmentService.twitter_bearer_credentials).to eq(ENV["TWITTER_BEARER_CREDENTIALS"])
+        ENV["TWITTER_BEARER_KEY"] = "key"
+        ENV["TWITTER_BEARER_SECRET"] = "secret"
+        expect(EnvironmentService.twitter_bearer_credentials).to eq(ENV["TWITTER_BEARER_KEY"] + ":" + ENV["TWITTER_BEARER_SECRET"])
       end
 
-      it "should return nil if twitter credentials are not set in env" do
-        default_cred = ENV["TWITTER_BEARER_CREDENTIALS"]
-        ENV["TWITTER_BEARER_CREDENTIALS"] = nil
+      it "should return nil if twitter key is not set in env" do
+        ENV["TWITTER_BEARER_KEY"] = nil
+        ENV["TWITTER_BEARER_SECRET"] = "secret"
         expect(EnvironmentService.twitter_bearer_credentials).to be_nil
-        ENV["TWITTER_BEARER_CREDENTIALS"] = default_cred
       end
+
+      it "should return nil if twitter secret is not set in env" do 
+        ENV["TWITTER_BEARER_KEY"] = "key" 
+        ENV["TWITTER_BEARER_SECRET"] = nil
+        expect(EnvironmentService.twitter_bearer_credentials).to be_nil
+      end 
+
+      it "should return nil if twitter key is an empty string" do 
+        ENV["TWITTER_BEARER_KEY"] = ""
+        ENV["TWITTER_BEARER_SECRET"] = "secret"
+        expect(EnvironmentService.twitter_bearer_credentials).to be_nil
+      end 
+
+       it "should return nil if twitter secret is an empty string" do 
+        ENV["TWITTER_BEARER_KEY"] = "key"
+        ENV["TWITTER_BEARER_SECRET"] = ""
+        expect(EnvironmentService.twitter_bearer_credentials).to be_nil
+      end 
     end
     describe "instagram credentials" do
       it "should return twitter credentials set in env" do

@@ -26,7 +26,9 @@ module Dashtag
 		end
 
 		def self.twitter_bearer_credentials
-			ENV["TWITTER_BEARER_CREDENTIALS"] == "" ? nil : ENV["TWITTER_BEARER_CREDENTIALS"]
+			return nil if ENV["TWITTER_BEARER_KEY"] == nil || ENV["TWITTER_BEARER_SECRET"] == nil
+			return nil if ENV["TWITTER_BEARER_KEY"] == "" || ENV["TWITTER_BEARER_SECRET"] == ""
+			ENV["TWITTER_BEARER_KEY"] + ":" + ENV["TWITTER_BEARER_SECRET"]
 		end
 
 		def self.instagram_client_id

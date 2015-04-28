@@ -71,7 +71,8 @@ RSpec.configure do |config|
     ENV["CENSORED_WORDS"]="Big|Brother|watching"
     ENV["CENSORED_USERS"]="BadUser|dirtyuser"
     ENV["API_RATE"] = 1.to_s
-    ENV["TWITTER_BEARER_CREDENTIALS"] = "asdf"
+    ENV["TWITTER_BEARER_KEY"] = "default_key"
+    ENV["TWITTER_BEARER_SECRET"] = "default_secret"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
     ENV["INSTAGRAM_USER_IDS"] = "1234|24536"
     ENV["HASHTAGS"] = "fda|dogs"
@@ -98,7 +99,7 @@ RSpec.configure do |config|
      "token_type"=>"bearer"}.to_json
 
 
-    stub_request(:post, /https:\/\/#{ENV["TWITTER_BEARER_CREDENTIALS"]}@api.twitter.com\/oauth2\/token/).
+    stub_request(:post, /https:\/\/#{ENV["TWITTER_BEARER_KEY"]}:#{ENV["TWITTER_BEARER_SECRET"]}@api.twitter.com\/oauth2\/token/).
       with(headers: {"content-type"=>"application/x-www-form-urlencoded;charset=UTF-8"},
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
