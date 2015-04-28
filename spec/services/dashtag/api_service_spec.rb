@@ -90,12 +90,12 @@ module Dashtag
         end
         context "when twitter api keys are not provided in the env" do
           it "should not pull from twitter and parse" do
-            default_env_twitter_keys = ENV["TWITTER_BEARER_KEY"]
-            ENV["TWITTER_BEARER_KEY"] = ""
+            default_env_twitter_keys = ENV["TWITTER_CONSUMER_KEY"]
+            ENV["TWITTER_CONSUMER_KEY"] = ""
             expect(APIService.instance).to_not receive(:pull_twitter_posts_and_parse)
             expect(APIService.instance).to_not receive(:pull_twitter_posts_from_users_and_parse)
             APIService.instance.pull_posts!
-            ENV["TWITTER_BEARER_KEY"] = default_env_twitter_keys
+            ENV["TWITTER_CONSUMER_KEY"] = default_env_twitter_keys
           end
         end
         context "when instagram api keys are not provided in the env" do
