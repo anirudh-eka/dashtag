@@ -119,9 +119,7 @@ Refer to Twitter API Limits [here](https://dev.twitter.com/rest/public/rate-limi
 
 Refer to Instagram API Limits [here](http://instagram.com/developer/limits/).
 
-`Twitter Bearer Credentials` should be set to the Twitter Key followed by a colon and the Twitter secret, like so:
-
-	TWITTER_BEARER_CREDENTIALS=your_twitter_key:your_twitter_secret
+`TWITTER_CONSUMER_KEY` should be set to the Twitter Consumer Key and the `TWITTER_CONSUMER_SECRET` should be set to the Twitter Consumer Secret.
 
 To find the key and secret for your app follow these [directions](https://dev.twitter.com/oauth/overview/application-owner-access-tokens). This will require you to register your own Twitter application. Also, in case you were wondering, the application uses [application-only authentication](https://dev.twitter.com/oauth/application-only).
 
