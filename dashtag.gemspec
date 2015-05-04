@@ -35,5 +35,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "selenium-webdriver"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "poltergeist"
+  s.add_development_dependency "pry"
 
 end

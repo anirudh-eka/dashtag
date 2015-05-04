@@ -6,6 +6,7 @@ Bundler.require(*Rails.groups)
 
 require 'dotenv'
 Dotenv.load
+require 'pry'
 
 require "dashtag"
 
