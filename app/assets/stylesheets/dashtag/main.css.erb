@@ -109,6 +109,7 @@ a#hashtag-anchor {
 .post-created-at {
   font-size: 11px;
   display: inline-block;
+/*  min-width: 23%;*/
 }
 
 .post-created-at i {
@@ -227,6 +228,26 @@ a.favorite {
   width:24px;
 }
 
+a.twitter_icon {
+   background:transparent url(<%= asset_path "dashtag/twitterBird.png" %>) no-repeat right;
+   display:inline-block;
+    height: 20px;
+    width: 20px;
+    float: left;
+    background-size: cover;
+    padding-left: 10px;
+}
+
+a.instagram_icon {
+    background:transparent url(<%= asset_path "dashtag/instagram.png" %>) no-repeat right;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    float: left;
+    background-size: cover;
+    padding-left: 10px;
+}
+
 a.reply:hover {
   background: url(<%= asset_path "dashtag/reply_hover.png" %>) no-repeat right;
   height:24px;
@@ -245,7 +266,6 @@ a.favorite:hover {
   width:24px;
 }
 
-
 @media ( min-width: 768px )
 {
 
@@ -260,6 +280,7 @@ a.favorite:hover {
     {
         width: 45.876%;
         margin: 5px;
+        padding-bottom: 12.8px;
     }
     #posts-list {
      padding-left: 0;
@@ -290,5 +311,9 @@ a.favorite:hover {
         width: 30%;
         float: left;
         margin: 5px;
+    }
+
+    .post-created-at > * {
+      display: inline;
     }
 }

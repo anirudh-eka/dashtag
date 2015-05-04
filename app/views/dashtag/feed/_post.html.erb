@@ -2,9 +2,11 @@
   <section class="post-id">
     <%= post.id %>
   </section>
+
   <section class="post-text">
     <%= add_post_links post %>
   </section>
+
   <section class="post-picture">
     <% if post.media_url %>
         <% if post.source == 'twitter' %>
@@ -15,6 +17,7 @@
       <img src=<%= post.media_url %> /></a>
     <% end %>
   </section>
+
   <section class="post-username">
     <img src=<%= post.profile_image_url %> class="avatar" /> <%= link_to "@"+post.screen_name, "//"+post.source+".com/"+post.screen_name, target: '_blank' %>
   </section>
@@ -26,17 +29,30 @@
       <a href="https://twitter.com/intent/favorite?tweet_id=<%= post.post_id %>" class= "favorite"></a>
     <% end %>
   </section>
+
   <section class="post-created-at">
     <% unless post.post_id == nil %>
       <% if post.source == 'twitter' %>
           <a href=<%= 'https://twitter.com/' + post.screen_name + '/' + 'status/' + post.post_id %> target='_blank'>
+
       <% elsif post.source == 'instagram' %>
           <a href=<%= 'https://instagram.com/' + 'p/' + post.post_id %> target='_blank'>
       <% end %>
     <% end %>
-    <i class="fa fa-2x fa-<%= post.source %>"></i>
-    <span class="time-of-post"> <%= time_ago_in_words(post.time_of_post) %> ago</span>
+     <span class="time-of-post"> <%= time_ago_in_words(post.time_of_post) %> ago</span>
     </a>
+
+    <section class = "post-icon">  
+          <% if post.source == 'twitter' %>
+            <a href=<%= 'https://twitter.com/' + post.screen_name + '/' + 'status/' + post.post_id %> target='_blank' class= 'twitter_icon'>
+
+         <% elsif post.source == 'instagram' %>
+           <a href=<%= 'https://instagram.com/' + 'p/' + post.post_id %> target='_blank' class='instagram_icon'>
+      <% end %>
+         </a>
+    </section>
+
+  
   </section>
 
 </div>
