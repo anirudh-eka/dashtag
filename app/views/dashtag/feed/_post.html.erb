@@ -34,25 +34,15 @@
     <% unless post.post_id == nil %>
       <% if post.source == 'twitter' %>
           <a href=<%= 'https://twitter.com/' + post.screen_name + '/' + 'status/' + post.post_id %> target='_blank'>
-
+          <span class= 'twitter_icon'></span>
       <% elsif post.source == 'instagram' %>
           <a href=<%= 'https://instagram.com/' + 'p/' + post.post_id %> target='_blank'>
+          <span class= 'instagram_icon'></span>
       <% end %>
     <% end %>
+
      <span class="time-of-post"> <%= time_ago_in_words(post.time_of_post) %> ago</span>
     </a>
-
-    <section class = "post-icon">  
-          <% if post.source == 'twitter' %>
-            <a href=<%= 'https://twitter.com/' + post.screen_name + '/' + 'status/' + post.post_id %> target='_blank' class= 'twitter_icon'>
-
-         <% elsif post.source == 'instagram' %>
-           <a href=<%= 'https://instagram.com/' + 'p/' + post.post_id %> target='_blank' class='instagram_icon'>
-      <% end %>
-         </a>
-    </section>
-
-  
   </section>
 
 </div>

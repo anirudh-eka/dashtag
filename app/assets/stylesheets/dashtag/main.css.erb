@@ -109,11 +109,6 @@ a#hashtag-anchor {
 .post-created-at {
   font-size: 11px;
   display: inline-block;
-/*  min-width: 23%;*/
-}
-
-.post-created-at i {
-  margin-right: 5px;
 }
 
 .footer {
@@ -228,24 +223,21 @@ a.favorite {
   width:24px;
 }
 
-a.twitter_icon {
-   background:transparent url(<%= asset_path "dashtag/twitterBird.png" %>) no-repeat right;
-   display:inline-block;
-    height: 20px;
-    width: 20px;
-    float: left;
-    background-size: cover;
-    padding-left: 10px;
+.twitter_icon {
+  background:transparent url(<%= asset_path "dashtag/twitterBird.png" %>) no-repeat right;
 }
 
-a.instagram_icon {
-    background:transparent url(<%= asset_path "dashtag/instagram.png" %>) no-repeat right;
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    float: left;
-    background-size: cover;
-    padding-left: 10px;
+.instagram_icon {
+  background:transparent url(<%= asset_path "dashtag/instagram.png" %>) no-repeat right;
+}
+
+.twitter_icon, .instagram_icon {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  float: left;
+  background-size: cover;
+  padding-left: 10px;
 }
 
 a.reply:hover {
@@ -311,9 +303,5 @@ a.favorite:hover {
         width: 30%;
         float: left;
         margin: 5px;
-    }
-
-    .post-created-at > * {
-      display: inline;
     }
 }
