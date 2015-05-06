@@ -12,6 +12,7 @@ module Dashtag
 
       factory :random_post do
         screen_name {Faker::Lorem.words.join("_")}
+        post_id {Faker::Number.number(10)}
       end
   	end
   end
