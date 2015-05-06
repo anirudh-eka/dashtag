@@ -39,9 +39,29 @@ module Dashtag
         expect(link[:href].last).to match("[0-9]")
       end
 
-      all('.favorite').each do |link|
+      all('.favorite').each do |link|1
         expect(link[:href]).to start_with("https://twitter.com/intent/favorite?tweet_id=")
         expect(link[:href].last).to match("[0-9]")
+      end
+    end
+
+    it 'should display clickable icons for instagram and twitter posts' do
+      twitterPost = FactoryGirl.create(:post, screen_name: "twitterposter", source: "twitter", post_id: 6754)
+      instagramPost = FactoryGirl.create(:post, screen_name: "instagramposter", source: "instagram")
+
+      visit '/'
+      twitterCount = Post.where(source: "twitter").count
+      instagramCount = Post.where(source: "instagram").count
+      expect(page).to have_css(".time-of-post", count: Post.count)
+      expect(page).to have_css(".twitter_icon", count: twitterCount)
+      expect(page).to have_css(".instagram_icon", count: instagramCount)
+
+      Post.where(source: "twitter").each do |post|
+        expect(page).to have_css("a[href~='https://twitter.com/#{post.screen_name}/status/#{post.post_id}'][target~='_blank']")
+      end
+
+      Post.where(source: "instagram").each do |post|
+        expect(page).to have_css("a[href~='https://instagram.com/p/#{post.post_id}'][target~='_blank']")
       end
     end
 
