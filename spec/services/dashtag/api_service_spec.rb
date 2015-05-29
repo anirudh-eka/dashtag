@@ -49,9 +49,9 @@ module Dashtag
       end
 
       it 'should pull instagram and twitter posts for each hashtag' do
-        EnvironmentService.hashtag_array.each do |hashtags|
-          expect(APIService.instance).to receive(:pull_instagram_posts_and_parse).with(hashtags).and_return([])
-          expect(APIService.instance).to receive(:pull_twitter_posts_and_parse).with(hashtags).and_return([])
+        EnvironmentService.hashtag_array.each do |hashtag|
+          expect(APIService.instance).to receive(:pull_instagram_posts_and_parse).with(hashtag).and_return([])
+          expect(APIService.instance).to receive(:pull_twitter_posts_and_parse).with(hashtag).and_return([])
         end
         APIService.instance.pull_posts!
       end
