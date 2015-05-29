@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Dashtag
   describe EnvironmentService do
-    before(:each) do
+    before(:each) do 
       @default_key = ENV["TWITTER_CONSUMER_KEY"]
       @default_secret = ENV["TWITTER_CONSUMER_SECRET"]
       @default_header_title = ENV["HEADER_TITLE"]
@@ -16,8 +16,8 @@ module Dashtag
       @default_censored_users = ENV["CENSORED_USERS"]
       @test_disable_retweets = ENV["DISABLE_RETWEETS"]
       @test_db_row_limit = ENV["DB_ROW_LIMIT"]
-      @test_ajax_interval = ENV["AJAX_INTERVAL"]
-      @test_api_rate = ENV["API_RATE"]
+      @test_ajax_interval = ENV["AJAX_INTERVAL"] 
+      @test_api_rate = ENV["API_RATE"] 
       @test_font_family = ENV["FONT_FAMILY"]
       @test_header_color = ENV["HEADER_COLOR"]
       @test_background_color = ENV["BACKGROUND_COLOR"]
@@ -27,7 +27,7 @@ module Dashtag
       @test_post_color_4 = ENV["POST_COLOR_4"]
     end
 
-    after(:each) do
+    after(:each) do 
       ENV["TWITTER_CONSUMER_KEY"] = @default_key
       ENV["TWITTER_CONSUMER_SECRET"] = @default_secret
       ENV["HEADER_TITLE"] = @default_header_title
@@ -38,12 +38,12 @@ module Dashtag
       ENV["HASHTAGS"] =  @default_hashtags
       ENV["CENSORED_WORDS"] = @default_censored_words
       ENV["INSTAGRAM_CLIENT_ID"] = @default_instagram_client_id
-      ENV["CENSORED_USERS"] = @default_censored_users
+      ENV["CENSORED_USERS"] = @default_censored_users 
       ENV["DISABLE_RETWEETS"] = @test_disable_retweets
       ENV["DB_ROW_LIMIT"] =  @test_db_row_limit
       ENV["AJAX_INTERVAL"] =  @test_ajax_interval
       ENV["API_RATE"] =  @test_api_rate
-      ENV["FONT_FAMILY"] =  @test_font_family
+      ENV["FONT_FAMILY"] =  @test_font_family 
       ENV["HEADER_COLOR"] = @test_header_color
       ENV["BACKGROUND_COLOR"] = @test_background_color
       ENV["POST_COLOR_1"] =  @test_post_color_1
@@ -158,35 +158,29 @@ module Dashtag
         expect(EnvironmentService.hashtag_array).to be_empty
       end
 
-      it 'should parse EnvironmentService.hashtag into an array of arrays' do
+      it 'should parse EnvironmentService.hashtag into an array' do
         ENV["HASHTAGS"] = "yolo|dance|christmas"
-        expected_array = [['yolo'], ['dance'], ['christmas']]
-        expect(EnvironmentService.hashtag_array).to eq(expected_array)
-      end
-
-      it 'should parse EnvironmentService.hashtag with ANDS into an array of arrays' do
-        ENV["HASHTAGS"] = "yolo|dance|christmas+candy|turtles"
-        expected_array = [['yolo'], ['dance'], ['christmas', 'candy'], ['turtles']]
+        expected_array = ['yolo', 'dance', 'christmas']
         expect(EnvironmentService.hashtag_array).to eq(expected_array)
       end
 
       it "should provide backwards support for apps that set the env variable as 'hashtag' and not using 'hashtags'" do
         ENV["HASHTAG"] = "yolo"
         ENV["HASHTAGS"] = nil
-        expected_array = [['yolo']]
+        expected_array = ['yolo']
         expect(EnvironmentService.hashtag_array).to eq(expected_array)
       end
 
       it "should strip non-essential white space off hashtags" do
         ENV["HASHTAGS"] = "\nyolo|cool|stuff\n\n"
-        expect(EnvironmentService.hashtag_array).to eq([['yolo'], ['cool'], ['stuff']])
+        expect(EnvironmentService.hashtag_array).to eq(%w(yolo cool stuff))
       end
 
       context "if HASHTAG and HASHTAGS variable are set in environment" do
         it "should use HASHTAGS" do
           ENV["HASHTAG"] = "love"
           ENV["HASHTAGS"] = "yolo|dance|christmas"
-          expected_array = [['yolo'], ['dance'], ['christmas']]
+          expected_array = ['yolo', 'dance', 'christmas']
           expect(EnvironmentService.hashtag_array).to eq(expected_array)
         end
       end
@@ -205,23 +199,23 @@ module Dashtag
         expect(EnvironmentService.twitter_bearer_credentials).to be_nil
       end
 
-      it "should return nil if twitter secret is not set in env" do
-        ENV["TWITTER_CONSUMER_KEY"] = "key"
+      it "should return nil if twitter secret is not set in env" do 
+        ENV["TWITTER_CONSUMER_KEY"] = "key" 
         ENV["TWITTER_CONSUMER_SECRET"] = nil
         expect(EnvironmentService.twitter_bearer_credentials).to be_nil
-      end
+      end 
 
-      it "should return nil if twitter key is an empty string" do
+      it "should return nil if twitter key is an empty string" do 
         ENV["TWITTER_CONSUMER_KEY"] = ""
         ENV["TWITTER_CONSUMER_SECRET"] = "secret"
         expect(EnvironmentService.twitter_bearer_credentials).to be_nil
-      end
+      end 
 
-       it "should return nil if twitter secret is an empty string" do
+       it "should return nil if twitter secret is an empty string" do 
         ENV["TWITTER_CONSUMER_KEY"] = "key"
         ENV["TWITTER_CONSUMER_SECRET"] = ""
         expect(EnvironmentService.twitter_bearer_credentials).to be_nil
-      end
+      end 
     end
     describe "instagram credentials" do
       it "should return twitter credentials set in env" do
@@ -229,7 +223,7 @@ module Dashtag
       end
       it "should return nil if twitter credentials are not set in env" do
         ENV["INSTAGRAM_CLIENT_ID"] = nil
-        expect(EnvironmentService.instagram_client_id).to be_nil
+        expect(EnvironmentService.instagram_client_id).to be_nil 
       end
     end
 
@@ -272,15 +266,15 @@ module Dashtag
       end
 
       it "should return 6 * hashtag count by default and hashtag count is greater than user count" do
-        ENV["HASHTAGS"] = 'kind|dogs'
+        hashtag_count = EnvironmentService.hashtag_array.count
         ENV["API_RATE"] = nil
-        expect(EnvironmentService.api_rate).to eq(12)
+        expect(EnvironmentService.api_rate).to eq(6 * hashtag_count)
       end
 
       it "should return 6 * hashtag count if entry is not integer and hashtag count is greater than user count" do
-        ENV["HASHTAGS"] = 'kind|dogs'
+        hashtag_count = EnvironmentService.hashtag_array.count
         ENV["API_RATE"] = "stuff"
-        expect(EnvironmentService.api_rate).to eq(12)
+        expect(EnvironmentService.api_rate).to eq(6 * hashtag_count)
       end
 
       it "should return 6 * users count if entry is not integer and users count is greater than hashtag count" do

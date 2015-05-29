@@ -21,8 +21,8 @@ module Dashtag
 		end
 
 		def self.hashtag_array
-			return [[ENV["HASHTAG"]]] if ENV["HASHTAG"] && ENV["HASHTAGS"] == nil
-      ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|").map {|hashtags| hashtags.split("+").map { |hashtag| hashtag.strip } }
+			return [ENV["HASHTAG"]] if ENV["HASHTAG"] && ENV["HASHTAGS"] == nil
+			ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|").map {|hashtag| hashtag.strip }
 		end
 
 		def self.twitter_bearer_credentials
@@ -51,7 +51,7 @@ module Dashtag
 			begin
 				Integer(ENV["API_RATE"])
 			rescue ArgumentError, TypeError
-        [6 * EnvironmentService.hashtag_array.flatten.uniq.count, 6 * EnvironmentService.twitter_users.count].max
+				[6 * EnvironmentService.hashtag_array.count, 6 * EnvironmentService.twitter_users.count].max
 			end
 		end
 
