@@ -104,11 +104,14 @@ RSpec.configure do |config|
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
 
-    Dashtag::EnvironmentService.hashtag_array.each do |hashtag|
-      stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}").
-      to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
+    Dashtag::EnvironmentService.hashtag_array.each do |hashtags|
+      hashtags.each do |hashtag|
+        stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}").
+          to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
+      end
 
-      stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=%23#{hashtag}").
+      hashtag_query = hashtags.map { |hashtag| "%23#{hashtag}" }.join("%20AND%20")
+      stub_request(:get, "https://api.twitter.com/1.1/search/tweets.json?q=#{hashtag_query}").
       with(headers: {"Authorization"=>/Bearer .+/}).
       to_return( {:status => 200, :body => Dashtag::SampleTweetResponses.tweet_response.to_json, :headers => {'content-type' => 'application/json'} },
         {:status => 200, :body => Dashtag::SampleTweetResponses.second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
