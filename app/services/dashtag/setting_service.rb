@@ -2,8 +2,8 @@ module Dashtag
 	class SettingService
     def self.hashtags
       hashtags_setting = Setting.find_by(name: "hashtags")
-      return [] if hashtags_setting.nil? || hashtags_setting.value.nil?
-      JSON.parse (hashtags_setting.value)
+      return Hashtags.new if hashtags_setting.nil? || hashtags_setting.value.nil?
+      Hashtags.new(JSON.parse (hashtags_setting.value))
     end
 
     def self.hashtags=(hashtags)
@@ -37,10 +37,7 @@ module Dashtag
     private
 
     def self.default_header_title
-      stringified = hashtags.map do |inner_hashtags| 
-        inner_hashtags.map {|hashtag| "##{hashtag}"}.join(" & ")
-      end
-      stringified.join(", ")
+      hashtags.to_s
     end
 
     def self.default_api_rate
