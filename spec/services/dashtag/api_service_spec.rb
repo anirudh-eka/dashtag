@@ -20,7 +20,7 @@ module Dashtag
 
     context 'when time since last pull is greater than api rate limit' do
       before(:each) do
-        ENV["API_RATE"] = 15.to_s
+        SettingService.api_rate = 15
         last_pull_stub = Time.now - 20
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
@@ -28,7 +28,7 @@ module Dashtag
       it "parses grams and tweets from response and creates posts with parsed data" do
           tweet = FactoryGirl.create(:post,
             source: "twitter",
-            text: "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
+            text: "Thee Namaste Nerdz. ##{SettingService.hashtags.first}",
             screen_name: "bullcityrecords",
             time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
             profile_image_url: "http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg",
@@ -49,7 +49,7 @@ module Dashtag
       end
 
       it 'should pull instagram and twitter posts for each hashtag' do
-        EnvironmentService.hashtag_array.each do |hashtags|
+        SettingService.hashtags.each do |hashtags|
           expect(APIService.instance).to receive(:pull_instagram_posts_and_parse).with(hashtags).and_return([])
           expect(APIService.instance).to receive(:pull_twitter_posts_and_parse).with(hashtags).and_return([])
         end
@@ -75,18 +75,18 @@ module Dashtag
     describe 'loud pull' do
       context 'when time since last pull is less than api rate limit' do
         before(:each) do
-          ENV["API_RATE"] = 15.to_s
+          SettingService.api_rate = 15
           last_pull_stub = Time.now
           allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
         end
         it "should throw exception" do
           expect { APIService.instance.pull_posts! }.to raise_error("Time since last pull is less than api rate limit")
-          ENV["API_RATE"] = 1.to_s
+          SettingService.api_rate = 1
         end
       end
       context "when time since last pull is greater than the api rate limit" do
         before(:each) do
-          sleep ENV["API_RATE"].to_i + 0.5
+          sleep SettingService.api_rate + 0.5
         end
         context "when twitter api keys are not provided in the env" do
           it "should not pull from twitter and parse" do
@@ -118,7 +118,7 @@ module Dashtag
 
       context 'when time since last pull is less than api rate limit' do
         before(:each) do
-          ENV["API_RATE"] = 15.to_s
+          SettingService.api_rate = 15
           last_pull_stub = Time.now
           allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
         end

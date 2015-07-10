@@ -7,7 +7,7 @@ module Dashtag
 
       it 'should parse tweet attributes from tweet response' do
         attributes = {  source: "twitter",
-            text: "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
+            text: "Thee Namaste Nerdz. ##{SettingService.hashtags.first}",
             screen_name: "bullcityrecords",
             time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
             profile_image_url: "http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg",

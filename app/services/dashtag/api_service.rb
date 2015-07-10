@@ -20,13 +20,13 @@ module Dashtag
     end
 
     def pull_posts!
-      if (Time.now - last_update > EnvironmentService.api_rate)
+      if (Time.now - last_update > SettingService.api_rate)
 
         @last_update = Time.now
 
         parsed_responses = []
 
-        EnvironmentService.hashtag_array.each do |hashtags|
+        SettingService.hashtags.each do |hashtags|
           parsed_responses += pull_instagram_posts_and_parse(hashtags) if EnvironmentService.instagram_client_id
           parsed_responses += pull_twitter_posts_and_parse(hashtags) if EnvironmentService.twitter_bearer_credentials
         end

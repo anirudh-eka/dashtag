@@ -1,9 +1,5 @@
 module Dashtag
 	class EnvironmentService
-		def self.header_title
-			ENV["HEADER_TITLE"] == "" || !ENV["HEADER_TITLE"] ? "##{EnvironmentService.hashtag_array.join(" #")}" : ENV["HEADER_TITLE"]
-		end
-
 		def self.header_link
 			ENV["HEADER_LINK"]  == "" || !ENV["HEADER_LINK"] ? "#hashtag-anchor" : ENV["HEADER_LINK"]
 		end
@@ -18,11 +14,6 @@ module Dashtag
 
 		def self.instagram_users
 			ENV["INSTAGRAM_USERS"] == "" || !ENV["INSTAGRAM_USERS"] ? [] : ENV["INSTAGRAM_USERS"].split("|")
-		end
-
-		def self.hashtag_array
-			return [[ENV["HASHTAG"]]] if ENV["HASHTAG"] && ENV["HASHTAGS"] == nil
-	    ENV["HASHTAGS"] == "" || !ENV["HASHTAGS"] ? [] : ENV["HASHTAGS"].split("|").map {|hashtags| hashtags.split("+").map { |hashtag| hashtag.strip } }
 		end
 
 		def self.twitter_bearer_credentials
@@ -47,13 +38,13 @@ module Dashtag
 			ENV["CENSORED_USERS"] == "" ? nil : ENV["CENSORED_USERS"]
 		end
 
-		def self.api_rate
-			begin
-				Integer(ENV["API_RATE"])
-			rescue ArgumentError, TypeError
-        		[6 * EnvironmentService.hashtag_array.flatten.uniq.count, 6 * EnvironmentService.twitter_users.count].max
-			end
-		end
+		# def self.api_rate
+		# 	begin
+		# 		Integer(ENV["API_RATE"])
+		# 	rescue ArgumentError, TypeError
+  #       		[6 * EnvironmentService.hashtag_array.flatten.uniq.count, 6 * EnvironmentService.twitter_users.count].max
+		# 	end
+		# end
 
 		def self.ajax_interval
 			begin

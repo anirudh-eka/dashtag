@@ -104,7 +104,7 @@ RSpec.configure do |config|
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
 
-    Dashtag::EnvironmentService.hashtag_array.each do |hashtags|
+    Dashtag::SettingService.hashtags.each do |hashtags|
       hashtags.each do |hashtag|
         stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}").
           to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})

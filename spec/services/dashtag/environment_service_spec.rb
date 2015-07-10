@@ -5,12 +5,10 @@ module Dashtag
     before(:each) do
       @default_key = ENV["TWITTER_CONSUMER_KEY"]
       @default_secret = ENV["TWITTER_CONSUMER_SECRET"]
-      @default_header_title = ENV["HEADER_TITLE"]
       @default_twitter_users = ENV["TWITTER_USERS"]
       @default_instagram_user_id = ENV["INSTAGRAM_USER_IDS"]
       @default_instagram_users = ENV["INSTAGRAM_USERS"]
       @default_header_link = ENV["HEADER_LINK"]
-      @default_hashtags = ENV["HASHTAGS"]
       @default_censored_words = ENV["CENSORED_WORDS"]
       @default_instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
       @default_censored_users = ENV["CENSORED_USERS"]
@@ -30,12 +28,10 @@ module Dashtag
     after(:each) do
       ENV["TWITTER_CONSUMER_KEY"] = @default_key
       ENV["TWITTER_CONSUMER_SECRET"] = @default_secret
-      ENV["HEADER_TITLE"] = @default_header_title
       ENV["TWITTER_USERS"] = @default_twitter_users
       ENV["INSTAGRAM_USER_IDS"] = @default_instagram_user_id
       ENV["INSTAGRAM_USERS"] =  @default_instagram_users
       ENV["HEADER_LINK"] =  @default_header_link
-      ENV["HASHTAGS"] =  @default_hashtags
       ENV["CENSORED_WORDS"] = @default_censored_words
       ENV["INSTAGRAM_CLIENT_ID"] = @default_instagram_client_id
       ENV["CENSORED_USERS"] = @default_censored_users
@@ -50,26 +46,6 @@ module Dashtag
       ENV["POST_COLOR_2"] = @test_post_color_2
       ENV["POST_COLOR_3"] =  @test_post_color_3
       ENV["POST_COLOR_4"] =  @test_post_color_4
-    end
-
-    describe "header title" do
-      def header_title_helper_for(env_title_value)
-        default_title = "##{EnvironmentService.hashtag_array.join(" #")}"
-        ENV["HEADER_TITLE"] = env_title_value
-        expect(EnvironmentService.header_title).to eq(default_title)
-      end
-
-      it "should return a title for user set in env with '#'" do
-        ENV["HEADER_TITLE"] = "something"
-        expect(EnvironmentService.header_title).to eq("#{ENV["HEADER_TITLE"]}")
-      end
-
-      it "should return string of hashtags if title is nil" do
-        header_title_helper_for(nil)
-      end
-      it "should return string of hashtags if title is empty" do
-        header_title_helper_for("")
-      end
     end
 
     describe "twitter_users" do
@@ -140,55 +116,6 @@ module Dashtag
       it "should return #hashtag-anchor if header-link is empty" do
         ENV["HEADER_LINK"] = ""
         expect(EnvironmentService.header_link).to eq("#hashtag-anchor")
-      end
-    end
-
-
-
-    describe "hashtags" do
-      it "should return an empty array if HASHTAGS and HASHTAG have a nil value" do
-        ENV["HASHTAGS"] = nil
-        ENV["HASHTAG"] = nil
-        expect(EnvironmentService.hashtag_array).to be_empty
-      end
-
-      it "should return an empty array if HASHTAGS and HASHTAG have an empty string value" do
-        ENV["HASHTAGS"] = ""
-        ENV["HASHTAG"] = ""
-        expect(EnvironmentService.hashtag_array).to be_empty
-      end
-
-      it 'should parse EnvironmentService.hashtag into an array of arrays' do
-        ENV["HASHTAGS"] = "yolo|dance|christmas"
-        expected_array = [['yolo'], ['dance'], ['christmas']]
-        expect(EnvironmentService.hashtag_array).to eq(expected_array)
-      end
-
-      it 'should parse EnvironmentService.hashtag with ANDS into an array of arrays' do
-        ENV["HASHTAGS"] = "yolo|dance|christmas+candy|turtles"
-        expected_array = [['yolo'], ['dance'], ['christmas', 'candy'], ['turtles']]
-        expect(EnvironmentService.hashtag_array).to eq(expected_array)
-      end
-
-      it "should provide backwards support for apps that set the env variable as 'hashtag' and not using 'hashtags'" do
-        ENV["HASHTAG"] = "yolo"
-        ENV["HASHTAGS"] = nil
-        expected_array = [['yolo']]
-        expect(EnvironmentService.hashtag_array).to eq(expected_array)
-      end
-
-      it "should strip non-essential white space off hashtags" do
-        ENV["HASHTAGS"] = "\nyolo|cool|stuff\n\n"
-        expect(EnvironmentService.hashtag_array).to eq([['yolo'], ['cool'], ['stuff']])
-      end
-
-      context "if HASHTAG and HASHTAGS variable are set in environment" do
-        it "should use HASHTAGS" do
-          ENV["HASHTAG"] = "love"
-          ENV["HASHTAGS"] = "yolo|dance|christmas"
-          expected_array = [['yolo'], ['dance'], ['christmas']]
-          expect(EnvironmentService.hashtag_array).to eq(expected_array)
-        end
       end
     end
 
@@ -264,33 +191,6 @@ module Dashtag
         expect(EnvironmentService.disable_retweets).to eq(true)
       end
     end
-
-    describe "api_rate" do
-      it "should return what is set in env" do
-        ENV["API_RATE"] = "10"
-        expect(EnvironmentService.api_rate).to eq(10)
-      end
-
-      it "should return 6 * hashtag count by default and hashtag count is greater than user count" do
-        ENV["HASHTAGS"] = 'kind|dogs'
-        ENV["API_RATE"] = nil
-        expect(EnvironmentService.api_rate).to eq(12)
-      end
-
-      it "should return 6 * hashtag count if entry is not integer and hashtag count is greater than user count" do
-        ENV["HASHTAGS"] = 'kind|dogs'
-        ENV["API_RATE"] = "stuff"
-        expect(EnvironmentService.api_rate).to eq(12)
-      end
-
-      it "should return 6 * users count if entry is not integer and users count is greater than hashtag count" do
-        ENV["TWITTER_USERS"] = "my|screen|name|4th_user|g3"
-        users_count = EnvironmentService.twitter_users.count
-        ENV["API_RATE"] = "stuff"
-        expect(EnvironmentService.api_rate).to eq(6 * users_count)
-      end
-    end
-
 
     describe "ajax_interval" do
       it "should return what is set in env" do
