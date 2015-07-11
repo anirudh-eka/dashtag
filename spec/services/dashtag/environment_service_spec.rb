@@ -5,7 +5,6 @@ module Dashtag
     before(:each) do
       @default_key = ENV["TWITTER_CONSUMER_KEY"]
       @default_secret = ENV["TWITTER_CONSUMER_SECRET"]
-      @default_twitter_users = ENV["TWITTER_USERS"]
       @default_instagram_user_id = ENV["INSTAGRAM_USER_IDS"]
       @default_instagram_users = ENV["INSTAGRAM_USERS"]
       @default_header_link = ENV["HEADER_LINK"]
@@ -28,7 +27,6 @@ module Dashtag
     after(:each) do
       ENV["TWITTER_CONSUMER_KEY"] = @default_key
       ENV["TWITTER_CONSUMER_SECRET"] = @default_secret
-      ENV["TWITTER_USERS"] = @default_twitter_users
       ENV["INSTAGRAM_USER_IDS"] = @default_instagram_user_id
       ENV["INSTAGRAM_USERS"] =  @default_instagram_users
       ENV["HEADER_LINK"] =  @default_header_link
@@ -46,24 +44,6 @@ module Dashtag
       ENV["POST_COLOR_2"] = @test_post_color_2
       ENV["POST_COLOR_3"] =  @test_post_color_3
       ENV["POST_COLOR_4"] =  @test_post_color_4
-    end
-
-    describe "twitter_users" do
-      it 'should parse EnvironmentService.twitter_users into an array' do
-        ENV["TWITTER_USERS"] = "yolo|dance|christmas"
-        expected_array = ['yolo', 'dance', 'christmas']
-        expect(EnvironmentService.twitter_users).to eq(expected_array)
-      end
-
-      it "should return an empty array if twitter_users are not set in env" do
-        ENV["TWITTER_USERS"] = nil
-        expect(EnvironmentService.twitter_users).to be_empty
-      end
-
-      it "should return an empty array if twitter_users are not set in env" do
-        ENV["TWITTER_USERS"] = ""
-        expect(EnvironmentService.twitter_users).to be_empty
-      end
     end
 
     describe "instagram_user_ids" do

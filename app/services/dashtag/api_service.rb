@@ -31,7 +31,7 @@ module Dashtag
           parsed_responses += pull_twitter_posts_and_parse(hashtags) if EnvironmentService.twitter_bearer_credentials
         end
 
-        EnvironmentService.twitter_users.each do |user|
+        SettingService.twitter_users.each do |user|
           parsed_responses += pull_twitter_posts_from_users_and_parse(user) if EnvironmentService.twitter_bearer_credentials
         end
 

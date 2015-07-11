@@ -13,6 +13,17 @@ module Dashtag
       Setting.find_or_create_by(name: "hashtags").update(value: parsed_hashtags.to_json)
     end
 
+    def self.twitter_users
+      twitter_users_setting = Setting.find_by(name: "twitter_users")
+      return [] if twitter_users_setting.nil? || twitter_users_setting.value.nil?
+      JSON.parse (twitter_users_setting.value)
+    end
+
+    def self.twitter_users=(twitter_users)
+      parsed_twitter_users = twitter_users.split(',').map {|twitter_user| twitter_user.gsub('@', '').strip}
+      Setting.find_or_create_by(name: "twitter_users").update(value: parsed_twitter_users.to_json)
+    end
+
     def self.header_title
       header_title_setting = Setting.find_by(name: "header_title")
       return default_header_title if header_title_setting.nil? || header_title_setting.value.nil?
@@ -41,7 +52,7 @@ module Dashtag
     end
 
     def self.default_api_rate
-      [6 * hashtags.flatten.uniq.count, 6 * EnvironmentService.twitter_users.count].max
+      [6 * hashtags.flatten.uniq.count, 6 * twitter_users.count].max
     end
 	end
 end

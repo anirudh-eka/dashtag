@@ -4,9 +4,9 @@ module Dashtag
 			ENV["HEADER_LINK"]  == "" || !ENV["HEADER_LINK"] ? "#hashtag-anchor" : ENV["HEADER_LINK"]
 		end
 
-		def self.twitter_users
-			ENV["TWITTER_USERS"] == "" || !ENV["TWITTER_USERS"] ? [] : ENV["TWITTER_USERS"].split("|")
-		end
+		# def self.twitter_users
+		# 	ENV["TWITTER_USERS"] == "" || !ENV["TWITTER_USERS"] ? [] : ENV["TWITTER_USERS"].split("|")
+		# end
 
 		def self.instagram_user_ids
 			ENV["INSTAGRAM_USER_IDS"] == "" || !ENV["INSTAGRAM_USER_IDS"] ? [] : ENV["INSTAGRAM_USER_IDS"].split("|")
@@ -37,14 +37,6 @@ module Dashtag
 		def self.censored_users
 			ENV["CENSORED_USERS"] == "" ? nil : ENV["CENSORED_USERS"]
 		end
-
-		# def self.api_rate
-		# 	begin
-		# 		Integer(ENV["API_RATE"])
-		# 	rescue ArgumentError, TypeError
-  #       		[6 * EnvironmentService.hashtag_array.flatten.uniq.count, 6 * EnvironmentService.twitter_users.count].max
-		# 	end
-		# end
 
 		def self.ajax_interval
 			begin

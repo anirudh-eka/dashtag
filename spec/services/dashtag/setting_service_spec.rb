@@ -21,7 +21,7 @@ module Dashtag
         SettingService.hashtags = "\n#yolo, #cool & #stuff\n\n"
         expect(SettingService.hashtags).to eq([['yolo'], ['cool', 'stuff']])
       end
-    end
+    end 
 
     describe "header title" do
       it "should return title when title set" do
@@ -55,13 +55,21 @@ module Dashtag
           end
         end
         context "and user count is greater than hashtag count" do 
-          xit "should return 6 * user count" do
-    #     ENV["TWITTER_USERS"] = "my|screen|name|4th_user|g3"
-    #     users_count = EnvironmentService.twitter_users.count
-    #     ENV["API_RATE"] = ""
-    #     expect(EnvironmentService.api_rate).to eq(6 * users_count)
+          it "should return 6 * user count" do
+            SettingService.twitter_users = "@friends, @enemies, @dogs"
+            SettingService.api_rate = nil
+            expect(SettingService.api_rate).to eq(18)
           end
         end
+      end
+    end
+    describe "twitter_users" do
+      it "should return an empty array if twitter_users hasn't been set" do
+        expect(SettingService.twitter_users).to be_empty
+      end
+      it 'should parse comma delimeted twitter users list into a 1d array' do
+        SettingService.twitter_users = "@yolo, @dance, @christmas"
+        expect(SettingService.twitter_users).to eq(['yolo', 'dance', 'christmas'])
       end
     end
   end

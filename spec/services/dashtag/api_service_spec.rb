@@ -57,7 +57,7 @@ module Dashtag
       end
 
       it 'should pull twitter posts from each user from twitter_users' do
-        EnvironmentService.twitter_users.each do |user|
+        SettingService.twitter_users.each do |user|
           expect(APIService.instance).to receive(:pull_twitter_posts_from_users_and_parse).with(user).and_return([])
         end
         APIService.instance.pull_posts!
