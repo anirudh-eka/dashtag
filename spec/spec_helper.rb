@@ -74,7 +74,6 @@ RSpec.configure do |config|
     ENV["TWITTER_CONSUMER_KEY"] = "default_key"
     ENV["TWITTER_CONSUMER_SECRET"] = "default_secret"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
-    ENV["INSTAGRAM_USER_IDS"] = "1234|24536"
     ENV["HASHTAGS"] = "fda|dogs"
     ENV["HASHTAG"] = nil
     ENV["HEADER_TITLE"] = "My Dogs"
@@ -122,7 +121,7 @@ RSpec.configure do |config|
       to_return( {:status => 200, :body => Dashtag::SampleTweetResponses.user_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
     end
 
-    Dashtag::EnvironmentService.instagram_user_ids.each do |user_id|
+    Dashtag::SettingService.instagram_user_ids.each do |user_id|
       stub_request(:get, "https://api.instagram.com/v1/users/#{user_id}/media/recent/?client_id=#{Dashtag::EnvironmentService.instagram_client_id}").
       to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
     end

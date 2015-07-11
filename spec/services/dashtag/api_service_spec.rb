@@ -13,7 +13,7 @@ module Dashtag
         instagram_id = SampleInstagramResponses.instagram_response["data"].first["id"]
         SettingService.instagram_users.count.times { instagram_ids << instagram_id}
 
-        EnvironmentService.instagram_user_ids.each { |id| instagram_ids << id }
+        SettingService.instagram_user_ids.each { |id| instagram_ids << id }
         expect(APIService.instance.instagram_user_ids).to eq(instagram_ids)
       end
     end

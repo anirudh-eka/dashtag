@@ -5,7 +5,6 @@ module Dashtag
     before(:each) do
       @default_key = ENV["TWITTER_CONSUMER_KEY"]
       @default_secret = ENV["TWITTER_CONSUMER_SECRET"]
-      @default_instagram_user_id = ENV["INSTAGRAM_USER_IDS"]
       @default_header_link = ENV["HEADER_LINK"]
       @default_censored_words = ENV["CENSORED_WORDS"]
       @default_instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
@@ -26,7 +25,6 @@ module Dashtag
     after(:each) do
       ENV["TWITTER_CONSUMER_KEY"] = @default_key
       ENV["TWITTER_CONSUMER_SECRET"] = @default_secret
-      ENV["INSTAGRAM_USER_IDS"] = @default_instagram_user_id
       ENV["HEADER_LINK"] =  @default_header_link
       ENV["CENSORED_WORDS"] = @default_censored_words
       ENV["INSTAGRAM_CLIENT_ID"] = @default_instagram_client_id
@@ -42,24 +40,6 @@ module Dashtag
       ENV["POST_COLOR_2"] = @test_post_color_2
       ENV["POST_COLOR_3"] =  @test_post_color_3
       ENV["POST_COLOR_4"] =  @test_post_color_4
-    end
-
-    describe "instagram_user_ids" do
-      it 'should parse EnvironmentService.instagram_user_ids into an array' do
-        ENV["INSTAGRAM_USER_IDS"] = "12345|2345345345|1235345"
-        expected_array = ['12345', '2345345345', '1235345']
-        expect(EnvironmentService.instagram_user_ids).to eq(expected_array)
-      end
-
-      it "should return an empty array if instagram_user_ids are not set in env" do
-        ENV["INSTAGRAM_USER_IDS"] = nil
-        expect(EnvironmentService.instagram_user_ids).to be_empty
-      end
-
-      it "should return an empty array if instagram_user_ids are not set in env" do
-        ENV["INSTAGRAM_USER_IDS"] = ""
-        expect(EnvironmentService.instagram_user_ids).to be_empty
-      end
     end
 
     describe "header link" do

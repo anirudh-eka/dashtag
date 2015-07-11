@@ -2,8 +2,7 @@ module Dashtag
 	class SettingService
     def self.hashtags
       hashtags_setting = Setting.find_by(name: "hashtags")
-      return Hashtags.new if hashtags_setting.nil? || hashtags_setting.value.nil?
-      Hashtags.new(JSON.parse (hashtags_setting.value))
+      Hashtags.new rehydrate_list(hashtags_setting)
     end
 
     def self.hashtags=(hashtags)
@@ -15,8 +14,7 @@ module Dashtag
 
     def self.twitter_users
       twitter_users_setting = Setting.find_by(name: "twitter_users")
-      return [] if twitter_users_setting.nil? || twitter_users_setting.value.nil?
-      JSON.parse (twitter_users_setting.value)
+      rehydrate_list(twitter_users_setting)
     end
 
     def self.twitter_users=(twitter_users)
@@ -26,13 +24,22 @@ module Dashtag
 
     def self.instagram_users
       instagram_users_setting = Setting.find_by(name: "instagram_users")
-      return [] if instagram_users_setting.nil? || instagram_users_setting.value.nil?
-      JSON.parse (instagram_users_setting.value)
+      rehydrate_list(instagram_users_setting)
     end
 
     def self.instagram_users=(instagram_users)
       parsed_instagram_users = instagram_users.split(',').map {|instagram_user| instagram_user.gsub('@', '').strip}
       Setting.find_or_create_by(name: "instagram_users").update(value: parsed_instagram_users.to_json)
+    end
+
+    def self.instagram_user_ids
+      instagram_user_ids_setting = Setting.find_by(name: "instagram_user_ids")
+      rehydrate_list(instagram_user_ids_setting)
+    end
+
+    def self.instagram_user_ids=(instagram_user_ids)
+      parsed_instagram_user_ids = instagram_user_ids.split(',').map {|instagram_user_id| instagram_user_id.gsub('@', '').strip}
+      Setting.find_or_create_by(name: "instagram_user_ids").update(value: parsed_instagram_user_ids.to_json)
     end
 
     def self.header_title
@@ -64,6 +71,11 @@ module Dashtag
 
     def self.default_api_rate
       [6 * hashtags.flatten.uniq.count, 6 * twitter_users.count].max
+    end
+
+    def self.rehydrate_list(setting)
+      return [] if setting.nil? || setting.value.nil?
+      JSON.parse(setting.value)
     end
 	end
 end

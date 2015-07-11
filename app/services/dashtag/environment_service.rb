@@ -4,10 +4,6 @@ module Dashtag
 			ENV["HEADER_LINK"]  == "" || !ENV["HEADER_LINK"] ? "#hashtag-anchor" : ENV["HEADER_LINK"]
 		end
 
-		def self.instagram_user_ids
-			ENV["INSTAGRAM_USER_IDS"] == "" || !ENV["INSTAGRAM_USER_IDS"] ? [] : ENV["INSTAGRAM_USER_IDS"].split("|")
-		end
-
 		def self.twitter_bearer_credentials
 			return nil if ENV["TWITTER_CONSUMER_KEY"] == nil || ENV["TWITTER_CONSUMER_SECRET"] == nil
 			return nil if ENV["TWITTER_CONSUMER_KEY"] == "" || ENV["TWITTER_CONSUMER_SECRET"] == ""
