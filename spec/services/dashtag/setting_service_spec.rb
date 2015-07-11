@@ -72,5 +72,33 @@ module Dashtag
         expect(SettingService.twitter_users).to eq(['yolo', 'dance', 'christmas'])
       end
     end
+    describe "instagram_users" do
+      it "should return an empty array if twitter_users hasn't been set" do
+        expect(SettingService.twitter_users).to be_empty
+      end
+      it 'should parse comma delimeted twitter users list into a 1d array' do
+        SettingService.instagram_users = "@yolo, @dance, @christmas"
+        expect(SettingService.instagram_users).to eq(['yolo', 'dance', 'christmas'])
+      end
+    end
   end
 end
+
+
+    # describe "instagram_users" do
+    #   it 'should parse EnvironmentService.instagram_users into an array' do
+    #     ENV["INSTAGRAM_USERS"] = "kingjames|trey5"
+    #     expected_array = ['kingjames', 'trey5']
+    #     expect(EnvironmentService.instagram_users).to eq(expected_array)
+    #   end
+
+    #   it "should return an empty array if instagram_users are not set in env" do
+    #     ENV["INSTAGRAM_USERS"] = nil
+    #     expect(EnvironmentService.instagram_users).to be_empty
+    #   end
+
+    #   it "should return an empty array if instagram_users are not set in env" do
+    #     ENV["INSTAGRAM_USERS"] = ""
+    #     expect(EnvironmentService.instagram_users).to be_empty
+    #   end
+    # end

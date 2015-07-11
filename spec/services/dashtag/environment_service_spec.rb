@@ -6,7 +6,6 @@ module Dashtag
       @default_key = ENV["TWITTER_CONSUMER_KEY"]
       @default_secret = ENV["TWITTER_CONSUMER_SECRET"]
       @default_instagram_user_id = ENV["INSTAGRAM_USER_IDS"]
-      @default_instagram_users = ENV["INSTAGRAM_USERS"]
       @default_header_link = ENV["HEADER_LINK"]
       @default_censored_words = ENV["CENSORED_WORDS"]
       @default_instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
@@ -28,7 +27,6 @@ module Dashtag
       ENV["TWITTER_CONSUMER_KEY"] = @default_key
       ENV["TWITTER_CONSUMER_SECRET"] = @default_secret
       ENV["INSTAGRAM_USER_IDS"] = @default_instagram_user_id
-      ENV["INSTAGRAM_USERS"] =  @default_instagram_users
       ENV["HEADER_LINK"] =  @default_header_link
       ENV["CENSORED_WORDS"] = @default_censored_words
       ENV["INSTAGRAM_CLIENT_ID"] = @default_instagram_client_id
@@ -61,24 +59,6 @@ module Dashtag
       it "should return an empty array if instagram_user_ids are not set in env" do
         ENV["INSTAGRAM_USER_IDS"] = ""
         expect(EnvironmentService.instagram_user_ids).to be_empty
-      end
-    end
-
-    describe "instagram_users" do
-      it 'should parse EnvironmentService.instagram_users into an array' do
-        ENV["INSTAGRAM_USERS"] = "kingjames|trey5"
-        expected_array = ['kingjames', 'trey5']
-        expect(EnvironmentService.instagram_users).to eq(expected_array)
-      end
-
-      it "should return an empty array if instagram_users are not set in env" do
-        ENV["INSTAGRAM_USERS"] = nil
-        expect(EnvironmentService.instagram_users).to be_empty
-      end
-
-      it "should return an empty array if instagram_users are not set in env" do
-        ENV["INSTAGRAM_USERS"] = ""
-        expect(EnvironmentService.instagram_users).to be_empty
       end
     end
 

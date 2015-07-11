@@ -79,7 +79,7 @@ module Dashtag
       def pull_instagram_user_id_from_users
         instagram_client_id = EnvironmentService.instagram_client_id
         instagram_ids = []
-        EnvironmentService.instagram_users.each do |user|
+        SettingService.instagram_users.each do |user|
           response = HTTParty.get("https://api.instagram.com/v1/users/search?q=#{user}&client_id=#{instagram_client_id}")
           instagram_ids << response["data"].first["id"] if response["data"].first
         end

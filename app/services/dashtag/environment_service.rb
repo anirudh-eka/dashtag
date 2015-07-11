@@ -4,16 +4,8 @@ module Dashtag
 			ENV["HEADER_LINK"]  == "" || !ENV["HEADER_LINK"] ? "#hashtag-anchor" : ENV["HEADER_LINK"]
 		end
 
-		# def self.twitter_users
-		# 	ENV["TWITTER_USERS"] == "" || !ENV["TWITTER_USERS"] ? [] : ENV["TWITTER_USERS"].split("|")
-		# end
-
 		def self.instagram_user_ids
 			ENV["INSTAGRAM_USER_IDS"] == "" || !ENV["INSTAGRAM_USER_IDS"] ? [] : ENV["INSTAGRAM_USER_IDS"].split("|")
-		end
-
-		def self.instagram_users
-			ENV["INSTAGRAM_USERS"] == "" || !ENV["INSTAGRAM_USERS"] ? [] : ENV["INSTAGRAM_USERS"].split("|")
 		end
 
 		def self.twitter_bearer_credentials

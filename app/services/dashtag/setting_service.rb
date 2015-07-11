@@ -24,6 +24,17 @@ module Dashtag
       Setting.find_or_create_by(name: "twitter_users").update(value: parsed_twitter_users.to_json)
     end
 
+    def self.instagram_users
+      instagram_users_setting = Setting.find_by(name: "instagram_users")
+      return [] if instagram_users_setting.nil? || instagram_users_setting.value.nil?
+      JSON.parse (instagram_users_setting.value)
+    end
+
+    def self.instagram_users=(instagram_users)
+      parsed_instagram_users = instagram_users.split(',').map {|instagram_user| instagram_user.gsub('@', '').strip}
+      Setting.find_or_create_by(name: "instagram_users").update(value: parsed_instagram_users.to_json)
+    end
+
     def self.header_title
       header_title_setting = Setting.find_by(name: "header_title")
       return default_header_title if header_title_setting.nil? || header_title_setting.value.nil?
