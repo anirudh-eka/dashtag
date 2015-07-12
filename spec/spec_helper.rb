@@ -70,12 +70,9 @@ RSpec.configure do |config|
   config.before(:all) do
     ENV["CENSORED_WORDS"]="Big|Brother|watching"
     ENV["CENSORED_USERS"]="BadUser|dirtyuser"
-    ENV["API_RATE"] = 1.to_s
     ENV["TWITTER_CONSUMER_KEY"] = "default_key"
     ENV["TWITTER_CONSUMER_SECRET"] = "default_secret"
     ENV["INSTAGRAM_CLIENT_ID"] = "asd"
-    ENV["HASHTAGS"] = "fda|dogs"
-    ENV["HASHTAG"] = nil
     ENV["HEADER_TITLE"] = "My Dogs"
   end
 

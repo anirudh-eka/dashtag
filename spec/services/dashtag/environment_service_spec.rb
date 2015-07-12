@@ -12,7 +12,6 @@ module Dashtag
       @test_disable_retweets = ENV["DISABLE_RETWEETS"]
       @test_db_row_limit = ENV["DB_ROW_LIMIT"]
       @test_ajax_interval = ENV["AJAX_INTERVAL"]
-      @test_api_rate = ENV["API_RATE"]
       @test_font_family = ENV["FONT_FAMILY"]
       @test_header_color = ENV["HEADER_COLOR"]
       @test_background_color = ENV["BACKGROUND_COLOR"]
@@ -32,7 +31,6 @@ module Dashtag
       ENV["DISABLE_RETWEETS"] = @test_disable_retweets
       ENV["DB_ROW_LIMIT"] =  @test_db_row_limit
       ENV["AJAX_INTERVAL"] =  @test_ajax_interval
-      ENV["API_RATE"] =  @test_api_rate
       ENV["FONT_FAMILY"] =  @test_font_family
       ENV["HEADER_COLOR"] = @test_header_color
       ENV["BACKGROUND_COLOR"] = @test_background_color
