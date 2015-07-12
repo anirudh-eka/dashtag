@@ -26,14 +26,6 @@ module Dashtag
 			ENV["CENSORED_USERS"] == "" ? nil : ENV["CENSORED_USERS"]
 		end
 
-		def self.db_row_limit
-			begin
-				Integer(ENV["DB_ROW_LIMIT"])
-			rescue ArgumentError, TypeError
-				8000
-			end
-		end
-
 		def self.font_family
 			ENV["FONT_FAMILY"]
 		end

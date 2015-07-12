@@ -23,7 +23,7 @@ module Dashtag
 
     context "when number of posts hit db_row_limit" do
       before(:each) do
-        allow(EnvironmentService).to receive(:db_row_limit) {2}
+        allow(SettingService).to receive(:db_row_limit) {2}
       end
 
       it "should delete oldest post" do

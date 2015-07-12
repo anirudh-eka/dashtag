@@ -56,6 +56,14 @@ module Dashtag
       create_or_update_setting("ajax_interval", integer_or_nil(ajax_interval))
     end
 
+    def self.db_row_limit
+      find_setting_or_default("db_row_limit", 8000).to_i
+    end
+
+    def self.db_row_limit=(db_row_limit)
+      create_or_update_setting("db_row_limit", integer_or_nil(db_row_limit))
+    end
+
     private
 
     def self.value_or_default(setting, default)
@@ -77,7 +85,7 @@ module Dashtag
     end
 
     def self.parse_social_users(users)
-      dehydrate_list(users.split(',').map {|user| user.gsub('@', '').strip})
+      users.split(',').map {|user| user.gsub('@', '').strip}.to_json
     end
 
     def self.integer_or_nil(maybe_int)
@@ -86,14 +94,6 @@ module Dashtag
 
     def self.default_api_rate
       [6 * hashtags.flatten.uniq.count, 6 * twitter_users.count].max
-    end
-
-    def self.rehydrate_list(list)
-      JSON.parse(value_or_default(list, "[]"))
-    end
-
-    def self.dehydrate_list(list)
-      list.to_json
     end
 	end
 end

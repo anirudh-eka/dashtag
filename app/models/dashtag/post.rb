@@ -48,7 +48,7 @@ module Dashtag
     end
 
     def clear_oldest_post_if_limit_is_reached
-      Post.all_sorted_posts.last.destroy! if Post.count > EnvironmentService.db_row_limit
+      Post.all_sorted_posts.last.destroy! if Post.count > SettingService.db_row_limit
     end
   end
 end

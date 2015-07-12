@@ -100,26 +100,40 @@ module Dashtag
         expect(SettingService.ajax_interval).to eq(5000)
       end
       it "should limit api_rate to be set to values that can be converted to Integer" do
-        expect { SettingService.api_rate = "sdhkfj" }.to raise_error
+        expect { SettingService.ajax_interval = "sdhkfj" }.to raise_error
+      end
+    end
+    describe "db_row_limit" do
+      it "should return db_row_limit when set" do
+        SettingService.db_row_limit = 1000
+        expect(SettingService.db_row_limit).to eq(1000)
+      end
+      it "should return db_row_limit default when not set" do
+        SettingService.db_row_limit = nil
+        expect(SettingService.db_row_limit).to eq(8000)
+      end
+      it "should limit api_rate to be set to values that can be converted to Integer" do
+        expect { SettingService.db_row_limit = "sdhkfj" }.to raise_error
       end
     end
   end
 end
 
 
-    # describe "ajax_interval" do
+    # describe "db_row_limit" do
     #   it "should return what is set in env" do
-    #     ENV["AJAX_INTERVAL"] = "1000"
-    #     expect(EnvironmentService.ajax_interval).to eq(1000)
+    #     ENV["DB_ROW_LIMIT"] = "3000"
+    #     expect(EnvironmentService.db_row_limit).to eq(3000)
     #   end
 
-    #   it "should return 5000 by default" do
-    #     ENV["AJAX_INTERVAL"] = nil
-    #     expect(EnvironmentService.ajax_interval).to eq(5000)
+    #   it "should return 8000 by default" do
+    #     ENV["DB_ROW_LIMIT"] = nil
+    #     expect(EnvironmentService.db_row_limit).to eq(8000)
     #   end
 
-    #   it "should return 5000 if entry is not integer" do
-    #     ENV["AJAX_INTERVAL"] = "stuff"
-    #     expect(EnvironmentService.ajax_interval).to eq(5000)
+
+    #   it "should return 8000 if entry is not integer" do
+    #     ENV["DB_ROW_LIMIT"] = "stuff"
+    #     expect(EnvironmentService.db_row_limit).to eq(8000)
     #   end
     # end
