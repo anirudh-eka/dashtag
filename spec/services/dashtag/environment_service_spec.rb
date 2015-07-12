@@ -130,23 +130,6 @@ module Dashtag
       end
     end
 
-    describe "ajax_interval" do
-      it "should return what is set in env" do
-        ENV["AJAX_INTERVAL"] = "1000"
-        expect(EnvironmentService.ajax_interval).to eq(1000)
-      end
-
-      it "should return 5000 by default" do
-        ENV["AJAX_INTERVAL"] = nil
-        expect(EnvironmentService.ajax_interval).to eq(5000)
-      end
-
-      it "should return 5000 if entry is not integer" do
-        ENV["AJAX_INTERVAL"] = "stuff"
-        expect(EnvironmentService.ajax_interval).to eq(5000)
-      end
-    end
-
     describe "db_row_limit" do
       it "should return what is set in env" do
         ENV["DB_ROW_LIMIT"] = "3000"

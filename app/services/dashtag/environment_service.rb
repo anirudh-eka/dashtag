@@ -26,14 +26,6 @@ module Dashtag
 			ENV["CENSORED_USERS"] == "" ? nil : ENV["CENSORED_USERS"]
 		end
 
-		def self.ajax_interval
-			begin
-				Integer(ENV["AJAX_INTERVAL"])
-			rescue ArgumentError, TypeError
-				5000
-			end
-		end
-
 		def self.db_row_limit
 			begin
 				Integer(ENV["DB_ROW_LIMIT"])

@@ -90,5 +90,36 @@ module Dashtag
         expect(SettingService.instagram_user_ids).to eq(['12345', '2345345345', '1235345'])
       end
     end
+    describe "ajax_interval" do
+      it "should return ajax_interval when set" do
+        SettingService.ajax_interval = 1000
+        expect(SettingService.ajax_interval).to eq(1000)
+      end
+      it "should return ajax_interval default when not set" do
+        SettingService.ajax_interval = nil
+        expect(SettingService.ajax_interval).to eq(5000)
+      end
+      it "should limit api_rate to be set to values that can be converted to Integer" do
+        expect { SettingService.api_rate = "sdhkfj" }.to raise_error
+      end
+    end
   end
 end
+
+
+    # describe "ajax_interval" do
+    #   it "should return what is set in env" do
+    #     ENV["AJAX_INTERVAL"] = "1000"
+    #     expect(EnvironmentService.ajax_interval).to eq(1000)
+    #   end
+
+    #   it "should return 5000 by default" do
+    #     ENV["AJAX_INTERVAL"] = nil
+    #     expect(EnvironmentService.ajax_interval).to eq(5000)
+    #   end
+
+    #   it "should return 5000 if entry is not integer" do
+    #     ENV["AJAX_INTERVAL"] = "stuff"
+    #     expect(EnvironmentService.ajax_interval).to eq(5000)
+    #   end
+    # end
