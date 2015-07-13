@@ -9,7 +9,7 @@ module Dashtag
     it { should validate_presence_of(:source) }
     context "when disable retweets is turned off" do
       before(:each) do
-        expect(EnvironmentService).to receive(:disable_retweets) {true}
+        expect(SettingService).to receive(:disable_retweets) {true}
       end
 
       it "should validate that the post is not a retweet" do

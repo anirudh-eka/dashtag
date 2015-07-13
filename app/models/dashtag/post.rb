@@ -33,7 +33,7 @@ module Dashtag
     end
 
     def post_is_not_a_retweet
-      errors.add(:text, "can't be a retweet") if EnvironmentService.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
+      errors.add(:text, "can't be a retweet") if SettingService.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
     end
 
     private

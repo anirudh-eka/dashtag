@@ -116,24 +116,17 @@ module Dashtag
         expect { SettingService.db_row_limit = "sdhkfj" }.to raise_error
       end
     end
+
+    describe "disable_retweets" do
+      it "should return value that is set" do
+        SettingService.disable_retweets = false
+        expect(SettingService.disable_retweets).to eq(false)
+      end
+
+      it "should return true by default" do
+        SettingService.disable_retweets = nil
+        expect(SettingService.disable_retweets).to eq(true)
+      end
+    end
   end
 end
-
-
-    # describe "db_row_limit" do
-    #   it "should return what is set in env" do
-    #     ENV["DB_ROW_LIMIT"] = "3000"
-    #     expect(EnvironmentService.db_row_limit).to eq(3000)
-    #   end
-
-    #   it "should return 8000 by default" do
-    #     ENV["DB_ROW_LIMIT"] = nil
-    #     expect(EnvironmentService.db_row_limit).to eq(8000)
-    #   end
-
-
-    #   it "should return 8000 if entry is not integer" do
-    #     ENV["DB_ROW_LIMIT"] = "stuff"
-    #     expect(EnvironmentService.db_row_limit).to eq(8000)
-    #   end
-    # end

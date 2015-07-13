@@ -14,10 +14,6 @@ module Dashtag
 			ENV["INSTAGRAM_CLIENT_ID"] == "" ? nil : ENV["INSTAGRAM_CLIENT_ID"]
 		end
 
-		def self.disable_retweets
-	  		!ENV["DISABLE_RETWEETS"] ? true : ENV["DISABLE_RETWEETS"].downcase != "false"
-		end
-
 		def self.censored_words
 			ENV["CENSORED_WORDS"] == "" ? nil : ENV["CENSORED_WORDS"]
 		end

@@ -9,7 +9,6 @@ module Dashtag
       @default_censored_words = ENV["CENSORED_WORDS"]
       @default_instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
       @default_censored_users = ENV["CENSORED_USERS"]
-      @test_disable_retweets = ENV["DISABLE_RETWEETS"]
       @test_font_family = ENV["FONT_FAMILY"]
       @test_header_color = ENV["HEADER_COLOR"]
       @test_background_color = ENV["BACKGROUND_COLOR"]
@@ -26,7 +25,6 @@ module Dashtag
       ENV["CENSORED_WORDS"] = @default_censored_words
       ENV["INSTAGRAM_CLIENT_ID"] = @default_instagram_client_id
       ENV["CENSORED_USERS"] = @default_censored_users
-      ENV["DISABLE_RETWEETS"] = @test_disable_retweets
       ENV["FONT_FAMILY"] =  @test_font_family
       ENV["HEADER_COLOR"] = @test_header_color
       ENV["BACKGROUND_COLOR"] = @test_background_color
@@ -111,18 +109,6 @@ module Dashtag
       it "should return nil if twitter credentials are not set in env" do
         ENV["CENSORED_USERS"] = nil
         expect(EnvironmentService.censored_users).to be_nil
-      end
-    end
-
-    describe "disable retweets" do
-      it "should return what is set in env in downcase" do
-        ENV["DISABLE_RETWEETS"] = "fAlSe"
-        expect(EnvironmentService.disable_retweets).to eq(false)
-      end
-
-      it "should return true by default" do
-        ENV["DISABLE_RETWEETS"] = nil
-        expect(EnvironmentService.disable_retweets).to eq(true)
       end
     end
 

@@ -64,7 +64,25 @@ module Dashtag
       create_or_update_setting("db_row_limit", integer_or_nil(db_row_limit))
     end
 
+    def self.disable_retweets
+      rehydrate_bool(find_setting_or_default("disable_retweets", "true"))
+    end
+
+    def self.disable_retweets=(disable_retweets)
+      create_or_update_setting("disable_retweets", dehydrate_bool(disable_retweets))
+    end
+
     private
+
+    def self.dehydrate_bool(bool)
+      return "false" if bool == false
+      return "true" if bool == true
+    end
+
+    def self.rehydrate_bool(bool_as_string)
+      return false if bool_as_string == "false"
+      return true if bool_as_string == "true"
+    end
 
     def self.value_or_default(setting, default)
       return default if setting.nil? || setting.value.nil?
