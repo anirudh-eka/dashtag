@@ -1,0 +1,44 @@
+form.settings {
+	margin: auto;
+	width: 650px;
+	margin-top: 30px;
+	background-color: #80C9D2;
+	border-radius: 6px;
+	padding: 60px;
+}
+
+.settings label {
+	display: block;
+	padding: 5px 0px;
+	font-size: 40px;
+	font-weight: 800;
+	letter-spacing: .7px;
+}
+
+.setting-instructions {
+	color: #EAEAEA;
+	font-size: 20px;
+	font-weight: 300;
+	padding-bottom: 5px;
+}
+
+.error-message {
+	color: rgb(238,49,45);
+}
+
+.settings input {
+	display: block;
+	border-radius: 4px;
+	font-size: 25px;
+	width: 100%;
+	margin: 15px 0px;
+	background-color: #F6F6F6;
+	letter-spacing: 0.5px;
+	font-weight: 300;
+	padding: 6px;
+	border: 0px; 
+}
+
+.field_with_errors input {
+	border: 1px solid rgb(238,49,45);
+}

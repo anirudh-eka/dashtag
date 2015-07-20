@@ -14,7 +14,6 @@ module Dashtag
       all_sorted_posts.select { |post| is_post_from_last_pull?(post, last_update_time) }
     end
 
-
     def self.all_sorted_posts
       all.order(time_of_post: :desc).reject{ |post| censored?(post)}
     end

@@ -1,0 +1,36 @@
+<div href="#" id="up" class="hashtag-title">
+  <div id="dashtag-shoutout-header-container" class="dashtag-shoutout-colors">
+    Powered by <a href="https://github.com/anirudh-eka/dashtag" target="_blank">Dashtag</a> 
+  </div>
+</div>
+  <h1>Settings</h1>
+
+<%= form_for @settings, url: {action: "update"}, html: {class: "settings"} do |f| %>
+  
+  <%= f.label :hashtags %>
+  <p class="setting-instructions">some instructions about this</p>
+  <div class="error-message">
+  <% @settings.errors.messages[:hashtags].each do |msg| %>
+    <%= msg %>
+  <% end %>
+  </div>
+  <%= f.text_field :hashtags %>
+
+  <%= f.label :twitter_users %>
+  <%= f.text_field :twitter_users %>
+  <%= f.label :instagram_users %>
+  <%= f.text_field :instagram_users %>
+  <%= f.label :instagram_user_ids %>
+  <%= f.text_field :instagram_user_ids %>
+  <%= f.label :header_title %>
+  <%= f.text_field :header_title %>
+  <%= f.label :api_rate %>
+  <%= f.text_field :api_rate %>
+  <%= f.label :ajax_interval %>
+  <%= f.text_field :ajax_interval %>
+  <%= f.label :db_row_limit %>
+  <%= f.text_field :db_row_limit %>
+  <%= f.label :disable_retweets %>
+  <%= f.check_box :disable_retweets %>
+  <%= f.submit "Update Settings" %>
+<% end %>

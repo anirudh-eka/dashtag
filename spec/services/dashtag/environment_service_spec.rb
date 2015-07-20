@@ -5,7 +5,6 @@ module Dashtag
     before(:each) do
       @default_key = ENV["TWITTER_CONSUMER_KEY"]
       @default_secret = ENV["TWITTER_CONSUMER_SECRET"]
-      @default_header_link = ENV["HEADER_LINK"]
       @default_censored_words = ENV["CENSORED_WORDS"]
       @default_instagram_client_id = ENV["INSTAGRAM_CLIENT_ID"]
       @default_censored_users = ENV["CENSORED_USERS"]
@@ -21,7 +20,6 @@ module Dashtag
     after(:each) do
       ENV["TWITTER_CONSUMER_KEY"] = @default_key
       ENV["TWITTER_CONSUMER_SECRET"] = @default_secret
-      ENV["HEADER_LINK"] =  @default_header_link
       ENV["CENSORED_WORDS"] = @default_censored_words
       ENV["INSTAGRAM_CLIENT_ID"] = @default_instagram_client_id
       ENV["CENSORED_USERS"] = @default_censored_users
@@ -32,23 +30,6 @@ module Dashtag
       ENV["POST_COLOR_2"] = @test_post_color_2
       ENV["POST_COLOR_3"] =  @test_post_color_3
       ENV["POST_COLOR_4"] =  @test_post_color_4
-    end
-
-    describe "header link" do
-      it "should return a link for user set in env" do
-        ENV["HEADER_LINK"] = "MY CUSTOM HEADER"
-        expect(EnvironmentService.header_link).to eq(ENV["HEADER_LINK"])
-      end
-
-      it "should return #hashtag-anchor if header-link is nil" do
-        ENV["HEADER_LINK"] = nil
-        expect(EnvironmentService.header_link).to eq("#hashtag-anchor")
-      end
-
-      it "should return #hashtag-anchor if header-link is empty" do
-        ENV["HEADER_LINK"] = ""
-        expect(EnvironmentService.header_link).to eq("#hashtag-anchor")
-      end
     end
 
     describe "twitter credentials" do

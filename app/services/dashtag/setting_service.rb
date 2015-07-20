@@ -90,12 +90,12 @@ module Dashtag
     end
 
     def self.find_setting_or_default(name, default)
-      setting = Setting.find_by(name: name)
+      setting = SettingStore.find_by(name: name)
       value_or_default(setting, default)
     end
 
     def self.create_or_update_setting(name, value)
-      Setting.find_or_create_by(name: name).update(value: value)
+      SettingStore.find_or_create_by(name: name).update(value: value)
     end
 
     def self.default_header_title
