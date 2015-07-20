@@ -7,6 +7,7 @@ module Dashtag
     include ActionView::Helpers::UrlHelper
 
     def index
+      @settings = Settings.load_settings
       respond_to do |format|
         format.html do
           @posts = Post.limited_sorted_posts(100)

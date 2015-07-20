@@ -32,7 +32,7 @@ module Dashtag
     end
 
     def post_is_not_a_retweet
-      errors.add(:text, "can't be a retweet") if SettingService.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
+      errors.add(:text, "can't be a retweet") if SettingStore.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
     end
 
     private
@@ -47,7 +47,7 @@ module Dashtag
     end
 
     def clear_oldest_post_if_limit_is_reached
-      Post.all_sorted_posts.last.destroy! if Post.count > SettingService.db_row_limit
+      Post.all_sorted_posts.last.destroy! if Post.count > SettingStore.db_row_limit.as_int
     end
   end
 end

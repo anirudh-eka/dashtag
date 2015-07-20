@@ -461,7 +461,7 @@ module Dashtag
             "users_in_photo"=>  [],
             "caption"=>  {
               "created_time"=> "1410884290",
-              "text"=> "#love ##{ENV["CENSORED_WORDS"].split("|").sample()} @TagsForLikes #instagood #me #smile #follow #cute #photooftheday #tbt #followme #tagsforlikes #girl #beautiful #happy #picoftheday #instadaily #food #swag #amazing #TFLers #fashion #igers #fun #summer #instalike #bestoftheday #smile #like4like #friends #instamood",
+              "text"=> "#love ##{SettingStore.censored_words.sample()} @TagsForLikes #instagood #me #smile #follow #cute #photooftheday #tbt #followme #tagsforlikes #girl #beautiful #happy #picoftheday #instadaily #food #swag #amazing #TFLers #fashion #igers #fun #summer #instalike #bestoftheday #smile #like4like #friends #instamood",
               "from"=>  {
                 "username"=> "oksanasovas",
                 "profile_picture"=> "http://photos-f.ak.instagram.com/hphotos-ak-xaf1/10597252_804558659575749_663313685_a.jpg",
@@ -524,7 +524,7 @@ module Dashtag
             "users_in_photo"=>  [],
             "caption"=>  {
               "created_time"=> "1410884290",
-              "text"=> "##{ENV["CENSORED_WORDS"].split("|").sample()} #kiss #love #budapest #basilica #tired",
+              "text"=> "##{SettingStore.censored_words.sample()} #kiss #love #budapest #basilica #tired",
               "from"=>  {
                 "username"=> "pollywoah",
                 "profile_picture"=> "http://images.ak.instagram.com/profiles/profile_33110152_75sq_1380185157.jpg",
@@ -588,7 +588,7 @@ module Dashtag
             "users_in_photo"=>  [],
             "caption"=>  {
               "created_time"=> "1410884290",
-              "text"=> "##{ENV["CENSORED_WORDS"].split("|").sample()} #hbkl \nMnemani istri siang n mlm di hospital..\nDoakan supaya selamat melahirkan cahaya mata sulung utk kami...\n#Love #family #healthybaby #cute #sweet",
+              "text"=> "##{SettingStore.censored_words.sample()} #hbkl \nMnemani istri siang n mlm di hospital..\nDoakan supaya selamat melahirkan cahaya mata sulung utk kami...\n#Love #family #healthybaby #cute #sweet",
               "from"=>  {
                 "username"=> "cainmoxc",
                 "profile_picture"=> "http://images.ak.instagram.com/profiles/profile_1090108603_75sq_1392225178.jpg",
@@ -662,7 +662,7 @@ module Dashtag
             "users_in_photo"=>  [],
             "caption"=>  {
               "created_time"=> "1410884290",
-              "text"=> "#{ENV["CENSORED_WORDS"].split("|").sample()}\n#me #noi #iger #Italia #italian #love #myboyfriend #tatoo #tatoowhitlove #ops #opslove #sempreassieme #tiamo #aspasso #september #tempodelcavolo #chedobbiamofà",
+              "text"=> "#{SettingStore.censored_words.sample()}\n#me #noi #iger #Italia #italian #love #myboyfriend #tatoo #tatoowhitlove #ops #opslove #sempreassieme #tiamo #aspasso #september #tempodelcavolo #chedobbiamofà",
               "from"=>  {
                 "username"=> "jolanda_cirigliano",
                 "profile_picture"=> "http://photos-h.ak.instagram.com/hphotos-ak-xfa1/10448944_676691075735007_832582745_a.jpg",
@@ -770,7 +770,7 @@ module Dashtag
           "user_has_liked"=> false,
           "id"=> "810878657289931661_1461058473",
           "user"=>  {
-            "username"=> "#{ENV['CENSORED_USERS'].split('|').sample()}",
+            "username"=> "#{SettingStore.censored_users.sample()}",
             "profile_picture"=> "http://photos-f.ak.instagram.com/hphotos-ak-xaf1/10597252_804558659575749_663313685_a.jpg",
             "full_name"=> "Savochka Oxana",
             "bio"=> "",
@@ -832,7 +832,7 @@ module Dashtag
           "user_has_liked"=> false,
           "id"=> "810878657856956281_33110152",
           "user"=>  {
-            "username"=> "#{ENV['CENSORED_USERS'].split('|').sample()}",
+            "username"=> "#{SettingStore.censored_users.sample()}",
             "profile_picture"=> "http://images.ak.instagram.com/profiles/profile_33110152_75sq_1380185157.jpg",
             "full_name"=> "pollywoah",
             "bio"=> "",
@@ -895,7 +895,7 @@ module Dashtag
           "user_has_liked"=> false,
           "id"=> "810878658028261877_1090108603",
           "user"=>  {
-            "username"=> "#{ENV['CENSORED_USERS'].split('|').sample()}",
+            "username"=> "#{SettingStore.censored_users.sample()}",
             "profile_picture"=> "http://images.ak.instagram.com/profiles/profile_1090108603_75sq_1392225178.jpg",
             "full_name"=> "Cain Shaheen",
             "bio"=> "",
@@ -968,7 +968,7 @@ module Dashtag
           "user_has_liked"=> false,
           "id"=> "810878658755062265_1100360665",
           "user"=>  {
-            "username"=> "#{ENV['CENSORED_USERS'].split('|').sample()}",
+            "username"=> "#{SettingStore.censored_users.sample()}",
             "website"=> "",
             "profile_picture"=> "http://photos-h.ak.instagram.com/hphotos-ak-xfa1/10448944_676691075735007_832582745_a.jpg",
             "full_name"=> "jolanda_cirigliano",

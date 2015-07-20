@@ -20,23 +20,23 @@ module Dashtag
     end
 
     def pull_posts!
-      if (Time.now - last_update > SettingService.api_rate)
+      if (Time.now - last_update > SettingStore.api_rate.as_int)
 
         @last_update = Time.now
 
         parsed_responses = []
 
-        SettingService.hashtags.each do |hashtags|
-          parsed_responses += pull_instagram_posts_and_parse(hashtags) if EnvironmentService.instagram_client_id
-          parsed_responses += pull_twitter_posts_and_parse(hashtags) if EnvironmentService.twitter_bearer_credentials
+        SettingStore.hashtags.each do |hashtags|
+          parsed_responses += pull_instagram_posts_and_parse(hashtags) if SettingStore.instagram_client_id
+          parsed_responses += pull_twitter_posts_and_parse(hashtags) if SettingStore.twitter_bearer_credentials
         end
 
-        SettingService.twitter_users.each do |user|
-          parsed_responses += pull_twitter_posts_from_users_and_parse(user) if EnvironmentService.twitter_bearer_credentials
+        SettingStore.twitter_users.each do |user|
+          parsed_responses += pull_twitter_posts_from_users_and_parse(user) if SettingStore.twitter_bearer_credentials
         end
 
         instagram_user_ids.each do |user_id|
-          parsed_responses += pull_instagram_posts_from_users_and_parse(user_id) if EnvironmentService.instagram_client_id
+          parsed_responses += pull_instagram_posts_from_users_and_parse(user_id) if SettingStore.instagram_client_id
         end
 
         parsed_responses.each do |attributes|
@@ -51,14 +51,14 @@ module Dashtag
 
     	def pull_instagram_posts_and_parse(hashtags)
         hashtags.map do |hashtag|
-          instagram_client_id = EnvironmentService.instagram_client_id
+          instagram_client_id = SettingStore.instagram_client_id
           response = HTTParty.get("https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{instagram_client_id}")
           GramParser.parse(response.parsed_response)
         end
     	end
 
       def pull_instagram_posts_from_users_and_parse(user_id)
-        instagram_client_id = EnvironmentService.instagram_client_id
+        instagram_client_id = SettingStore.instagram_client_id
         response = HTTParty.get("https://api.instagram.com/v1/users/#{user_id}/media/recent/?client_id=#{instagram_client_id}")
         GramParser.parse(response.parsed_response)
       end
@@ -77,19 +77,19 @@ module Dashtag
       end
 
       def pull_instagram_user_id_from_users
-        instagram_client_id = EnvironmentService.instagram_client_id
+        instagram_client_id = SettingStore.instagram_client_id
         instagram_ids = []
-        SettingService.instagram_users.each do |user|
+        SettingStore.instagram_users.each do |user|
           response = HTTParty.get("https://api.instagram.com/v1/users/search?q=#{user}&client_id=#{instagram_client_id}")
           instagram_ids << response["data"].first["id"] if response["data"].first
         end
-        SettingService.instagram_user_ids.each { |id| instagram_ids << id }
+        SettingStore.instagram_user_ids.each { |id| instagram_ids << id }
 
         instagram_ids
       end
 
       def twitter_bearer_token
-        authorization_key = Base64.encode64(EnvironmentService.twitter_bearer_credentials).gsub("\n","")
+        authorization_key = Base64.encode64(SettingStore.twitter_bearer_credentials).gsub("\n","")
         resp = HTTParty.post('https://api.twitter.com/oauth2/token',
           :headers => {
             "Authorization" => "Basic #{authorization_key}",

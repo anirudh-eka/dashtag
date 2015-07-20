@@ -99,7 +99,7 @@ RSpec.configure do |config|
         body: {"grant_type"=>"client_credentials"}).
       to_return({status: 200, body: auth_response, headers: {'content-type' => 'application/json'} })
 
-    Dashtag::SettingService.hashtags.each do |hashtags|
+    Dashtag::SettingStore.hashtags.each do |hashtags|
       hashtags.each do |hashtag|
         stub_request(:get, "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}").
           to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
@@ -112,21 +112,21 @@ RSpec.configure do |config|
         {:status => 200, :body => Dashtag::SampleTweetResponses.second_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
     end
 
-    Dashtag::SettingService.twitter_users.each do |user|
+    Dashtag::SettingStore.twitter_users.each do |user|
       stub_request(:get, "https://api.twitter.com/1.1/statuses/user_timeline.json?count=50&screen_name=#{user}").
       with(headers: {"Authorization"=>/Bearer .+/}).
       to_return( {:status => 200, :body => Dashtag::SampleTweetResponses.user_tweet_response.to_json, :headers => {'content-type' => 'application/json'} })
     end
 
-    Dashtag::SettingService.instagram_user_ids.each do |user_id|
-      stub_request(:get, "https://api.instagram.com/v1/users/#{user_id}/media/recent/?client_id=#{Dashtag::EnvironmentService.instagram_client_id}").
+    Dashtag::SettingStore.instagram_user_ids.each do |user_id|
+      stub_request(:get, "https://api.instagram.com/v1/users/#{user_id}/media/recent/?client_id=#{Dashtag::SettingStore.instagram_client_id}").
       to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
     end
 
     stub_request(:get, /.*api.instagram.com\/v1\/users\/search.*/).
     to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
-    stub_request(:get, "https://api.instagram.com/v1/users/#{Dashtag::SampleInstagramResponses.instagram_response["data"].first["id"]}/media/recent/?client_id=#{Dashtag::EnvironmentService.instagram_client_id}").
+    stub_request(:get, "https://api.instagram.com/v1/users/#{Dashtag::SampleInstagramResponses.instagram_response["data"].first["id"]}/media/recent/?client_id=#{Dashtag::SettingStore.instagram_client_id}").
     to_return( {:status => 200, :body => Dashtag::SampleInstagramResponses.user_instagram_response.to_json, :headers => {'content-type' => 'application/json'}})
 
   end

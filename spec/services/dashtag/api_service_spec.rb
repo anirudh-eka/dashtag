@@ -11,16 +11,16 @@ module Dashtag
       it "sets instagram_user_ids from Instagram Users" do
         instagram_ids = []
         instagram_id = SampleInstagramResponses.instagram_response["data"].first["id"]
-        SettingService.instagram_users.count.times { instagram_ids << instagram_id}
+        SettingStore.instagram_users.count.times { instagram_ids << instagram_id}
 
-        SettingService.instagram_user_ids.each { |id| instagram_ids << id }
+        SettingStore.instagram_user_ids.each { |id| instagram_ids << id }
         expect(APIService.instance.instagram_user_ids).to eq(instagram_ids)
       end
     end
 
     context 'when time since last pull is greater than api rate limit' do
       before(:each) do
-        SettingService.api_rate = 15
+        SettingStore.create_or_update_setting("api_rate", NumSetting.parse(15))
         last_pull_stub = Time.now - 20
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
@@ -28,7 +28,7 @@ module Dashtag
       it "parses grams and tweets from response and creates posts with parsed data" do
           tweet = FactoryGirl.create(:post,
             source: "twitter",
-            text: "Thee Namaste Nerdz. ##{SettingService.hashtags.first}",
+            text: "Thee Namaste Nerdz. ##{SettingStore.hashtags.first}",
             screen_name: "bullcityrecords",
             time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
             profile_image_url: "http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg",
@@ -49,7 +49,7 @@ module Dashtag
       end
 
       it 'should pull instagram and twitter posts for each hashtag' do
-        SettingService.hashtags.each do |hashtags|
+        SettingStore.hashtags.each do |hashtags|
           expect(APIService.instance).to receive(:pull_instagram_posts_and_parse).with(hashtags).and_return([])
           expect(APIService.instance).to receive(:pull_twitter_posts_and_parse).with(hashtags).and_return([])
         end
@@ -57,7 +57,7 @@ module Dashtag
       end
 
       it 'should pull twitter posts from each user from twitter_users' do
-        SettingService.twitter_users.each do |user|
+        SettingStore.twitter_users.each do |user|
           expect(APIService.instance).to receive(:pull_twitter_posts_from_users_and_parse).with(user).and_return([])
         end
         APIService.instance.pull_posts!
@@ -75,18 +75,18 @@ module Dashtag
     describe 'loud pull' do
       context 'when time since last pull is less than api rate limit' do
         before(:each) do
-          SettingService.api_rate = 15
+          SettingStore.create_or_update_setting("api_rate", NumSetting.parse(15))
           last_pull_stub = Time.now
           allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
         end
         it "should throw exception" do
           expect { APIService.instance.pull_posts! }.to raise_error("Time since last pull is less than api rate limit")
-          SettingService.api_rate = 1
+          SettingStore.create_or_update_setting("api_rate", NumSetting.parse(1))
         end
       end
       context "when time since last pull is greater than the api rate limit" do
         before(:each) do
-          sleep SettingService.api_rate + 0.5
+          sleep SettingStore.api_rate.as_int + 0.5
         end
         context "when twitter api keys are not provided in the env" do
           it "should not pull from twitter and parse" do
@@ -118,7 +118,7 @@ module Dashtag
 
       context 'when time since last pull is less than api rate limit' do
         before(:each) do
-          SettingService.api_rate = 15
+          SettingStore.create_or_update_setting("api_rate", NumSetting.parse(15))
           last_pull_stub = Time.now
           allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
         end

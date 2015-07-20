@@ -25,12 +25,14 @@ module Dashtag
     end
 
     it "should not add grams with censored words in the caption" do
+      SettingStore.create_or_update_setting("censored_words", CensoredWords.parse("DONTSAYTHAT!!, ORTHAT!"))
       response = SampleInstagramResponses.instagram_response_with_censored_words
       result = GramParser.parse(response)
       expect(result).to be_empty
     end
 
     it "should not add grams by censored users" do
+      SettingStore.create_or_update_setting("censored_users", SocialUsers.parse("@bigBrother"))
       response = SampleInstagramResponses.instagram_response_from_censored_users
       result = GramParser.parse(response)
       expect(result).to be_empty

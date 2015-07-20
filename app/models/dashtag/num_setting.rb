@@ -24,5 +24,9 @@ module Dashtag
     def to_ui_format
       @number
     end
+
+    def as_int
+      @number
+    end
 	end
 end
