@@ -21,8 +21,8 @@ module Dashtag
   	  @words == arg
   	end
 
-  	def method_missing(method, *args)
-  	  @words.send(method.to_s, *args)
+  	def method_missing(method, *args, &block)
+  	  @words.send(method.to_s, *args, &block)
   	end
 
     private

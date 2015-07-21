@@ -31,8 +31,8 @@ module Dashtag
       @users == arg
     end
 
-    def method_missing(method, *args)
-      @users.send(method.to_s, *args)
+    def method_missing(method, *args, &block)
+      @users.send(method.to_s, *args, &block)
     end
 	end
 end
