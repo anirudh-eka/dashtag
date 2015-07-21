@@ -121,5 +121,11 @@ module Dashtag
       SettingStore.create_or_update_setting("twitter_consumer_secret", TextSetting.parse("iswear"))
       expect(SettingStore.twitter_bearer_credentials).to eq("thisisreal:iswear")
     end
+
+    it "should return nil for twitter_bearer_credentials if key or secret does not exist" do
+      SettingStore.create_or_update_setting("twitter_consumer_key", TextSetting.parse("thisisreal"))
+      SettingStore.create_or_update_setting("twitter_consumer_secret", nil)
+      expect(SettingStore.twitter_bearer_credentials).to be_nil
+    end
   end
 end

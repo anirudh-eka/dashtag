@@ -29,5 +29,9 @@ module Dashtag
       return other == @text if other.class == TextSetting
       @text == other
     end
+
+    def method_missing(method, *args)
+      @text.send(method, *args)
+    end
 	end
 end

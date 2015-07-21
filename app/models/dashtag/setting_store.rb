@@ -67,7 +67,9 @@ module Dashtag
     end
 
     def self.twitter_bearer_credentials
-      "#{twitter_consumer_key.to_api_format}:#{twitter_consumer_secret.to_api_format}"
+      unless twitter_consumer_key.empty? || twitter_consumer_secret.empty?
+        "#{twitter_consumer_key.to_api_format}:#{twitter_consumer_secret.to_api_format}"
+      end
     end
 
     def self.method_missing(method, *args)

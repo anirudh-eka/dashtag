@@ -1,4 +1,9 @@
 require 'spec_helper'
+require 'web_mock_custom_helpers'
+
+RSpec.configure do |c|
+  c.include WebMockCustomHelpers
+end
 
 module Dashtag
   describe APIService do
@@ -20,32 +25,23 @@ module Dashtag
 
     context 'when time since last pull is greater than api rate limit' do
       before(:each) do
+        SettingStore.create_or_update_setting("instagram_client_id", TextSetting.parse("ig_client_id"))
+        SettingStore.create_or_update_setting("twitter_consumer_key", TextSetting.parse("twitter_consumer_key"))
+        SettingStore.create_or_update_setting("twitter_consumer_secret", TextSetting.parse("twitter_consumer_secret"))
+        SettingStore.create_or_update_setting("hashtags", Hashtags.parse("#good, #life"))
+        SettingStore.create_or_update_setting("twitter_users", SocialUsers.parse("@hello_twitter"))
+        SettingStore.create_or_update_setting("instagram_users", SocialUsers.parse("@hello_instagram"))
         SettingStore.create_or_update_setting("api_rate", NumSetting.parse(15))
+        stub_all_external_api_requests_with_current_settings
         last_pull_stub = Time.now - 20
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
       end
 
-      it "parses grams and tweets from response and creates posts with parsed data" do
-          tweet = FactoryGirl.create(:post,
-            source: "twitter",
-            text: "Thee Namaste Nerdz. ##{SettingStore.hashtags.first}",
-            screen_name: "bullcityrecords",
-            time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
-            profile_image_url: "http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg",
-            media_url: "http://media-cache-ak0.pinimg.com/736x/cf/69/d9/cf69d915e40a62409133e533b64186f1.jpg",
-            post_id: "249292149810667520"
-          )
-
-          gram = FactoryGirl.create(:post, source: "instagram",
-          text: "[ t o d a y ] \n#me #noi #iger #Italia #italian #love #myboyfriend #tatoo #tatoowhitlove #ops #opslove #sempreassieme #tiamo #aspasso #september #tempodelcavolo #chedobbiamofà",
-          screen_name: "jolanda_cirigliano",
-          time_of_post: DateTime.strptime("1410884290", "%s"),
-          profile_image_url: "http://photos-h.ak.instagram.com/hphotos-ak-xfa1/10448944_676691075735007_832582745_a.jpg",
-          media_url: "http://scontent-b.cdninstagram.com/hphotos-xaf1/t51.2885-15/10691617_1510929602485903_1047906060_n.jpg",
-          post_id: "tA0dgLCmn5")
-          APIService.instance.pull_posts!
-          expect(Post.all).to include(tweet)
-          expect(Post.all).to include(gram)
+      it "parses grams and tweets from response and creates posts with parsed data (integration of pull)" do
+        APIService.instance.pull_posts!
+        #should have stored posts webmock from stubbed respons
+        expect(Post.where(source: "twitter").count).to_not be(0)
+        expect(Post.where(source: "instagram").count).to_not be(0)
       end
 
       it 'should pull instagram and twitter posts for each hashtag' do
@@ -73,9 +69,15 @@ module Dashtag
     end
 
     describe 'loud pull' do
+      before(:each) do
+        SettingStore.create_or_update_setting("api_rate", NumSetting.parse(15))
+        SettingStore.create_or_update_setting("hashtags", Hashtags.parse("#good, #life"))
+        SettingStore.create_or_update_setting("twitter_users", SocialUsers.parse("@hello_twitter"))
+        SettingStore.create_or_update_setting("instagram_users", SocialUsers.parse("@hello_instagram"))
+        stub_all_external_api_requests_with_current_settings
+      end
       context 'when time since last pull is less than api rate limit' do
         before(:each) do
-          SettingStore.create_or_update_setting("api_rate", NumSetting.parse(15))
           last_pull_stub = Time.now
           allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
         end
@@ -90,21 +92,17 @@ module Dashtag
         end
         context "when twitter api keys are not provided in the env" do
           it "should not pull from twitter and parse" do
-            default_env_twitter_keys = ENV["TWITTER_CONSUMER_KEY"]
-            ENV["TWITTER_CONSUMER_KEY"] = ""
+            SettingStore.create_or_update_setting("twitter_consumer_key", nil)
             expect(APIService.instance).to_not receive(:pull_twitter_posts_and_parse)
             expect(APIService.instance).to_not receive(:pull_twitter_posts_from_users_and_parse)
             APIService.instance.pull_posts!
-            ENV["TWITTER_CONSUMER_KEY"] = default_env_twitter_keys
           end
         end
         context "when instagram api keys are not provided in the env" do
           it "should not pull from twitter and parse" do
-            default_env_instagram_keys = ENV["INSTAGRAM_CLIENT_ID"]
-            ENV["INSTAGRAM_CLIENT_ID"] = ""
+            SettingStore.create_or_update_setting("instagram_client_id", nil)
             expect(APIService.instance).to_not receive(:pull_instagram_posts_and_parse)
             APIService.instance.pull_posts!
-            ENV["INSTAGRAM_CLIENT_ID"] = default_env_instagram_keys
           end
         end
       end

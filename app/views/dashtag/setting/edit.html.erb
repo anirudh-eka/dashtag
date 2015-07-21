@@ -5,8 +5,7 @@
 </div>
   <h1>Settings</h1>
 
-<%= form_for @settings, url: {action: "update"}, html: {class: "settings"} do |f| %>
-  
+<%= form_for @settings, url: {action: "update"}, html: {class: "settings"} do |f| %>  
   <%= f.label :hashtags %>
   <p class="setting-instructions">some instructions about this</p>
   <div class="error-message">
@@ -30,5 +29,31 @@
   <%= f.text_field :db_row_limit %>
   <%= f.label :disable_retweets %>
   <%= f.check_box :disable_retweets %>
+  <%= f.label :header_link %>
+  <%= f.text_field :header_link %>
+  <%= f.label :twitter_consumer_key %>
+  <%= f.text_field :twitter_consumer_key %>
+  <%= f.label :twitter_consumer_secret %>
+  <%= f.text_field :twitter_consumer_secret %>
+  <%= f.label :instagram_client_id %>
+  <%= f.text_field :instagram_client_id %>
+  <%= f.label :censored_words %>
+  <%= f.text_field :censored_words %>
+  <%= f.label :censored_users %>
+  <%= f.text_field :censored_users %>
+  <%= f.label :font_family %>
+  <%= f.text_field :font_family %>
+  <%= f.label :header_color %>
+  <%= f.text_field :header_color %>
+  <%= f.label :background_color %>
+  <%= f.text_field :background_color %>
+  <%= f.label :post_color_1 %>
+  <%= f.text_field :post_color_1 %>
+  <%= f.label :post_color_2 %>
+  <%= f.text_field :post_color_2 %>
+  <%= f.label :post_color_3 %>
+  <%= f.text_field :post_color_3 %>
+  <%= f.label :post_color_4 %>
+  <%= f.text_field :post_color_4 %>
   <%= f.submit "Update Settings" %>
 <% end %>

@@ -21,13 +21,12 @@ module Dashtag
 
     def pull_posts!
       if (Time.now - last_update > SettingStore.api_rate.as_int)
-
         @last_update = Time.now
 
         parsed_responses = []
 
         SettingStore.hashtags.each do |hashtags|
-          parsed_responses += pull_instagram_posts_and_parse(hashtags) if SettingStore.instagram_client_id
+          parsed_responses += pull_instagram_posts_and_parse(hashtags) unless SettingStore.instagram_client_id.empty?
           parsed_responses += pull_twitter_posts_and_parse(hashtags) if SettingStore.twitter_bearer_credentials
         end
 
@@ -36,7 +35,7 @@ module Dashtag
         end
 
         instagram_user_ids.each do |user_id|
-          parsed_responses += pull_instagram_posts_from_users_and_parse(user_id) if SettingStore.instagram_client_id
+          parsed_responses += pull_instagram_posts_from_users_and_parse(user_id) unless SettingStore.instagram_client_id.empty?
         end
 
         parsed_responses.each do |attributes|
@@ -51,7 +50,7 @@ module Dashtag
 
     	def pull_instagram_posts_and_parse(hashtags)
         hashtags.map do |hashtag|
-          instagram_client_id = SettingStore.instagram_client_id
+          instagram_client_id = SettingStore.instagram_client_id.to_ui_format
           response = HTTParty.get("https://api.instagram.com/v1/tags/#{hashtag}/media/recent?client_id=#{instagram_client_id}")
           GramParser.parse(response.parsed_response)
         end

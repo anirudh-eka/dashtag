@@ -20,6 +20,7 @@ module Dashtag
       arr = string.split(",").map do |inner_hashtags| 
         inner_hashtags.gsub("#","").split("&").map { |hashtag| hashtag.strip }
       end
+
       Hashtags.new arr
     end
 
@@ -32,8 +33,8 @@ module Dashtag
       @hashtags == arg
     end
 
-    def method_missing(method, *args)
-      @hashtags.send(method.to_s, *args)
+    def method_missing(method, *args, &block)
+      @hashtags.send(method.to_s, *args, &block)
     end
 	end
 end
