@@ -1,4 +1,7 @@
 Dashtag::Engine.routes.draw do
+  get 'users/new'
+  post 'users/create'
+
   get 'setting/edit'
   post 'setting/update'
 
