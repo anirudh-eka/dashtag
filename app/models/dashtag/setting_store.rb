@@ -86,7 +86,7 @@ module Dashtag
     private
 
     def self.value_or_default(setting, default)
-      return default if setting.nil? || setting.value.nil?
+      return default if setting.nil? || setting.value.blank?
       setting.value
     end
   end

@@ -19,11 +19,19 @@ module Dashtag
       end
     end
 
-    describe "Loading Defaults:" do 
+    describe "Loading Defaults:" do
       it "should load default for header_title when not set" do
         hashtags = Hashtags.new([["peace"], ["love"]])
         SettingStore.create({name: "hashtags", value: hashtags.dehydrate})
         SettingStore.create({name: "header_title", value: nil})
+        
+        expect(SettingStore.find_setting_or_default("header_title")).to eq(hashtags.to_ui_format)
+      end
+
+      it "should load default when value is '' or nil" do
+        hashtags = Hashtags.new([["peace"], ["love"]])
+        SettingStore.create({name: "hashtags", value: hashtags.dehydrate})
+        SettingStore.create({name: "header_title", value: ""})
         
         expect(SettingStore.find_setting_or_default("header_title")).to eq(hashtags.to_ui_format)
       end

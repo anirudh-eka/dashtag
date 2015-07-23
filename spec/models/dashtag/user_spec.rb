@@ -40,8 +40,13 @@ module Dashtag
     it "should not allow more than one user to register" do
       user.save
       second_user = User.new(username: "tooslow", email: "tooslow@register.ing", password: "password")
-
       expect(second_user.valid?).to be_falsy
+    end
+
+    it "should tell if the dashtag has an owner" do 
+      expect(User.owner_exists?).to be_falsy
+      user.save
+      expect(User.owner_exists?).to be_truthy
     end
   end
 end

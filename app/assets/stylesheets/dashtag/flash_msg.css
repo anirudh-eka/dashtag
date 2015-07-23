@@ -1,0 +1,18 @@
+.flash-danger {
+	background-color: #EE312D;
+}
+
+.flash-success {
+	background-color: #11AA58;
+}
+
+.flash-notice {
+	background-color: #1A73BA;
+}
+
+.flash-notice, .flash-success, .flash-danger {
+	margin: 5px 300px;
+	padding: 3px 0px;
+	text-align: center;
+	border-radius: 6px;
+}

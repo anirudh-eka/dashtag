@@ -5,10 +5,8 @@ module Dashtag
     let(:second_post) { FactoryGirl.create(:post, created_at: Time.now, text: "float like a butterfly", time_of_post: Time.now) }
     let(:first_post) { FactoryGirl.create(:post, created_at: Time.now - 1, text: "floated like a butterfly", time_of_post: Time.now - 1) }
     let(:third_post) { FactoryGirl.create(:post, created_at: Time.now + 1, text: "will float like a butterfly", time_of_post: Time.now + 1) }
-
-    before do
-      @routes = Engine.routes
-    end
+    before(:each) {allow(User).to receive(:owner_exists?) {true}}
+    routes { Dashtag::Engine.routes }
 
     describe 'GET #index' do
 
@@ -27,6 +25,15 @@ module Dashtag
             get :index, :format => :html
             expect(assigns(:posts).count).to eq(100)
           end
+        end
+      end
+
+      context "when dashtag page has no owner" do
+        before(:each) {allow(User).to receive(:owner_exists?) {false}}
+        it "redirects user to create account page" do
+          get :index, :format => :html
+          expect(response).to redirect_to(users_new_path)
+          expect(flash[:notice]).to eq("Welcome to your Dashtag page! To set it up first you need to register below.")
         end
       end
     end

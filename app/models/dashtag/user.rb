@@ -11,8 +11,12 @@ module Dashtag
 
   	has_secure_password
 
+    def self.owner_exists?
+      !User.first.nil?
+    end
+
     def there_can_only_be_one_user
-      if User.count > 0 && User.first != self
+      if User.owner_exists? && User.first != self
         errors[:base] << "A user has already been registered for this Dashtag page."
       end
     end

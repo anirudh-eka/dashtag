@@ -51,4 +51,6 @@ form.settings {
 
 input[type = "submit"] {
 	cursor: pointer;
+	width: 200px;
+	margin: auto;
 }

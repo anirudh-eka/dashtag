@@ -11,6 +11,23 @@
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700' rel='stylesheet' type='text/css'>
 </head>
 	<body>
+    <div href=<%= @display_title ? @settings.header_link : "#"%> id="up" class="hashtag-title">
+      <div id="dashtag-shoutout-header-container" class="dashtag-shoutout-colors">
+        Powered by <a href="https://github.com/anirudh-eka/dashtag" target="_blank">Dashtag</a> 
+      </div>
+      <% if @display_title %>
+        <h1><%=@settings.header_title%></h1>
+      <% end %>
+    </div>
+      <% if flash[:danger] %>
+        <div class="flash-danger"><%=flash[:danger]%></div>
+      <% end %>
+      <% if flash[:success] %>
+        <div class="flash-success"><%=flash[:success]%></div>
+      <% end %>
+      <% if flash[:notice] %>
+        <div class="flash-notice"><%=flash[:notice]%></div>
+      <% end %>
 		<%= yield %>
 	</body>
 </html>
