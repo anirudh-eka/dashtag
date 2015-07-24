@@ -40,7 +40,15 @@ module Dashtag
           expect(flash[:notice]).to eq("You are already logged in.")
         end
       end
+    end
 
+    describe "DELETE 'destroy'" do
+      before(:each) {session[:user_id] = 1}
+      it "should log user out and redirect to root" do
+        delete :destroy, :format => :html
+        expect(session[:user_id]).to be_nil
+        expect(response).to redirect_to(root_url)
+      end
     end
   end
 end
