@@ -1,0 +1,31 @@
+ul.nav {
+  color: red;
+  display: inline-block;
+  list-style-type: none;
+  margin: 0px;
+  padding-top: 5px;
+}
+.nav li {
+	display: inline-block;
+	padding-right: 4px;
+}
+
+.nav a {
+	color: black;
+}
+
+.dashtag-shoutout-colors {
+  color: rgb(38,189,207);
+}
+
+.dashtag-shoutout-colors a {
+   color: rgba(80, 136, 251, 1);
+}
+
+#dashtag-shoutout-header-container {
+  text-align: right;
+  padding-right: 40px;
+  padding-top: 5px;
+  display: inline-block;
+  float: right
+}

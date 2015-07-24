@@ -12,9 +12,16 @@
 </head>
 	<body>
     <div href=<%= @display_title ? @settings.header_link : "#"%> id="up" class="hashtag-title">
-      <div id="dashtag-shoutout-header-container" class="dashtag-shoutout-colors">
-        Powered by <a href="https://github.com/anirudh-eka/dashtag" target="_blank">Dashtag</a> 
-      </div>
+      <ul class="nav">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Settings", setting_edit_path %></li>
+        <% if user_logged_in? %>
+          <li><%= link_to "Log out", logout_path %></li>
+        <% end %>
+      </ul>
+
+      <div id="dashtag-shoutout-header-container" class="dashtag-shoutout-colors">Powered by <a href="https://github.com/anirudh-eka/dashtag" target="_blank">Dashtag</a></div>
+
       <% if @display_title %>
         <h1><%=@settings.header_title%></h1>
       <% end %>
