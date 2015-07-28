@@ -11,7 +11,14 @@
   <%= f.text_field :hashtags %>
 
   <%= f.label :twitter_users %>
+  <p class="setting-instructions"> Each username must begin with a '@' and be seperated by a ','.</p>
+  <div class="error-message">
+  <% @settings.errors.messages[:twitter_users].each do |msg| %>
+    <%= msg %>
+  <% end %>
+  </div>
   <%= f.text_field :twitter_users %>
+
   <%= f.label :instagram_users %>
   <%= f.text_field :instagram_users %>
   <%= f.label :instagram_user_ids %>
