@@ -14,6 +14,12 @@ module Dashtag
     it { should_not allow_value("#things #look #bad").for(:hashtags) }
     it { should_not allow_value("something").for(:hashtags) }
 
+    it { should allow_value("@follow, @me").for(:twitter_users) }
+    it { should_not allow_value("@follow, me").for(:twitter_users) }
+    it { should_not allow_value("@follow * @me").for(:twitter_users) }
+    it { should_not allow_value("@follow @me").for(:twitter_users) }
+    it { should_not allow_value("something").for(:twitter_users) }
+    
     let(:settings) {FactoryGirl.build(:settings) }
 
     context "when settings are not set in db" do
