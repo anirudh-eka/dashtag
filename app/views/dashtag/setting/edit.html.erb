@@ -2,7 +2,7 @@
 
 <%= form_for @settings, url: {action: "update"}, html: {class: "settings"} do |f| %>  
   <%= f.label :hashtags %>
-  <p class="setting-instructions">some instructions about this</p>
+  <p class="setting-instructions"> Each hashtag must begin with a '#' and be seperated by a ','.</p>
   <div class="error-message">
   <% @settings.errors.messages[:hashtags].each do |msg| %>
     <%= msg %>
