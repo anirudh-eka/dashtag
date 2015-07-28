@@ -26,6 +26,13 @@ module Dashtag
     it { should_not allow_value("@follow @me").for(:instagram_users) }
     it { should_not allow_value("something").for(:instagram_users) }
     
+    it { should allow_value("1, 38, 4").for(:instagram_user_ids) }
+    it { should allow_value("1").for(:instagram_user_ids) }
+    it { should_not allow_value("1.4").for(:instagram_user_ids) }
+    it { should_not allow_value("-1").for(:instagram_user_ids) }
+    it { should_not allow_value("0").for(:instagram_user_ids) }
+    it { should_not allow_value("a").for(:instagram_user_ids) }
+
     let(:settings) {FactoryGirl.build(:settings) }
 
     context "when settings are not set in db" do
