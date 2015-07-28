@@ -28,10 +28,15 @@
   </div>
   <%= f.text_field :instagram_users %>
 
-  <%= f.label :instagram_users %>
-  <%= f.text_field :instagram_users %>
-  <%= f.label :instagram_user_ids %>
+    <%= f.label :instagram_user_ids %>
+  <p class="setting-instructions"> Each id must be a positive whole number and be seperated by a ','.</p>
+  <div class="error-message">
+  <% @settings.errors.messages[:instagram_user_ids].each do |msg| %>
+    <%= msg %>
+  <% end %>
+  </div>
   <%= f.text_field :instagram_user_ids %>
+
   <%= f.label :header_title %>
   <%= f.text_field :header_title %>
   <%= f.label :api_rate %>
