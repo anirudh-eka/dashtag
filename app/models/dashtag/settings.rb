@@ -26,9 +26,14 @@ module Dashtag
   	include ActiveModel::Conversion
     include ActiveModel::Validations
 
+    SOCIAL_USERS_REGEX=/(\b(?<!@)[a-zA-Z]+|\b[a-zA-Z]+\b(?=[^,]))/
+    HASHTAGS_REGEX=/(\b(?<!#)[a-zA-Z]+|\b[a-zA-Z]+\b((?=[^,])(?=\s[^&])|,\s*[^\w\s#]))/
+
     validates :hashtags, presence: true
-    validates :hashtags, format: { without: /(\b(?<!#)[a-zA-Z]+|\b[a-zA-Z]+\b((?=[^,])(?=\s[^&])|,\s*[^\w\s#]))/,  message: "list is not correctly formatted" }
-    validates :twitter_users, format: { without: /(\b(?<!@)[a-zA-Z]+|\b[a-zA-Z]+\b(?=[^,]))/,  message: "list is not correctly formatted" }
+    validates :hashtags, format: { without: HASHTAGS_REGEX,  message: "list is not correctly formatted" }
+    validates :twitter_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
+    validates :instagram_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
+
     validates :api_rate, numericality: true, allow_nil: true
  
     def initialize(attributes = {})

@@ -19,6 +19,12 @@ module Dashtag
     it { should_not allow_value("@follow * @me").for(:twitter_users) }
     it { should_not allow_value("@follow @me").for(:twitter_users) }
     it { should_not allow_value("something").for(:twitter_users) }
+
+    it { should allow_value("@follow, @me").for(:instagram_users) }
+    it { should_not allow_value("@follow, me").for(:instagram_users) }
+    it { should_not allow_value("@follow * @me").for(:instagram_users) }
+    it { should_not allow_value("@follow @me").for(:instagram_users) }
+    it { should_not allow_value("something").for(:instagram_users) }
     
     let(:settings) {FactoryGirl.build(:settings) }
 
