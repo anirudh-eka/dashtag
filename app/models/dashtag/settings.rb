@@ -27,6 +27,7 @@ module Dashtag
     include ActiveModel::Validations
 
     validates :hashtags, presence: true
+    validates :hashtags, format: { without: /(\b(?<!#)[a-zA-Z]+|\b[a-zA-Z]+\b((?=[^,])(?=\s[^&])|,\s*[^\w\s#]))/,  message: "list is not correctly formatted" }
     validates :api_rate, numericality: true, allow_nil: true
  
     def initialize(attributes = {})

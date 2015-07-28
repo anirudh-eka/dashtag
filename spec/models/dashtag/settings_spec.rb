@@ -4,6 +4,16 @@ module Dashtag
   describe Settings do
     it { should validate_presence_of(:hashtags) }
     it { should validate_numericality_of(:api_rate) }
+    it { should allow_value("#things, #look, #good").for(:hashtags) }
+    it { should allow_value("#things, #look & #good").for(:hashtags) }
+    it { should_not allow_value("#things, #look, bad").for(:hashtags) }
+    it { should_not allow_value("#things, #look, & #bad").for(:hashtags) }
+    it { should_not allow_value("#things, #look,       & #bad").for(:hashtags) }
+    it { should_not allow_value("#things, #look * #bad").for(:hashtags) }
+    it { should_not allow_value("#things, #look, * #bad").for(:hashtags) }
+    it { should_not allow_value("#things #look #bad").for(:hashtags) }
+    it { should_not allow_value("something").for(:hashtags) }
+
     let(:settings) {FactoryGirl.build(:settings) }
 
     context "when settings are not set in db" do
