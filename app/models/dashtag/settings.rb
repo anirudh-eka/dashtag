@@ -29,6 +29,7 @@ module Dashtag
     SOCIAL_USERS_REGEX=/(\b(?<!@)[a-zA-Z]+|\b[a-zA-Z]+\b(?=[^,]))/
     HASHTAGS_REGEX=/(\b(?<!#)[a-zA-Z]+|\b[a-zA-Z]+\b((?=[^,])(?=\s[^&])|,\s*[^\w\s#]))/
     INSTAGRAM_USER_ID_REGEX=/((?<=[-.])\b[0-9]+\b|\b[0-9]+\b(?=[^,])|0|\b[^\d,]+\b)/
+    CENSORED_WORD_REGEX=/\b\S+\b(?!,)(?!$)/
 
     validates :hashtags, presence: true
     validates :hashtags, format: { without: HASHTAGS_REGEX,  message: "list is not correctly formatted" }
@@ -38,8 +39,10 @@ module Dashtag
     validates_length_of :header_title, maximum: 50
     validates :api_rate, numericality: true, :allow_blank => true
     validates :db_row_limit, numericality: true, :allow_blank => true
-    validates_format_of :header_link, with: URI.regexp, allow_nil: true, unless: "header_link == '#hashtag-anchor'", message: "url is musbe valid starting with 'http' or 'https'"
- 
+    validates_format_of :header_link, with: URI.regexp, allow_nil: true, unless: "header_link == '#hashtag-anchor'", message: "url must be valid starting with 'http' or 'https'"
+    validates :censored_words, format: { without: CENSORED_WORD_REGEX,  message: "list is not correctly formatted" }
+    validates :censored_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
+
     def initialize(attributes = {})
       attributes.each do |name, value|
         send("#{name}=", value)

@@ -57,7 +57,7 @@ module Dashtag
     	end
 
       def pull_instagram_posts_from_users_and_parse(user_id)
-        instagram_client_id = SettingStore.instagram_client_id
+        instagram_client_id = SettingStore.instagram_client_id.to_api_format
         response = HTTParty.get("https://api.instagram.com/v1/users/#{user_id}/media/recent/?client_id=#{instagram_client_id}")
         GramParser.parse(response.parsed_response)
       end
@@ -76,7 +76,7 @@ module Dashtag
       end
 
       def pull_instagram_user_id_from_users
-        instagram_client_id = SettingStore.instagram_client_id
+        instagram_client_id = SettingStore.instagram_client_id.to_api_format
         instagram_ids = []
         SettingStore.instagram_users.each do |user|
           response = HTTParty.get("https://api.instagram.com/v1/users/search?q=#{user}&client_id=#{instagram_client_id}")

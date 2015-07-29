@@ -46,6 +46,16 @@ module Dashtag
     it { should_not allow_value('buz').for(:header_link) }
     it { should_not allow_value('bar').for(:header_link) }
 
+    it { should allow_value("bad, words").for(:censored_words) }
+    it { should_not allow_value("bad words").for(:censored_words) }
+    it { should_not allow_value("bad; words").for(:censored_words) }
+
+    it { should allow_value("@follow, @me").for(:censored_users) }
+    it { should_not allow_value("@follow, me").for(:censored_users) }
+    it { should_not allow_value("@follow * @me").for(:censored_users) }
+    it { should_not allow_value("@follow @me").for(:censored_users) }
+    it { should_not allow_value("something").for(:censored_users) }
+
     let(:settings) {FactoryGirl.build(:settings) }
 
     context "when settings are not set in db" do
