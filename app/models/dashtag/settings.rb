@@ -43,6 +43,10 @@ module Dashtag
     validates :censored_words, format: { without: CENSORED_WORD_REGEX,  message: "list is not correctly formatted" }
     validates :censored_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
 
+    validates_presence_of :twitter_consumer_secret, unless: "twitter_consumer_key.blank? && twitter_users.blank?"
+    validates_presence_of :twitter_consumer_key, unless: "twitter_consumer_secret.blank? && twitter_users.blank?"
+    validates_presence_of :instagram_client_id, unless: "instagram_users.blank? && instagram_user_ids.blank?"
+
     def initialize(attributes = {})
       attributes.each do |name, value|
         send("#{name}=", value)
