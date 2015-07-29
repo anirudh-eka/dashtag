@@ -10,6 +10,24 @@
   </div>
   <%= f.text_field :hashtags %>
 
+  <%= f.label :twitter_consumer_key %>
+  <p class="setting-instructions">Enter your Twitter Consumer Key and Secret to get tweets from Twitter. </p>
+  <div class="error-message">
+  <% @settings.errors.messages[:twitter_consumer_key].each do |msg| %>
+    <%= msg %>
+  <% end %>
+  </div>
+  <%= f.text_field :twitter_consumer_key %>
+
+  <%= f.label :twitter_consumer_secret %>
+  <p class="setting-instructions">Enter your Twitter Consumer Key and Secret to get tweets from Twitter. </p>
+  <div class="error-message">
+  <% @settings.errors.messages[:twitter_consumer_secret].each do |msg| %>
+    <%= msg %>
+  <% end %>
+  </div>
+  <%= f.text_field :twitter_consumer_secret %>
+
   <%= f.label :twitter_users %>
   <p class="setting-instructions"> Each username must begin with a '@' and be seperated by a ','.</p>
   <div class="error-message">
@@ -18,6 +36,16 @@
   <% end %>
   </div>
   <%= f.text_field :twitter_users %>
+
+  <%= f.label :instagram_client_id %>
+  <p class="setting-instructions">Enter your Instagram Client ID to get posts from Instagram. </p>
+  <div class="error-message">
+  <% @settings.errors.messages[:instagram_client_id].each do |msg| %>
+    <%= msg %>
+  <% end %>
+  </div>
+  <%= f.text_field :instagram_client_id %>
+
 
   <%= f.label :instagram_users %>
   <p class="setting-instructions"> Each username must begin with a '@' and be seperated by a ','.</p>
@@ -84,12 +112,6 @@
   <%= f.text_field :header_link %>
 
 
-  <%= f.label :twitter_consumer_key %>
-  <%= f.text_field :twitter_consumer_key %>
-  <%= f.label :twitter_consumer_secret %>
-  <%= f.text_field :twitter_consumer_secret %>
-  <%= f.label :instagram_client_id %>
-  <%= f.text_field :instagram_client_id %>
   <%= f.label :censored_words %>
   <%= f.text_field :censored_words %>
   <%= f.label :censored_users %>
