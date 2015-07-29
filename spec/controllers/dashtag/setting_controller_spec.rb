@@ -46,7 +46,7 @@ module Dashtag
           session[:user_id] = 1
         end
         it "redirects to setting edit path" do
-          post :update, :format => :html
+          post :update, :format => :html, settings: {hashtags: "#hi"}
           expect(response).to redirect_to setting_edit_path
           expect(flash[:success]).to eq("Succesfully Updated!")
         end

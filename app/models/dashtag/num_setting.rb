@@ -10,7 +10,7 @@ module Dashtag
     end
   
     def self.parse(num)
-      new(Integer(num))
+      num.blank? ? nil : new(Integer(num))
     end
 
     def self.hydrate(num)

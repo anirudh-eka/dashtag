@@ -35,8 +35,10 @@ module Dashtag
     validates :twitter_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
     validates :instagram_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
     validates :instagram_user_ids, format: { without: INSTAGRAM_USER_ID_REGEX,  message: "ids must be positive integers greater than zero seperated by commas" }
-
-    validates :api_rate, numericality: true, allow_nil: true
+    validates_length_of :header_title, maximum: 50
+    validates :api_rate, numericality: true, :allow_blank => true
+    validates :db_row_limit, numericality: true, :allow_blank => true
+    validates_format_of :header_link, with: URI.regexp, allow_nil: true, unless: "header_link == '#hashtag-anchor'", message: "url is musbe valid starting with 'http' or 'https'"
  
     def initialize(attributes = {})
       attributes.each do |name, value|

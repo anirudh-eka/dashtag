@@ -3,7 +3,7 @@ require 'spec_helper'
 module Dashtag
   describe Settings do
     it { should validate_presence_of(:hashtags) }
-    it { should validate_numericality_of(:api_rate) }
+    
     it { should allow_value("#things, #look, #good").for(:hashtags) }
     it { should allow_value("#things, #look & #good").for(:hashtags) }
     it { should_not allow_value("#things, #look, bad").for(:hashtags) }
@@ -32,6 +32,19 @@ module Dashtag
     it { should_not allow_value("-1").for(:instagram_user_ids) }
     it { should_not allow_value("0").for(:instagram_user_ids) }
     it { should_not allow_value("a").for(:instagram_user_ids) }
+
+    it { should validate_length_of(:header_title).is_at_most(50) }
+    it { should validate_numericality_of(:api_rate) }
+    it { should validate_numericality_of(:db_row_limit) }
+
+    it { should allow_value('http://foo.com').for(:header_link)}
+    it { should allow_value('http://bar.com/baz').for(:header_link)}
+    it "should allow default value for header_link" do 
+      should allow_value("#hashtag-anchor").for(:header_link)
+    end
+    it { should_not allow_value('fiz').for(:header_link) }
+    it { should_not allow_value('buz').for(:header_link) }
+    it { should_not allow_value('bar').for(:header_link) }
 
     let(:settings) {FactoryGirl.build(:settings) }
 

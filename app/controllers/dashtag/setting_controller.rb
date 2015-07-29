@@ -15,7 +15,7 @@ module Dashtag
 
     def update
       if user_logged_in?
-      	@settings = Settings.new(params[:settings])
+      	@settings = Settings.new(setting_params)
   		  if @settings.valid?
           @settings.store
   		    flash[:success] = "Succesfully Updated!"
