@@ -3,18 +3,6 @@ require 'spec_helper'
 module Dashtag
   describe Settings do
     describe "non conditional validation" do
-      it { should validate_presence_of(:hashtags) }
-
-      it { should allow_value("#things, #look, #good").for(:hashtags) }
-      it { should allow_value("#things, #look & #good").for(:hashtags) }
-      it { should_not allow_value("#things, #look, bad").for(:hashtags) }
-      it { should_not allow_value("#things, #look, & #bad").for(:hashtags) }
-      it { should_not allow_value("#things, #look,       & #bad").for(:hashtags) }
-      it { should_not allow_value("#things, #look * #bad").for(:hashtags) }
-      it { should_not allow_value("#things, #look, * #bad").for(:hashtags) }
-      it { should_not allow_value("#things #look #bad").for(:hashtags) }
-      it { should_not allow_value("something").for(:hashtags) }
-
       it { should allow_value("@follow, @me").for(:twitter_users) }
       it { should_not allow_value("@follow, me").for(:twitter_users) }
       it { should_not allow_value("@follow * @me").for(:twitter_users) }
@@ -100,7 +88,36 @@ module Dashtag
       context "if instagram_user_ids are not set" do
         before { subject.stub(:instagram_user_ids) {""} }
         it { should_not validate_presence_of(:instagram_client_id) }
-      end      
+      end
+
+      context "if instagram_client_id, and twitter_consumer_key and/or twitter_consumer_secret are not set" do
+        [:instagram_client_id, :twitter_consumer_secret, :twitter_consumer_key].each do |api_key|
+          before { subject.stub(api_key) {""} }
+          it { should validate_absence_of(:hashtags).with_message("posts cannot be pulled by hashtags without an instagram client id or twitter consumer key and secret, please fill them in")}
+        end
+      end  
+
+      context "when only instagram_client_id is included" do
+        before(:each) {subject.stub(:instagram_client_id) {"something"}}
+        it { should allow_value("#things, #look, #good").for(:hashtags) }
+        it { should allow_value("#things, #look & #good").for(:hashtags) }
+        it { should_not allow_value("#things, #look, bad").for(:hashtags) }
+        it { should_not allow_value("#things, #look, & #bad").for(:hashtags) }
+        it { should_not allow_value("#things, #look,       & #bad").for(:hashtags) }
+        it { should_not allow_value("#things, #look * #bad").for(:hashtags) }
+        it { should_not allow_value("#things, #look, * #bad").for(:hashtags) }
+        it { should_not allow_value("#things #look #bad").for(:hashtags) }
+        it { should_not allow_value("something").for(:hashtags) }
+      end
+
+      context "when only twitter_consumer_key/secret is included" do
+        before(:each) { subject.stub(:twitter_consumer_key) { "key"}}
+        before(:each) { subject.stub(:twitter_consumer_secret) { "secret"}}
+        [:twitter_consumer_secret, :twitter_consumer_key].each do |api_key|
+          before { subject.stub(api_key) {""} }
+          it { should validate_absence_of(:hashtags).with_message("posts cannot be pulled by hashtags without an instagram client id or twitter consumer key and secret, please fill them in")}  
+        end
+      end  
     end
 
     let(:settings) {FactoryGirl.build(:settings) }
@@ -112,9 +129,10 @@ module Dashtag
     end
   
     context "when settings are valid" do
-      before(:each) {Settings.new(hashtags: "#peace, #love").store}
-  	  
       it "should update hashtags" do
+        settings.instagram_client_id = "instagram_client_id"
+        settings.hashtags = "#peace, #love"
+        settings.store
   	    expect(Settings.load_settings.hashtags).to eq("#peace, #love")
   	  end
 
@@ -131,6 +149,7 @@ module Dashtag
       end
 
       it "should store nil values (for nullable settings)" do
+        settings.instagram_client_id = "instagram_client_id"
         settings.hashtags = "#peace, #love"
         settings.header_title = nil
         settings.store

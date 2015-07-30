@@ -31,7 +31,6 @@ module Dashtag
     INSTAGRAM_USER_ID_REGEX=/((?<=[-.])\b[0-9]+\b|\b[0-9]+\b(?=[^,])|0|\b[^\d,]+\b)/
     CENSORED_WORD_REGEX=/\b\S+\b(?!,)(?!$)/
 
-    validates :hashtags, presence: true
     validates :hashtags, format: { without: HASHTAGS_REGEX,  message: "list is not correctly formatted" }
     validates :twitter_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
     validates :instagram_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
@@ -46,6 +45,7 @@ module Dashtag
     validates_presence_of :twitter_consumer_secret, unless: "twitter_consumer_key.blank? && twitter_users.blank?"
     validates_presence_of :twitter_consumer_key, unless: "twitter_consumer_secret.blank? && twitter_users.blank?"
     validates_presence_of :instagram_client_id, unless: "instagram_users.blank? && instagram_user_ids.blank?"
+    validates_absence_of :hashtags, if: "instagram_client_id.blank? && (twitter_consumer_key.blank? || twitter_consumer_secret.blank?)", message: "posts cannot be pulled by hashtags without an instagram client id or twitter consumer key and secret, please fill them in"
 
     def initialize(attributes = {})
       attributes.each do |name, value|
