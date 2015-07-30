@@ -28,8 +28,7 @@ form.settings {
 
 .error-message ul {
 	list-style-type: none;
-	width: 400px;
-	margin: auto;
+	padding: 0px;
 }
 
 .settings input {

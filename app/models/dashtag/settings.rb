@@ -42,10 +42,13 @@ module Dashtag
     validates :censored_words, format: { without: CENSORED_WORD_REGEX,  message: "list is not correctly formatted" }
     validates :censored_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
 
-    validates_presence_of :twitter_consumer_secret, unless: "twitter_consumer_key.blank? && twitter_users.blank?"
-    validates_presence_of :twitter_consumer_key, unless: "twitter_consumer_secret.blank? && twitter_users.blank?"
-    validates_presence_of :instagram_client_id, unless: "instagram_users.blank? && instagram_user_ids.blank?"
-    validates_absence_of :hashtags, if: "instagram_client_id.blank? && (twitter_consumer_key.blank? || twitter_consumer_secret.blank?)", message: "posts cannot be pulled by hashtags without an instagram client id or twitter consumer key and secret, please fill them in"
+    validates_presence_of :twitter_consumer_secret, unless: "twitter_consumer_key.blank?"
+    validates_presence_of :twitter_consumer_key, unless: "twitter_consumer_secret.blank?"
+
+    validates_absence_of :twitter_users, if: "twitter_consumer_secret.blank? || twitter_consumer_key.blank?",  message: "posts cannot be pulled by Twitter users without a Twitter consumer key and secret, please fill them in"
+    validates_absence_of :instagram_users, if: "instagram_client_id.blank?",  message: "posts cannot be pulled by Instagram users without an Instagram client ID, please fill it in"
+    validates_absence_of :instagram_user_ids, if: "instagram_client_id.blank?",  message: "posts cannot be pulled by Instagram user IDs without an Instagram client ID, please fill it in"
+    validates_absence_of :hashtags, if: "instagram_client_id.blank? && (twitter_consumer_key.blank? || twitter_consumer_secret.blank?)", message: "posts cannot be pulled by hashtags without an Instagram client ID or twitter consumer key and secret, please fill them in"
 
     def initialize(attributes = {})
       attributes.each do |name, value|

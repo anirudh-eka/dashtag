@@ -3,24 +3,6 @@ require 'spec_helper'
 module Dashtag
   describe Settings do
     describe "non conditional validation" do
-      it { should allow_value("@follow, @me").for(:twitter_users) }
-      it { should_not allow_value("@follow, me").for(:twitter_users) }
-      it { should_not allow_value("@follow * @me").for(:twitter_users) }
-      it { should_not allow_value("@follow @me").for(:twitter_users) }
-      it { should_not allow_value("something").for(:twitter_users) }
-
-      it { should allow_value("@follow, @me").for(:instagram_users) }
-      it { should_not allow_value("@follow, me").for(:instagram_users) }
-      it { should_not allow_value("@follow * @me").for(:instagram_users) }
-      it { should_not allow_value("@follow @me").for(:instagram_users) }
-      it { should_not allow_value("something").for(:instagram_users) }
-      
-      it { should allow_value("1, 38, 4").for(:instagram_user_ids) }
-      it { should allow_value("1").for(:instagram_user_ids) }
-      it { should_not allow_value("1.4").for(:instagram_user_ids) }
-      it { should_not allow_value("-1").for(:instagram_user_ids) }
-      it { should_not allow_value("0").for(:instagram_user_ids) }
-      it { should_not allow_value("a").for(:instagram_user_ids) }
 
       it { should validate_length_of(:header_title).is_at_most(50) }
       it { should validate_numericality_of(:api_rate) }
@@ -46,7 +28,7 @@ module Dashtag
       it { should_not allow_value("something").for(:censored_users) }
     end
 
-    describe "conditional validation" do
+    describe "validation conditional on api keys filled out" do
       context "if twitter_consumer_key is set" do
         before { subject.stub(:twitter_consumer_key) { "twitter_consumer_key" } }
         it { should validate_presence_of(:twitter_consumer_secret) }
@@ -63,61 +45,86 @@ module Dashtag
         before { subject.stub(:twitter_consumer_secret) { "" } }
         it { should_not validate_presence_of(:twitter_consumer_key) }
       end
-      context "if twitter_users are set" do
-        before { subject.stub(:twitter_users) { "@follow, @me" } }
-        it { should validate_presence_of(:twitter_consumer_key) }
-        it { should validate_presence_of(:twitter_consumer_secret) }
-      end
-      context "if twitter_users are not set" do
-        before { subject.stub(:twitter_users) {""} }
-        it { should_not validate_presence_of(:twitter_consumer_key) }
-        it { should_not validate_presence_of(:twitter_consumer_secret) }
-      end
-      context "if instagram_users are set" do
-        before { subject.stub(:instagram_users) {"@follow, @me"} }
-        it { should validate_presence_of(:instagram_client_id) }
-      end
-      context "if instagram_users are not set" do
-        before { subject.stub(:instagram_users) {""} }
-        it { should_not validate_presence_of(:instagram_client_id) }
-      end 
-      context "if instagram_user_ids are set" do
-        before { subject.stub(:instagram_user_ids) {"1, 3, 2"} }
-        it { should validate_presence_of(:instagram_client_id) }
-      end
-      context "if instagram_user_ids are not set" do
-        before { subject.stub(:instagram_user_ids) {""} }
-        it { should_not validate_presence_of(:instagram_client_id) }
-      end
 
-      context "if instagram_client_id, and twitter_consumer_key and/or twitter_consumer_secret are not set" do
-        [:instagram_client_id, :twitter_consumer_secret, :twitter_consumer_key].each do |api_key|
-          before { subject.stub(api_key) {""} }
-          it { should validate_absence_of(:hashtags).with_message("posts cannot be pulled by hashtags without an instagram client id or twitter consumer key and secret, please fill them in")}
+      describe "setting twitter_users" do
+        context "if either twitter_consumer_key, twitter_consumer_secret or neither are set" do
+          [:twitter_consumer_key, :twitter_consumer_secret, nil].each do |api_key|
+            before {subject.stub(api_key)} unless api_key.nil?
+            it { should validate_absence_of(:twitter_users).with_message("posts cannot be pulled by Twitter users without a Twitter consumer key and secret, please fill them in") }
+          end
         end
-      end  
-
-      context "when only instagram_client_id is included" do
-        before(:each) {subject.stub(:instagram_client_id) {"something"}}
-        it { should allow_value("#things, #look, #good").for(:hashtags) }
-        it { should allow_value("#things, #look & #good").for(:hashtags) }
-        it { should_not allow_value("#things, #look, bad").for(:hashtags) }
-        it { should_not allow_value("#things, #look, & #bad").for(:hashtags) }
-        it { should_not allow_value("#things, #look,       & #bad").for(:hashtags) }
-        it { should_not allow_value("#things, #look * #bad").for(:hashtags) }
-        it { should_not allow_value("#things, #look, * #bad").for(:hashtags) }
-        it { should_not allow_value("#things #look #bad").for(:hashtags) }
-        it { should_not allow_value("something").for(:hashtags) }
+        context "if both twitter_consumer_key and twitter_consumer_secret are set" do 
+          before { subject.stub(:twitter_consumer_key) { "key"}}
+          before { subject.stub(:twitter_consumer_secret) { "secret"}}
+          it { should allow_value("@follow, @me").for(:twitter_users) }
+          it { should_not allow_value("@follow, me").for(:twitter_users) }
+          it { should_not allow_value("@follow * @me").for(:twitter_users) }
+          it { should_not allow_value("@follow @me").for(:twitter_users) }
+          it { should_not allow_value("something").for(:twitter_users) }
+        end
       end
 
-      context "when only twitter_consumer_key/secret is included" do
-        before(:each) { subject.stub(:twitter_consumer_key) { "key"}}
-        before(:each) { subject.stub(:twitter_consumer_secret) { "secret"}}
-        [:twitter_consumer_secret, :twitter_consumer_key].each do |api_key|
-          before { subject.stub(api_key) {""} }
-          it { should validate_absence_of(:hashtags).with_message("posts cannot be pulled by hashtags without an instagram client id or twitter consumer key and secret, please fill them in")}  
+      describe "setting instagram_user_ids" do
+        context "if instagram_client_id is not set" do
+          before { subject.stub(:instagram_client_id) {""} }
+          it { should validate_absence_of(:instagram_user_ids).with_message("posts cannot be pulled by Instagram user IDs without an Instagram client ID, please fill it in") }
         end
-      end  
+        context "if instagram_client_id is set" do
+          before { subject.stub(:instagram_client_id) {"instagram_client_id"} }
+            it { should allow_value("1, 38, 4").for(:instagram_user_ids) }
+            it { should allow_value("1").for(:instagram_user_ids) }
+            it { should_not allow_value("1.4").for(:instagram_user_ids) }
+            it { should_not allow_value("-1").for(:instagram_user_ids) }
+            it { should_not allow_value("0").for(:instagram_user_ids) }
+            it { should_not allow_value("a").for(:instagram_user_ids) }
+        end
+      end
+
+      describe "setting instagram_users" do
+        context "if instagram_client_id is not set" do
+          before { subject.stub(:instagram_client_id) {""} }
+          it { should validate_absence_of(:instagram_users).with_message("posts cannot be pulled by Instagram users without an Instagram client ID, please fill it in") }
+        end
+        context "if instagram_client_id is set" do
+          before { subject.stub(:instagram_client_id) {"instagram_client_id"} }
+          it { should allow_value("@follow, @me").for(:instagram_users) }
+          it { should_not allow_value("@follow, me").for(:instagram_users) }
+          it { should_not allow_value("@follow * @me").for(:instagram_users) }
+          it { should_not allow_value("@follow @me").for(:instagram_users) }
+          it { should_not allow_value("something").for(:instagram_users) }
+        end
+      end
+
+      describe "setting hashtags" do 
+        context "if instagram_client_id, and twitter_consumer_key and/or twitter_consumer_secret are not set" do
+          [:instagram_client_id, :twitter_consumer_secret, :twitter_consumer_key].each do |api_key|
+            before { subject.stub(api_key) {""} }
+            it { should validate_absence_of(:hashtags).with_message("posts cannot be pulled by hashtags without an Instagram client ID or twitter consumer key and secret, please fill them in")}
+          end
+        end  
+
+        context "when only instagram_client_id is included" do
+          before(:each) {subject.stub(:instagram_client_id) {"something"}}
+          it { should allow_value("#things, #look, #good").for(:hashtags) }
+          it { should allow_value("#things, #look & #good").for(:hashtags) }
+          it { should_not allow_value("#things, #look, bad").for(:hashtags) }
+          it { should_not allow_value("#things, #look, & #bad").for(:hashtags) }
+          it { should_not allow_value("#things, #look,       & #bad").for(:hashtags) }
+          it { should_not allow_value("#things, #look * #bad").for(:hashtags) }
+          it { should_not allow_value("#things, #look, * #bad").for(:hashtags) }
+          it { should_not allow_value("#things #look #bad").for(:hashtags) }
+          it { should_not allow_value("something").for(:hashtags) }
+        end
+
+        context "when only twitter_consumer_key/secret is included" do
+          before(:each) { subject.stub(:twitter_consumer_key) { "key"}}
+          before(:each) { subject.stub(:twitter_consumer_secret) { "secret"}}
+          [:twitter_consumer_secret, :twitter_consumer_key].each do |api_key|
+            before { subject.stub(api_key) {""} }
+            it { should validate_absence_of(:hashtags).with_message("posts cannot be pulled by hashtags without an Instagram client ID or twitter consumer key and secret, please fill them in")}  
+          end
+        end  
+      end
     end
 
     let(:settings) {FactoryGirl.build(:settings) }
