@@ -14,7 +14,7 @@ module Dashtag
       @user = User.new(user_params)
       if @user.save
         log_in @user
-        flash[:success] = "Great, you're registered! Now it's time to setup your Dashtag page. Below are the settings you can edit. If you ever want to change the settings just click on the gear icon in the top right!"
+        flash[:success] = "Great, you're registered! Now it's time to setup your Dashtag page. Below are the settings you can edit. If you ever want to change the settings just click on 'settings' on the top left to be brought back to this page."
         redirect_to setting_edit_path
       else
         render 'new'

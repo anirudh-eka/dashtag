@@ -1,6 +1,6 @@
 <%= f.label setting_name %>
 <p class="setting-instructions"> <%= instructions %></p>
-<div class="error-message">
+<div class="error-message-next-to-field">
 <ul>
 <% f.object.errors.messages[setting_name].each do |msg| %>
 	<li><%= msg.humanize %></li>

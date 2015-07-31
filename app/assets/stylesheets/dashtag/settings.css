@@ -22,13 +22,21 @@ form.settings {
 	padding-bottom: 5px;
 }
 
-.error-message {
+.error-message, .error-message-next-to-field {
 	color: rgb(238,49,45);
+}
+
+.error-message-next-to-field ul {
+	list-style-type: none;
+	margin: auto;
+	padding: 0px;
 }
 
 .error-message ul {
 	list-style-type: none;
 	padding: 0px;
+	width: 400px;
+	margin: auto;
 }
 
 .settings input {

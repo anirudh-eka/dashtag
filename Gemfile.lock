@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dashtag (0.0.1)
+    dashtag (1.0.1)
       bcrypt (= 3.1.7)
       httparty (>= 0.13.1)
       jquery-rails (>= 3.1.2)
