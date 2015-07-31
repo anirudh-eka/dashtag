@@ -1,158 +1,90 @@
 <h1>Settings</h1>
 
-<%= form_for @settings, url: {action: "update"}, html: {class: "settings"} do |f| %>  
-  <%= f.label :hashtags %>
-  <p class="setting-instructions"> Each hashtag must begin with a '#' and be seperated by a ','.</p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:hashtags].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+<%= form_for @settings, url: {action: "update"}, html: {class: "settings"} do |f| %>
+  <%= render 'setting_label', f: f, setting_name: :hashtags, 
+  instructions: "Each hashtag must begin with a '#' and be seperated by a ','." %>
   <%= f.text_field :hashtags %>
 
-  <%= f.label :twitter_consumer_key %>
-  <p class="setting-instructions">Enter your Twitter Consumer Key and Secret to get tweets from Twitter. </p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:twitter_consumer_key].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :twitter_consumer_key, 
+  instructions: "Enter your Twitter Consumer Key and Secret to get tweets from Twitter." %>
   <%= f.text_field :twitter_consumer_key %>
 
-  <%= f.label :twitter_consumer_secret %>
-  <p class="setting-instructions">Enter your Twitter Consumer Key and Secret to get tweets from Twitter. </p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:twitter_consumer_secret].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :twitter_consumer_secret, 
+  instructions: "Enter your Twitter Consumer Key and Secret to get tweets from Twitter."%>
   <%= f.text_field :twitter_consumer_secret %>
 
-  <%= f.label :twitter_users %>
-  <p class="setting-instructions"> Each username must begin with a '@' and be seperated by a ','.</p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:twitter_users].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :twitter_users, 
+  instructions: "Each username must begin with a '@' and be seperated by a ','"%>
   <%= f.text_field :twitter_users %>
 
-  <%= f.label :instagram_client_id %>
-  <p class="setting-instructions">Enter your Instagram Client ID to get posts from Instagram. </p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:instagram_client_id].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :instagram_client_id, 
+  instructions: "Enter your Instagram Client ID to get posts from Instagram."%>
   <%= f.text_field :instagram_client_id %>
 
-
-  <%= f.label :instagram_users %>
-  <p class="setting-instructions"> Each username must begin with a '@' and be seperated by a ','.</p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:instagram_users].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :instagram_users, 
+  instructions: "Each username must begin with a '@' and be seperated by a ','"%>
   <%= f.text_field :instagram_users %>
 
-  <%= f.label :instagram_user_ids %>
-  <p class="setting-instructions"> Each id must be a positive whole number and be seperated by a ','.</p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:instagram_user_ids].each do |msg| %>
-    <li><%= msg.humanize.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :instagram_user_ids, 
+  instructions: "Each id must be a positive whole number and be seperated by a ','"%>
   <%= f.text_field :instagram_user_ids %>
 
-
-  <%= f.label :header_title %>
-  <p class="setting-instructions"> Enter a title for the Dashtag page. Leave it blank if you want the title to be a list of the hashtags.</p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:header_title].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :header_title, 
+  instructions: "Enter a title for the Dashtag page. Leave it blank if you want the title to be a list of the hashtags"%>
   <%= f.text_field :header_title %>
 
-  <%= f.label :api_rate %>
-  <p class="setting-instructions"> How often do you want to get posts from the Twitter and/or Instagram API? Leave it blank if you're not sure and we will calculate a default value.</p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:api_rate].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :api_rate, 
+  instructions: "How often do you want to get posts from the Twitter and/or Instagram API? Leave it blank if you're not surewe will calculate a default value."%>
   <%= f.text_field :api_rate %>
 
-  <%= f.label :db_row_limit %>
-  <p class="setting-instructions"> How many posts do you want to store in your page's database before clearing out the old ones? Be aware that depending on your hosting platform (i.e. Heroku) you could be charged for storing a large number of posts. Number must be a positive whole number.</p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:db_row_limit].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :db_row_limit, 
+  instructions: "How many posts do you want to store in your page's database before clearing out the old ones? Be aware depending on your hosting platform (i.e. Heroku) you could be charged for storing a large number of posts. Number must be a positive whole number."%>
   <%= f.text_field :db_row_limit %>
 
-  <%= f.label :disable_retweets %>
-  <p class="setting-instructions">Do you want to include a post again if they are retweeted?</p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:disable_retweets].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :disable_retweets, 
+  instructions: "Do you want to include a post again if they are retweeted"%>
   <%= f.check_box :disable_retweets %>
 
-  <%= f.label :header_link %>
-  <p class="setting-instructions">Enter a valid URL to set the header title link. </p>
-  <div class="error-message">
-  <ul>
-  <% @settings.errors.messages[:header_link].each do |msg| %>
-    <li><%= msg.humanize %></li>
-  <% end %>
-  </ul>
-  </div>
+  <%= render 'setting_label', f: f, setting_name: :header_link, 
+  instructions: "Enter a valid URL to set the header title link."%>
   <%= f.text_field :header_link %>
 
 
-  <%= f.label :censored_words %>
+  <%= render 'setting_label', f: f, setting_name: :censored_words, 
+  instructions: "Do you want to omit posts containing specific words? Enter them below seperated by a ','."%>
   <%= f.text_field :censored_words %>
-  <%= f.label :censored_users %>
+
+  <%= render 'setting_label', f: f, setting_name: :censored_users, 
+  instructions: "Do you want to omit posts by specific users? Each username must begin with a '@' and be seperated by a ','"%>
   <%= f.text_field :censored_users %>
-  <%= f.label :font_family %>
+
+  <%= render 'setting_label', f: f, setting_name: :font_family, 
+  instructions: "Enter a custom font to use for your page."%>
   <%= f.text_field :font_family %>
-  <%= f.label :header_color %>
+
+  <%= render 'setting_label', f: f, setting_name: :header_color, 
+  instructions: "Enter a custom valid CSS color to change the header color to."%>
   <%= f.text_field :header_color %>
-  <%= f.label :background_color %>
+
+  <%= render 'setting_label', f: f, setting_name: :background_color, 
+  instructions: "Enter a custom valid CSS color to change the background color to."%>
   <%= f.text_field :background_color %>
-  <%= f.label :post_color_1 %>
+
+  <%= render 'setting_label', f: f, setting_name: :post_color_1, 
+  instructions: "Enter a custom valid CSS color to change the post color to."%>
   <%= f.text_field :post_color_1 %>
-  <%= f.label :post_color_2 %>
+
+  <%= render 'setting_label', f: f, setting_name: :post_color_2, 
+  instructions: "Enter a custom valid CSS color to change the post color to."%>
   <%= f.text_field :post_color_2 %>
-  <%= f.label :post_color_3 %>
+
+  <%= render 'setting_label', f: f, setting_name: :post_color_3, 
+  instructions: "Enter a custom valid CSS color to change the post color to."%>
   <%= f.text_field :post_color_3 %>
-  <%= f.label :post_color_4 %>
+
+  <%= render 'setting_label', f: f, setting_name: :post_color_4, 
+  instructions: "Enter a custom valid CSS color to change the post color to."%>
   <%= f.text_field :post_color_4 %>
+
   <%= f.submit "Update Settings" %>
 <% end %>
