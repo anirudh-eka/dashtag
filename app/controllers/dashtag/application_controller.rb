@@ -14,7 +14,7 @@ module Dashtag
   	def redirect_to_edit_settings_if_user_is_already_logged_in
       if user_logged_in?
         flash[:notice] = "You are already logged in."
-        redirect_to setting_edit_path
+        redirect_to settings_edit_path
       end
     end
   end

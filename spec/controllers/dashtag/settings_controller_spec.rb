@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Dashtag
-  describe SettingController do
+  describe SettingsController do
     before(:each) {allow(User).to receive(:owner_exists?) {true}}
   	routes { Dashtag::Engine.routes }
     describe "GET 'edit'" do
@@ -47,7 +47,7 @@ module Dashtag
         end
         it "redirects to setting edit path" do
           post :update, :format => :html, settings: {hashtags: "#hi"}
-          expect(response).to redirect_to setting_edit_path
+          expect(response).to redirect_to settings_edit_path
           expect(flash[:success]).to eq("Succesfully Updated!")
         end
       end

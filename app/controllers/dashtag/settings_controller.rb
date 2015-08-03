@@ -1,7 +1,7 @@
 require_dependency "dashtag/application_controller"
 
 module Dashtag
-  class SettingController < ApplicationController
+  class SettingsController < ApplicationController
     before_action :redirect_to_user_registration_when_dashtag_page_has_no_owner
     
     def edit
@@ -15,11 +15,11 @@ module Dashtag
 
     def update
       if user_logged_in?
-      	@settings = Settings.new(setting_params)
+      	@settings = Settings.new(settings_params)
   		  if @settings.valid?
           @settings.store
   		    flash[:success] = "Succesfully Updated!"
-  		    redirect_to setting_edit_path
+  		    redirect_to settings_edit_path
   		  else
   		    render :action => 'edit'
   		  end
@@ -31,7 +31,7 @@ module Dashtag
 
     private
 
-    def setting_params
+    def settings_params
       params.require(:settings).permit(:hashtags, :twitter_users, 
         :instagram_users, :instagram_user_ids, :header_title, 
         :api_rate, :db_row_limit, :disable_retweets,:header_link,

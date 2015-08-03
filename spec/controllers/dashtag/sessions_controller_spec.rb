@@ -9,7 +9,7 @@ module Dashtag
         before(:each) {session[:user_id] = 1}
         it "redirects user to settings page and send flash message explaining user is already logged in" do
           get :new, :format => :html
-          expect(response).to redirect_to(setting_edit_path)
+          expect(response).to redirect_to(settings_edit_path)
           expect(flash[:notice]).to eq("You are already logged in.")
         end
       end
@@ -36,7 +36,7 @@ module Dashtag
         before(:each) {session[:user_id] = 1}
         it "redirects user to settings page and send flash message explaining user is already logged in" do
           get :create, :format => :html
-          expect(response).to redirect_to(setting_edit_path)
+          expect(response).to redirect_to(settings_edit_path)
           expect(flash[:notice]).to eq("You are already logged in.")
         end
       end

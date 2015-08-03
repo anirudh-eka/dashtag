@@ -8,7 +8,7 @@ module Dashtag
         before(:each) {session[:user_id] = 1}
         it "redirects user to settings page and send flash message explaining user is already logged in" do
           get :new, :format => :html
-          expect(response).to redirect_to(setting_edit_path)
+          expect(response).to redirect_to(settings_edit_path)
           expect(flash[:notice]).to eq("You are already logged in.")
         end
       end
@@ -35,7 +35,7 @@ module Dashtag
         before(:each) {session[:user_id] = 1}
         it "redirects user to settings page and send flash message explaining user is already logged in" do
           get :create, :format => :html
-          expect(response).to redirect_to(setting_edit_path)
+          expect(response).to redirect_to(settings_edit_path)
           expect(flash[:notice]).to eq("You are already logged in.")
         end
       end
@@ -54,7 +54,7 @@ module Dashtag
         it "should register user and log them in" do
           allow(User.new)
           get :create, :format => :html, user: { username: "dashy", email: "dashy@tag.co", password: "password", password_confirmation: "password"}
-          expect(response).to redirect_to(setting_edit_path)
+          expect(response).to redirect_to(settings_edit_path)
           expect(session[:user_id]).to_not be_nil
           expect(flash[:success]).to eq("Great, you're registered! Now it's time to setup your Dashtag page. Below are the settings you can edit. If you ever want to change the settings just click on the gear icon in the top right!")
         end
