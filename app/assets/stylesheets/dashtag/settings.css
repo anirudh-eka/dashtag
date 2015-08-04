@@ -22,6 +22,10 @@ form.settings {
 	padding-bottom: 5px;
 }
 
+.setting-instructions a {
+	text-decoration: underline;
+}
+
 .error-message, .error-message-next-to-field {
 	color: rgb(238,49,45);
 }

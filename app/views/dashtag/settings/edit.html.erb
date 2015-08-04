@@ -7,10 +7,12 @@
 
   <%= render 'setting_label', f: f, setting_name: :twitter_consumer_key, 
   instructions: "Enter your Twitter Consumer Key and Secret to get tweets from Twitter." %>
+  <p class="setting-instructions">Click <a href='http://toomanynames.com/dashtag/twitter_api_screenshots' target="_blank">here</a> for directions on how to get this with screenshots.</p>
   <%= f.text_field :twitter_consumer_key %>
 
   <%= render 'setting_label', f: f, setting_name: :twitter_consumer_secret, 
   instructions: "Enter your Twitter Consumer Key and Secret to get tweets from Twitter."%>
+  <p class="setting-instructions">Click <a href='http://toomanynames.com/dashtag/twitter_api_screenshots' target="_blank">here</a> for directions on how to get this with screenshots.</p>
   <%= f.text_field :twitter_consumer_secret %>
 
   <%= render 'setting_label', f: f, setting_name: :twitter_users, 
@@ -19,6 +21,7 @@
 
   <%= render 'setting_label', f: f, setting_name: :instagram_client_id, 
   instructions: "Enter your Instagram Client ID to get posts from Instagram."%>
+  <p class="setting-instructions">Click <a href='http://toomanynames.com/dashtag/instagram_api_screenshots' target="_blank">here</a> for directions on how to get this with screenshots.</p>
   <%= f.text_field :instagram_client_id %>
 
   <%= render 'setting_label', f: f, setting_name: :instagram_users, 
