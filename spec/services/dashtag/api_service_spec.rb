@@ -12,26 +12,17 @@ module Dashtag
         expect(APIService.instance.last_update).to_not be_nil
         expect(APIService.instance.last_update.class).to eq(Time)
       end
-
-      it "sets instagram_user_ids from Instagram Users" do
-        instagram_ids = []
-        instagram_id = SampleInstagramResponses.instagram_response["data"].first["id"]
-        SettingStore.instagram_users.count.times { instagram_ids << instagram_id}
-
-        SettingStore.instagram_user_ids.each { |id| instagram_ids << id }
-        expect(APIService.instance.instagram_user_ids).to eq(instagram_ids)
-      end
     end
 
     context 'when time since last pull is greater than api rate limit' do
       before(:each) do
-        SettingStore.create_or_update_setting("instagram_client_id", TextSetting.parse("ig_client_id"))
-        SettingStore.create_or_update_setting("twitter_consumer_key", TextSetting.parse("twitter_consumer_key"))
-        SettingStore.create_or_update_setting("twitter_consumer_secret", TextSetting.parse("twitter_consumer_secret"))
-        SettingStore.create_or_update_setting("hashtags", Hashtags.parse("#good, #life"))
-        SettingStore.create_or_update_setting("twitter_users", SocialUsers.parse("@hello_twitter"))
-        SettingStore.create_or_update_setting("instagram_users", SocialUsers.parse("@hello_instagram"))
-        SettingStore.create_or_update_setting("api_rate", NumSetting.parse(15))
+        SettingStore.new(instagram_client_id: "ig_client_id",
+        twitter_consumer_key: "twitter_consumer_key",
+        twitter_consumer_secret: "twitter_consumer_secret",
+        hashtags:"#good, #life",
+        twitter_users: "@hello_twitter",
+        instagram_users:"@hello_instagram",
+        api_rate: 15).store
         stub_all_external_api_requests_with_current_settings
         last_pull_stub = Time.now - 20
         allow(APIService.instance).to receive(:last_update).and_return(last_pull_stub)
@@ -39,7 +30,7 @@ module Dashtag
 
       it "parses grams and tweets from response and creates posts with parsed data (integration of pull)" do
         APIService.instance.pull_posts!
-        #should have stored posts webmock from stubbed respons
+        #should have stored posts webmock from stubbed response
         expect(Post.where(source: "twitter").count).to_not be(0)
         expect(Post.where(source: "instagram").count).to_not be(0)
       end
@@ -59,10 +50,17 @@ module Dashtag
         APIService.instance.pull_posts!
       end
 
-      it 'should pull instagram posts from each user_id from instagram_user_ids' do
-        allow(APIService.instance).to receive(:instagram_user_ids).and_return([1234, 4345])
-        APIService.instance.instagram_user_ids.each do |user_id|
-          expect(APIService.instance).to receive(:pull_instagram_posts_from_users_and_parse).with(user_id).and_return([])
+      it 'should pull instagram posts with each user_id from instagram_user_ids and instagram_users' do
+        SettingStore.new(instagram_users: "@hello", instagram_user_ids: 3, instagram_client_id: "instagram_client_id").store
+        stub_all_external_api_requests_with_current_settings
+
+        instagram_ids = []
+        instagram_id = SampleInstagramResponses.instagram_response["data"].first["id"]
+        SettingStore.instagram_users.count.times { instagram_ids << instagram_id}
+        SettingStore.instagram_user_ids.each { |id| instagram_ids << id }
+
+        instagram_ids.each do |id|
+          expect(APIService.instance).to receive(:pull_instagram_posts_from_users_and_parse).with(id).and_return([])
         end
         APIService.instance.pull_posts!
       end
@@ -70,10 +68,10 @@ module Dashtag
 
     describe 'loud pull' do
       before(:each) do
-        SettingStore.create_or_update_setting("api_rate", NumSetting.parse(15))
-        SettingStore.create_or_update_setting("hashtags", Hashtags.parse("#good, #life"))
-        SettingStore.create_or_update_setting("twitter_users", SocialUsers.parse("@hello_twitter"))
-        SettingStore.create_or_update_setting("instagram_users", SocialUsers.parse("@hello_instagram"))
+        SettingStore.new(api_rate: 15, 
+          hashtags: "#good, #life",
+          twitter_users: "@hello_twitter", 
+          instagram_users: "@hello_instagram").store
         stub_all_external_api_requests_with_current_settings
       end
       context 'when time since last pull is less than api rate limit' do
@@ -83,7 +81,7 @@ module Dashtag
         end
         it "should throw exception" do
           expect { APIService.instance.pull_posts! }.to raise_error("Time since last pull is less than api rate limit")
-          SettingStore.create_or_update_setting("api_rate", NumSetting.parse(1))
+          SettingStore.new(api_rate: 1).store
         end
       end
       context "when time since last pull is greater than the api rate limit" do
@@ -92,7 +90,7 @@ module Dashtag
         end
         context "when twitter api keys are not provided in the env" do
           it "should not pull from twitter and parse" do
-            SettingStore.create_or_update_setting("twitter_consumer_key", nil)
+            SettingStore.new(twitter_consumer_key: nil).store
             expect(APIService.instance).to_not receive(:pull_twitter_posts_and_parse)
             expect(APIService.instance).to_not receive(:pull_twitter_posts_from_users_and_parse)
             APIService.instance.pull_posts!
@@ -100,7 +98,7 @@ module Dashtag
         end
         context "when instagram api keys are not provided in the env" do
           it "should not pull from twitter and parse" do
-            SettingStore.create_or_update_setting("instagram_client_id", nil)
+            SettingStore.new(instagram_client_id: nil).store
             expect(APIService.instance).to_not receive(:pull_instagram_posts_and_parse)
             APIService.instance.pull_posts!
           end

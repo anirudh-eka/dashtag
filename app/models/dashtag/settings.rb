@@ -1,50 +1,15 @@
+require_dependency "dashtag/settings_accessor_setter"
+
 module Dashtag
   class Settings
-    attr_accessor :hashtags, 
-    :twitter_users, 
-    :instagram_users, 
-    :instagram_user_ids, 
-    :header_title, 
-    :api_rate, 
-    :db_row_limit, 
-    :disable_retweets,
-    :header_link,
-    :twitter_consumer_key,
-    :twitter_consumer_secret,
-    :instagram_client_id,
-    :censored_words,
-    :censored_users,
-    :font_family,
-    :header_color,
-    :background_color,
-    :post_color_1,
-    :post_color_2,
-    :post_color_3,
-    :post_color_4
-    
+    extend SettingsAccessorSetter
   	extend ActiveModel::Naming
   	include ActiveModel::Conversion
     include ActiveModel::Validations
-
-    SOCIAL_USERS_REGEX=/(\b(?<!@)[a-zA-Z]+|\b[a-zA-Z]+\b(?=[^,]))/
-    HASHTAGS_REGEX=/(\b(?<!#)[a-zA-Z]+|\b[a-zA-Z]+\b((?=[^,])(?=\s[^&])|,\s*[^\w\s#]))/
-    INSTAGRAM_USER_ID_REGEX=/((?<=[-.])\b[0-9]+\b|\b[0-9]+\b(?=[^,])|0|\b[^\d,]+\b)/
-    CENSORED_WORD_REGEX=/\b\S+\b(?!,)(?!$)/
-
-    validates :hashtags, format: { without: HASHTAGS_REGEX,  message: "list is not correctly formatted" }
-    validates :twitter_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
-    validates :instagram_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
-    validates :instagram_user_ids, format: { without: INSTAGRAM_USER_ID_REGEX,  message: "ids must be positive integers greater than zero seperated by commas" }
-    validates_length_of :header_title, maximum: 50
-    validates :api_rate, numericality: true, :allow_blank => true
-    validates :db_row_limit, numericality: true, :allow_blank => true
-    validates_format_of :header_link, with: URI.regexp, allow_nil: true, unless: "header_link == '#hashtag-anchor'", message: "url must be valid starting with 'http' or 'https'"
-    validates :censored_words, format: { without: CENSORED_WORD_REGEX,  message: "list is not correctly formatted" }
-    validates :censored_users, format: { without: SOCIAL_USERS_REGEX,  message: "list is not correctly formatted" }
+    attr_accessor_all_settings
 
     validates_presence_of :twitter_consumer_secret, unless: "twitter_consumer_key.blank?"
     validates_presence_of :twitter_consumer_key, unless: "twitter_consumer_secret.blank?"
-
     validates_absence_of :twitter_users, if: "twitter_consumer_secret.blank? || twitter_consumer_key.blank?",  message: "posts cannot be pulled by Twitter users without a Twitter consumer key and secret, please fill them in"
     validates_absence_of :instagram_users, if: "instagram_client_id.blank?",  message: "posts cannot be pulled by Instagram users without an Instagram client ID, please fill it in"
     validates_absence_of :instagram_user_ids, if: "instagram_client_id.blank?",  message: "posts cannot be pulled by Instagram user IDs without an Instagram client ID, please fill it in"
@@ -59,7 +24,8 @@ module Dashtag
     def store
       if valid?
         settings_set_by_user.each do |name|
-          SettingStore.create_or_update_setting(name, SettingStore::SETTING_TYPE[name].parse(send(name)))
+          SettingStore.new({name.to_sym => send(name.to_sym)}).store
+          # SettingStore.create_or_update_setting(name, SettingStore::SETTING_TYPE[name].parse(send(name)))
         end
       end
     end
@@ -79,6 +45,23 @@ module Dashtag
 	  def id
 	    nil
 	  end
+
+    def valid?
+      result = super
+      settings_set_by_user.each do |name|
+        setting_store = SettingStore.new({name.to_sym => send(name.to_sym)})
+        if setting_store.invalid?
+          result = false
+          store_errors = setting_store.errors.messages[name.to_sym]
+          break if store_errors == nil 
+          store_errors.each do |store_error|
+            errors.messages[name.to_sym] ||= []
+            errors.messages[name.to_sym] << store_error
+          end
+        end
+      end
+      result
+    end
 
     private
 

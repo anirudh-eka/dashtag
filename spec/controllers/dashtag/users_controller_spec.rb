@@ -56,7 +56,7 @@ module Dashtag
           get :create, :format => :html, user: { username: "dashy", email: "dashy@tag.co", password: "password", password_confirmation: "password"}
           expect(response).to redirect_to(settings_edit_path)
           expect(session[:user_id]).to_not be_nil
-          expect(flash[:success]).to eq("Great, you're registered! Now it's time to setup your Dashtag page. Below are the settings you can edit. If you ever want to change the settings just click on the gear icon in the top right!")
+          expect(flash[:success]).to eq("Great, you're registered! Now it's time to setup your Dashtag page. Below are the settings you can edit. If you ever want to change the settings just click on 'settings' on the top left to be brought back to this page.")
         end
       end
     end

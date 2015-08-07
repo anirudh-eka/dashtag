@@ -2,6 +2,12 @@ require 'spec_helper'
 
 module Dashtag
   describe Settings do
+    it "should make valid? false if validation fails in SettingStore, but passes in Settings" do
+      invalid_title = "x" * 51
+      settings = Settings.new({header_title: invalid_title})
+      expect(settings.valid?).to be_falsy
+    end
+
     describe "non conditional validation" do
 
       it { should validate_length_of(:header_title).is_at_most(50) }

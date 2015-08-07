@@ -70,7 +70,7 @@ module Dashtag
 
       it "should screen next posts based on censored words" do
         second_post.update_attribute(:text, "float like a moth")
-        SettingStore.create_or_update_setting("censored_words", CensoredWords.parse("moth"))
+        SettingStore.new(censored_words: "moth").store
 
         first_post.id, second_post.id = first_post.id, second_post.id
         next_posts = Post.next_posts(third_post)
@@ -79,7 +79,7 @@ module Dashtag
 
       it "should screen next posts based on censored users" do
         first_post.update_attribute(:screen_name, "someoneBad")
-        SettingStore.create_or_update_setting("censored_users", SocialUsers.parse("@someoneBad"))
+        SettingStore.new(censored_users: "@someoneBad").store
 
         first_post.id, second_post.id = first_post.id, second_post.id
         next_posts = Post.next_posts(third_post)
@@ -90,13 +90,13 @@ module Dashtag
     describe "#limited_sorted_posts" do
       it 'should screen posts based on censored words' do
         post = FactoryGirl.create(:post, text: "somethingBad")
-        SettingStore.create_or_update_setting("censored_words", CensoredWords.parse("somethingBad"))
+        SettingStore.new(censored_words: "somethingBad").store
         expect(Post.limited_sorted_posts 10).to_not include(post)
       end
 
       it 'should screen posts based on censored users' do
         post = FactoryGirl.create(:post, screen_name: "someoneBad")
-        SettingStore.create_or_update_setting("censored_users", SocialUsers.parse("@someoneBad"))
+        SettingStore.new(censored_users: "@someoneBad").store
         expect(Post.limited_sorted_posts 10).to_not include(post)
       end
     end

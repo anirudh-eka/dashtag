@@ -4,11 +4,9 @@ module Dashtag
   class APIService
     include Singleton
     attr_reader :last_update
-    attr_reader :instagram_user_ids
 
     def initialize
       @last_update = Time.new(1720)
-      @instagram_user_ids = pull_instagram_user_id_from_users
     end
 
     def pull_posts
@@ -75,7 +73,7 @@ module Dashtag
         TweetParser.parse(response.parsed_response)
       end
 
-      def pull_instagram_user_id_from_users
+      def instagram_user_ids
         instagram_client_id = SettingStore.instagram_client_id.to_api_format
         instagram_ids = []
         SettingStore.instagram_users.each do |user|
