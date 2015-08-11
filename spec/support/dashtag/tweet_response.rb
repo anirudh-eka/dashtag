@@ -91,7 +91,7 @@ module Dashtag
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "#{ENV["CENSORED_WORDS"].split("|").sample()} #NAAwayDay",
+            "text" => "#{SettingStore.censored_words.sample()} #NAAwayDay",
             "metadata" => {
               "iso_language_code" => "pl",
               "result_type" => "recent"
@@ -191,7 +191,7 @@ module Dashtag
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "#{ENV["CENSORED_WORDS"].split("|").sample()} #NAAwayDay",
+            "text" => "#{SettingStore.censored_words.sample()} #NAAwayDay",
             "metadata" => {
               "iso_language_code" => "en",
               "result_type" => "recent"
@@ -395,7 +395,7 @@ module Dashtag
             "friends_count" => 348,
             "following" => nil,
             "show_all_inline_media" => true,
-            "screen_name" => "#{EnvironmentService.twitter_users.first}"
+            "screen_name" => "#{SettingStore.twitter_users.first}"
           },
           "in_reply_to_screen_name" => nil,
           "source" => "web",
@@ -494,7 +494,7 @@ module Dashtag
             "friends_count" => 63,
             "following" => nil,
             "show_all_inline_media" => false,
-            "screen_name" => "#{EnvironmentService.twitter_users.first}"
+            "screen_name" => "#{SettingStore.twitter_users.first}"
           },
           "in_reply_to_screen_name" => nil,
           "source" => "web",
@@ -518,7 +518,7 @@ module Dashtag
               ],
               "hashtags" => [
                 {
-                  "text" => "#{EnvironmentService.hashtag_array.first}",
+                  "text" => "#{SettingStore.hashtags.first}",
                   "indices" => [
                     20,
                     34
@@ -531,7 +531,7 @@ module Dashtag
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "DAT ISH CRAY AIN'T IT ##{EnvironmentService.hashtag_array.first}",
+            "text" => "DAT ISH CRAY AIN'T IT ##{SettingStore.hashtags.first}",
             "metadata" => {
               "iso_language_code" => "pl",
               "result_type" => "recent"
@@ -636,7 +636,7 @@ module Dashtag
               ],
               "hashtags" => [
                 {
-                  "text" => "#{EnvironmentService.hashtag_array.first}",
+                  "text" => "#{SettingStore.hashtags.first}",
                   "indices" => [
                     20,
                     34
@@ -649,7 +649,7 @@ module Dashtag
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
+            "text" => "Thee Namaste Nerdz. ##{SettingStore.hashtags.first}",
             "metadata" => {
               "iso_language_code" => "pl",
               "result_type" => "recent"
@@ -737,7 +737,7 @@ module Dashtag
               ],
               "hashtags" => [
                 {
-                  "text" => "#{EnvironmentService.hashtag_array.first}",
+                  "text" => "#{SettingStore.hashtags.first}",
                   "indices" => [
                     29,
                     43
@@ -749,7 +749,7 @@ module Dashtag
             },
             "in_reply_to_user_id_str" => nil,
             "contributors" => nil,
-            "text" => "Mexican Heaven, Mexican Hell ##{EnvironmentService.hashtag_array.first}",
+            "text" => "Mexican Heaven, Mexican Hell ##{SettingStore.hashtags.first}",
             "metadata" => {
               "iso_language_code" => "en",
               "result_type" => "recent"
@@ -827,12 +827,12 @@ module Dashtag
         "search_metadata" => {
           "max_id" => 250126199840518145,
           "since_id" => 24012619984051000,
-          "refresh_url" => "?since_id=250126199840518145&q=%23#{EnvironmentService.hashtag_array.first}&result_type=mixed&include_entities=1",
-          "next_results" => "?max_id=249279667666817023&q=%23#{EnvironmentService.hashtag_array.first}&count=4&include_entities=1&result_type=mixed",
+          "refresh_url" => "?since_id=250126199840518145&q=%23#{SettingStore.hashtags.first}&result_type=mixed&include_entities=1",
+          "next_results" => "?max_id=249279667666817023&q=%23#{SettingStore.hashtags.first}&count=4&include_entities=1&result_type=mixed",
           "count" => 4,
           "completed_in" => 0.035,
           "since_id_str" => "24012619984051000",
-          "query" => "%23#{EnvironmentService.hashtag_array.first}",
+          "query" => "%23#{SettingStore.hashtags.first}",
           "max_id_str" => "250126199840518145"
         }
       }
@@ -870,7 +870,7 @@ module Dashtag
                 ],
                 "hashtags" => [
                   {
-                    "text" => "#{EnvironmentService.hashtag_array.first}",
+                    "text" => "#{SettingStore.hashtags.first}",
                     "indices" => [
                       20,
                       34
@@ -883,7 +883,7 @@ module Dashtag
               },
               "in_reply_to_user_id_str" => nil,
               "contributors" => nil,
-              "text" => "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
+              "text" => "Thee Namaste Nerdz. ##{SettingStore.hashtags.first}",
               "metadata" => {
                 "iso_language_code" => "pl",
                 "result_type" => "recent"
@@ -971,7 +971,7 @@ module Dashtag
                 ],
                 "hashtags" => [
                   {
-                    "text" => "#{EnvironmentService.hashtag_array.first}",
+                    "text" => "#{SettingStore.hashtags.first}",
                     "indices" => [
                       29,
                       43
@@ -983,7 +983,7 @@ module Dashtag
               },
               "in_reply_to_user_id_str" => nil,
               "contributors" => nil,
-              "text" => "Mexican Heaven, Mexican Hell ##{EnvironmentService.hashtag_array.first}",
+              "text" => "Mexican Heaven, Mexican Hell ##{SettingStore.hashtags.first}",
               "metadata" => {
                 "iso_language_code" => "en",
                 "result_type" => "recent"
@@ -1061,12 +1061,12 @@ module Dashtag
           "search_metadata" => {
             "max_id" => 250126199840518145,
             "since_id" => 24012619984051000,
-            "refresh_url" => "?since_id=250126199840518145&q=%23#{EnvironmentService.hashtag_array.first}&result_type=mixed&include_entities=1",
-            "next_results" => "?max_id=249279667666817023&q=%23#{EnvironmentService.hashtag_array.first}&count=4&include_entities=1&result_type=mixed",
+            "refresh_url" => "?since_id=250126199840518145&q=%23#{SettingStore.hashtags.first}&result_type=mixed&include_entities=1",
+            "next_results" => "?max_id=249279667666817023&q=%23#{SettingStore.hashtags.first}&count=4&include_entities=1&result_type=mixed",
             "count" => 4,
             "completed_in" => 0.035,
             "since_id_str" => "24012619984051000",
-            "query" => "%23#{EnvironmentService.hashtag_array.first}",
+            "query" => "%23#{SettingStore.hashtags.first}",
             "max_id_str" => "250126199840518145"
           }
         }
@@ -1104,7 +1104,7 @@ module Dashtag
                 ],
                 "hashtags" => [
                   {
-                    "text" => "#{EnvironmentService.hashtag_array.first}",
+                    "text" => "#{SettingStore.hashtags.first}",
                     "indices" => [
                       20,
                       34
@@ -1117,7 +1117,7 @@ module Dashtag
               },
               "in_reply_to_user_id_str" => nil,
               "contributors" => nil,
-              "text" => "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
+              "text" => "Thee Namaste Nerdz. ##{SettingStore.hashtags.first}",
               "metadata" => {
                 "iso_language_code" => "pl",
                 "result_type" => "recent"
@@ -1186,7 +1186,7 @@ module Dashtag
                 "friends_count" => 348,
                 "following" => nil,
                 "show_all_inline_media" => true,
-                "screen_name" => ENV["CENSORED_USERS"].split("|").sample()
+                "screen_name" => SettingStore.censored_users.sample()
               },
               "in_reply_to_screen_name" => nil,
               "source" => "web",
@@ -1205,7 +1205,7 @@ module Dashtag
                 ],
                 "hashtags" => [
                   {
-                    "text" => "#{EnvironmentService.hashtag_array.first}",
+                    "text" => "#{SettingStore.hashtags.first}",
                     "indices" => [
                       29,
                       43
@@ -1217,7 +1217,7 @@ module Dashtag
               },
               "in_reply_to_user_id_str" => nil,
               "contributors" => nil,
-              "text" => "Mexican Heaven, Mexican Hell ##{EnvironmentService.hashtag_array.first}",
+              "text" => "Mexican Heaven, Mexican Hell ##{SettingStore.hashtags.first}",
               "metadata" => {
                 "iso_language_code" => "en",
                 "result_type" => "recent"
@@ -1285,7 +1285,7 @@ module Dashtag
                 "friends_count" => 63,
                 "following" => nil,
                 "show_all_inline_media" => false,
-                "screen_name" => ENV["CENSORED_USERS"].split("|").sample()
+                "screen_name" => SettingStore.censored_users.sample()
               },
               "in_reply_to_screen_name" => nil,
               "source" => "web",
@@ -1295,12 +1295,12 @@ module Dashtag
           "search_metadata" => {
             "max_id" => 250126199840518145,
             "since_id" => 24012619984051000,
-            "refresh_url" => "?since_id=250126199840518145&q=%23#{EnvironmentService.hashtag_array.first}&result_type=mixed&include_entities=1",
-            "next_results" => "?max_id=249279667666817023&q=%23#{EnvironmentService.hashtag_array.first}&count=4&include_entities=1&result_type=mixed",
+            "refresh_url" => "?since_id=250126199840518145&q=%23#{SettingStore.hashtags.first}&result_type=mixed&include_entities=1",
+            "next_results" => "?max_id=249279667666817023&q=%23#{SettingStore.hashtags.first}&count=4&include_entities=1&result_type=mixed",
             "count" => 4,
             "completed_in" => 0.035,
             "since_id_str" => "24012619984051000",
-            "query" => "%23#{EnvironmentService.hashtag_array.first}",
+            "query" => "%23#{SettingStore.hashtags.first}",
             "max_id_str" => "250126199840518145"
           }
         }

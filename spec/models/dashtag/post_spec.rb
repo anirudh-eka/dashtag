@@ -9,7 +9,7 @@ module Dashtag
     it { should validate_presence_of(:source) }
     context "when disable retweets is turned off" do
       before(:each) do
-        expect(EnvironmentService).to receive(:disable_retweets) {true}
+        expect(SettingStore).to receive(:disable_retweets) {true}
       end
 
       it "should validate that the post is not a retweet" do
@@ -23,7 +23,7 @@ module Dashtag
 
     context "when number of posts hit db_row_limit" do
       before(:each) do
-        allow(EnvironmentService).to receive(:db_row_limit) {2}
+        allow(SettingStore).to receive(:db_row_limit) {NumSetting.parse(2)}
       end
 
       it "should delete oldest post" do
@@ -70,7 +70,7 @@ module Dashtag
 
       it "should screen next posts based on censored words" do
         second_post.update_attribute(:text, "float like a moth")
-        allow(EnvironmentService).to receive(:censored_words).and_return("moth")
+        SettingStore.new(censored_words: "moth").store
 
         first_post.id, second_post.id = first_post.id, second_post.id
         next_posts = Post.next_posts(third_post)
@@ -79,7 +79,7 @@ module Dashtag
 
       it "should screen next posts based on censored users" do
         first_post.update_attribute(:screen_name, "someoneBad")
-        allow(EnvironmentService).to receive(:censored_users).and_return("someoneBad")
+        SettingStore.new(censored_users: "@someoneBad").store
 
         first_post.id, second_post.id = first_post.id, second_post.id
         next_posts = Post.next_posts(third_post)
@@ -90,13 +90,13 @@ module Dashtag
     describe "#limited_sorted_posts" do
       it 'should screen posts based on censored words' do
         post = FactoryGirl.create(:post, text: "somethingBad")
-        allow(EnvironmentService).to receive(:censored_words).and_return("somethingBad")
+        SettingStore.new(censored_words: "somethingBad").store
         expect(Post.limited_sorted_posts 10).to_not include(post)
       end
 
       it 'should screen posts based on censored users' do
         post = FactoryGirl.create(:post, screen_name: "someoneBad")
-        allow(EnvironmentService).to receive(:censored_users).and_return("someoneBad")
+        SettingStore.new(censored_users: "@someoneBad").store
         expect(Post.limited_sorted_posts 10).to_not include(post)
       end
     end

@@ -3,7 +3,7 @@ require 'rake'
 
 module Dashtag
   describe 'home' do
-
+    before(:each) {allow(User).to receive(:owner_exists?) {true}}
     let(:twitter_profile_image) {"http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg"}
     let(:twitter_media_image) {"http://media-cache-ak0.pinimg.com/736x/cf/69/d9/cf69d915e40a62409133e533b64186f1.jpg"}
     let(:instagram_profile_image) {"http://images.ak.instagram.com/profiles/profile_33110152_75sq_1380185157.jpg"}

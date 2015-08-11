@@ -1,0 +1,29 @@
+<div href="#" id="up" class="hashtag-title">
+  <div id="dashtag-shoutout-header-container" class="dashtag-shoutout-colors">
+    Powered by <a href="https://github.com/anirudh-eka/dashtag" target="_blank">Dashtag</a> 
+  </div>
+</div>
+<h1>Sign Up</h1>
+<div class="error-message">
+	<ul>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  <ul>
+</div>
+
+<%= form_for @user, url: {action: "create"}, html: {class: "settings"} do |f| %>  
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label :confirmation %>
+  <%= f.password_field :password_confirmation %> 
+
+  <%= f.submit "Register" %>
+<% end %>

@@ -1,0 +1,11 @@
+<h1>Log In</h1>
+
+<%= form_for :session, url: login_path, html: {class: "settings"} do |f| %>  
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.submit "Log in" %>
+<% end %>

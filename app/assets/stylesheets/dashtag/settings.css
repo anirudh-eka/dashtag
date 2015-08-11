@@ -1,0 +1,67 @@
+form.settings {
+	margin: auto;
+	width: 650px;
+	margin-top: 30px;
+	background-color: #80C9D2;
+	border-radius: 6px;
+	padding: 60px;
+}
+
+.settings label {
+	display: block;
+	padding: 5px 0px;
+	font-size: 20px;
+	font-weight: 800;
+	letter-spacing: .7px;
+}
+
+.setting-instructions {
+	color: #EAEAEA;
+	font-size: 20px;
+	font-weight: 300;
+	padding-bottom: 5px;
+}
+
+.setting-instructions a {
+	text-decoration: underline;
+}
+
+.error-message, .error-message-next-to-field {
+	color: rgb(238,49,45);
+}
+
+.error-message-next-to-field ul {
+	list-style-type: none;
+	margin: auto;
+	padding: 0px;
+}
+
+.error-message ul {
+	list-style-type: none;
+	padding: 0px;
+	width: 400px;
+	margin: auto;
+}
+
+.settings input {
+	display: block;
+	border-radius: 4px;
+	font-size: 20px;
+	width: 100%;
+	margin: 15px 0px;
+	background-color: #F6F6F6;
+	letter-spacing: 0.5px;
+	font-weight: 300;
+	padding: 6px;
+	border: 0px; 
+}
+
+.field_with_errors input {
+	border: 1px solid rgb(238,49,45);
+}
+
+input[type = "submit"] {
+	cursor: pointer;
+	width: 200px;
+	margin: auto;
+}

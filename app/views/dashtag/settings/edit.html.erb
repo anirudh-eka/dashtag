@@ -1,0 +1,93 @@
+<h1>Settings</h1>
+
+<%= form_for @settings, url: {action: "update"}, html: {class: "settings"} do |f| %>
+  <%= render 'setting_label', f: f, setting_name: :hashtags, 
+  instructions: "Each hashtag must begin with a '#' and be seperated by a ','." %>
+  <%= f.text_field :hashtags %>
+
+  <%= render 'setting_label', f: f, setting_name: :twitter_consumer_key, 
+  instructions: "Enter your Twitter Consumer Key and Secret to get tweets from Twitter." %>
+  <p class="setting-instructions">Click <a href='http://toomanynames.com/dashtag/twitter_api_screenshots' target="_blank">here</a> for directions on how to get this with screenshots.</p>
+  <%= f.text_field :twitter_consumer_key %>
+
+  <%= render 'setting_label', f: f, setting_name: :twitter_consumer_secret, 
+  instructions: "Enter your Twitter Consumer Key and Secret to get tweets from Twitter."%>
+  <p class="setting-instructions">Click <a href='http://toomanynames.com/dashtag/twitter_api_screenshots' target="_blank">here</a> for directions on how to get this with screenshots.</p>
+  <%= f.text_field :twitter_consumer_secret %>
+
+  <%= render 'setting_label', f: f, setting_name: :twitter_users, 
+  instructions: "Each username must begin with a '@' and be seperated by a ','"%>
+  <%= f.text_field :twitter_users %>
+
+  <%= render 'setting_label', f: f, setting_name: :instagram_client_id, 
+  instructions: "Enter your Instagram Client ID to get posts from Instagram."%>
+  <p class="setting-instructions">Click <a href='http://toomanynames.com/dashtag/instagram_api_screenshots' target="_blank">here</a> for directions on how to get this with screenshots.</p>
+  <%= f.text_field :instagram_client_id %>
+
+  <%= render 'setting_label', f: f, setting_name: :instagram_users, 
+  instructions: "Each username must begin with a '@' and be seperated by a ','"%>
+  <%= f.text_field :instagram_users %>
+
+  <%= render 'setting_label', f: f, setting_name: :instagram_user_ids, 
+  instructions: "Each id must be a positive whole number and be seperated by a ','"%>
+  <%= f.text_field :instagram_user_ids %>
+
+  <%= render 'setting_label', f: f, setting_name: :header_title, 
+  instructions: "Enter a title for the Dashtag page. Leave it blank if you want the title to be a list of the hashtags"%>
+  <%= f.text_field :header_title %>
+
+  <%= render 'setting_label', f: f, setting_name: :api_rate, 
+  instructions: "How often do you want to get posts from the Twitter and/or Instagram API? Leave it blank if you're not surewe will calculate a default value."%>
+  <%= f.text_field :api_rate %>
+
+  <%= render 'setting_label', f: f, setting_name: :db_row_limit, 
+  instructions: "How many posts do you want to store in your page's database before clearing out the old ones? Be aware depending on your hosting platform (i.e. Heroku) you could be charged for storing a large number of posts. Number must be a positive whole number."%>
+  <%= f.text_field :db_row_limit %>
+
+  <%= render 'setting_label', f: f, setting_name: :disable_retweets, 
+  instructions: "Do you want to include a post again if they are retweeted"%>
+  <%= f.check_box :disable_retweets %>
+
+  <%= render 'setting_label', f: f, setting_name: :header_link, 
+  instructions: "Enter a valid URL to set the header title link."%>
+  <%= f.text_field :header_link %>
+
+
+  <%= render 'setting_label', f: f, setting_name: :censored_words, 
+  instructions: "Do you want to omit posts containing specific words? Enter them below seperated by a ','."%>
+  <%= f.text_field :censored_words %>
+
+  <%= render 'setting_label', f: f, setting_name: :censored_users, 
+  instructions: "Do you want to omit posts by specific users? Each username must begin with a '@' and be seperated by a ','"%>
+  <%= f.text_field :censored_users %>
+
+  <%= render 'setting_label', f: f, setting_name: :font_family, 
+  instructions: "Enter a custom font to use for your page."%>
+  <%= f.text_field :font_family %>
+
+  <%= render 'setting_label', f: f, setting_name: :header_color, 
+  instructions: "Enter a custom valid CSS color to change the header color to."%>
+  <%= f.text_field :header_color %>
+
+  <%= render 'setting_label', f: f, setting_name: :background_color, 
+  instructions: "Enter a custom valid CSS color to change the background color to."%>
+  <%= f.text_field :background_color %>
+
+  <%= render 'setting_label', f: f, setting_name: :post_color_1, 
+  instructions: "Enter a custom valid CSS color to change the post color to."%>
+  <%= f.text_field :post_color_1 %>
+
+  <%= render 'setting_label', f: f, setting_name: :post_color_2, 
+  instructions: "Enter a custom valid CSS color to change the post color to."%>
+  <%= f.text_field :post_color_2 %>
+
+  <%= render 'setting_label', f: f, setting_name: :post_color_3, 
+  instructions: "Enter a custom valid CSS color to change the post color to."%>
+  <%= f.text_field :post_color_3 %>
+
+  <%= render 'setting_label', f: f, setting_name: :post_color_4, 
+  instructions: "Enter a custom valid CSS color to change the post color to."%>
+  <%= f.text_field :post_color_4 %>
+
+  <%= f.submit "Update Settings" %>
+<% end %>

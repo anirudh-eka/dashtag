@@ -14,7 +14,6 @@ module Dashtag
       all_sorted_posts.select { |post| is_post_from_last_pull?(post, last_update_time) }
     end
 
-
     def self.all_sorted_posts
       all.order(time_of_post: :desc).reject{ |post| censored?(post)}
     end
@@ -33,7 +32,7 @@ module Dashtag
     end
 
     def post_is_not_a_retweet
-      errors.add(:text, "can't be a retweet") if EnvironmentService.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
+      errors.add(:text, "can't be a retweet") if SettingStore.disable_retweets && source == "twitter" && text.match(/(RT @[\S]+:)/)
     end
 
     private
@@ -48,7 +47,7 @@ module Dashtag
     end
 
     def clear_oldest_post_if_limit_is_reached
-      Post.all_sorted_posts.last.destroy! if Post.count > EnvironmentService.db_row_limit
+      Post.all_sorted_posts.last.destroy! if Post.count > SettingStore.db_row_limit.as_int
     end
   end
 end

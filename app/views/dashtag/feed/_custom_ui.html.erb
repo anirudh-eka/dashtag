@@ -3,31 +3,31 @@
 <style type="text/css">
 /*Custom Colors*/
 .post-color-1 {
-  background: <%= Dashtag::EnvironmentService.post_color_1 %>;
+  background: <%= @settings.post_color_1 %>;
 }
 
 
 .post-color-2 {
-	background: <%= Dashtag::EnvironmentService.post_color_2 %>;
+	background: <%= @settings.post_color_2 %>;
 }
 
 
 .post-color-3 {
-  background: <%= Dashtag::EnvironmentService.post_color_3 %>;
+  background: <%= @settings.post_color_3 %>;
 }
 
 
 .post-color-4 {
-  background: <%= Dashtag::EnvironmentService.post_color_4 %>;
+  background: <%= @settings.post_color_4 %>;
 }
 
 .hashtag-title {
-	background-color: <%= Dashtag::EnvironmentService.header_color %>;
+	background-color: <%= @settings.header_color %>;
 }
 
 body {
-  font-family: <%= Dashtag::EnvironmentService.font_family %>;
-  background-color: <%= Dashtag::EnvironmentService.background_color %>;
+  font-family: <%= @settings.font_family %>;
+  background-color: <%= @settings.background_color %>;
 }
 
 </style>

@@ -7,7 +7,7 @@ module Dashtag
 
       it 'should parse tweet attributes from tweet response' do
         attributes = {  source: "twitter",
-            text: "Thee Namaste Nerdz. ##{EnvironmentService.hashtag_array.first}",
+            text: "Thee Namaste Nerdz. ##{SettingStore.hashtags.first}",
             screen_name: "bullcityrecords",
             time_of_post: "Fri Sep 21 23:40:54 +0000 2012",
             profile_image_url: "http://upload.wikimedia.org/wikipedia/commons/b/bf/Pembroke_Welsh_Corgi_600.jpg",
@@ -19,12 +19,14 @@ module Dashtag
       end
 
       it "should not parse tweets with censored words" do
+        SettingStore.create_or_update_setting("censored_words", CensoredWords.parse("DONTSAYTHAT!!, ORTHAT!"))
         response = SampleTweetResponses.tweets_with_censored_words
         result = TweetParser.parse(response)
         expect(result).to be_empty
       end
 
        it "should not parse tweets from censored users" do
+        SettingStore.create_or_update_setting("censored_users", SocialUsers.parse("@bigBrother"))
         response = SampleTweetResponses.tweets_from_censored_users
         result = TweetParser.parse(response)
         expect(result).to be_empty

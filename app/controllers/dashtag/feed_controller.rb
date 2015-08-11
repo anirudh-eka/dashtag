@@ -2,11 +2,13 @@ require_dependency "dashtag/application_controller"
 
 module Dashtag
   class FeedController < ApplicationController
-
     include PostHelper
     include ActionView::Helpers::UrlHelper
-
+    before_action :redirect_to_user_registration_when_dashtag_page_has_no_owner
+    
     def index
+      @display_title = true
+      @settings = Settings.load_settings
       respond_to do |format|
         format.html do
           @posts = Post.limited_sorted_posts(100)
