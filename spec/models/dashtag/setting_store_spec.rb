@@ -160,6 +160,11 @@ module Dashtag
 
       describe "api_rate" do
         context "when setting not set" do
+          context "and no hashtags, or users are in the system" do
+            it "should return 15" do
+              expect(SettingStore.find_setting_or_default("api_rate")).to eq(15)
+            end
+          end
           context "and hashtag count is greater than user count" do 
             it "should return 6 * hashtag count" do
               SettingStore.new(twitter_users: "@friends, @enemies", hashtags: "#peace, #love & #turtles", api_rate: nil).store

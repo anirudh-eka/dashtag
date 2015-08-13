@@ -67,6 +67,7 @@ module Dashtag
     def self.default_api_rate
       hashtags = find_setting_or_default("hashtags")
       twitter_users = find_setting_or_default("twitter_users")
+      return 15 if hashtags.empty? && twitter_users.empty?
       [6 * hashtags.flatten.uniq.count, 6 * twitter_users.count].max
     end
 
