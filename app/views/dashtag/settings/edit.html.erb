@@ -1,9 +1,6 @@
 <h1>Settings</h1>
 
 <%= form_for @settings, url: {action: "update"}, html: {class: "settings"} do |f| %>
-  <%= render 'setting_label', f: f, setting_name: :hashtags, 
-  instructions: "Each hashtag must begin with a '#' and be seperated by a ','." %>
-  <%= f.text_field :hashtags %>
 
   <%= render 'setting_label', f: f, setting_name: :twitter_consumer_key, 
   instructions: "Enter your Twitter Consumer Key and Secret to get tweets from Twitter." %>
@@ -15,14 +12,18 @@
   <p class="setting-instructions">Click <a href='http://toomanynames.com/dashtag/twitter_api_screenshots' target="_blank">here</a> for directions on how to get this with screenshots.</p>
   <%= f.text_field :twitter_consumer_secret %>
 
-  <%= render 'setting_label', f: f, setting_name: :twitter_users, 
-  instructions: "Each username must begin with a '@' and be seperated by a ','"%>
-  <%= f.text_field :twitter_users %>
-
   <%= render 'setting_label', f: f, setting_name: :instagram_client_id, 
   instructions: "Enter your Instagram Client ID to get posts from Instagram."%>
   <p class="setting-instructions">Click <a href='http://toomanynames.com/dashtag/instagram_api_screenshots' target="_blank">here</a> for directions on how to get this with screenshots.</p>
   <%= f.text_field :instagram_client_id %>
+
+  <%= render 'setting_label', f: f, setting_name: :hashtags, 
+  instructions: "Each hashtag must begin with a '#' and be seperated by a ','." %>
+  <%= f.text_field :hashtags %>
+
+  <%= render 'setting_label', f: f, setting_name: :twitter_users, 
+  instructions: "Each username must begin with a '@' and be seperated by a ','"%>
+  <%= f.text_field :twitter_users %>
 
   <%= render 'setting_label', f: f, setting_name: :instagram_users, 
   instructions: "Each username must begin with a '@' and be seperated by a ','"%>
