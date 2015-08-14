@@ -1,0 +1,67 @@
+.header-text {
+	background-color: #33C1D6;
+	font-size: 78px;
+  	letter-spacing: 5.5px;
+}
+
+.header-text a {
+	color: #FFF;
+}
+
+.header-text a:hover {
+	color: #FFF;
+	text-decoration: none;
+	border-bottom: 1px dashed #FFF;
+}
+
+.intro {
+  color: #FFF;
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.intro a {
+	text-decoration: underline;
+}
+
+.title {
+	font-size: 70px;
+	font-weight: 700;
+}
+
+.directions .direction-text {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: .7px;
+}
+
+.api-directions {
+	background-color: #EE9D59;
+}
+
+.direction img {
+	height:500px;
+}
+
+.api-directions ol {
+	list-style-type: none;
+}
+
+.launch-dashtag {
+	background-color: #DA68AC
+}
+
+.launch-dashtag .direction img{
+	height: 280px;
+}
+
+.heroku-logo {
+	background-color: #534292;
+	border: 5px solid #FFF;
+	height: 280px;
+}
+
+img.one-click-deploy-heroku {
+	height: inherit;
+	width: inherit;
+}

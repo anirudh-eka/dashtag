@@ -1,0 +1,29 @@
+/*base*/
+body {
+  background-color: #E7E7E7;
+	font-family: 'Open Sans', sans-serif;
+	color: #FFF;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  letter-spacing: 0.5px;
+  font-weight: 300;
+  line-height: 2;
+  margin: 0;
+}
+
+a {
+	color: #EAEAEA;
+	text-decoration: none;
+	font-weight: 200;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#content > * {
+  padding: 60px; 
+}
